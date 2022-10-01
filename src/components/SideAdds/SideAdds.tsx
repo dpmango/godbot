@@ -1,11 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
+import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../App";
 import { useAppSelector } from "../../reducers/hooks.store";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
 
 export const SideAdds: React.FC<{
   setVisible: () => void;
@@ -74,11 +74,8 @@ export const SideAdds: React.FC<{
           spaceBetween={50}
           slidesPerView={1}
           loop={true}
+          autoplay={true}
           pagination={{ clickable: true }}
-          autoplay={{
-            delay: 1000,
-            reverseDirection: true,
-          }}
         >
           <SwiperSlide>
             <li>
