@@ -1,0 +1,103 @@
+const dataMinute = [
+  {
+    order: 1,
+    name: "Page A",
+    currentMonth: 4000,
+    lastMonth: 2400,
+    amt: 2400,
+  },
+  {
+    order: 2,
+    name: "Page B",
+    currentMonth: 3000,
+    lastMonth: 1398,
+    amt: 2210,
+  },
+  {
+    order: 3,
+    name: "Page C",
+    currentMonth: 2000,
+    lastMonth: 9800,
+    amt: 2290,
+  },
+  {
+    order: 4,
+    name: "Page D",
+    currentMonth: 2780,
+    lastMonth: 3908,
+    amt: 2000,
+  },
+  {
+    order: 5,
+    name: "Page E",
+    currentMonth: 1890,
+    lastMonth: 4800,
+    amt: 2181,
+  },
+  {
+    order: 6,
+    name: "Page F",
+    currentMonth: 2390,
+    lastMonth: 3800,
+    amt: 2500,
+  },
+  {
+    order: 7,
+    name: "Page G",
+    currentMonth: 3490,
+    lastMonth: 4300,
+    amt: 2100,
+  },
+];
+const dataFMinute = [
+  {
+    order: 1,
+    name: "Page A",
+    currentMonth: 4000,
+    lastMonth: 2400,
+    amt: 2400,
+  },
+  {
+    order: 2,
+    name: "Page B",
+    currentMonth: 3000,
+    lastMonth: 1398,
+    amt: 2210,
+  },
+  {
+    order: 3,
+    name: "Page C",
+    currentMonth: 2000,
+    lastMonth: 9800,
+    amt: 2290,
+  },
+  {
+    order: 4,
+    name: "Page D",
+    currentMonth: 2780,
+    lastMonth: 3908,
+    amt: 2000,
+  },
+  {
+    order: 5,
+    name: "Page E",
+    currentMonth: 1890,
+    lastMonth: 4800,
+    amt: 2181,
+  },
+  {
+    order: 6,
+    name: "Page F",
+    currentMonth: 2390,
+    lastMonth: 3800,
+    amt: 2500,
+  },
+  {
+    order: 7,
+    name: "Page G",
+    currentMonth: 3490,
+    lastMonth: 4300,
+    amt: 2100,
+  },
+];
+

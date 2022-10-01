@@ -1,0 +1,229 @@
+.tarif {
+  max-width: 900px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  max-height: 525px;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  background: #FFFFFF;
+  box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+  border-radius: 10px;
+
+  &__wrapper {
+    display: flex;
+    height: 100%;
+    max-height: 374px;
+    margin-bottom: 9px;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 15px;
+    line-height: 14px;
+    color: #262628;
+    margin-bottom: 30px
+  }
+
+  &__inner {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: block;
+    width: fit-content;
+    padding: 11px 8px;
+    color: white;
+    font-size: 42px;
+    font-weight: 400;
+    background: #1F3A99;
+    border-radius: 10px;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #192f7c;
+    }
+
+    &:active {
+      background: #1F3A99;
+    }
+  }
+
+  &__card {
+    max-height: 372px;
+    max-width: 280px;
+    border: 2px solid transparent;
+    box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+    border-radius: 10px;
+    transition: border-color 0.3s;
+
+    &:hover {
+      border-color: #03A700;
+    }
+  }
+
+  &__head {
+    min-height: 47px;
+    padding: 13px 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 13px;
+
+    h5 {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 14px;
+      background: linear-gradient(89.6deg, #1F3A99 51.47%, #88019E 91.55%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+
+    p {
+      width: fit-content;
+      padding: 3px 12px;
+      color: white;
+      text-align: center;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 14px;
+      background: #1F3A99;
+      border-radius: 4px;
+
+      span {
+        display: block;
+      }
+    }
+  }
+
+  &__list {
+    padding: 0 20px;
+
+    li {
+      padding-top: 3px;
+      border-top: 1px dashed #DDDFE1;
+      margin-top: 5px;
+    }
+  }
+
+  &__sale {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 6px;
+    background: #CA390C;
+    border-radius: 4px;
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 14px;
+    text-align: center;
+    color: #FFFFFF;
+    flex-direction: column;
+
+    span {
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+      text-decoration-line: line-through;
+      color: #A5B1DF;
+      margin-bottom: 4px;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    color: black;
+    min-height: 71px;
+    max-height: 71px;
+    align-items: center;
+    flex-direction: column;
+    border-top: 1px solid #DDDFE1;
+    position: relative;
+    margin-top: auto;
+    padding: 22px 18px 15px;
+
+    .tarif__price {
+      color: black;
+    }
+
+    .ul__info {
+      top: 8px;
+      right: -65px;
+    }
+
+    &.sale {
+      color: white;
+      border: 1px solid transparent;
+      border-radius: 0 0 10px 10px;
+      background: #2400FF;
+      box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+
+      .tarif__price {
+        color: white;
+      }
+    }
+  }
+
+  &__promo {
+    margin-top: 5px;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    color: #449C62;
+  }
+
+  &__info {
+    background-color: #1F3A99;
+    &.saled {
+      background-color: #CA390C;
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    background: #CA390C;
+    border-radius: 10px;
+    padding: 14px 34px;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    color: #FFFFFF;
+    transition: background 0.3s;
+
+    &.active {
+      pointer-events: none;
+      background: #03A700;
+    }
+
+    &:hover {
+      background: #1F3A99;
+    }
+  }
+
+}
