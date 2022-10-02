@@ -97,16 +97,17 @@
   .table__switch-button {
     background-color: #171d2e;
     color: white;
-     &::after,
-     &::before {
+
+    &::after,
+    &::before {
       border-color: transparent transparent #18203d transparent;
-     }
+    }
   }
 
   .table__switch-button--active {
     background-color: #18203d;
 
-   
+
   }
 
   ul {
@@ -264,9 +265,9 @@
 
 .menu {
   position: relative;
-  margin-left: 18px;
 
   &__button {
+    margin-left: 18px;
     text-transform: uppercase;
     position: relative;
     padding: 11px 32px 11px 8px;
