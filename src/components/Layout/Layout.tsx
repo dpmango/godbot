@@ -12,9 +12,10 @@ export const Layout: React.FC<{}> = () => {
 
   return (
     <>
-      <div
+      <Link
+        to="/"
         className={params["*"] === "tarifs" ? "blur-bg show" : "blur-bg"}
-      ></div>
+      ></Link>
       <div className={ctx?.theme ? "main _black-theme" : "main"}>
         <div className="container">
           <Header />

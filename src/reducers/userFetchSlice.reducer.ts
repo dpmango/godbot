@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 export interface IUserState {
   login: string;
@@ -8,7 +9,7 @@ export interface IUserState {
   city: string;
   rank: string;
   email: string;
-  subscription_date: string
+  subscription_date: string;
   bank_value: string;
   id: string;
 }
@@ -57,6 +58,9 @@ export const userState = createSlice({
       (state, action: PayloadAction<IUserState>) => {
         state.loading = "fulfilled";
         state.userData = { ...action.payload };
+        if (!Cookies.get("name")) {
+          Cookies.set("name", Date.now().toString(), { expires: 7 });
+        }
       }
     );
     builder.addCase(getCurrentUser.rejected, (state) => {
