@@ -2,11 +2,13 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getChartData, IChartObj } from "../../reducers/chartDataSlice.reducer";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
-import { ChartTable } from "../Charts/ChartTable";
-import { TradingChart } from "../Charts/TradingChart";
 import { SideAdds } from "../SideAdds/SideAdds";
 import { TableInvestor } from "./TableInvestor";
 import { TableSwitch } from "./TableSwitch";
+import React from "react";
+import "../Charts/chart.scss";
+import { Echrt } from "../Charts/Echrt";
+import ChartTable from "../Charts/ChartTable";
 
 export const Table: React.FC<{}> = () => {
   const [visible, setVisible] = useState(true);
@@ -28,14 +30,6 @@ export const Table: React.FC<{}> = () => {
 
   const handleClick = () => {
     setVisible(!visible);
-  };
-
-  const handleEditChart = (title: string, index: number) => {
-    if (chartLines.find((elem: IChartObj) => elem.name === title)) {
-      setChartLines(chartLines.filter((elem) => elem.name !== title));
-    } else {
-      setChartLines(chartLines.concat(data[index]));
-    }
   };
 
   useEffect(() => {
@@ -84,21 +78,10 @@ export const Table: React.FC<{}> = () => {
           ) : (
             ""
           )}
-          {!investorTable ? (
-            <ChartTable handleEditChart={handleEditChart} data={data} />
-          ) : (
-            ""
-          )}
-          {!investorTable ? (
-            <TradingChart
-              chartLines={chartLines}
-              visible={visible}
-              parentWidth={addsRef?.current?.clientWidth}
-              colors={["#2E93fA", "#66DA26", "#546E7A", "#E91E63", "#FF9800"]}
-            />
-          ) : (
-            <TableInvestor />
-          )}
+          <div style={{ opacity: investorTable ? "0" : "1" }}>
+            <ChartTable />
+          </div>
+          {!investorTable ? <Echrt /> : <TableInvestor />}
         </div>
         <SideAdds setVisible={handleClick} visible={visible} />
       </div>

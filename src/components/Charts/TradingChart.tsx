@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { IChartObj } from "../../reducers/chartDataSlice.reducer";
 import { useAppSelector } from "../../reducers/hooks.store";
-import "./chart.scss";
 
 export const TradingChart: React.FC<{
   colors: string[];
@@ -73,11 +72,6 @@ export const TradingChart: React.FC<{
                 bottom: 0,
                 left: 0,
               },
-            },
-            xaxis: {
-              categories: [
-                1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
-              ],
             },
           }}
           width={"100%"}

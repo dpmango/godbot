@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { Authorization } from "./pages/Authorization";
 import Cookies from "js-cookie";
+import { Partnership } from "./pages/Partnership";
 
 interface IThemeContext {
   theme: boolean;
@@ -34,6 +35,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/*" element={<HomePage />} />
           <Route path="payment" element={<PaymentPage />} />
+          <Route path="partnership" element={<Partnership />} />
         </Route>
         <Route path="/auth" element={<Authorization />}>
           <Route index element={<Authorization />} />

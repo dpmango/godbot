@@ -5,11 +5,19 @@
     padding-left: 30px;
     display: flex;
     margin-bottom: 10px;
+    margin-right: 40px;
     align-items: center;
 
     .title {
       margin-right: 9px;
     }
+  }
+
+  &__load {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
   }
 
   &__legend {
@@ -143,6 +151,9 @@
     padding: 10px 10px 6px 10px;
     background: #1F3A99;
     border-radius: 10px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
 
   &__download {
@@ -314,5 +325,9 @@
         }
       }
     }
+  }
+
+  &-container {
+    transition: opacity 0.6s;
   }
 }
