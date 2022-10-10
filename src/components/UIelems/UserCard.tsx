@@ -26,8 +26,8 @@ export const UserCard: React.FC<{}> = () => {
         alt=""
       />
       <div>
-        <p className="header__usercard-rank">{userData.rank}</p>
-        <p className="header__usercard-email">{userData.email}</p>
+        <p className="header__usercard-rank">{userData?.rank}</p>
+        <p className="header__usercard-email">{userData?.email}</p>
         <p className="header__usercard-subscription">
           Подписка до:{" "}
           <span
@@ -35,7 +35,7 @@ export const UserCard: React.FC<{}> = () => {
               color: timeDifference(userSubscription) <= 0 ? "red" : "green",
             }}
           >
-            {userData.subscription_date}
+            {userData?.subscription_date}
           </span>
         </p>
       </div>

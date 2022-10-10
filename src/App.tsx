@@ -6,7 +6,6 @@ import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { Authorization } from "./pages/Authorization";
-import Cookies from "js-cookie";
 import { Partnership } from "./pages/Partnership";
 
 interface IThemeContext {
@@ -22,6 +21,11 @@ function App() {
   const dispatch = useAppDispatch();
   const handleChangeTheme = () => {
     changeTheme(!theme);
+  };
+
+  const getJson = async () => {
+    const resp = await fetch("./XRP_15m_auto.json");
+    const dataJson = await resp.json();
   };
 
   useLayoutEffect(() => {
