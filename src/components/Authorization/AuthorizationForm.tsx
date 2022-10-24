@@ -1,4 +1,5 @@
 export const AuthorizationForm: React.FC<{}> = () => {
+  
   return (
     <form className="authorization__form" action="">
       <h2 className="authorization__title">Вход / Регистрация</h2>

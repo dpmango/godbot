@@ -83,7 +83,7 @@ export const Table: React.FC<{}> = () => {
           </div>
           {!investorTable ? <Echrt /> : <TableInvestor />}
         </div>
-        <SideAdds setVisible={handleClick} visible={visible} />
+        {/* <SideAdds setVisible={handleClick} visible={visible} /> */}
       </div>
     </div>
   );

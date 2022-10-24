@@ -123,7 +123,7 @@ export const Echrt: React.FC<{}> = () => {
         show: true,
         feature: {
           magicType: { show: true, type: ["stack", "tiled"] },
-          saveAsImage: { show: true },
+          saveAsImage: { show: true, name: 'GODBOT chart' },
         },
       },
       series,

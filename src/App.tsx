@@ -1,4 +1,4 @@
-import React, { createContext, useLayoutEffect, useState } from "react";
+import React, { createContext, useLayoutEffect, useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./reducers/hooks.store";
 import { getCurrentUser } from "./reducers/userFetchSlice.reducer";
 import { Layout } from "./components/Layout/Layout";
@@ -7,6 +7,8 @@ import { HomePage } from "./pages/HomePage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { Authorization } from "./pages/Authorization";
 import { Partnership } from "./pages/Partnership";
+import Cookies from "js-cookie";
+import { useFetch } from "./hooks/useFetch";
 
 interface IThemeContext {
   theme: boolean;
@@ -16,19 +18,29 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
+  const [test, setTest] = useState<any>()
+  const { getFetch } = useFetch(setTest);
+  const init = async () => {
+    const resp = await fetch("https://dev.godbot.pro/api/auth/user/", {
+      headers: {
+        'X-CSRFToken': Cookies.get('csrftoken')
+      } as any
+    });
+    const data = await resp.json();
+    console.log(data);
+  };
+
   const [theme, changeTheme] = useState(false);
   const { userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
+
   const handleChangeTheme = () => {
     changeTheme(!theme);
   };
 
-  const getJson = async () => {
-    const resp = await fetch("./XRP_15m_auto.json");
-    const dataJson = await resp.json();
-  };
-
-  useLayoutEffect(() => {
+  useEffect(() => {
+    getFetch('https://dev.godbot.pro/api/auth/user/')
+    init()
     dispatch(getCurrentUser({ login: "can4ik22", password: "10061978Asd" }));
   }, []);
 

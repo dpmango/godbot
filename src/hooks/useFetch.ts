@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export interface IUseFetch {
@@ -14,7 +15,9 @@ const useFetch = (setFetchData: Dispatch<[] | SetStateAction<any>>) => {
   ) => {
     const resp = await fetch(url, {
       method: method,
-      headers,
+      headers: {
+        'X-CSRFToken': Cookies.get('csrftoken')
+      } as any,
       body,
     });
 
