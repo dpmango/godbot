@@ -1,11 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useRoutes } from "react-router-dom";
 import { InfoCircle } from "../UIelems/InfoCircle";
 import "./modals.scss";
+import { Helmet } from "react-helmet";
 
 export const TarifWindow: React.FC<{}> = () => {
+
   return (
     <div className="tarif">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Godbot | Tarifs</title>
+      </Helmet>
       <Link to="/" className="tarif__close">
         &times;
       </Link>

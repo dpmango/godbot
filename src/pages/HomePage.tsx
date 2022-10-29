@@ -5,6 +5,7 @@ import { TarifWindow } from "../components/ModalsWindow/TarifWindow";
 import { Table } from "../components/Table/Table";
 import { Transaction } from "../components/Transaction/Transaction";
 import { useAppSelector } from "../reducers/hooks.store";
+import { Helmet } from "react-helmet";
 
 export const HomePage: React.FC<{}> = () => {
   const { userData } = useAppSelector((state) => state.userState);
@@ -18,11 +19,12 @@ export const HomePage: React.FC<{}> = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Godbot | Home</title>
+      </Helmet>
       <Table />
       <Transaction />
-      <Routes>
-        <Route path="tarifs" element={<TarifWindow />}></Route>
-      </Routes>
     </>
   );
 };

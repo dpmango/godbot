@@ -7,7 +7,13 @@ import React, {
 import { useAppDispatch, useAppSelector } from "./reducers/hooks.store";
 import { getCurrentUser } from "./reducers/userFetchSlice.reducer";
 import { Layout } from "./components/Layout/Layout";
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { Authorization } from "./pages/Authorization";
@@ -48,12 +54,14 @@ function App() {
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="home" element={<HomePage />} />
-        </Route>
-        <Route path="*" element={<HomePage />} />
-        <Route path="/other" element={<Layout />}>
-          <Route path="partnership" element={<Partnership />} />
-          <Route path="payment" element={<PaymentPage />} />
+          <Route index element={<HomePage />} />
+          <Route path="partnership" element={<Partnership />}>
+            <Route path="*" element={<Partnership />} />
+          </Route>
+          <Route path="payment" element={<PaymentPage />}>
+            <Route path="*" element={<PaymentPage />} />
+          </Route>
+          <Route path="*" element={<HomePage />} />
         </Route>
         <Route path="/auth" element={<Authorization />}>
           <Route index element={<Authorization />} />

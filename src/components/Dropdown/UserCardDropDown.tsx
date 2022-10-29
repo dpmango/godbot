@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDropdown } from "../../hooks/useDropdown";
 import { useSkeleton } from "../../hooks/useSkeleton";
 
 export const UserCardDropDown: React.FC<{}> = () => {
   const { menuState, handleStateChange } = useDropdown();
   const { loaded } = useSkeleton(true);
+  const { pathname } = useLocation();
+  const path = pathname.split("/").at(-1);
 
   return (
     <div className="user">
@@ -26,7 +28,11 @@ export const UserCardDropDown: React.FC<{}> = () => {
       <ul
         className={menuState ? "user__list user__list--active" : "user__list"}
       >
-        <Link to={"/tarifs"} onClick={handleStateChange} className="user__item">
+        <Link
+          to={path !== "" ? `/${path}/tarifs` : `${path}tarifs`}
+          onClick={handleStateChange}
+          className="user__item"
+        >
           <img src="./images/header/Group.svg" alt="" /> Тарифы
         </Link>
         <li className="user__item" onClick={handleStateChange}>

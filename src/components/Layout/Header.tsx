@@ -11,12 +11,12 @@ export const Header: React.FC<{}> = () => {
   return (
     <header className="header">
       <nav className="menu">
-        <Link to="/home" className="logo">
+        <Link to="/" className="logo">
           <img src="./images/Logo.svg" alt="" />
         </Link>
         <ul className="menu__list">
           <li className="menu__item">
-            <NavLink to="/home">
+            <NavLink to="/" end>
               <svg
                 width="17"
                 height="17"
@@ -35,7 +35,7 @@ export const Header: React.FC<{}> = () => {
             </NavLink>
           </li>
           <li className="menu__item">
-            <NavLink to="/other/partnership">
+            <NavLink to="partnership">
               <svg
                 width="20"
                 height="17"
