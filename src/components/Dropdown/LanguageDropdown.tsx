@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useDropdown } from "../../hooks/useDropdown";
 import { IUseFetch, useFetch } from "../../hooks/useFetch";
+import { useSkeleton } from "../../hooks/useSkeleton";
 import { Loader } from "../UIelems/Loader";
 
 interface ILanguages {
@@ -12,6 +13,7 @@ export const LanguageDropdown: React.FC<{}> = () => {
   const [languages, setLanguages] = useState<ILanguages[]>([]);
   const [currentLanguage, setCurrentLanguage] = useState("");
   const { getFetch } = useFetch(setLanguages);
+  const { loaded } = useSkeleton(Boolean(languages.length));
 
   const { handleStateChange, menuState } = useDropdown();
 
@@ -28,15 +30,20 @@ export const LanguageDropdown: React.FC<{}> = () => {
     setCurrentLanguage(elem);
   };
 
-  if (!languages.length) return <Loader />;
-
   return (
     <div className="language">
       <button
         className={menuState ? "language__button _active" : "language__button"}
         onClick={() => handleStateChange()}
       >
-        <img src={`./images/${currentLanguage}`} alt="Current Language" />
+        {loaded ? (
+          <div
+            className="skeleton-box"
+            style={{ width: "20px", height: "21px", borderRadius: '4px' }}
+          ></div>
+        ) : (
+          <img src={`./images/${currentLanguage}`} alt="Current Language" />
+        )}
       </button>
       <ul className={menuState ? "language__list _active" : "language__list"}>
         {languages &&

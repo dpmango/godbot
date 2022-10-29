@@ -3,7 +3,6 @@ import * as echarts from "echarts";
 import { ChartLegend } from "./ChartLegend";
 import { Loader } from "../UIelems/Loader";
 import { set } from "immer/dist/internal";
-const arrayGenerator = require("array-generator");
 
 export const Echrt: React.FC<{}> = () => {
   const [loader, setLoader] = useState(false);
@@ -120,10 +119,10 @@ export const Echrt: React.FC<{}> = () => {
         data: ["1", "2", "3"],
       },
       toolbox: {
-        show: true,
+        show: false,
         feature: {
           magicType: { show: true, type: ["stack", "tiled"] },
-          saveAsImage: { show: true, name: 'GODBOT chart' },
+          saveAsImage: { show: true, name: "GODBOT chart" },
         },
       },
       series,
@@ -144,6 +143,11 @@ export const Echrt: React.FC<{}> = () => {
             type: "dashed",
           },
         },
+        axisLabel: {
+          align: "right",
+          margin: 12,
+          verticalAlign: "top",
+        },
       },
     };
     graph?.setOption(option);
@@ -151,6 +155,10 @@ export const Echrt: React.FC<{}> = () => {
     setTimeout(() => {
       setLoader(true);
     }, 1000);
+    graph?.dispatchAction({ type: "saveAsImage" });
+    window.onresize = function () {
+      graph.resize();
+    };
   };
   useEffect(() => {
     initChart();
@@ -167,8 +175,11 @@ export const Echrt: React.FC<{}> = () => {
         ref={containerRef}
         className="chart-container"
         style={{
-          height: "430px",
-          width: "100%",
+          height: "545px",
+          width: "1567px",
+          marginLeft: "-80px",
+          marginTop: "-30px",
+          zIndex: "-10",
           opacity: loader ? "1" : "0",
         }}
       ></div>

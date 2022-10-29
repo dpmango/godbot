@@ -1,9 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from "react";
+import { useSkeleton } from "../../hooks/useSkeleton";
 
 export const TableSwitch: React.FC<{
   investorTable: boolean;
-  setInvestorTable: Dispatch<SetStateAction<boolean>>
+  setInvestorTable: Dispatch<SetStateAction<boolean>>;
 }> = ({ investorTable, setInvestorTable }) => {
+
   return (
     <div className="table__switch">
       <button

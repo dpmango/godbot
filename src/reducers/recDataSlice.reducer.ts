@@ -15,8 +15,8 @@ export const getRecData = createAsyncThunk(
     return resp;
   }
 );
-
-interface IRecObj {
+ 
+export interface IRecObj {
   signal: string;
   name: string;
   shortname: string;

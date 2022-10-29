@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-const useDropdown = () => {
+const useDropdown = (initValue?: string) => {
+  const [value, setValue] = useState(initValue);
   const [menuState, setMenuState] = useState(false);
 
   const handleStateChange = () => {
@@ -10,6 +11,8 @@ const useDropdown = () => {
   return {
     handleStateChange,
     menuState,
+    setValue,
+    value,
   };
 };
 

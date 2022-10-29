@@ -1,4 +1,9 @@
-import React, { createContext, useLayoutEffect, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useLayoutEffect,
+  useState,
+  useEffect,
+} from "react";
 import { useAppDispatch, useAppSelector } from "./reducers/hooks.store";
 import { getCurrentUser } from "./reducers/userFetchSlice.reducer";
 import { Layout } from "./components/Layout/Layout";
@@ -18,14 +23,10 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  const [test, setTest] = useState<any>()
+  const [test, setTest] = useState<any>();
   const { getFetch } = useFetch(setTest);
   const init = async () => {
-    const resp = await fetch("https://dev.godbot.pro/api/auth/user/", {
-      headers: {
-        'X-CSRFToken': Cookies.get('csrftoken')
-      } as any
-    });
+    const resp = await fetch("https://dev.godbot.pro/api/auth/user/");
     const data = await resp.json();
     console.log(data);
   };
@@ -39,8 +40,7 @@ function App() {
   };
 
   useEffect(() => {
-    getFetch('https://dev.godbot.pro/api/auth/user/')
-    init()
+    init();
     dispatch(getCurrentUser({ login: "can4ik22", password: "10061978Asd" }));
   }, []);
 
@@ -48,10 +48,12 @@ function App() {
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/*" element={<HomePage />} />
-          <Route path="payment" element={<PaymentPage />} />
+          <Route path="home" element={<HomePage />} />
+        </Route>
+        <Route path="*" element={<HomePage />} />
+        <Route path="/other" element={<Layout />}>
           <Route path="partnership" element={<Partnership />} />
+          <Route path="payment" element={<PaymentPage />} />
         </Route>
         <Route path="/auth" element={<Authorization />}>
           <Route index element={<Authorization />} />

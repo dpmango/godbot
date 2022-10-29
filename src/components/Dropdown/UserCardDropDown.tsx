@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDropdown } from "../../hooks/useDropdown";
+import { useSkeleton } from "../../hooks/useSkeleton";
 
 export const UserCardDropDown: React.FC<{}> = () => {
   const { menuState, handleStateChange } = useDropdown();
+  const { loaded } = useSkeleton(true);
 
   return (
     <div className="user">
       <button
+        disabled={loaded ? true : false}
         className={
           menuState
             ? "header__usercard-menu header__usercard-menu--active"
@@ -15,9 +18,9 @@ export const UserCardDropDown: React.FC<{}> = () => {
         }
         onClick={handleStateChange}
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        <span style={{ backgroundColor: loaded ? "silver" : "#262628" }}></span>
+        <span style={{ backgroundColor: loaded ? "silver" : "#262628" }}></span>
+        <span style={{ backgroundColor: loaded ? "silver" : "#262628" }}></span>
       </button>
 
       <ul
@@ -36,7 +39,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
         </li>
         <li className="user__item" onClick={handleStateChange}>
           <img src="./images/header/Lightbulb.svg" alt="" /> Предложить идею
-        </li>            
+        </li>
         <li className="user__item" onClick={handleStateChange}>
           <img src="./images/header/StickyNote.svg" alt="" /> Справочный центр
         </li>

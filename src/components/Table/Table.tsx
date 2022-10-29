@@ -58,9 +58,6 @@ export const Table: React.FC<{}> = () => {
       <div className="table__inner" ref={addsRef}>
         <div
           className={visible ? "table" : "table table--hidden"}
-          style={{
-            width,
-          }}
         >
           {userData?.rank === "New" ? (
             <div className="table__lock">

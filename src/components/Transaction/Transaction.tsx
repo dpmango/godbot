@@ -1,15 +1,20 @@
-import { lightFormat } from "date-fns";
-import { useEffect } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSkeleton } from "../../hooks/useSkeleton";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
 import { getRecData } from "../../reducers/recDataSlice.reducer";
+import { TransactionFilter } from "./TransactionFilter";
+import { IRecObj } from "../../reducers/recDataSlice.reducer";
 
 export const Transaction: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.recState);
   const { userData } = useAppSelector((state) => state.userState);
+  const [filter, setFilter] = useState<string>("");
+  const [recData, setRecData] = useState<IRecObj[]>();
+  const { loaded } = useSkeleton(Boolean(recData));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getRecData("/rec"));
   }, []);
 
@@ -25,17 +30,37 @@ export const Transaction: React.FC<{}> = () => {
     }
   };
 
+  useEffect(() => {
+    filter
+      ? setRecData(data.filter((elem) => elem.order_status === filter))
+      : setRecData(data);
+  }, [filter]);
+
+  useLayoutEffect(() => {
+    setRecData(data);
+  }, [data]);
+
   return (
     <div className="recomendation">
-      {userData?.rank === 'New' ? <div className="table__lock">
-        <div>
-          <img src="./images/Lock.svg" alt="Lock" />
-          <p>Для отображения графика нейронной сети необходимо выбрать тариф</p>
-          <Link className="table__link" to={"/payment"}>
-            ВЫБРАТЬ ТАРИФ
-          </Link>
+      {userData?.rank === "New" ? (
+        <div className="table__lock">
+          <div>
+            <img src="./images/Lock.svg" alt="Lock" />
+            <p>
+              Для отображения графика нейронной сети необходимо выбрать тариф
+            </p>
+            <Link className="table__link" to={"/payment"}>
+              ВЫБРАТЬ ТАРИФ
+            </Link>
+          </div>
         </div>
-      </div>: ''}
+      ) : (
+        ""
+      )}
+      <div className="recomendation__top">
+        <h2 className="title">Рекомендации по торговле</h2>
+        <TransactionFilter filter={setFilter} />
+      </div>
       <ul className="recomendation__headers">
         <li className="recomendation__head">Дата сигнала</li>
         <li className="recomendation__head">Наименование</li>
@@ -47,47 +72,57 @@ export const Transaction: React.FC<{}> = () => {
         <li className="recomendation__head">Риск на сделку</li>
       </ul>
       <ul className="recomendation__list">
-        {data.map((elem, index) => (
+        {recData?.map((elem, index) => (
           <li key={index} className="recomendation__item">
-            <p className="recomendation__signal">{elem.signal}</p>
-            <div className="recomendation__wrapper">
-              <img
-                src={`./images/${elem.icon}`}
-                alt={`Coin name ${elem.name}`}
-              />
-              <div>
-                <h6>{elem.name} </h6>
-                <p>{elem.shortname}</p>
+            {loaded ? (
+              <div
+                key={index}
+                className="skeleton-box"
+                style={{ width: "100%", height: "60px" }}
+              ></div>
+            ) : (
+              <div className="recomendation__item">
+                <p className="recomendation__signal">{elem.signal}</p>
+                <div className="recomendation__wrapper">
+                  <img
+                    src={`./images/${elem.icon}`}
+                    alt={`Coin name ${elem.name}`}
+                  />
+                  <div>
+                    <h6>{elem.name} </h6>
+                    <p>{elem.shortname}</p>
+                  </div>
+                </div>
+                <p
+                  className="recomendation__orderType"
+                  style={{
+                    color: elem.order_type === "SHORT" ? "#CA390C" : "#449C62",
+                  }}
+                >
+                  {elem.order_type}
+                </p>
+                <p
+                  className="recomendation__orderStatus"
+                  style={{ color: checkStatus(elem.order_status) }}
+                >
+                  {elem.order_benefit
+                    ? `${elem.order_status} ${elem.order_benefit}`
+                    : elem.order_status}
+                </p>
+                <p className="recomendation__costs recomendation__costs--enter">
+                  {elem.enter_cost.map((elem, index) => (
+                    <span key={index}>${elem}</span>
+                  ))}
+                </p>
+                <p className="recomendation__costs">
+                  {elem.exit_cost.map((elem, index) => (
+                    <span key={index}>${elem}</span>
+                  ))}
+                </p>
+                <p className="recomendation__los">{elem.stop_los}</p>
+                <p className="recomendation__risk">{elem.risk}%</p>
               </div>
-            </div>
-            <p
-              className="recomendation__orderType"
-              style={{
-                color: elem.order_type === "SHORT" ? "#CA390C" : "#449C62",
-              }}
-            >
-              {elem.order_type}
-            </p>
-            <p
-              className="recomendation__orderStatus"
-              style={{ color: checkStatus(elem.order_status) }}
-            >
-              {elem.order_benefit
-                ? `${elem.order_status} ${elem.order_benefit}`
-                : elem.order_status}
-            </p>
-            <p className="recomendation__costs recomendation__costs--enter">
-              {elem.enter_cost.map((elem, index) => (
-                <span key={index}>${elem}</span>
-              ))}
-            </p>
-            <p className="recomendation__costs">
-              {elem.exit_cost.map((elem, index) => (
-                <span key={index}>${elem}</span>
-              ))}
-            </p>
-            <p className="recomendation__los">{elem.stop_los}</p>
-            <p className="recomendation__risk">{elem.risk}%</p>
+            )}
           </li>
         ))}
       </ul>
