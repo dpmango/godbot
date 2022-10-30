@@ -23,10 +23,9 @@ export const AuthorizationForm: React.FC<{}> = () => {
       },
     });
     if (resp.ok) {
-      const data = await resp.json();
+      navigate("/auth/validation");
     } else {
-      console.log("test");
-      navigate("/");
+      console.log("error");
     }
   };
 

@@ -6,7 +6,7 @@ export interface IUseFetch {
   getFetch: (url: string) => Promise<void>;
 }
 
-const useFetch = (setFetchData: Dispatch<[] | SetStateAction<any>>) => {
+const useFetch = (setFetchData?: Dispatch<[] | SetStateAction<any>>) => {
   const getFetch = async (
     url: string,
     method: string = "GET",
@@ -15,14 +15,14 @@ const useFetch = (setFetchData: Dispatch<[] | SetStateAction<any>>) => {
   ) => {
     const resp = await fetch(url, {
       method: method,
-      headers: {
-        'X-CSRFToken': Cookies.get('csrftoken')
-      } as any,
+      headers,
       body,
     });
 
     const data = await resp.json();
-    setFetchData(data);
+    if (setFetchData) {
+      setFetchData(data);
+    }
   };
 
   return {

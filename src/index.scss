@@ -3,6 +3,14 @@
 html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #4572ee;
+  }
 }
 
 *,
@@ -90,6 +98,15 @@ body {
   font-size: 14px;
   line-height: 18px;
   color: #262628;
+
+  &::-webkit-scrollbar-thumb {
+    background: black;
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: black;
+    width: 3px;
+  }
 }
 
 .apexcharts-toolbar {

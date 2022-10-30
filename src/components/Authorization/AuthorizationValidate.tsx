@@ -1,7 +1,11 @@
+import Cookies from "js-cookie";
 import { useRef, useState } from "react";
+import { useFetch } from "../../hooks/useFetch";
 
 export const AuthorizationValidate: React.FC<{}> = () => {
-  const [timer, setTimer] = useState(59)
+  const [timer, setTimer] = useState(59);
+  let [value, setValue] = useState<string>("");
+  const { getFetch } = useFetch();
   const inputsBox = useRef<HTMLDivElement | any>(null);
   const inputsList = inputsBox?.current?.childNodes;
 
@@ -9,6 +13,9 @@ export const AuthorizationValidate: React.FC<{}> = () => {
     if (e.target.value !== "") {
       inputsList[index]?.focus();
     }
+    inputsList.forEach((elem: HTMLInputElement) => {
+      setValue((value += elem.value));
+    });
   };
 
   const handleBackspace = (e: any, index: number) => {
@@ -17,15 +24,39 @@ export const AuthorizationValidate: React.FC<{}> = () => {
     }
   };
 
+  const handleSubmit: React.FormEventHandler = async (e) => {
+    e.preventDefault();
+    let validateCode = "";
+    inputsList.forEach((elem: HTMLInputElement) => {
+      validateCode += elem.value;
+    });
+    const resp = await fetch("https://dev.godbot.pro/api/auth/verification/", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken") as string,
+      },
+      body: JSON.stringify({
+        code: validateCode.trim(),
+      }),
+    });
+    if (resp.ok) {
+      window.location.reload();
+    }
+  };
+
   setTimeout(() => {
-    setTimer(timer - 1)
+    setTimer(timer - 1);
     if (timer === 0) {
-      setTimer(59)
+      setTimer(59);
     }
   }, 1000);
 
   return (
-    <form className="authorization__form validation" action="">
+    <form
+      className="authorization__form validation"
+      action=""
+      onSubmit={handleSubmit}
+    >
       <h2 className="authorization__title">Верификация</h2>
       <label className="authorization__label" htmlFor="">
         Вы получите электронное письмо с кодом подтверждения. Введите его здесь,

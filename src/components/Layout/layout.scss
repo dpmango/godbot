@@ -852,7 +852,7 @@
   padding: 20px 20px 20px 5px;
   background: #ffffff;
   box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
-  border-radius: 10px;
+  border-radius: 0px 10px 10px 10px;
   transition: width 0.4s, margin 0.3s, background 0.3s;
 
   &--hidden {
@@ -930,10 +930,14 @@
   }
 
   &__inner {
+    z-index: 0;
+    position: relative;
     display: flex;
   }
 
   &__switch {
+    z-index: 1;
+    position: relative;
     transition: margin 0.3s;
 
     &-button {
@@ -946,6 +950,7 @@
       background: #dde6ff;
       border-radius: 10px 10px 0 0;
       transition: background 0.3s;
+      // box-shadow: rgba(9, 5, 183, 0.6) -9px -19px 15px 2px ;
 
       &::before {
         content: "";
