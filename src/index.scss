@@ -141,7 +141,9 @@ body {
 .skeleton-box {
   border-radius: 13px;
   display: inline-block;
+  width: fit-content;
   height: 1em;
+  color: transparent;
   position: relative;
   overflow: hidden;
   background-color: #dddbdd;

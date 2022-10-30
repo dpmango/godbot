@@ -5,7 +5,6 @@ import { useFetch } from "../../hooks/useFetch";
 export const AuthorizationValidate: React.FC<{}> = () => {
   const [timer, setTimer] = useState(59);
   let [value, setValue] = useState<string>("");
-  const { getFetch } = useFetch();
   const inputsBox = useRef<HTMLDivElement | any>(null);
   const inputsList = inputsBox?.current?.childNodes;
 

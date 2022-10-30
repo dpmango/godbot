@@ -74,25 +74,38 @@ export const Transaction: React.FC<{}> = () => {
       <ul className="recomendation__list">
         {recData?.map((elem, index) => (
           <li key={index} className="recomendation__item">
-            {loaded ? (
-              <div
-                key={index}
-                className="skeleton-box"
-                style={{ width: "100%", height: "60px" }}
-              ></div>
-            ) : (
-              <div className="recomendation__item">
-                <p className="recomendation__signal">{elem.signal}</p>
-                <div className="recomendation__wrapper">
-                  <img
-                    src={`./images/${elem.icon}`}
-                    alt={`Coin name ${elem.name}`}
-                  />
-                  <div>
-                    <h6>{elem.name} </h6>
-                    <p>{elem.shortname}</p>
-                  </div>
+            <div className="recomendation__item">
+              {loaded ? (
+                <div style={{ width: "135px" }}>
+                  <div className="skeleton-box">{elem.signal}</div>
                 </div>
+              ) : (
+                <p className="recomendation__signal">{elem.signal}</p>
+              )}
+              <div className="recomendation__wrapper">
+                {loaded ? (
+                  <div
+                    className="skeleton-box"
+                    style={{ width: "80px", height: "29px" }}
+                  ></div>
+                ) : (
+                  <>
+                    <img
+                      src={`./images/${elem.icon}`}
+                      alt={`Coin name ${elem.name}`}
+                    />
+                    <div>
+                      <h6>{elem.name} </h6>
+                      <p>{elem.shortname}</p>
+                    </div>
+                  </>
+                )}
+              </div>
+              {loaded ? (
+                <div style={{ width: "190px" }}>
+                  <div className="skeleton-box">{elem.order_type}</div>
+                </div>
+              ) : (
                 <p
                   className="recomendation__orderType"
                   style={{
@@ -101,6 +114,12 @@ export const Transaction: React.FC<{}> = () => {
                 >
                   {elem.order_type}
                 </p>
+              )}
+              {loaded ? (
+                <div style={{ width: "226px" }}>
+                  <div className="skeleton-box">{elem.order_status}-90%</div>
+                </div>
+              ) : (
                 <p
                   className="recomendation__orderStatus"
                   style={{ color: checkStatus(elem.order_status) }}
@@ -109,20 +128,56 @@ export const Transaction: React.FC<{}> = () => {
                     ? `${elem.order_status} ${elem.order_benefit}`
                     : elem.order_status}
                 </p>
-                <p className="recomendation__costs recomendation__costs--enter">
-                  {elem.enter_cost.map((elem, index) => (
-                    <span key={index}>${elem}</span>
-                  ))}
-                </p>
-                <p className="recomendation__costs">
-                  {elem.exit_cost.map((elem, index) => (
-                    <span key={index}>${elem}</span>
-                  ))}
-                </p>
+              )}
+              <p className="recomendation__costs recomendation__costs--enter">
+                {elem.enter_cost.map((elem, index) => (
+                  <>
+                    {loaded ? (
+                      <div
+                        className="skeleton-box"
+                        key={index}
+                        style={{ marginBottom: "5px" }}
+                      >
+                        ${elem}
+                      </div>
+                    ) : (
+                      <span key={index}>${elem}</span>
+                    )}
+                  </>
+                ))}
+              </p>
+              <p className="recomendation__costs">
+                {elem.exit_cost.map((elem, index) => (
+                  <>
+                    {loaded ? (
+                      <div
+                        className="skeleton-box"
+                        key={index}
+                        style={{ marginBottom: "5px" }}
+                      >
+                        ${elem}
+                      </div>
+                    ) : (
+                      <span key={index}>${elem}</span>
+                    )}
+                  </>
+                ))}
+              </p>
+              {loaded ? (
+                <div style={{ width: "153px" }}>
+                  <p className="skeleton-box">{elem.stop_los}</p>
+                </div>
+              ) : (
                 <p className="recomendation__los">{elem.stop_los}</p>
+              )}
+              {loaded ? (
+                <div>
+                  <p className="skeleton-box">{elem.risk}</p>
+                </div>
+              ) : (
                 <p className="recomendation__risk">{elem.risk}%</p>
-              </div>
-            )}
+              )}
+            </div>
           </li>
         ))}
       </ul>
