@@ -29,7 +29,7 @@ export const AuthorizationValidate: React.FC<{}> = () => {
     inputsList.forEach((elem: HTMLInputElement) => {
       validateCode += elem.value;
     });
-    const resp = await fetch("https://dev.godbot.pro/api/auth/verification/", {
+    const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/verification/`, {
       method: "POST",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken") as string,
