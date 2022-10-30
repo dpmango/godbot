@@ -30,11 +30,6 @@ export const ThemeContext = createContext<IThemeContext | null>(null);
 function App() {
   const [test, setTest] = useState<any>();
   const { getFetch } = useFetch(setTest);
-  const init = async () => {
-    const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
-    const data = await resp.json();
-  };
-
   const [theme, changeTheme] = useState(false);
   const { userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
@@ -44,8 +39,7 @@ function App() {
   };
 
   useEffect(() => {
-    init();
-    dispatch(getCurrentUser({ login: "can4ik22", password: "10061978Asd" }));
+    dispatch(getCurrentUser());
   }, []);
 
   return (

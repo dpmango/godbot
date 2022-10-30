@@ -73,7 +73,7 @@ export const Transaction: React.FC<{}> = () => {
       </ul>
       <ul className="recomendation__list">
         {recData?.map((elem, index) => (
-          <li key={index} className="recomendation__item">
+          <li key={index + 1} className="recomendation__item">
             <div className="recomendation__item">
               {loaded ? (
                 <div style={{ width: "135px" }}>

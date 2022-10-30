@@ -14,10 +14,10 @@ export interface IUserState {
   id: string;
 }
 
-export interface IUserLogin {
-  login: string;
-  password: string;
-}
+// export interface IUserLogin {
+//   login: string;
+//   password: string;
+// }
 
 interface IUser {
   loading: string;
@@ -26,16 +26,15 @@ interface IUser {
 
 export const getCurrentUser = createAsyncThunk(
   "user/getCurrentUser",
-  async (body: IUserLogin) => {
-    const data = await fetch("/user", {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  async () => {
+    const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
 
     const resp = await data.json();
+    if (resp.name) {
+      window.location = '/' as Location | (string & Location)
+    } else {
+      console.log('error');
+    }
     return resp;
   }
 );

@@ -43,7 +43,7 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter }) => {
             "Закрыта по стопу",
             "Закрыто в прибыль",
           ].map((elem: string, index) => (
-            <li onClick={() => handleClick(elem)}>{elem ? elem : 'Показать все'}</li>
+            <li onClick={() => handleClick(elem)} key={index}>{elem ? elem : 'Показать все'}</li>
           ))}
         </ul>
       </div>

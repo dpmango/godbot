@@ -364,6 +364,7 @@
       }
 
       &.disabled {
+        pointer-events: none;
         svg path,
         a {
           stroke: #b4b4b4;
