@@ -34,7 +34,7 @@ export const Header: React.FC<{}> = () => {
               <p>Главная</p>
             </NavLink>
           </li>
-          <li className="menu__item">
+          <li className="menu__item disabled">
             <NavLink to="partnership">
               <svg
                 width="20"

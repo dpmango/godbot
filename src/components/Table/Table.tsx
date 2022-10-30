@@ -47,7 +47,7 @@ export const Table: React.FC<{}> = () => {
 
   return (
     <div className={!visible ? "table__wrapper _hidden" : "table__wrapper"}>
-      {userData?.rank !== "Новичок" ? (
+      {userData?.tariff !== "Новичок" ? (
         <TableSwitch
           investorTable={investorTable}
           setInvestorTable={setInvestorTable}
@@ -59,7 +59,7 @@ export const Table: React.FC<{}> = () => {
         <div
           className={visible ? "table" : "table table--hidden"}
         >
-          {userData?.rank === "New" ? (
+          {userData?.tariff === "New" ? (
             <div className="table__lock">
               <div>
                 <img src="./images/Lock.svg" alt="Lock" />

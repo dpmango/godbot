@@ -42,7 +42,7 @@ export const Transaction: React.FC<{}> = () => {
 
   return (
     <div className="recomendation">
-      {userData?.rank === "Новичок" ? (
+      {userData?.tariff === "Новичок" ? (
         <div className="table__lock">
           <div>
             <img src="./images/Lock.svg" alt="Lock" />

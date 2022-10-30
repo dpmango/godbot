@@ -8,7 +8,7 @@ export const Authorization: React.FC<{}> = () => {
   const {userData} = useAppSelector(state => state.userState)
   return (
     <div className="authorization">
-      <Link to={!userData?.rank ? '/auth/registration' : '/'} className="authorization__logo">
+      <Link to={!userData?.tariff ? '/auth/registration' : '/'} className="authorization__logo">
         <img src="http://localhost:3000/images/logo-auth.svg" alt="" />
       </Link>
       <img

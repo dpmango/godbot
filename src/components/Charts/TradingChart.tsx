@@ -77,7 +77,7 @@ export const TradingChart: React.FC<{
           width={"100%"}
           height={380}
           series={chartLines}
-          type={userData?.rank === 'Инвестор' ? "area": "line"}
+          type={userData?.tariff === 'Инвестор' ? "area": "line"}
         />
       </div>
     </div>

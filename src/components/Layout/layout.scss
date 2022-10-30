@@ -35,7 +35,14 @@
     padding: 8px 10px;
     text-transform: uppercase;
 
+    &:nth-child(3) {
+      img {
+        margin-right: 17px;
+      }
+    }
+
     a {
+      padding: 0;
       display: flex;
     }
 
@@ -58,7 +65,23 @@
       img {
         width: 17px;
         margin-left: 5px;
-        margin-right: 14px;
+        margin-right: 17px;
+      }
+    }
+    &:nth-child(4) {
+      img {
+        margin-right: 17px;
+        margin-left: 7px;
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+      color: silver;
+
+      img {
+        filter: invert(100%) sepia(1%) saturate(6%) hue-rotate(231deg)
+          brightness(119%) contrast(95%);
       }
     }
   }
@@ -951,6 +974,12 @@
       background: #dde6ff;
       border-radius: 10px 10px 0 0;
       transition: background 0.3s;
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        background-color: silver;
+      }
       // box-shadow: rgba(9, 5, 183, 0.6) -9px -19px 15px 2px ;
 
       &::before {

@@ -22,8 +22,8 @@ export const TableSwitch: React.FC<{
         onClick={() => setInvestorTable(true)}
         className={
           investorTable
-            ? "table__switch-button table__switch-button--active"
-            : "table__switch-button"
+            ? "table__switch-button disabled table__switch-button--active"
+            : "table__switch-button disabled"
         }
       >
         Инвестирование

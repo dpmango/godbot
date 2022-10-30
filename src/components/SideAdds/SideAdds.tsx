@@ -28,7 +28,7 @@ export const SideAdds: React.FC<{
       style={{ display }}
       className={visible === true ? "adds" : "adds adds--hidden"}
     >
-      {userData?.rank === "Инвестор" ? (
+      {userData?.tariff === "Инвестор" ? (
         <div className="adds__cash">
           <p>
             Общий заработок:{" "}
@@ -62,7 +62,7 @@ export const SideAdds: React.FC<{
       )}
 
       <div>
-        {userData?.rank === "Трейдер" ? (
+        {userData?.tariff === "Трейдер" ? (
           <button className="adds__close" onClick={setVisible}>
             &times;
           </button>
