@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams, useRoutes } from "react-router-dom";
 import { InfoCircle } from "../UIelems/InfoCircle";
 import "./modals.scss";
 import { Helmet } from "react-helmet";
 
 export const TarifWindow: React.FC<{}> = () => {
+  const test = async () => {
+    const resp = await fetch(`${process.env.REACT_APP_API_URL}get_graph/`);
+    const data = await resp.json();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    test()
+  }, []);
 
   return (
     <div className="tarif">
