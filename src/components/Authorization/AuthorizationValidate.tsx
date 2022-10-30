@@ -18,36 +18,39 @@ export const AuthorizationValidate: React.FC<{}> = () => {
   };
 
   const handleTest: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const validationCode = e.target.value.split("");
-    const inputParent = inputsList[validationCode.length];
-
-    inputsList.forEach((elem: HTMLInputElement | any, index: number) => {
-      elem.classList.remove("cursor-active");
-      if (inputParent.childNodes[0].value === "") {
-        inputParent.classList.add("cursor-active");
-      }
-      elem.childNodes[0].value = validationCode[index] || "";
-    });
+    if (!isNaN(+(e.nativeEvent as any).data)) {
+      const validationCode = e.target.value.split("");
+      const inputParent = inputsList[validationCode.length];
+      inputsList.forEach((elem: HTMLInputElement | any, index: number) => {
+        elem.classList.remove("cursor-active");
+        if (inputParent.childNodes[0].value === "") {
+          inputParent.classList.add("cursor-active");
+        }
+        elem.childNodes[0].value = validationCode[index] || "";
+      });
+      setValue(e.target.value);
+    }
   };
 
   const handleSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
-    let validateCode = "";
-    inputsList.forEach((elem: HTMLInputElement) => {
-      validateCode += elem.value;
-    });
-    const resp = await fetch("https://dev.godbot.pro/api/auth/verification/", {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": Cookies.get("csrftoken") as string,
-      },
-      body: JSON.stringify({
-        code: validateCode.trim(),
-      }),
-    });
-    if (resp.ok) {
-      window.location = "/" as Location | (string & Location);
-    }
+    try {
+      const resp = await fetch(
+        "https://dev.godbot.pro/api/auth/verification/",
+        {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": Cookies.get("csrftoken") as string,
+          },
+          body: JSON.stringify({
+            code: value,
+          }),
+        }
+      );
+      if (resp.ok) {
+        window.location = "/" as Location | (string & Location);
+      }
+    } catch (error) {}
   };
 
   setTimeout(() => {
@@ -68,6 +71,7 @@ export const AuthorizationValidate: React.FC<{}> = () => {
       <input
         className="invisible"
         maxLength={6}
+        value={value}
         autoComplete="off"
         ref={validInput}
         onChange={handleTest}
@@ -92,7 +96,9 @@ export const AuthorizationValidate: React.FC<{}> = () => {
         ))}
         <button
           className={
-            timer ? "authorization__resend mobile disabled" : "authorization__resend mobile"
+            timer
+              ? "authorization__resend mobile disabled"
+              : "authorization__resend mobile"
           }
           onClick={() => setTimer(59)}
         >
