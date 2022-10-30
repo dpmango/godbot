@@ -39,7 +39,7 @@ export const LanguageDropdown: React.FC<{}> = () => {
         {loaded ? (
           <div
             className="skeleton-box"
-            style={{ width: "20px", height: "21px", borderRadius: '4px' }}
+            style={{ width: "20px", height: "21px", borderRadius: "4px" }}
           ></div>
         ) : (
           <img src={`./images/${currentLanguage}`} alt="Current Language" />

@@ -18,7 +18,6 @@ import { HomePage } from "./pages/HomePage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { Authorization } from "./pages/Authorization";
 import { Partnership } from "./pages/Partnership";
-import Cookies from "js-cookie";
 import { useFetch } from "./hooks/useFetch";
 
 interface IThemeContext {
@@ -34,7 +33,6 @@ function App() {
   const init = async () => {
     const resp = await fetch("https://dev.godbot.pro/api/auth/user/");
     const data = await resp.json();
-    console.log(data);
   };
 
   const [theme, changeTheme] = useState(false);
