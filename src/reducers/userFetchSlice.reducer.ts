@@ -7,7 +7,7 @@ export interface IUserState {
   password: string;
   name: string;
   city: string;
-  rank: string;
+  tariff: string;
   email: string;
   subscription_date: string;
   bank_value: string;

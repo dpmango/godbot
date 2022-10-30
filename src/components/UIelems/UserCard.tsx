@@ -31,7 +31,7 @@ export const UserCard: React.FC<{}> = () => {
 
       {!loaded ? (
         <div>
-          <p className="header__usercard-rank">{userData?.rank}</p>
+          <p className="header__usercard-rank">{userData?.tariff}</p>
           <p className="header__usercard-email">{userData?.name}</p>
           <p className="header__usercard-subscription">
             Подписка до:{" "}
