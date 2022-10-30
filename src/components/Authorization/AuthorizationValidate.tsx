@@ -1,26 +1,33 @@
 import Cookies from "js-cookie";
-import { useRef, useState } from "react";
+import { useRef, useState, MutableRefObject } from "react";
+import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 
 export const AuthorizationValidate: React.FC<{}> = () => {
   const [timer, setTimer] = useState(59);
   let [value, setValue] = useState<string>("");
+  const validInput: any = useRef();
   const inputsBox = useRef<HTMLDivElement | any>(null);
   const inputsList = inputsBox?.current?.childNodes;
+  const navigate = useNavigate();
 
-  const handleChange = (e: any, index: number) => {
-    if (e.target.value !== "") {
-      inputsList[index]?.focus();
-    }
-    inputsList.forEach((elem: HTMLInputElement) => {
-      setValue((value += elem.value));
-    });
+  const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
+    validInput.current?.focus();
+    (e.target as HTMLElement).classList.add("cursor-active");
   };
 
-  const handleBackspace = (e: any, index: number) => {
-    if (e.key === "Backspace") {
-      inputsList[index - 1]?.focus();
-    }
+  const handleTest: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const validationCode = e.target.value.split("");
+    const inputParent = inputsList[validationCode.length];
+
+    inputsList.forEach((elem: HTMLInputElement | any, index: number) => {
+      elem.classList.remove("cursor-active");
+      if (inputParent.childNodes[0].value === "") {
+        inputParent.classList.add("cursor-active");
+      }
+      elem.childNodes[0].value = validationCode[index] || "";
+    });
   };
 
   const handleSubmit: React.FormEventHandler = async (e) => {
@@ -38,13 +45,14 @@ export const AuthorizationValidate: React.FC<{}> = () => {
         code: validateCode.trim(),
       }),
     });
-
+    if (resp.ok) {
+      window.location = "/" as Location | (string & Location);
+    }
   };
 
   setTimeout(() => {
-    setTimer(timer - 1);
-    if (timer === 0) {
-      setTimer(59);
+    if (timer) {
+      setTimer(timer - 1);
     }
   }, 1000);
 
@@ -54,6 +62,17 @@ export const AuthorizationValidate: React.FC<{}> = () => {
       action=""
       onSubmit={handleSubmit}
     >
+      <Helmet>
+        <title>Godbot | Validation</title>
+      </Helmet>
+      <input
+        className="invisible"
+        maxLength={6}
+        autoComplete="off"
+        ref={validInput}
+        onChange={handleTest}
+        type="text"
+      />
       <h2 className="authorization__title">Верификация</h2>
       <label className="authorization__label" htmlFor="">
         Вы получите электронное письмо с кодом подтверждения. Введите его здесь,
@@ -61,24 +80,41 @@ export const AuthorizationValidate: React.FC<{}> = () => {
       </label>
       <div className="authorization__wrapper" ref={inputsBox}>
         {[0, 1, 2, 3, 4, 5].map((elem) => (
-          <input
-            key={elem}
-            maxLength={1}
-            className="authorization__input validation"
-            onKeyUp={(e) => handleBackspace(e, elem)}
-            onChange={(e) => handleChange(e, elem + 1)}
-            type="text"
-          />
+          <div className="authorization__window">
+            <input
+              key={elem}
+              maxLength={1}
+              className="authorization__input validation"
+              onClick={handleClick}
+              type="text"
+            />
+          </div>
         ))}
-        <button className="authorization__resend">
-          <strong>{timer}s</strong> Отправить снова
+        <button
+          className={
+            timer ? "authorization__resend mobile disabled" : "authorization__resend mobile"
+          }
+          onClick={() => setTimer(59)}
+        >
+          {timer ? <strong>{timer}s</strong> : ""} Отправить снова
         </button>
       </div>
+      <button
+        className={
+          timer ? "authorization__resend disabled" : "authorization__resend"
+        }
+        onClick={() => setTimer(59)}
+      >
+        {timer ? <strong>{timer}s</strong> : ""} Отправить снова
+      </button>
       <label className="authorization__text" htmlFor="">
         Если вы не получили письмо, проверьте спам
       </label>
       <button className="authorization__submit">Подтвердить</button>
-      <button className="authorization__return">
+      <button
+        className="authorization__return"
+        onClick={() => navigate("/auth/registration")}
+      >
         <svg
           width="22"
           height="12"

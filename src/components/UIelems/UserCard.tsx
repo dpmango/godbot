@@ -32,7 +32,7 @@ export const UserCard: React.FC<{}> = () => {
       {!loaded ? (
         <div>
           <p className="header__usercard-rank">{userData?.rank}</p>
-          <p className="header__usercard-email">{userData?.email}</p>
+          <p className="header__usercard-email">{userData?.name}</p>
           <p className="header__usercard-subscription">
             Подписка до:{" "}
             <span

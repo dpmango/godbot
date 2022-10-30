@@ -28,13 +28,7 @@ export const getCurrentUser = createAsyncThunk(
   "user/getCurrentUser",
   async () => {
     const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
-
     const resp = await data.json();
-    if (resp.name) {
-      window.location = '/' as Location | (string & Location)
-    } else {
-      console.log('error');
-    }
     return resp;
   }
 );

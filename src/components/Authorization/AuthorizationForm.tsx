@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 
 export const AuthorizationForm: React.FC<{}> = () => {
@@ -31,6 +32,9 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
   return (
     <form className="authorization__form" action="" onSubmit={handleSubmit}>
+      <Helmet>
+        <title>Godbot | Authorization</title>
+      </Helmet>
       <h2 className="authorization__title">Вход / Регистрация</h2>
       <label className="authorization__label" htmlFor="">
         Введите ваш Email для получения кода авторизации

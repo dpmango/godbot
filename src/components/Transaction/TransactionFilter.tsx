@@ -12,7 +12,7 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter }) => {
   const handleClick = (value: string) => {
     handleStateChange();
     filter(value);
-    setValue(value ? value : 'Показать все');
+    setValue(value ? value : "Показать все");
   };
 
   return (
@@ -36,14 +36,16 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter }) => {
       >
         <ul>
           {[
-            '',
+            "",
             "Активно",
             "В ожидании",
             "Отменено",
             "Закрыта по стопу",
             "Закрыто в прибыль",
           ].map((elem: string, index) => (
-            <li onClick={() => handleClick(elem)} key={index}>{elem ? elem : 'Показать все'}</li>
+            <li onClick={() => handleClick(elem)} key={index}>
+              {elem ? elem : "Показать все"}
+            </li>
           ))}
         </ul>
       </div>
