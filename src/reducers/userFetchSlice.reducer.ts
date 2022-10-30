@@ -51,9 +51,9 @@ export const userState = createSlice({
       (state, action: PayloadAction<IUserState>) => {
         state.loading = "fulfilled";
         state.userData = { ...action.payload };
-        if (!Cookies.get("name")) {
-          Cookies.set("name", Date.now().toString(), { expires: 7 });
-        }
+        // if (!Cookies.get("name")) {
+        //   Cookies.set("name", Date.now().toString(), { expires: 7 });
+        // }
       }
     );
     builder.addCase(getCurrentUser.rejected, (state) => {

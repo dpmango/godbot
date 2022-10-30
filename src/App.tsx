@@ -4,7 +4,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { useAppDispatch, useAppSelector } from "./reducers/hooks.store";
+import { useAppDispatch } from "./reducers/hooks.store";
 import { getCurrentUser } from "./reducers/userFetchSlice.reducer";
 import { Layout } from "./components/Layout/Layout";
 import {
@@ -18,7 +18,7 @@ import { HomePage } from "./pages/HomePage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { Authorization } from "./pages/Authorization";
 import { Partnership } from "./pages/Partnership";
-import { useFetch } from "./hooks/useFetch";
+import Cookies from "js-cookie";
 
 interface IThemeContext {
   theme: boolean;
@@ -28,10 +28,8 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  const [test, setTest] = useState<any>();
-  const { getFetch } = useFetch(setTest);
   const [theme, changeTheme] = useState(false);
-  const { userData } = useAppSelector((state) => state.userState);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleChangeTheme = () => {
@@ -40,6 +38,11 @@ function App() {
 
   useEffect(() => {
     dispatch(getCurrentUser());
+    if (!Cookies.get("messages")) {
+      navigate("/auth/registration");
+    } else {
+      navigate("/");
+    }
   }, []);
 
   return (
