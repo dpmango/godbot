@@ -31,7 +31,7 @@ function App() {
   const [test, setTest] = useState<any>();
   const { getFetch } = useFetch(setTest);
   const init = async () => {
-    const resp = await fetch("https://dev.godbot.pro/api/auth/user/");
+    const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
     const data = await resp.json();
   };
 
