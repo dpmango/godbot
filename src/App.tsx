@@ -38,9 +38,6 @@ function App() {
 
   useEffect(() => {
     dispatch(getCurrentUser());
-    if (!Cookies.get("messages")) {
-      navigate("/auth/registration");
-    }
   }, []);
 
   return (
