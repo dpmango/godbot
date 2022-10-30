@@ -11,6 +11,12 @@ export const HomePage: React.FC<{}> = () => {
   const { userData } = useAppSelector((state) => state.userState);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!Cookies.get('auth')) {
+      navigate('/auth/registration')
+    }
+  }, [])
+
   return (
     <>
       <Helmet>

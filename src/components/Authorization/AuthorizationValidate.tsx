@@ -49,6 +49,7 @@ export const AuthorizationValidate: React.FC<{}> = () => {
       );
       if (resp.ok) {
         window.location = "/" as Location | (string & Location);
+        Cookies.set("auth", Date.now().toString(), { expires: 7 });
       }
     } catch (error) {}
   };
