@@ -40,8 +40,6 @@ function App() {
     dispatch(getCurrentUser());
     if (!Cookies.get("messages")) {
       navigate("/auth/registration");
-    } else {
-      navigate("/");
     }
   }, []);
 
