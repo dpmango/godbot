@@ -1,41 +1,41 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const getChartData = createAsyncThunk(
   "chart/chartData",
   async (url: string) => {
-    const data = await fetch(`/chart?${url}`, {
-      method: "POST",
-      body: JSON.stringify({key: 'BTC'}),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+    const data = await fetch(`${process.env.REACT_APP_API_URL}get_graph/`);
     const resp = await data.json();
     return resp;
   }
 );
 
 export interface IChartObj {
-  title: unknown;
-  name: string;
-  data: number[];
+  title?: unknown;
+  name?: string;
+  graphs_data?: any;
+  data?: number[];
 }
 
 interface IChartData {
   loading: string;
-  data: IChartObj[];
+  currentCoin: string;
+  data: IChartObj;
 }
 
 const initialState: IChartData = {
   loading: "pending",
-  data: [],
+  currentCoin: "BTC",
+  data: {},
 };
 
 export const chartState = createSlice({
   name: "chart",
   initialState,
-  reducers: {},
+  reducers: {
+    setStateCoin(state, action: PayloadAction<string>) {
+      state.currentCoin = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getChartData.pending, (state) => {
       state.loading = "pending";
@@ -47,6 +47,6 @@ export const chartState = createSlice({
   },
 });
 
-export const {} = chartState.actions;
+export const { setStateCoin } = chartState.actions;
 
 export default chartState.reducer;

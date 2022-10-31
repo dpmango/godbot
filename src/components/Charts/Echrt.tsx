@@ -3,8 +3,10 @@ import * as echarts from "echarts";
 import { ChartLegend } from "./ChartLegend";
 import { Loader } from "../UIelems/Loader";
 import { set } from "immer/dist/internal";
+import { useAppSelector } from "../../reducers/hooks.store";
 
 export const Echrt: React.FC<{}> = () => {
+  const { data, currentCoin } = useAppSelector((state) => state.chartState);
   const [loader, setLoader] = useState(false);
   const [series, setSeries] = useState<any>([]);
   const [colors, setColors] = useState<any>([]);
@@ -20,11 +22,6 @@ export const Echrt: React.FC<{}> = () => {
       "#636363",
       "#de2d26",
       "#ee6666",
-      "#73c0de",
-      "#3ba272",
-      "#fc8452",
-      "#9a60b4",
-      "#ea7ccc",
     ];
     const series = [
       {
@@ -35,58 +32,37 @@ export const Echrt: React.FC<{}> = () => {
         lineStyle: {
           width: 2,
         },
-        data: Object.values(dataJson.real),
+        data: data.graphs_data[currentCoin].map((elem: any) => elem.real),
       },
       {
-        name: "Ghost",
-        type: "line",
-        smooth: true,
-        clip: false,
-        lineStyle: {
-          width: 3,
-          type: "dashed",
-        },
-        data: Object.values(dataJson.Forecast_ghost),
-      },
-      {
-        name: "Forecast - 1",
+        name: "Forecast",
         type: "line",
         smooth: true,
         clip: false,
         lineStyle: {
           width: 2,
         },
-        data: Object.values(dataJson.Forecast_1),
+        data: data.graphs_data[currentCoin].map((elem: any) => elem.forecast),
       },
       {
-        name: "High close trend",
+        name: "Upper",
         type: "line",
         smooth: true,
         clip: false,
         lineStyle: {
           width: 2,
         },
-        data: Object.values(dataJson.HIGH_close_trend_),
+        data: data.graphs_data[currentCoin].map((elem: any) => elem.upper),
       },
       {
-        name: "Low close trend",
+        name: "Lower",
         type: "line",
         smooth: true,
         clip: false,
         lineStyle: {
           width: 2,
         },
-        data: Object.values(dataJson.LOW_close_trend_),
-      },
-      {
-        name: "Pump - Dump",
-        type: "line",
-        smooth: true,
-        clip: false,
-        lineStyle: {
-          width: 2,
-        },
-        data: Object.values(dataJson["pump/dump"]),
+        data: data.graphs_data[currentCoin].map((elem: any) => elem.lower),
       },
     ];
 
@@ -133,7 +109,7 @@ export const Echrt: React.FC<{}> = () => {
             type: "dashed",
           },
         },
-        data: Object.values(dataJson.Datetime),
+        data: data.graphs_data[currentCoin].map((elem: any) => elem.timestamp),
       },
       yAxis: {
         type: "value",
@@ -155,14 +131,16 @@ export const Echrt: React.FC<{}> = () => {
     setTimeout(() => {
       setLoader(true);
     }, 1000);
-    graph?.dispatchAction({ type: "saveAsImage" });
     window.onresize = function () {
       graph.resize();
     };
   };
+
   useEffect(() => {
-    initChart();
-  }, [graph]);
+    if (data.graphs_data) {
+      initChart();
+    }
+  }, [graph, currentCoin, data.graphs_data]);
 
   const handleClick = (title: string) => {
     graph?.dispatchAction({ type: "legendToggleSelect", name: title });
@@ -180,6 +158,7 @@ export const Echrt: React.FC<{}> = () => {
           marginLeft: "-80px",
           marginTop: "-30px",
           zIndex: "-10",
+          position: "relative",
           opacity: loader ? "1" : "0",
         }}
       ></div>

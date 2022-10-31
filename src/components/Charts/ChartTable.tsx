@@ -1,29 +1,35 @@
 import React, { ForwardRefRenderFunction, useState } from "react";
-import { IChartObj } from "../../reducers/chartDataSlice.reducer";
+import { IChartObj, setStateCoin } from "../../reducers/chartDataSlice.reducer";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
 import { ChartDropdown } from "../Dropdown/ChartDropdown";
 import { ChartUpdateTimer } from "./ChartUpdateTimer";
 
 const ChartTable: React.FC<{}> = ({}, ref) => {
   const [timeChart, setTimeChart] = useState<string | null>("1 минута");
-  const [coin, setCoin] = useState<string | null>("Bitcoin (BTC)");
+  const dispatch = useAppDispatch();
+  const { currentCoin, data } = useAppSelector((state) => state.chartState);
 
   const handleTimeClick: React.MouseEventHandler<HTMLElement> = (e) => {
     setTimeChart((e.target as HTMLElement).textContent);
   };
 
   const handleCoinClick: React.MouseEventHandler<HTMLElement> = (e) => {
-    setCoin((e.target as HTMLElement).textContent);
+    dispatch(setStateCoin((e.target as HTMLElement).textContent as string));
   };
 
   return (
     <div className="chart__head" ref={ref}>
       <h2 className="title">График прогноза</h2>
-      <ChartDropdown title={coin}>
-        {
+      <ChartDropdown title={currentCoin}>
+        {data.graphs_data && (
           <ul>
-            <li onClick={handleCoinClick}>Polygon (MATIC)</li>
+            {Object.keys(data.graphs_data).map((elem, index) => (
+              <li onClick={handleCoinClick} key={index}>
+                {elem}
+              </li>
+            ))}
           </ul>
-        }
+        )}
       </ChartDropdown>
       <ChartDropdown title={timeChart}>
         {

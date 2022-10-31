@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
+import { parse } from "date-fns";
+import { timeDifference } from "../scripts/scripts";
 
 export interface IUserState {
   login: string;
@@ -14,13 +15,14 @@ export interface IUserState {
   id: string;
 }
 
-// export interface IUserLogin {
-//   login: string;
-//   password: string;
-// }
+export interface IUserLogin {
+  login: string;
+  password: string;
+}
 
 interface IUser {
   loading: string;
+  timeDiff: number 
   userData: IUserState | null;
 }
 
@@ -33,8 +35,25 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
+// export const getCurrentUser = createAsyncThunk(
+//   "user/getCurrentUser",
+//   async (body: IUserLogin) => {
+//     const data = await fetch("/user", {
+//       method: "POST",
+//       body: JSON.stringify(body),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+
+//     const resp = await data.json();
+//     return resp;
+//   }
+// );
+
 const initialState: IUser = {
   loading: "none",
+  timeDiff: 0,
   userData: null,
 };
 
@@ -51,9 +70,9 @@ export const userState = createSlice({
       (state, action: PayloadAction<IUserState>) => {
         state.loading = "fulfilled";
         state.userData = { ...action.payload };
-        // if (!Cookies.get("name")) {
-        //   Cookies.set("name", Date.now().toString(), { expires: 7 });
-        // }
+        const userDate = action.payload?.subscription_date.slice(0,10).split('-').join('.')
+        const date = parse(userDate as string, "yyyy.MM.dd", new Date());
+        state.timeDiff = timeDifference(date)
       }
     );
     builder.addCase(getCurrentUser.rejected, (state) => {

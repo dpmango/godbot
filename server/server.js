@@ -366,12 +366,12 @@ let users = [
   {
     login: "can4ik22",
     password: "10061978Asd",
-    name: "Alex",
+    email: "Alex",
     city: "Kiev",
-    rank: "Трейдер",
-    email: "can4ik22@gmail.com",
+    tariff: "Трейдер",
+    name: "can4ik22@gmail.com",
     bank_value: "0",
-    subscription_date: "31.10.2022",
+    subscription_date: "2022-11-01T22:53:20Z",
     id: uniqid(),
   },
 ];

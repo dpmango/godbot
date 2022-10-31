@@ -7,27 +7,27 @@ import { UserCardDropDown } from "../Dropdown/UserCardDropDown";
 import { Loader } from "./Loader";
 
 export const UserCard: React.FC<{}> = () => {
-  const { userData } = useAppSelector((state) => state.userState);
-  const [userSubscription, setUserSubscription] = useState<Date | string>("");
+  const { userData, timeDiff } = useAppSelector((state) => state.userState);
   const { loaded } = useSkeleton(Boolean(userData));
-
-  useEffect(() => {
-    if (userData) {
-      const date = parse(userData.subscription_date, "dd.MM.yyyy", new Date());
-      setUserSubscription(date);
-    }
-  }, [userData]);
+  const userDate = userData?.subscription_date
+    .slice(0, 10)
+    .split("-")
+    .join(".");
 
   return (
     <div className="header__usercard">
-      {loaded  ?           <div
-            className="skeleton-box"
-            style={{ width: "60px", height: "60px", marginRight: '14px'}}
-          ></div> : <img
-        className="header__usercard-card"
-        src="./images/header-coin.svg"
-        alt=""
-      />}
+      {loaded ? (
+        <div
+          className="skeleton-box"
+          style={{ width: "60px", height: "60px", marginRight: "14px" }}
+        ></div>
+      ) : (
+        <img
+          className="header__usercard-card"
+          src="./images/header-coin.svg"
+          alt=""
+        />
+      )}
 
       {!loaded ? (
         <div>
@@ -37,10 +37,10 @@ export const UserCard: React.FC<{}> = () => {
             Подписка до:{" "}
             <span
               style={{
-                color: timeDifference(userSubscription) <= 0 ? "red" : "green",
+                color: timeDiff <= 0 ? "red" : "green",
               }}
             >
-              {userData?.subscription_date}
+              {userDate}
             </span>
           </p>
         </div>

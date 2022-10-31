@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { getChartData, IChartObj } from "../../reducers/chartDataSlice.reducer";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
 import { SideAdds } from "../SideAdds/SideAdds";
-import { TableInvestor } from "./TableInvestor";
 import { TableSwitch } from "./TableSwitch";
 import React from "react";
 import "../Charts/chart.scss";
@@ -78,7 +77,7 @@ export const Table: React.FC<{}> = () => {
           <div style={{ opacity: investorTable ? "0" : "1" }}>
             <ChartTable />
           </div>
-          {!investorTable ? <Echrt /> : <TableInvestor />}
+          {!investorTable ? <Echrt /> : ''}
         </div>
         {/* <SideAdds setVisible={handleClick} visible={visible} /> */}
       </div>

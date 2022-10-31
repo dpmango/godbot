@@ -1,0 +1,1409 @@
+{
+  "message": "success",
+  "graphs_data": {
+    "BTC": [
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20890.0333333333,
+        "timestamp": "2022-10-31T08:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20882.25,
+        "timestamp": "2022-10-31T08:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20819.9833333333,
+        "timestamp": "2022-10-31T08:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20734.3666666667,
+        "timestamp": "2022-10-31T07:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20722.6916666667,
+        "timestamp": "2022-10-31T07:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20718.8,
+        "timestamp": "2022-10-31T07:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20746.0416666667,
+        "timestamp": "2022-10-31T07:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20730.475,
+        "timestamp": "2022-10-31T06:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20596.9607661764,
+        "upper": 20936.6940396669,
+        "forecast": 20746.0416666667,
+        "timestamp": "2022-10-31T06:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20588.9633320252,
+        "upper": 20928.5646931178,
+        "forecast": 20738.2583333333,
+        "timestamp": "2022-10-31T06:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20581.4818613676,
+        "upper": 20920.9598205396,
+        "forecast": 20722.6916666667,
+        "timestamp": "2022-10-31T06:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20575.1613085707,
+        "upper": 20914.535014396,
+        "forecast": 20664.3166666667,
+        "timestamp": "2022-10-31T05:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20570.9046097483,
+        "upper": 20910.208104136,
+        "forecast": 20695.45,
+        "timestamp": "2022-10-31T05:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20568.0668105333,
+        "upper": 20907.323497296,
+        "forecast": 20711.0166666667,
+        "timestamp": "2022-10-31T05:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20563.9391025843,
+        "upper": 20903.1277055287,
+        "forecast": 20753.825,
+        "timestamp": "2022-10-31T05:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20558.6504767746,
+        "upper": 20897.7518473269,
+        "forecast": 20718.8,
+        "timestamp": "2022-10-31T04:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20556.1996501799,
+        "upper": 20895.260595965,
+        "forecast": 20722.6916666667,
+        "timestamp": "2022-10-31T04:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20552.0719422309,
+        "upper": 20891.0648041978,
+        "forecast": 20734.3666666667,
+        "timestamp": "2022-10-31T04:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20546.396343801,
+        "upper": 20885.2955905178,
+        "forecast": 20726.5833333333,
+        "timestamp": "2022-10-31T04:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20541.3656997381,
+        "upper": 20880.1819693014,
+        "forecast": 20687.6666666667,
+        "timestamp": "2022-10-31T03:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20539.8178092572,
+        "upper": 20878.6085473887,
+        "forecast": 20660.425,
+        "timestamp": "2022-10-31T03:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20536.4640465487,
+        "upper": 20875.1994665778,
+        "forecast": 20679.8833333333,
+        "timestamp": "2022-10-31T03:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20534.1422108273,
+        "upper": 20872.8393337087,
+        "forecast": 20648.75,
+        "timestamp": "2022-10-31T03:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20530.530466372,
+        "upper": 20869.1680159123,
+        "forecast": 20617.6166666667,
+        "timestamp": "2022-10-31T02:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20530.0145028783,
+        "upper": 20868.6435419414,
+        "forecast": 20625.4,
+        "timestamp": "2022-10-31T02:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20527.8216580304,
+        "upper": 20866.414527565,
+        "forecast": 20609.8333333333,
+        "timestamp": "2022-10-31T02:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20524.0809227016,
+        "upper": 20862.6120912759,
+        "forecast": 20675.9916666667,
+        "timestamp": "2022-10-31T02:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20520.4691782462,
+        "upper": 20858.9407734796,
+        "forecast": 20687.6666666667,
+        "timestamp": "2022-10-31T01:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20518.2763333983,
+        "upper": 20856.7117591032,
+        "forecast": 20687.6666666667,
+        "timestamp": "2022-10-31T01:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20516.7284429174,
+        "upper": 20855.1383371905,
+        "forecast": 20652.6416666667,
+        "timestamp": "2022-10-31T01:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20515.0515615631,
+        "upper": 20853.433796785,
+        "forecast": 20648.75,
+        "timestamp": "2022-10-31T01:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20515.4385341834,
+        "upper": 20853.8271522632,
+        "forecast": 20656.5333333333,
+        "timestamp": "2022-10-31T00:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20517.8893607781,
+        "upper": 20856.318403625,
+        "forecast": 20629.2916666667,
+        "timestamp": "2022-10-31T00:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20521.8880778537,
+        "upper": 20860.3830768996,
+        "forecast": 20605.9416666667,
+        "timestamp": "2022-10-31T00:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20524.0809227016,
+        "upper": 20862.6120912759,
+        "forecast": 20637.075,
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20523.6939500814,
+        "upper": 20862.2187357977,
+        "forecast": 20594.2666666667,
+        "timestamp": "2022-10-30T23:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20523.1779865878,
+        "upper": 20861.6942618268,
+        "forecast": 20586.4833333333,
+        "timestamp": "2022-10-30T23:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20522.0170687271,
+        "upper": 20860.5141953923,
+        "forecast": 20656.5333333333,
+        "timestamp": "2022-10-30T23:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20522.2750504739,
+        "upper": 20860.7764323777,
+        "forecast": 20621.5083333333,
+        "timestamp": "2022-10-30T23:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20523.0489957144,
+        "upper": 20861.5631433341,
+        "forecast": 20567.025,
+        "timestamp": "2022-10-30T22:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20523.1779865878,
+        "upper": 20861.6942618268,
+        "forecast": 20570.9166666667,
+        "timestamp": "2022-10-30T22:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20524.4678953218,
+        "upper": 20863.0054467541,
+        "forecast": 20617.6166666667,
+        "timestamp": "2022-10-30T22:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20526.5317492963,
+        "upper": 20865.1033426377,
+        "forecast": 20594.2666666667,
+        "timestamp": "2022-10-30T22:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20527.5636762836,
+        "upper": 20866.1522905796,
+        "forecast": 20640.9666666667,
+        "timestamp": "2022-10-30T21:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20529.1115667645,
+        "upper": 20867.7257124923,
+        "forecast": 20644.8583333333,
+        "timestamp": "2022-10-30T21:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20530.0145028783,
+        "upper": 20868.6435419414,
+        "forecast": 20703.2333333333,
+        "timestamp": "2022-10-30T21:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20529.3695485113,
+        "upper": 20867.9879494777,
+        "forecast": 20656.5333333333,
+        "timestamp": "2022-10-30T21:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20529.4985393847,
+        "upper": 20868.1190679705,
+        "forecast": 20621.5083333333,
+        "timestamp": "2022-10-30T20:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20531.3044116124,
+        "upper": 20869.9547268687,
+        "forecast": 20617.6166666667,
+        "timestamp": "2022-10-30T20:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20533.3682655869,
+        "upper": 20872.0526227523,
+        "forecast": 20621.5083333333,
+        "timestamp": "2022-10-30T20:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20534.1422108273,
+        "upper": 20872.8393337087,
+        "forecast": 20613.725,
+        "timestamp": "2022-10-30T20:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20534.658174321,
+        "upper": 20873.3638076796,
+        "forecast": 20629.2916666667,
+        "timestamp": "2022-10-30T19:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20535.0451469412,
+        "upper": 20873.7571631578,
+        "forecast": 20660.425,
+        "timestamp": "2022-10-30T19:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20536.3350556753,
+        "upper": 20875.068348085,
+        "forecast": 20691.5583333333,
+        "timestamp": "2022-10-30T19:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20537.6249644093,
+        "upper": 20876.3795330123,
+        "forecast": 20746.0416666667,
+        "timestamp": "2022-10-30T19:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20540.8497362445,
+        "upper": 20879.6574953305,
+        "forecast": 20675.9916666667,
+        "timestamp": "2022-10-30T18:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20544.3324898265,
+        "upper": 20883.1976946341,
+        "forecast": 20664.3166666667,
+        "timestamp": "2022-10-30T18:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20547.6862525351,
+        "upper": 20886.606775445,
+        "forecast": 20672.1,
+        "timestamp": "2022-10-30T18:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20549.879097383,
+        "upper": 20888.8357898214,
+        "forecast": 20652.6416666667,
+        "timestamp": "2022-10-30T18:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20552.7168965979,
+        "upper": 20891.7203966614,
+        "forecast": 20660.425,
+        "timestamp": "2022-10-30T17:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20555.6836866863,
+        "upper": 20894.7361219941,
+        "forecast": 20672.1,
+        "timestamp": "2022-10-30T17:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20558.134513281,
+        "upper": 20897.227373356,
+        "forecast": 20660.425,
+        "timestamp": "2022-10-30T17:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20560.1983672555,
+        "upper": 20899.3252692396,
+        "forecast": 20668.2083333333,
+        "timestamp": "2022-10-30T17:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20559.6824037619,
+        "upper": 20898.8007952687,
+        "forecast": 20668.2083333333,
+        "timestamp": "2022-10-30T16:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20560.8433216225,
+        "upper": 20899.9808617032,
+        "forecast": 20668.2083333333,
+        "timestamp": "2022-10-30T16:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20562.1332303566,
+        "upper": 20901.2920466305,
+        "forecast": 20640.9666666667,
+        "timestamp": "2022-10-30T16:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20563.1651573439,
+        "upper": 20902.3409945723,
+        "forecast": 20613.725,
+        "timestamp": "2022-10-30T16:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20563.8101117109,
+        "upper": 20902.996587036,
+        "forecast": 20637.075,
+        "timestamp": "2022-10-30T15:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20564.4550660779,
+        "upper": 20903.6521794996,
+        "forecast": 20625.4,
+        "timestamp": "2022-10-30T15:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20565.744974812,
+        "upper": 20904.9633644269,
+        "forecast": 20621.5083333333,
+        "timestamp": "2022-10-30T15:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20567.0348835461,
+        "upper": 20906.2745493541,
+        "forecast": 20633.1833333333,
+        "timestamp": "2022-10-30T15:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20569.7436918876,
+        "upper": 20909.0280377014,
+        "forecast": 20640.9666666667,
+        "timestamp": "2022-10-30T14:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20573.0974545962,
+        "upper": 20912.4371185123,
+        "forecast": 20609.8333333333,
+        "timestamp": "2022-10-30T14:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20576.5802081782,
+        "upper": 20915.977317816,
+        "forecast": 20652.6416666667,
+        "timestamp": "2022-10-30T14:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20580.4499343804,
+        "upper": 20919.9108725978,
+        "forecast": 20683.775,
+        "timestamp": "2022-10-30T14:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20585.9965419368,
+        "upper": 20925.5489677851,
+        "forecast": 20742.15,
+        "timestamp": "2022-10-30T13:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20590.1242498859,
+        "upper": 20929.7447595523,
+        "forecast": 20753.825,
+        "timestamp": "2022-10-30T13:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20597.47672967,
+        "upper": 20937.2185136378,
+        "forecast": 20726.5833333333,
+        "timestamp": "2022-10-30T13:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20604.9582003276,
+        "upper": 20944.823386216,
+        "forecast": 20718.8,
+        "timestamp": "2022-10-30T13:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20612.1816892384,
+        "upper": 20952.1660218087,
+        "forecast": 20687.6666666667,
+        "timestamp": "2022-10-30T12:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20619.4051781492,
+        "upper": 20959.5086574015,
+        "forecast": 20699.3416666667,
+        "timestamp": "2022-10-30T12:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20628.9505027813,
+        "upper": 20969.2114258633,
+        "forecast": 20718.8,
+        "timestamp": "2022-10-30T12:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 20637.3349095527,
+        "upper": 20977.7341278906,
+        "forecast": 20734.3666666667,
+        "timestamp": "2022-10-30T12:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20753.825,
+        "timestamp": "2022-10-30T11:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20730.475,
+        "timestamp": "2022-10-30T11:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20711.0166666667,
+        "timestamp": "2022-10-30T11:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20703.2333333333,
+        "timestamp": "2022-10-30T11:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20703.2333333333,
+        "timestamp": "2022-10-30T10:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20672.1,
+        "timestamp": "2022-10-30T10:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20679.8833333333,
+        "timestamp": "2022-10-30T10:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20711.0166666667,
+        "timestamp": "2022-10-30T10:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20699.3416666667,
+        "timestamp": "2022-10-30T09:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20749.9333333333,
+        "timestamp": "2022-10-30T09:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20769.3916666667,
+        "timestamp": "2022-10-30T09:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20773.2833333333,
+        "timestamp": "2022-10-30T09:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20757.7166666667,
+        "timestamp": "2022-10-30T08:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20781.0666666667,
+        "timestamp": "2022-10-30T08:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20761.6083333333,
+        "timestamp": "2022-10-30T08:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20847.225,
+        "timestamp": "2022-10-30T08:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 20847.225,
+        "timestamp": "2022-10-30T07:45:00Z"
+      }
+    ],
+    "ETH": [
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1601.7695269486,
+        "timestamp": "2022-10-31T18:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1603.9061892206,
+        "timestamp": "2022-10-31T17:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1599.6328918454,
+        "timestamp": "2022-10-31T17:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1598.9206892006,
+        "timestamp": "2022-10-31T17:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1599.4192364857,
+        "timestamp": "2022-10-31T17:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1598.4933513124,
+        "timestamp": "2022-10-31T16:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1598.9206892006,
+        "timestamp": "2022-10-31T16:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": null,
+        "upper": null,
+        "forecast": 1597.1401554197,
+        "timestamp": "2022-10-31T16:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.6448351674,
+        "upper": 1628.4298935779,
+        "forecast": 1595.7869323583,
+        "timestamp": "2022-10-31T16:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.5388526551,
+        "upper": 1628.3211199649,
+        "forecast": 1595.5020676017,
+        "timestamp": "2022-10-31T15:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.3639800948,
+        "upper": 1628.1416420512,
+        "forecast": 1596.3567162092,
+        "timestamp": "2022-10-31T15:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.4346355522,
+        "upper": 1628.2141582543,
+        "forecast": 1598.208459387,
+        "timestamp": "2022-10-31T15:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.5406180645,
+        "upper": 1628.3229318672,
+        "forecast": 1600.2738850932,
+        "timestamp": "2022-10-31T15:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.6571984237,
+        "upper": 1628.4425824266,
+        "forecast": 1599.9177837708,
+        "timestamp": "2022-10-31T14:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.869164796,
+        "upper": 1628.6601310356,
+        "forecast": 1598.7782432378,
+        "timestamp": "2022-10-31T14:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.869164796,
+        "upper": 1628.6601310356,
+        "forecast": 1601.3422162292,
+        "timestamp": "2022-10-31T14:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.8585669491,
+        "upper": 1628.6492540893,
+        "forecast": 1601.1997702665,
+        "timestamp": "2022-10-31T14:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1586.3675136089,
+        "upper": 1628.1452686221,
+        "forecast": 1601.9119729113,
+        "timestamp": "2022-10-31T13:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1585.7598785618,
+        "upper": 1627.5216312125,
+        "forecast": 1600.7724323783,
+        "timestamp": "2022-10-31T13:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1585.1381135014,
+        "upper": 1626.8834916687,
+        "forecast": 1598.9206892006,
+        "timestamp": "2022-10-31T13:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1584.3397104712,
+        "upper": 1626.064062309,
+        "forecast": 1599.6328918454,
+        "timestamp": "2022-10-31T13:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1583.3717351519,
+        "upper": 1625.0705948918,
+        "forecast": 1600.380712773,
+        "timestamp": "2022-10-31T12:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1582.4461525679,
+        "upper": 1624.1206366433,
+        "forecast": 1601.0573243038,
+        "timestamp": "2022-10-31T12:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1581.6194868157,
+        "upper": 1623.2722002491,
+        "forecast": 1601.0573243038,
+        "timestamp": "2022-10-31T12:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1580.6161830938,
+        "upper": 1622.2424740389,
+        "forecast": 1601.7695269486,
+        "timestamp": "2022-10-31T12:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1579.5916823304,
+        "upper": 1621.1909925528,
+        "forecast": 1602.7666486876,
+        "timestamp": "2022-10-31T11:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1578.60957565,
+        "upper": 1620.1830216185,
+        "forecast": 1598.9206892006,
+        "timestamp": "2022-10-31T11:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1577.761714204,
+        "upper": 1619.3128313315,
+        "forecast": 1596.9265000601,
+        "timestamp": "2022-10-31T11:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1577.0268996031,
+        "upper": 1618.5586650331,
+        "forecast": 1585.887168884,
+        "timestamp": "2022-10-31T11:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.3768718207,
+        "upper": 1617.8915184549,
+        "forecast": 1583.2519864957,
+        "timestamp": "2022-10-31T10:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1575.7250786288,
+        "upper": 1617.2225599744,
+        "forecast": 1583.8217703466,
+        "timestamp": "2022-10-31T10:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1575.0114610694,
+        "upper": 1616.4901489517,
+        "forecast": 1582.1124459627,
+        "timestamp": "2022-10-31T10:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1574.2766478162,
+        "upper": 1615.7359840364,
+        "forecast": 1580.7592500701,
+        "timestamp": "2022-10-31T10:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1573.4181885232,
+        "upper": 1614.8549168031,
+        "forecast": 1581.2577973552,
+        "timestamp": "2022-10-31T09:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.7363658523,
+        "upper": 1614.1551380027,
+        "forecast": 1582.1124459627,
+        "timestamp": "2022-10-31T09:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.2700417201,
+        "upper": 1613.6765329991,
+        "forecast": 1581.1153513925,
+        "timestamp": "2022-10-31T09:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.9679896059,
+        "upper": 1613.3665261966,
+        "forecast": 1580.5455675416,
+        "timestamp": "2022-10-31T09:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.1552267702,
+        "upper": 1613.5586943421,
+        "forecast": 1582.1124459627,
+        "timestamp": "2022-10-31T08:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.2258822276,
+        "upper": 1613.6312105451,
+        "forecast": 1583.6793243838,
+        "timestamp": "2022-10-31T08:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.4378472522,
+        "upper": 1613.8487577711,
+        "forecast": 1584.1066351032,
+        "timestamp": "2022-10-31T08:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.7628604696,
+        "upper": 1614.1823303686,
+        "forecast": 1586.5281621319,
+        "timestamp": "2022-10-31T08:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.8087853715,
+        "upper": 1614.2294647249,
+        "forecast": 1587.2403919455,
+        "timestamp": "2022-10-31T07:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.6462774151,
+        "upper": 1614.062677043,
+        "forecast": 1586.6706080946,
+        "timestamp": "2022-10-31T07:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.6462774151,
+        "upper": 1614.062677043,
+        "forecast": 1586.2432973752,
+        "timestamp": "2022-10-31T07:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.7169328725,
+        "upper": 1614.135193246,
+        "forecast": 1584.4627635944,
+        "timestamp": "2022-10-31T07:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.7663912884,
+        "upper": 1614.1859541732,
+        "forecast": 1589.0209257263,
+        "timestamp": "2022-10-31T06:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.7522599274,
+        "upper": 1614.171450656,
+        "forecast": 1589.5194730114,
+        "timestamp": "2022-10-31T06:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.7098658444,
+        "upper": 1614.1279401043,
+        "forecast": 1590.8370506212,
+        "timestamp": "2022-10-31T06:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.7734556213,
+        "upper": 1614.1932045487,
+        "forecast": 1589.6619189741,
+        "timestamp": "2022-10-31T06:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.5685562772,
+        "upper": 1613.9829090814,
+        "forecast": 1584.6764189541,
+        "timestamp": "2022-10-31T05:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.2364760316,
+        "upper": 1613.6420833421,
+        "forecast": 1588.095040553,
+        "timestamp": "2022-10-31T05:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.8408073568,
+        "upper": 1613.2359945415,
+        "forecast": 1588.6647972351,
+        "timestamp": "2022-10-31T05:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.5087271113,
+        "upper": 1612.8951688022,
+        "forecast": 1581.6851080746,
+        "timestamp": "2022-10-31T05:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.321489947,
+        "upper": 1612.7030006567,
+        "forecast": 1577.9815945502,
+        "timestamp": "2022-10-31T04:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.9788118545,
+        "upper": 1612.3512979711,
+        "forecast": 1582.1124459627,
+        "timestamp": "2022-10-31T04:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.5690118187,
+        "upper": 1611.9307056533,
+        "forecast": 1582.5397838509,
+        "timestamp": "2022-10-31T04:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.208883126,
+        "upper": 1611.5610927975,
+        "forecast": 1581.5426621118,
+        "timestamp": "2022-10-31T04:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1569.9403926573,
+        "upper": 1611.2855315026,
+        "forecast": 1581.8275540373,
+        "timestamp": "2022-10-31T03:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1569.9969167537,
+        "upper": 1611.3435441884,
+        "forecast": 1582.8246486075,
+        "timestamp": "2022-10-31T03:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1569.8768028804,
+        "upper": 1611.2202670582,
+        "forecast": 1585.3886215989,
+        "timestamp": "2022-10-31T03:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1569.7213619522,
+        "upper": 1611.060732518,
+        "forecast": 1582.3973378882,
+        "timestamp": "2022-10-31T03:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.0039837819,
+        "upper": 1611.3507973301,
+        "forecast": 1580.5455675416,
+        "timestamp": "2022-10-31T02:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.4349808592,
+        "upper": 1611.7931449238,
+        "forecast": 1578.6938243638,
+        "timestamp": "2022-10-31T02:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.7317327022,
+        "upper": 1612.09771187,
+        "forecast": 1579.5484729713,
+        "timestamp": "2022-10-31T02:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.2263182089,
+        "upper": 1612.6053225249,
+        "forecast": 1580.6880135043,
+        "timestamp": "2022-10-31T02:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.9611328097,
+        "upper": 1613.3594888234,
+        "forecast": 1582.1124459627,
+        "timestamp": "2022-10-31T01:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.6323576337,
+        "upper": 1614.0483906774,
+        "forecast": 1581.2577973552,
+        "timestamp": "2022-10-31T01:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1573.2046656259,
+        "upper": 1614.6357706771,
+        "forecast": 1583.5767622039,
+        "timestamp": "2022-10-31T01:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1573.4236976786,
+        "upper": 1614.8605710448,
+        "forecast": 1584.2490810659,
+        "timestamp": "2022-10-31T01:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1573.7133838412,
+        "upper": 1615.1578862324,
+        "forecast": 1585.8159594871,
+        "timestamp": "2022-10-31T00:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1574.0306265619,
+        "upper": 1615.4834836935,
+        "forecast": 1585.6735135243,
+        "timestamp": "2022-10-31T00:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1574.4616236393,
+        "upper": 1615.9258312872,
+        "forecast": 1585.5310675616,
+        "timestamp": "2022-10-31T00:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1574.9632761741,
+        "upper": 1616.4406950839,
+        "forecast": 1587.3828379082,
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1575.4649287088,
+        "upper": 1616.9555588805,
+        "forecast": 1586.6706080946,
+        "timestamp": "2022-10-30T23:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1575.9100557995,
+        "upper": 1617.4124086083,
+        "forecast": 1588.095040553,
+        "timestamp": "2022-10-30T23:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.2280033364,
+        "upper": 1617.7387294472,
+        "forecast": 1592.5107567221,
+        "timestamp": "2022-10-30T23:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.5934323003,
+        "upper": 1618.1137821593,
+        "forecast": 1596.3567162092,
+        "timestamp": "2022-10-30T23:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.8901841433,
+        "upper": 1618.4183491055,
+        "forecast": 1595.3596216389,
+        "timestamp": "2022-10-30T22:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.9891009751,
+        "upper": 1618.5198709599,
+        "forecast": 1594.3625270687,
+        "timestamp": "2022-10-30T22:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.9325768787,
+        "upper": 1618.4618582741,
+        "forecast": 1589.8043649368,
+        "timestamp": "2022-10-30T22:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.7029483266,
+        "upper": 1618.2261823432,
+        "forecast": 1588.2374865157,
+        "timestamp": "2022-10-30T22:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1576.2931482908,
+        "upper": 1617.8055900254,
+        "forecast": 1586.9412635744,
+        "timestamp": "2022-10-30T21:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1575.9398723514,
+        "upper": 1617.4430103934,
+        "forecast": 1587.3828379082,
+        "timestamp": "2022-10-30T21:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1575.4382198166,
+        "upper": 1616.9281465967,
+        "forecast": 1589.6619189741,
+        "timestamp": "2022-10-30T21:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1574.7881920341,
+        "upper": 1616.2610000185,
+        "forecast": 1590.8014595071,
+        "timestamp": "2022-10-30T21:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1573.950928435,
+        "upper": 1615.4016866779,
+        "forecast": 1591.0863242637,
+        "timestamp": "2022-10-30T20:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1573.1737210988,
+        "upper": 1614.6040112109,
+        "forecast": 1587.6677026648,
+        "timestamp": "2022-10-30T20:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1572.3541210271,
+        "upper": 1613.7628265753,
+        "forecast": 1590.9439054698,
+        "timestamp": "2022-10-30T20:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.8030100764,
+        "upper": 1613.1972018515,
+        "forecast": 1590.2316756562,
+        "timestamp": "2022-10-30T20:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.4921268724,
+        "upper": 1612.878131388,
+        "forecast": 1587.8101486275,
+        "timestamp": "2022-10-30T19:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.25967097,
+        "upper": 1612.6395536472,
+        "forecast": 1584.5339729914,
+        "timestamp": "2022-10-30T19:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.1042286942,
+        "upper": 1612.4800177239,
+        "forecast": 1580.9016960328,
+        "timestamp": "2022-10-30T19:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.0406389173,
+        "upper": 1612.4147532795,
+        "forecast": 1579.121162252,
+        "timestamp": "2022-10-30T19:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.8216068645,
+        "upper": 1612.1899529118,
+        "forecast": 1579.5484729713,
+        "timestamp": "2022-10-30T18:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.5672491045,
+        "upper": 1611.9288965173,
+        "forecast": 1577.9815945502,
+        "timestamp": "2022-10-30T18:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.5107964331,
+        "upper": 1611.8709571374,
+        "forecast": 1579.4060270086,
+        "timestamp": "2022-10-30T18:15:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.4860658775,
+        "upper": 1611.8455752907,
+        "forecast": 1579.4772635744,
+        "timestamp": "2022-10-30T18:00:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1570.6662373613,
+        "upper": 1612.0304916776,
+        "forecast": 1579.6909189341,
+        "timestamp": "2022-10-30T17:45:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.0689717166,
+        "upper": 1612.4438322368,
+        "forecast": 1577.8391757563,
+        "timestamp": "2022-10-30T17:30:00Z"
+      },
+      {
+        "real": null,
+        "lower": 1571.432845503,
+        "upper": 1612.8172888151,
+        "forecast": 1578.6938243638,
+        "timestamp": "2022-10-30T17:15:00Z"
+      }
+    ]
+  }
+}
