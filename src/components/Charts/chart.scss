@@ -256,6 +256,11 @@
     position: relative;
     width: 121px;
 
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
     &-button {
       width: 100%;
       position: relative;

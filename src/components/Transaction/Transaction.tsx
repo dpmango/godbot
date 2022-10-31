@@ -12,10 +12,10 @@ export const Transaction: React.FC<{}> = () => {
   const { userData } = useAppSelector((state) => state.userState);
   const [filter, setFilter] = useState<string>("");
   const [recData, setRecData] = useState<IRecObj[]>();
-  const { loaded } = useSkeleton(Boolean(recData));
+  const { loaded } = useSkeleton(true);
 
   useLayoutEffect(() => {
-    dispatch(getRecData("/rec"));
+    dispatch(getRecData());
   }, []);
 
   const checkStatus = (status: string) => {
@@ -32,12 +32,12 @@ export const Transaction: React.FC<{}> = () => {
 
   useEffect(() => {
     filter
-      ? setRecData(data.filter((elem) => elem.order_status === filter))
-      : setRecData(data);
+      ? setRecData(data.signals?.filter((elem) => elem.status === filter))
+      : setRecData(data.signals);
   }, [filter]);
 
   useLayoutEffect(() => {
-    setRecData(data);
+    setRecData(data.signals);
   }, [data]);
 
   return (
@@ -77,10 +77,10 @@ export const Transaction: React.FC<{}> = () => {
             <div className="recomendation__item">
               {loaded ? (
                 <div style={{ width: "135px" }}>
-                  <div className="skeleton-box">{elem.signal}</div>
+                  <div className="skeleton-box">{elem.date}</div>
                 </div>
               ) : (
-                <p className="recomendation__signal">{elem.signal}</p>
+                <p className="recomendation__signal">{elem.date}</p>
               )}
               <div className="recomendation__wrapper">
                 {loaded ? (
@@ -91,46 +91,46 @@ export const Transaction: React.FC<{}> = () => {
                 ) : (
                   <>
                     <img
-                      src={`./images/${elem.icon}`}
-                      alt={`Coin name ${elem.name}`}
+                      src={`./images/${elem.currency.toLowerCase()}.png`}
+                      alt={`Coin name ${elem.currency}`}
                     />
                     <div>
-                      <h6>{elem.name} </h6>
-                      <p>{elem.shortname}</p>
+                      <h6>{elem.shortname} </h6>
+                      <p>{elem.currency}</p>
                     </div>
                   </>
                 )}
               </div>
               {loaded ? (
                 <div style={{ width: "190px" }}>
-                  <div className="skeleton-box">{elem.order_type}</div>
+                  <div className="skeleton-box">{elem.direction}</div>
                 </div>
               ) : (
                 <p
                   className="recomendation__orderType"
                   style={{
-                    color: elem.order_type === "SHORT" ? "#CA390C" : "#449C62",
+                    color: elem.direction === "SHORT" ? "#CA390C" : "#449C62",
                   }}
                 >
-                  {elem.order_type}
+                  {elem.direction}
                 </p>
               )}
               {loaded ? (
                 <div style={{ width: "226px" }}>
-                  <div className="skeleton-box">{elem.order_status}-90%</div>
+                  <div className="skeleton-box">{elem.status}-90%</div>
                 </div>
               ) : (
                 <p
                   className="recomendation__orderStatus"
-                  style={{ color: checkStatus(elem.order_status) }}
+                  style={{ color: checkStatus(elem.status) }}
                 >
-                  {elem.order_benefit
-                    ? `${elem.order_status} ${elem.order_benefit}`
-                    : elem.order_status}
+                  {elem.stop_loss
+                    ? `${elem.status} ${elem.stop_loss}`
+                    : elem.status}
                 </p>
               )}
               <p className="recomendation__costs recomendation__costs--enter">
-                {elem.enter_cost.map((elem, index) => (
+                {elem.entry_price_range.map((elem, index) => (
                   <>
                     {loaded ? (
                       <div
@@ -147,7 +147,7 @@ export const Transaction: React.FC<{}> = () => {
                 ))}
               </p>
               <p className="recomendation__costs">
-                {elem.exit_cost.map((elem, index) => (
+                {elem.get_exit_range.map((elem, index) => (
                   <>
                     {loaded ? (
                       <div
@@ -165,10 +165,10 @@ export const Transaction: React.FC<{}> = () => {
               </p>
               {loaded ? (
                 <div style={{ width: "153px" }}>
-                  <p className="skeleton-box">{elem.stop_los}</p>
+                  <p className="skeleton-box">{elem.trigger_stop}</p>
                 </div>
               ) : (
-                <p className="recomendation__los">{elem.stop_los}</p>
+                <p className="recomendation__los">{elem.trigger_stop}</p>
               )}
               {loaded ? (
                 <div>

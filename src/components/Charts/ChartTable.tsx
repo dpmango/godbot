@@ -5,7 +5,7 @@ import { ChartDropdown } from "../Dropdown/ChartDropdown";
 import { ChartUpdateTimer } from "./ChartUpdateTimer";
 
 const ChartTable: React.FC<{}> = ({}, ref) => {
-  const [timeChart, setTimeChart] = useState<string | null>("1 минута");
+  const [timeChart, setTimeChart] = useState<string | null>("15 минут");
   const dispatch = useAppDispatch();
   const { currentCoin, data } = useAppSelector((state) => state.chartState);
 
@@ -20,7 +20,9 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
   return (
     <div className="chart__head" ref={ref}>
       <h2 className="title">График прогноза</h2>
-      <ChartDropdown title={currentCoin}>
+      <ChartDropdown
+        title={currentCoin}
+      >
         {data.graphs_data && (
           <ul>
             {Object.keys(data.graphs_data).map((elem, index) => (
@@ -31,7 +33,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
           </ul>
         )}
       </ChartDropdown>
-      <ChartDropdown title={timeChart}>
+      <ChartDropdown title={timeChart} disabled>
         {
           <ul>
             <li onClick={handleTimeClick}>15 минут</li>

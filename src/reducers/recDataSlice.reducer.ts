@@ -2,42 +2,40 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const getRecData = createAsyncThunk(
   "recomendation/recomendationData",
-  async (url: string) => {
-    const data = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify({ key: "31sda$sd#231wfdsS*31)9s" }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+  async () => {
+    const data = await fetch(`${process.env.REACT_APP_API_URL}get_signals/`);
     const resp = await data.json();
     return resp;
   }
 );
- 
+
 export interface IRecObj {
-  signal: string;
-  name: string;
+  date: string;
+  currency: string;
   shortname: string;
-  order_benefit?: string
+  stop_loss?: string;
   icon: string;
-  order_type: string;
-  order_status: string;
-  enter_cost: string[];
-  exit_cost: string[];
-  stop_los: string;
+  direction: string;
+  status: string;
+  entry_price_range: string[];
+  get_exit_range: string[];
+  trigger_stop: string;
   risk: number;
+}
+
+export interface IRecSignas {
+  message?: string;
+  signals?: IRecObj[];
 }
 
 interface IRecState {
   loading: string;
-  data: IRecObj[];
+  data: IRecSignas;
 }
 
 const initialState: IRecState = {
   loading: "pending",
-  data: [],
+  data: {},
 };
 
 export const recomendationState = createSlice({

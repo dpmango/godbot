@@ -1181,6 +1181,10 @@
     }
 
     img {
+      border-radius: 50%;
+      object-fit: contain;
+      max-height: 24px;
+      max-width: 24px;
       margin-right: 10px;
     }
   }

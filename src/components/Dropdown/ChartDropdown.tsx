@@ -4,13 +4,14 @@ import { useDropdown } from "../../hooks/useDropdown";
 interface IChartTable {
   children: React.ReactElement;
   title: string | null;
+  disabled?: boolean
 }
 
-export const ChartDropdown: React.FC<IChartTable> = ({ children, title }) => {
+export const ChartDropdown: React.FC<IChartTable> = ({ children, title, disabled  }) => {
   const { handleStateChange, menuState } = useDropdown();
 
   return (
-    <div className="chart__dropdown">
+    <div className={disabled ? "chart__dropdown disabled" : "chart__dropdown"}>
       <button
         onClick={handleStateChange}
         className={
