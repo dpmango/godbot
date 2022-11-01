@@ -99,11 +99,7 @@
     height: 100%;
     pointer-events: none;
     width: 100%;
-    background: linear-gradient(
-      89.6deg,
-      rgba(31, 58, 153, 0.3) 51.47%,
-      rgba(136, 1, 158, 0.3) 91.55%
-    );
+    background: #141414;
     transition: opacity 0.3s;
   }
 }
@@ -147,7 +143,7 @@
   }
 
   .table__switch-button {
-    background-color: #171d2e;
+    background-color: #171b1d;
     color: white;
 
     &::after,
@@ -157,7 +153,7 @@
   }
 
   .table__switch-button--active {
-    background-color: #18203d;
+    background-color: #1c2326;
   }
 
   ul {
@@ -178,7 +174,6 @@
 
   .language__list,
   .question__list,
-  .menu__list,
   .user__list {
     color: white;
     background: #232425;
@@ -199,26 +194,25 @@
   }
 
   .header__usercard-menu span {
-    background-color: white;
+    background-color: white !important;
   }
 
   .language__button {
-    background: linear-gradient(
-      99.31deg,
-      rgba(31, 58, 153, 0.3) -2.82%,
-      rgba(136, 1, 158, 0.3) 60.21%
-    );
+    background: #141414;
     backdrop-filter: blur(5px);
-    border-color: transparent;
 
     &::before {
       background-image: url("http://localhost:3000/images/ChevronDown-white.svg");
     }
+    &._active,
+    &:hover {
+      background: #4572ee;
+    }
   }
 
   .recomendation {
-    background: rgba(21, 22, 23, 0.4);
-    backdrop-filter: blur(2.5px);
+    background: #1c2326;
+    // backdrop-filter: blur(2.5px);
 
     * {
       color: white;
@@ -226,12 +220,7 @@
   }
 
   .question__button {
-    border-color: transparent;
-    background: linear-gradient(
-      99.31deg,
-      rgba(31, 58, 153, 0.3) -2.82%,
-      rgba(136, 1, 158, 0.3) 60.21%
-    );
+    background: #141414;
     backdrop-filter: blur(5px);
 
     svg path {
@@ -242,14 +231,15 @@
       background-image: url("http://localhost:3000/images/ChevronDown-white.svg");
     }
 
+    &._active,
     &:hover {
-      background: #88019e;
+      background: #4572ee;
     }
   }
 
   .header__usercard {
     color: white;
-    background: rgba(21, 22, 23, 0.4);
+    background: #1c2326;
     backdrop-filter: blur(5px);
 
     &-subscription {
@@ -299,17 +289,13 @@
     background: linear-gradient(
       95.65deg,
       rgba(32, 34, 58, 0.265) 10.51%,
-      rgba(54, 29, 54, 0.362) 94.31%
+      #1d333603 94.31%
     );
   }
 
   .chart__dropdown-button {
-    background: linear-gradient(
-      99.31deg,
-      rgba(31, 58, 153, 0.3) -2.82%,
-      rgba(136, 1, 158, 0.3) 60.21%
-    );
-    border: 1px solid transparent;
+    background: #141414;
+    border: 1px solid #4572ee;
 
     &::before {
       background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke='white' stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
@@ -319,16 +305,12 @@
   }
 
   .chart__dropdown-wrapper ul {
-    background: linear-gradient(
-      99.31deg,
-      rgba(31, 58, 153, 0.3) -2.82%,
-      rgba(136, 1, 158, 0.3) 60.21%
-    );
-    border: 1px solid transparent;
+    background: #141414;
+    border: 1px solid #4572ee;
   }
 
   .table {
-    background: rgba(21, 22, 23, 0.4);
+    background: #1c2326;
 
     * {
       color: white;

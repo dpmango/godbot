@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const getChartData = createAsyncThunk(
   "chart/chartData",
   async (url: string) => {
-    const data = await fetch(`${process.env.REACT_APP_API_URL}get_graph/`);
+    // const data = await fetch(`${process.env.REACT_APP_API_URL}get_graph/`);
+    const data = await fetch(`./graph.json`);
     const resp = await data.json();
     return resp;
   }
 );
+
+
 
 export interface IChartObj {
   title?: unknown;
@@ -24,7 +28,7 @@ interface IChartData {
 
 const initialState: IChartData = {
   loading: "pending",
-  currentCoin: "BTC",
+  currentCoin: window.location.search.slice(6, 9) || "BTC",
   data: {},
 };
 

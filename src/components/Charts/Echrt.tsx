@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import * as echarts from "echarts";
 import { ChartLegend } from "./ChartLegend";
 import { Loader } from "../UIelems/Loader";
 import { set } from "immer/dist/internal";
 import { useAppSelector } from "../../reducers/hooks.store";
+import { ThemeContext } from "../../App";
 
 export const Echrt: React.FC<{ containerWidth: number }> = ({
   containerWidth,
@@ -15,12 +16,15 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
   const [colors, setColors] = useState<any>([]);
   const [graph, setGraph] = useState<any>(null);
   const containerRef: any = useRef();
+  const ctx = useContext(ThemeContext)
+  console.log(ctx);
+  
 
   const initChart = async () => {
     const resp = await fetch("./test.json");
     const dataJson = await resp.json();
 
-    const color = ["#3182bd", "#636363", "#de2d26", "#ee6666"];
+    const color = ["#3182bd", "#1c9099", "#43a2ca", "#9ebcda"];
     const series = [
       {
         name: "Real",
@@ -76,15 +80,17 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
       color,
       dataZoom: [
         {
+          throttle: 0,
           type: "inside",
           xAxisIndex: [0],
-          start: 0,
-          end: 100,
+          start: 50,
+          end: 60,
         },
         {
+          throttle: 0,
           type: "inside",
           yAxisIndex: [0],
-          start: 50,
+          start: 90,
           end: 100,
         },
       ],
@@ -105,9 +111,19 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
           show: true,
           lineStyle: {
             type: "dashed",
+            color:  ctx?.theme ? '#5F636A' : '#DDDFE1'
           },
         },
-        data: data.graphs_data[currentCoin].map((elem: any) => elem.timestamp),
+        axisLabel: {
+          rotate: window.innerWidth < 576 ? 8 : 0,
+          fontSize: window.innerWidth < 576 ? 9 : 12,
+        },
+        data: data.graphs_data[currentCoin]
+          .map(
+            (elem: any) =>
+              elem.timestamp.slice(0, 10) + " " + elem.timestamp.slice(11, 19)
+          )
+          .reverse(),
       },
       yAxis: {
         type: "value",
@@ -115,11 +131,13 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
           show: true,
           lineStyle: {
             type: "dashed",
+            color:  ctx?.theme ? '#5F636A' : '#DDDFE1'
           },
         },
         axisLabel: {
           align: "right",
-          margin: 12,
+          margin: window.innerWidth < 876 ? 3 : 12,
+          fontSize: window.innerWidth < 576 ? 9 : 12,
           verticalAlign: "top",
         },
       },
@@ -157,7 +175,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
           height: "545px",
           width:
             window.innerWidth < 876
-              ? '100%'
+              ? "100%"
               : window.innerWidth < 1140
               ? chartWidth + 170 + "px"
               : chartWidth + 200 + "px",

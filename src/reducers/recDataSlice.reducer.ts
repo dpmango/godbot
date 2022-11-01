@@ -3,7 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const getRecData = createAsyncThunk(
   "recomendation/recomendationData",
   async () => {
-    const data = await fetch(`${process.env.REACT_APP_API_URL}get_signals/`);
+    // const data = await fetch(`${process.env.REACT_APP_API_URL}get_signals/`);
+    const data = await fetch(`./signals.json`);
     const resp = await data.json();
     return resp;
   }
