@@ -1,0 +1,237 @@
+.mobile {
+  top: 0;
+  right: 0;
+  width: 100%;
+  transform: translateY(-100%);
+  padding-top: 20px;
+  z-index: 100;
+  padding-bottom: 60px;
+  background-color: white;
+  position: absolute;
+  transition: all 0.6s;
+
+  &.active {
+    transform: translateY(0%);
+  }
+
+  .header__usercard-menu {
+    display: none;
+  }
+
+  .header__usercard {
+    display: flex;
+    width: 95%;
+    margin: 0 auto 20px;
+  }
+
+  .language__list li img {
+    margin: 0 auto;
+  }
+
+  .language {
+    display: block;
+    margin-right: 0;
+  }
+
+  &__menu {
+    display: none;
+    z-index: 101;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    margin-left: 5px;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: black;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    span {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: black;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    &::before {
+      top: 35%;
+    }
+
+    &::after {
+      top: 65%;
+    }
+
+    &.active {
+      &::before {
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+      &::after {
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      span {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    width: 95%;
+    margin: 0 auto 15px;
+  }
+
+  &__item {
+    a {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      color: #262628;
+      text-transform: uppercase;
+      border-top: 1px solid #dddfe1;
+
+      svg {
+        margin-right: 6px;
+      }
+    }
+
+    &:last-child {
+      border-bottom: 1px solid #dddfe1;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      a {
+        color: silver;
+      }
+
+      svg path {
+        stroke: silver;
+      }
+    }
+  }
+
+  &__rights {
+    padding: 18px 23px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid #dddfe1;
+    p {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 14px;
+      color: #818184;
+      margin-bottom: 14px;
+    }
+
+    li {
+      position: relative;
+
+      &:not(:last-child) {
+        margin-bottom: 18px;
+      }
+      a {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        text-transform: uppercase;
+        color: #262628;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        left: -10px;
+        top: 8px;
+        background-color: #262628;
+      }
+    }
+  }
+
+  &__services {
+    li {
+      a {
+        display: block;
+        padding: 20px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        text-transform: uppercase;
+        color: #262628;
+        border-bottom: 1px solid #dddfe1;
+      }
+    }
+  }
+
+  &__socials {
+    margin-top: 30px;
+    margin-bottom: 27px;
+    justify-content: center;
+    display: flex;
+    li {
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      a {
+        border-radius: 50%;
+        position: relative;
+        border: 1px solid #dddfe1;
+        display: block;
+        width: 30px;
+        height: 30px;
+        svg {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          position: absolute;
+        }
+      }
+    }
+  }
+
+  &__conf {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 150%;
+    text-align: center;
+    color: #818184;
+  }
+}
+
+@media (max-width: 576px) {
+  .language {
+    display: none;
+  }
+
+  .mobile {
+    &__menu {
+      display: block;
+    }
+  }
+}

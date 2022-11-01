@@ -5,10 +5,13 @@ import { Loader } from "../UIelems/Loader";
 import { set } from "immer/dist/internal";
 import { useAppSelector } from "../../reducers/hooks.store";
 
-export const Echrt: React.FC<{}> = () => {
+export const Echrt: React.FC<{ containerWidth: number }> = ({
+  containerWidth,
+}) => {
   const { data, currentCoin } = useAppSelector((state) => state.chartState);
   const [loader, setLoader] = useState(false);
   const [series, setSeries] = useState<any>([]);
+  const [chartWidth, setChartWidth] = useState(1360);
   const [colors, setColors] = useState<any>([]);
   const [graph, setGraph] = useState<any>(null);
   const containerRef: any = useRef();
@@ -17,12 +20,7 @@ export const Echrt: React.FC<{}> = () => {
     const resp = await fetch("./test.json");
     const dataJson = await resp.json();
 
-    const color = [
-      "#3182bd",
-      "#636363",
-      "#de2d26",
-      "#ee6666",
-    ];
+    const color = ["#3182bd", "#636363", "#de2d26", "#ee6666"];
     const series = [
       {
         name: "Real",
@@ -132,6 +130,9 @@ export const Echrt: React.FC<{}> = () => {
       setLoader(true);
     }, 1000);
     window.onresize = function () {
+      setChartWidth(
+        document.querySelector(".table__inner")?.clientWidth as number
+      );
       graph.resize();
     };
   };
@@ -154,8 +155,13 @@ export const Echrt: React.FC<{}> = () => {
         className="chart-container"
         style={{
           height: "545px",
-          width: "1567px",
-          marginLeft: "-80px",
+          width:
+            window.innerWidth < 876
+              ? '100%'
+              : window.innerWidth < 1140
+              ? chartWidth + 170 + "px"
+              : chartWidth + 200 + "px",
+          marginLeft: window.innerWidth < 876 ? "10px" : "-80px",
           marginTop: "-30px",
           zIndex: "-10",
           position: "relative",

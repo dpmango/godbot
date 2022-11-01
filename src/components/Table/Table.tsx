@@ -77,7 +77,7 @@ export const Table: React.FC<{}> = () => {
           <div style={{ opacity: investorTable ? "0" : "1" }}>
             <ChartTable />
           </div>
-          {!investorTable ? <Echrt /> : ''}
+          {!investorTable ? <Echrt containerWidth={addsRef.current?.clientWidth}/> : ''}
         </div>
         {/* <SideAdds setVisible={handleClick} visible={visible} /> */}
       </div>

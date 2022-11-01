@@ -20,26 +20,26 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
   return (
     <div className="chart__head" ref={ref}>
       <h2 className="title">График прогноза</h2>
-      <ChartDropdown
-        title={currentCoin}
-      >
-        {data.graphs_data && (
-          <ul>
-            {Object.keys(data.graphs_data).map((elem, index) => (
-              <li onClick={handleCoinClick} key={index}>
-                {elem}
-              </li>
-            ))}
-          </ul>
-        )}
-      </ChartDropdown>
-      <ChartDropdown title={timeChart} disabled>
-        {
-          <ul>
-            <li onClick={handleTimeClick}>15 минут</li>
-          </ul>
-        }
-      </ChartDropdown>
+      <div className="chart__wrapper">
+        <ChartDropdown title={currentCoin}>
+          {data.graphs_data && (
+            <ul>
+              {Object.keys(data.graphs_data).map((elem, index) => (
+                <li onClick={handleCoinClick} key={index}>
+                  {elem}
+                </li>
+              ))}
+            </ul>
+          )}
+        </ChartDropdown>
+        <ChartDropdown title={timeChart} disabled>
+          {
+            <ul>
+              <li onClick={handleTimeClick}>15 минут</li>
+            </ul>
+          }
+        </ChartDropdown>
+      </div>
       <ChartUpdateTimer />
       <button className="chart__download">CКАЧАТЬ</button>
     </div>

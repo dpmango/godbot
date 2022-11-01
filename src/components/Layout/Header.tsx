@@ -6,10 +6,17 @@ import { QuestionDropdown } from "../Dropdown/QuestionDropdown";
 import { ThemeChanger } from "../UIelems/ThemeChanger";
 import { UserCard } from "../UIelems/UserCard";
 import { Winrate } from "../UIelems/Winrate";
+import { MobileMenu } from "./MobileMenu";
+import { useState } from "react";
 
 export const Header: React.FC<{}> = () => {
+  const [menu, setMenu] = useState(false);
+
   return (
     <header className="header">
+      <>
+        <MobileMenu active={menu} />
+      </>
       <nav className="menu">
         <Link to="/" className="logo">
           <img src="./images/Logo.svg" alt="" />
@@ -99,6 +106,12 @@ export const Header: React.FC<{}> = () => {
         <QuestionDropdown />
         <LanguageDropdown />
         <UserCard />
+        <button
+          className={menu ? "mobile__menu active" : "mobile__menu"}
+          onClick={() => setMenu(!menu)}
+        >
+          <span></span>
+        </button>
       </nav>
     </header>
   );

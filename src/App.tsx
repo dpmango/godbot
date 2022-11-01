@@ -10,7 +10,6 @@ import { Layout } from "./components/Layout/Layout";
 import {
   Routes,
   Route,
-  useNavigate,
   Link,
   useLocation,
 } from "react-router-dom";
@@ -29,7 +28,6 @@ export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
   const [theme, changeTheme] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleChangeTheme = () => {

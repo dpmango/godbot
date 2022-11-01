@@ -28,7 +28,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
       <ul
         className={menuState ? "user__list user__list--active" : "user__list"}
       >
-        <li className="user__item">
+        {/* <li className="user__item">
           <Link
             to={path !== "" ? `/${path}/tarifs` : `${path}tarifs`}
             onClick={handleStateChange}
@@ -36,7 +36,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
           >
             <img src="./images/header/Group.svg" alt="" /> Тарифы
           </Link>
-        </li>
+        </li> */}
         <li className="user__item disabled" onClick={handleStateChange}>
           <Link to="/partnership">
             <img src="./images/header/Group.svg" alt="" /> ПАРТНЕРСКАЯ ПРОГРАММА

@@ -116,6 +116,28 @@
     outline: transparent;
   }
 
+  .mobile {
+    background: #262628;
+
+    &__rights,
+    &__menu {
+      li {
+        &::before {
+          background-color: white;
+        }
+      }
+      span,
+      &::after,
+      &::before {
+        background-color: white;
+      }
+    }
+
+    * {
+      color: white;
+    }
+  }
+
   .investor__card {
     color: white;
     fill: white;
@@ -618,7 +640,7 @@
 
 .question {
   width: 100%;
-  max-width: 220px;
+  max-width: fit-content;
   position: relative;
   margin-left: auto;
   margin-right: 10px;
@@ -686,9 +708,10 @@
   }
 
   &__list {
-    width: 100%;
+    width: 225px;
     top: 40px;
     opacity: 0;
+    right: 0;
     z-index: 10;
     pointer-events: none;
     position: absolute;
@@ -826,7 +849,7 @@
       height: 14px;
       right: 4px;
       top: 2px;
-      background: linear-gradient(89.6deg, #1f3a99 51.47%, #88019e 91.55%);
+      background: #4572ee;
       border-radius: 10px;
       transition: right 0.3s;
     }
@@ -869,6 +892,7 @@
 }
 
 .table {
+  overflow: hidden;
   max-height: 570px;
   position: relative;
   width: 100%;
@@ -1067,6 +1091,10 @@
     }
   }
 
+  &__list {
+    width: 1320px;
+  }
+
   &__top {
     display: flex;
     align-items: baseline;
@@ -1094,8 +1122,23 @@
 
   &__headers {
     display: flex;
+    width: 1320px;
     align-items: center;
     margin-bottom: 21px;
+  }
+
+  &__inner {
+    width: 100%;
+    overflow: auto;
+    padding-bottom: 10px;
+    &::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #4572ee;
+    }
   }
 
   &__head {
@@ -1400,4 +1443,74 @@ line {
 
 .apexcharts-canvas {
   transition: width 0.3s;
+}
+
+@media (max-width: 1140px) {
+  .menu__list li a {
+    font-size: 10px;
+  }
+
+  .menu__item:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  .logo {
+    max-width: 80%;
+  }
+
+  .language {
+    margin-right: 10px;
+  }
+
+  nav {
+    .question__button {
+      padding: 8px 10px 6px;
+
+      &::before {
+        display: none;
+      }
+    }
+    .language__button {
+      padding: 10px 11px 14px;
+      max-height: 42px;
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  .menu__list {
+    margin-left: 10px;
+  }
+
+  .language__item {
+    font-size: 0;
+  }
+}
+
+@media (max-width: 1040px) {
+  .menu__list {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .question,
+  .question__button,
+  .header__usercard {
+    display: none;
+  }
+
+  .header .menu {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .header {
+    position: static;
+  }
 }

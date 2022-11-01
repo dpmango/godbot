@@ -17,6 +17,10 @@
     }
   }
 
+  &__wrapper {
+    display: flex;
+  }
+
   &__load {
     top: 50%;
     left: 50%;
@@ -244,8 +248,8 @@
   &__timer {
     font-weight: 600;
     font-size: 12px;
-    margin-left: auto;
     line-height: 14px;
+    margin-left: auto;
     text-align: right;
     color: #818184;
     margin-right: 19px;
@@ -287,7 +291,7 @@
       }
 
       &--active {
-        border-radius: 15px 15px 0 0;
+        border-radius: 10px 10px 0 0;
 
         &::before {
           transform: rotate(-180deg);
@@ -323,11 +327,7 @@
         transition: background 0.3s;
 
         &:hover {
-          background: #eae7ff;
-
-          &:nth-child(1) {
-            border-radius: 0px 0px 10px 10px;
-          }
+          background: #DDE6FF;
 
           &:last-child {
             border-radius: 0px 0px 10px 10px;
@@ -356,5 +356,55 @@
     &:first-child {
       border-radius: 0;
     }
+  }
+}
+
+@media (max-width: 876px) {
+  .chart__download,
+  .chart__settings,
+  .chart__timer {
+    display: none;
+  }
+
+  .chart__head {
+    margin-right: 0;
+    padding-left: 0;
+    justify-content: space-between;
+
+    .title {
+      font-size: 11px;
+      line-height: 14px;
+      color: #262628;
+    }
+  }
+
+  .chart__dropdown {
+    width: 85px;
+  }
+
+  .table__switch {
+    margin-bottom: 10px;
+  }
+
+  .table__switch-button {
+    background: #ffffff;
+    box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+    border-radius: 10px;
+    margin-right: 8px;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 14px;
+    text-align: center;
+    color: #262628;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .chart__head .title {
+    margin-left: 8px;
+    margin-right: 6px;
   }
 }
