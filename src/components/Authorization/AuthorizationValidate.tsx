@@ -36,7 +36,7 @@ export const AuthorizationValidate: React.FC<{}> = () => {
     e.preventDefault();
     try {
       const resp = await fetch(
-        "https://dev.godbot.pro/api/auth/verification/",
+        `${process.env.REACT_APP_API_URL}auth/verification/`,
         {
           method: "POST",
           headers: {
