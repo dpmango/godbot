@@ -96,6 +96,7 @@
     content: "";
     position: fixed;
     opacity: 0;
+    z-index: -1;
     height: 100%;
     pointer-events: none;
     width: 100%;
@@ -108,8 +109,107 @@
   background: #161616;
   box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
 
+  .menu__list li {
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  .payment__wallet {
+    color: white;
+  }
+
+  .payment__txid,
+  .payment__wrapper--form,
+  .payment__block {
+    background: #1c2326;
+
+    * {
+      color: white;
+    }
+
+    input {
+      color: black;
+    } 
+  }
+
+  .payment__title {
+    color: white;
+  }
+
+  .partnership div.block {
+    background-color: #1c2326;
+
+    p,
+    h3 {
+      color: white;
+    }
+
+    .partnership__card {
+      p {
+        color: black;
+      }
+    }
+  }
+
+  .partnership__balance {
+    background-color: #1c2326;
+  }
+
+  .partnership__list li {
+    background-color: #1c2326;
+
+    p {
+      color: white;
+    }
+  }
+
+  .menu__list li a {
+    color: white;
+
+    svg {
+      stroke: white;
+    }
+
+    svg path {
+      stroke: white;
+    }
+
+    &.active {
+      color: #4572ee;
+      svg path {
+        stroke: #4572ee;
+      }
+      &:hover {
+        svg path {
+          stroke: #4572ee;
+        }
+      }
+    }
+
+    &:hover {
+      svg path {
+        stroke: white;
+      }
+    }
+
+
+  }
+
   .header__usercard-menu {
     outline: transparent;
+  }
+  
+  .partnership__partners {
+    background: #1c2326;
+
+    * {
+      color: white;
+
+      &.sum {
+        color: #449c62;
+      }
+    }
   }
 
   .mobile {
@@ -148,7 +248,7 @@
 
     &::after,
     &::before {
-      border-color: transparent transparent #18203d transparent;
+      border-color: transparent transparent #18203d #1c2326;
     }
   }
 
@@ -475,12 +575,12 @@
       &--active {
         span {
           width: 18px;
-          height: 3px;
+          height: 2px;
           border-radius: 6px;
           background-color: purple;
 
           &:nth-child(1) {
-            margin-bottom: 0px;
+            margin-bottom: 2px;
             transform: rotate(45deg);
           }
 
@@ -892,6 +992,7 @@
   &__wrapper {
     position: relative;
   }
+  
 
   &__lock {
     text-align: center;
@@ -969,6 +1070,7 @@
     z-index: 1;
     position: relative;
     transition: margin 0.3s;
+   
 
     &-button {
       position: relative;
@@ -980,6 +1082,14 @@
       background: #dde6ff;
       border-radius: 10px 10px 0 0;
       transition: background 0.3s;
+      
+      &:nth-child(1) {
+        padding: 19px 25px;
+      }
+
+      &:nth-child(2) {
+        padding: 19px;
+      }
 
       &.disabled {
         pointer-events: none;
@@ -1428,6 +1538,11 @@ line {
 }
 
 @media (max-width: 1140px) {
+
+  .partnership__out {
+    font-size: 14px;
+  }
+
   .menu__list li a {
     font-size: 10px;
   }

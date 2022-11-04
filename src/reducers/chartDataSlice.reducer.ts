@@ -4,14 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 export const getChartData = createAsyncThunk(
   "chart/chartData",
   async (url: string) => {
-    const data = await fetch(`${process.env.REACT_APP_API_URL}get_graph/`);
-    // const data = await fetch(`./graph.json`);
+    // const data = await fetch(`${process.env.REACT_APP_API_URL}get_graph/`);
+    const data = await fetch(`./graph.json`);
     const resp = await data.json();
     return resp;
   }
 );
-
-
 
 export interface IChartObj {
   title?: unknown;
