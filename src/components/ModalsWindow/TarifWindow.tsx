@@ -1,19 +1,11 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useRoutes } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { InfoCircle } from "../UIelems/InfoCircle";
 import "./modals.scss";
 import { Helmet } from "react-helmet";
 
 export const TarifWindow: React.FC<{}> = () => {
-  const test = async () => {
-    const resp = await fetch(`${process.env.REACT_APP_API_URL}get_graph/`);
-    const data = await resp.json();
-    console.log(data);
-  };
-
-  useEffect(() => {
-    test()
-  }, []);
+  const { pathname } = useLocation();
 
   return (
     <div className="tarif">
@@ -21,7 +13,7 @@ export const TarifWindow: React.FC<{}> = () => {
         <meta charSet="utf-8" />
         <title>Godbot | Tarifs</title>
       </Helmet>
-      <Link to="/" className="tarif__close">
+      <Link to={pathname.slice(0,pathname.length - 7 )} className="tarif__close">
         &times;
       </Link>
       <h4 className="tarif__title">Тарифы</h4>

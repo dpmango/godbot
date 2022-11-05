@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+import { useState, Dispatch, SetStateAction } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import { AuthorizationForm } from "../components/Authorization/AuthorizationForm";
 import { AuthorizationSlider } from "../components/Authorization/AuthorizationSlider";
@@ -5,23 +7,48 @@ import { AuthorizationValidate } from "../components/Authorization/Authorization
 import { useAppSelector } from "../reducers/hooks.store";
 
 export const Authorization: React.FC<{}> = () => {
-  const {userData} = useAppSelector(state => state.userState)
+  const [value, setValue] = useState("");
+  const { userData } = useAppSelector((state) => state.userState);
+
+  const sendEmail = async () => {
+    const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: value,
+      }),
+      headers: {
+        "Content-Type": "application/json" as string,
+        "X-CSRFToken": Cookies.get("csrftoken") as string,
+      },
+    });
+
+    return resp;
+  };
+
   return (
     <div className="authorization">
-      <Link to={!userData?.tariff ? '/auth/registration' : '/'} className="authorization__logo">
+      <Link
+        to={!userData?.tariff ? "/auth/registration" : "/"}
+        className="authorization__logo"
+      >
         <img src="http://localhost:3000/images/logo-auth.svg" alt="" />
       </Link>
-      <img
-        className="authorization__bg"
-        src="http://localhost:3000/images/bg.svg"
-        alt=""
-      />
+
       <div className="authorization__inner">
         <Routes>
-          <Route path="/validation" element={<AuthorizationValidate />} />
+          <Route
+            path="/validation"
+            element={
+              <AuthorizationValidate
+                value={value}
+                setValue={setValue}
+                sendEmail={sendEmail}
+              />
+            }
+          />
           <Route path="/registration" element={<AuthorizationForm />} />
         </Routes>
-        <AuthorizationSlider />
+        <img className="authorization__bg" src="/images/reg-bg.png" alt="" />
       </div>
     </div>
   );

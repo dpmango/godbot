@@ -1,11 +1,12 @@
 import { Autoplay, EffectFade, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "./authorization.scss";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
-import "./authorization.scss";
 
 export const AuthorizationSlider: React.FC<{}> = () => {
   return (

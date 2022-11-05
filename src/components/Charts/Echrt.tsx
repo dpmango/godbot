@@ -17,8 +17,6 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
   const [graph, setGraph] = useState<any>(null);
   const containerRef: any = useRef();
   const ctx = useContext(ThemeContext)
-  console.log(ctx);
-  
 
   const initChart = async () => {
     const resp = await fetch("./test.json");

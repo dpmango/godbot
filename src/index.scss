@@ -4,7 +4,20 @@ html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 
+  * {
+    &::-webkit-scrollbar {
+      height: 2px;
+      width: 2px;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      height: 2px;
+      background: #4572ee;
+    }
+  }
+
   &::-webkit-scrollbar {
+    height: 2px;
     width: 2px;
   }
   /* Handle */

@@ -1,11 +1,6 @@
 .authorization {
   min-height: 100vh;
-  background: linear-gradient(
-    50.49deg,
-    #1f3a99 18.35%,
-    #1f3a99 33.66%,
-    #88019e 77.12%
-  );
+  background: #000000;
 
   .invisible {
     right: 0;
@@ -26,8 +21,12 @@
 
   &__bg {
     top: 0;
-    left: 0;
+    right: -20%;
+    max-height: 100%;
+    width: 100%;
     z-index: 0;
+    object-fit: contain;
+    background-size: contain;
     pointer-events: none;
     position: absolute;
   }
@@ -116,9 +115,8 @@
 
   &__text {
     font-weight: 400;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 130%;
-    text-align: center;
     color: #ffffff;
   }
 
@@ -126,17 +124,17 @@
     max-width: 73px;
     height: 64px;
     display: none;
+    color: white;
     padding: 12.5px 8px;
-    background: #eae7ff;
-    border-radius: 10px;
+    background: rgba(69, 114, 238, 0.5);
+    border-radius: 20px;
     font-weight: 600;
     font-size: 10px;
     line-height: 130%;
     text-align: center;
-    color: #262628;
     transition: opacity 0.3s;
 
-    &.mobile {
+    &.onMobile {
       display: block;
     }
 
@@ -157,9 +155,14 @@
     text-align: left;
     padding: 50px 40px;
     max-width: 440px;
-    background: #ffffff;
+    margin-top: 130px;
+    background: linear-gradient(
+      180deg,
+      rgba(102, 175, 203, 0.1) 0%,
+      rgba(102, 175, 203, 0) 100%
+    );
+    border-radius: 21.163px;
     box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
 
@@ -168,13 +171,12 @@
       padding-bottom: 30px;
 
       .authorization__text {
-        color: black;
+        color: white;
         font-weight: 400;
         text-align: left;
         margin-bottom: 17px;
         font-size: 14px;
         line-height: 130%;
-        color: #262628;
       }
 
       .authorization__label::before {
@@ -184,7 +186,6 @@
 
     .authorization__title {
       text-align: left;
-      color: black;
       margin-bottom: 15px;
     }
   }
@@ -194,14 +195,23 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 130%;
-    color: #262628;
+    color: white;
+
+    p {
+      color: white;
+      font-weight: 400;
+      font-size: 13px;
+      white-space: nowrap;
+      line-height: 130%;
+    }
 
     &::before {
       content: "";
       position: absolute;
       width: 18px;
       height: 15px;
-      left: 23px;
+      top: 63px;
+      left: 26px;
       z-index: 2;
       bottom: 43px;
       background-repeat: no-repeat;
@@ -211,14 +221,14 @@
   }
 
   &__input {
-    margin-top: 20px;
+    padding: 23px 123px 23px 57px;
+    margin: 20px 0;
     outline: #ccc5ff;
-    padding: 22px 57px;
-    width: 100%;
-    margin-bottom: 20px;
-    border: 1px solid #ccc5ff;
+    color: white;
+    background-color: transparent;
+    border: 1px solid #ffffff;
     filter: drop-shadow(0px 2px 20px rgba(9, 5, 183, 0.06));
-    border-radius: 10px;
+    border-radius: 40px;
 
     &.validation {
       padding: 22px 0px;
@@ -228,7 +238,7 @@
     }
 
     &::placeholder {
-      color: #ccc5ff;
+      color: #4572ee;
     }
   }
 
@@ -240,8 +250,8 @@
     line-height: 14px;
     text-align: center;
     color: #ffffff;
-    background: linear-gradient(89.36deg, #1f3a99 19.61%, #88019e 85.99%);
-    border-radius: 10px;
+    background: #4572ee;
+    border-radius: 40px;
     transition: opacity 0.3s;
 
     &:hover {
@@ -262,7 +272,7 @@
     font-size: 18px;
     line-height: 14px;
     text-align: center;
-    color: #262628;
+    color: white;
 
     svg {
       margin-right: 10px;
@@ -328,7 +338,7 @@
       max-width: 100%;
       display: block;
       margin-bottom: 15px;
-      &.mobile {
+      &.onMobile {
         display: none;
       }
     }
@@ -343,7 +353,6 @@
     }
 
     &__input {
-      border-radius: 10px;
       &.validation {
         padding: 17px 0;
       }

@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
+import "./authorization.scss";
 
 export const AuthorizationForm: React.FC<{}> = () => {
   const [value, setValue] = useState<string>("");
@@ -37,7 +38,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
       </Helmet>
       <h2 className="authorization__title">Вход / Регистрация</h2>
       <label className="authorization__label" htmlFor="">
-        Введите ваш Email для получения кода авторизации
+        <p>Введите ваш Email для получения кода авторизации</p>
         <input
           value={value}
           className="authorization__input"

@@ -1,12 +1,30 @@
+import { Action } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-import { useRef, useState, MutableRefObject } from "react";
+import {
+  useRef,
+  useState,
+  MutableRefObject,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import "./authorization.scss";
 
-export const AuthorizationValidate: React.FC<{}> = () => {
-  const [timer, setTimer] = useState(59);
-  let [value, setValue] = useState<string>("");
+export interface IAuthorization {
+  sendEmail: () => Promise<Response>;
+  setValue: Dispatch<SetStateAction<string>>;
+  value: string;
+}
+
+export const AuthorizationValidate: React.FC<IAuthorization> = ({
+  sendEmail,
+  setValue,
+  value,
+}) => {
+  const [timer, setTimer] = useState(3);
+  // let [value, setValue] = useState<string>("");
   const validInput: any = useRef();
   const inputsBox = useRef<HTMLDivElement | any>(null);
   const inputsList = inputsBox?.current?.childNodes;
@@ -35,23 +53,17 @@ export const AuthorizationValidate: React.FC<{}> = () => {
   const handleSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
     try {
-      const resp = await fetch(
-        `${process.env.REACT_APP_API_URL}auth/verification/`,
-        {
-          method: "POST",
-          headers: {
-            "X-CSRFToken": Cookies.get("csrftoken") as string,
-          },
-          body: JSON.stringify({
-            code: value,
-          }),
-        }
-      );
+      const resp = await sendEmail();
       if (resp.ok) {
         window.location = "/" as Location | (string & Location);
         Cookies.set("auth", Date.now().toString(), { expires: 7 });
       }
     } catch (error) {}
+  };
+
+  const handleTimer = () => {
+    setTimer(59);
+    const resp = sendEmail();
   };
 
   setTimeout(() => {
@@ -96,21 +108,23 @@ export const AuthorizationValidate: React.FC<{}> = () => {
           </div>
         ))}
         <button
+          type="button"
           className={
             timer
-              ? "authorization__resend mobile disabled"
-              : "authorization__resend mobile"
+              ? "authorization__resend onMobile disabled"
+              : "authorization__resend onMobile"
           }
-          onClick={() => setTimer(59)}
+          onClick={handleTimer}
         >
           {timer ? <strong>{timer}s</strong> : ""} Отправить снова
         </button>
       </div>
       <button
+        type="button"
         className={
           timer ? "authorization__resend disabled" : "authorization__resend"
         }
-        onClick={() => setTimer(59)}
+        onClick={handleTimer}
       >
         {timer ? <strong>{timer}s</strong> : ""} Отправить снова
       </button>
@@ -131,7 +145,7 @@ export const AuthorizationValidate: React.FC<{}> = () => {
         >
           <path
             d="M21 6.7C21.3866 6.7 21.7 6.3866 21.7 6C21.7 5.6134 21.3866 5.3 21 5.3V6.7ZM0.505026 5.50503C0.231659 5.77839 0.231659 6.22161 0.505026 6.49497L4.9598 10.9497C5.23316 11.2231 5.67638 11.2231 5.94975 10.9497C6.22311 10.6764 6.22311 10.2332 5.94975 9.9598L1.98995 6L5.94975 2.0402C6.22311 1.76684 6.22311 1.32362 5.94975 1.05025C5.67638 0.776886 5.23316 0.776886 4.9598 1.05025L0.505026 5.50503ZM21 5.3L1 5.3V6.7L21 6.7V5.3Z"
-            fill="black"
+            fill="white"
           />
         </svg>
         Назад
