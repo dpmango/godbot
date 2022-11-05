@@ -38,7 +38,7 @@ interface IUser {
 export const getCurrentUser = createAsyncThunk(
   "user/getCurrentUser",
   async (body: IUserLogin) => {
-    const data = await fetch("/user", {
+    const data = await fetch("http://localhost:3001/user", {
       method: "POST",
       body: JSON.stringify(body),
       headers: {

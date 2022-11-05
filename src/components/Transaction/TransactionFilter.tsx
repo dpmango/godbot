@@ -4,14 +4,16 @@ import "../Charts/chart.scss";
 
 interface IAppProps {
   filter: (value: string) => void;
+  isSelected: (value: boolean) => void
 }
 
-const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter }) => {
+const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter, isSelected}) => {
   const { menuState, handleStateChange, setValue, value } =
     useDropdown("Активно");
   const handleClick = (value: string) => {
     handleStateChange();
     filter(value);
+    isSelected(true)
     setValue(value ? value : "Показать все");
   };
 
@@ -25,7 +27,7 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter }) => {
             : "chart__dropdown-button chart__dropdown-button--active"
         }
       >
-        {value}
+        Показать все
       </button>
       <div
         className={
@@ -36,7 +38,6 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter }) => {
       >
         <ul>
           {[
-            "",
             "Активно",
             "В ожидании",
             "Отменено",
@@ -44,7 +45,7 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter }) => {
             "Закрыто в прибыль",
           ].map((elem: string, index) => (
             <li onClick={() => handleClick(elem)} key={index}>
-              {elem ? elem : "Показать все"}
+              {elem}
             </li>
           ))}
         </ul>

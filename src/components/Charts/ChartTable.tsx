@@ -1,6 +1,6 @@
 import React, { ForwardRefRenderFunction, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { IChartObj, setStateCoin } from "../../reducers/chartDataSlice.reducer";
+import { useNavigate } from "react-router-dom";
+import { setStateCoin } from "../../reducers/chartDataSlice.reducer";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
 import { ChartDropdown } from "../Dropdown/ChartDropdown";
 import { ChartUpdateTimer } from "./ChartUpdateTimer";
@@ -9,9 +9,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
   const [timeChart, setTimeChart] = useState<string | null>("15 минут");
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
-  const params = useParams()
   const { currentCoin, data } = useAppSelector((state) => state.chartState);
-  console.log(params);
   
 
   const handleTimeClick: React.MouseEventHandler<HTMLElement> = (e) => {
