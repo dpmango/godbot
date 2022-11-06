@@ -36,6 +36,26 @@
     transition: all 0.3s;
     border-bottom: 1px solid #e0e1e3;
 
+    &.pro {
+      pointer-events: none;
+      position: relative;
+      &::before {
+        position: absolute;
+        padding: 1px 4px;
+        content: "PRO";
+        background-color: #ca390c;
+        border-radius: 4px;
+        font-weight: 500;
+        font-size: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 45px;
+        line-height: 14px;
+        text-align: center;
+        color: #ffffff;
+      }
+    }
+
     a {
       width: 100%;
       display: block;
@@ -91,6 +111,74 @@
     &.disabled {
       opacity: 0.5;
     }
+  }
+
+  .tarif__header button {
+    color: white;
+    background: rgba(49, 96, 225, 0.4);
+    border-radius: 10px;
+
+    &.active {
+      background: #4572ee;
+      box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+      border-radius: 10px;
+    }
+  }
+
+  .tarif {
+    background: #000000;
+    box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+    border-radius: 10px;
+  }
+
+  .tarif__title {
+    color: #ffffff;
+  }
+
+  .tarif__card {
+    color: white !important;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 199, 44, 0.1) 0%,
+      rgba(80, 211, 0, 0) 100%
+    );
+    border-radius: 10px;
+
+    * {
+      color: white !important;
+
+      strong {
+        color: #ca390c !important;
+      }
+
+      .tarif__cost span {
+        color: #757e91 !important;
+      }
+    }
+
+    &:nth-child(2) {
+      background: linear-gradient(
+        180deg,
+        rgba(69, 114, 238, 0.1) 0%,
+        rgba(69, 114, 238, 0) 100%
+      );
+      border-radius: 10px;
+    }
+  }
+
+  .ui__lock {
+    div {
+      color: white;
+
+      svg path {
+        fill: white;
+      }
+    }
+  }
+
+  .chart__dropdown-button.active::before,
+  .chart__dropdown-button.active::after {
+    background-color: white;
   }
 
   .user__item:hover {
@@ -194,7 +282,7 @@
   }
 
   .mobile {
-    background: #262628;
+    background: #1e1e1e;
 
     &__rights,
     &__menu {
@@ -1070,11 +1158,6 @@
         padding: 19px;
       }
 
-      &.disabled {
-        pointer-events: none;
-        opacity: 0.5;
-        background-color: silver;
-      }
       // box-shadow: rgba(9, 5, 183, 0.6) -9px -19px 15px 2px ;
 
       &::before {
@@ -1120,6 +1203,35 @@
           &::after {
             opacity: 1;
           }
+        }
+      }
+    }
+
+    &.pro {
+      .table__switch-button:nth-child(2) {
+        pointer-events: none;
+        opacity: 0.5;
+        pointer-events: none;
+        position: relative;
+        &::before {
+          content: "PRO";
+          z-index: 1;
+          width: fit-content;
+          height: fit-content;
+          position: absolute;
+          border: none;
+          opacity: 1;
+          padding: 1px 4px;
+          background-color: #ca390c;
+          border-radius: 4px;
+          font-weight: 500;
+          font-size: 8px;
+          top: 20%;
+          transform: translate(50%, -50%);
+          right: 50%;
+          line-height: 14px;
+          text-align: center;
+          color: #ffffff;
         }
       }
     }

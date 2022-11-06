@@ -2,15 +2,17 @@ import React, { ForwardRefRenderFunction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setStateCoin } from "../../reducers/chartDataSlice.reducer";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
+import { checkOnPro } from "../../scripts/scripts";
 import { ChartDropdown } from "../Dropdown/ChartDropdown";
 import { ChartUpdateTimer } from "./ChartUpdateTimer";
 
 const ChartTable: React.FC<{}> = ({}, ref) => {
+  const { userData } = useAppSelector((state) => state.userState);
+
   const [timeChart, setTimeChart] = useState<string | null>("15 минут");
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { currentCoin, data } = useAppSelector((state) => state.chartState);
-  
 
   const handleTimeClick: React.MouseEventHandler<HTMLElement> = (e) => {
     setTimeChart((e.target as HTMLElement).textContent);
@@ -18,7 +20,11 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
 
   const handleCoinClick: React.MouseEventHandler<HTMLElement> = (e) => {
     dispatch(setStateCoin((e.target as HTMLElement).textContent as string));
-    navigate(`?coin=${(e.target as HTMLElement).textContent}?timestamp=${timeChart?.split(' ')[0]}`)
+    navigate(
+      `?coin=${(e.target as HTMLElement).textContent}?timestamp=${
+        timeChart?.split(" ")[0]
+      }`
+    );
   };
 
   return (
@@ -29,10 +35,21 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
           {data.graphs_data && (
             <ul>
               {Object.keys(data.graphs_data).map((elem, index) => (
-                <li onClick={handleCoinClick} key={index}>
-                  {elem}
+                <li
+                  onClick={handleCoinClick}
+                  className={checkOnPro(userData) ? "" : "pro"}
+                  key={index}
+                >
+                  <p>{elem}</p>
                 </li>
               ))}
+              {checkOnPro(userData) ? (
+                <li>
+                  <button>Заказать просчет +</button>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
           )}
         </ChartDropdown>

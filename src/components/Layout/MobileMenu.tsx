@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../reducers/hooks.store";
+import { checkOnPro } from "../../scripts/scripts";
 import { LanguageDropdown } from "../Dropdown/LanguageDropdown";
 import { ThemeChanger } from "../UIelems/ThemeChanger";
 import { UserCard } from "../UIelems/UserCard";
@@ -10,6 +12,8 @@ export interface IMobileMenuProps {
 }
 
 export const MobileMenu: React.FC<IMobileMenuProps> = ({ active }) => {
+  const { userData } = useAppSelector((state) => state.userState);
+
   return (
     <div className={active ? "mobile active" : "mobile"}>
       <div className="mobile__head">
@@ -66,7 +70,7 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active }) => {
               viewBox="0 0 18 18"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              >
+            >
               <path
                 d="M1 1L1.27735 0.583975C1.12392 0.481689 0.92665 0.472153 0.764071 0.559163C0.601492 0.646172 0.5 0.815602 0.5 1L1 1ZM4 3L3.72265 3.41603C3.8906 3.52799 4.1094 3.52799 4.27735 3.41603L4 3ZM7 1L7.27735 0.583975C7.1094 0.472008 6.8906 0.472008 6.72265 0.583975L7 1ZM10 3L9.72265 3.41603C9.8906 3.52799 10.1094 3.52799 10.2774 3.41603L10 3ZM13 1H13.5C13.5 0.815602 13.3985 0.646172 13.2359 0.559163C13.0733 0.472153 12.8761 0.481689 12.7226 0.583975L13 1ZM17 9H17.5C17.5 8.72386 17.2761 8.5 17 8.5V9ZM5 5.5C4.72386 5.5 4.5 5.72386 4.5 6C4.5 6.27614 4.72386 6.5 5 6.5V5.5ZM9 6.5C9.27614 6.5 9.5 6.27614 9.5 6C9.5 5.72386 9.27614 5.5 9 5.5V6.5ZM5 9.5C4.72386 9.5 4.5 9.72386 4.5 10C4.5 10.2761 4.72386 10.5 5 10.5V9.5ZM9 10.5C9.27614 10.5 9.5 10.2761 9.5 10C9.5 9.72386 9.27614 9.5 9 9.5V10.5ZM5 13.5C4.72386 13.5 4.5 13.7239 4.5 14C4.5 14.2761 4.72386 14.5 5 14.5V13.5ZM9 14.5C9.27614 14.5 9.5 14.2761 9.5 14C9.5 13.7239 9.27614 13.5 9 13.5V14.5ZM0.72265 1.41603L3.72265 3.41603L4.27735 2.58397L1.27735 0.583975L0.72265 1.41603ZM4.27735 3.41603L7.27735 1.41603L6.72265 0.583975L3.72265 2.58397L4.27735 3.41603ZM6.72265 1.41603L9.72265 3.41603L10.2774 2.58397L7.27735 0.583975L6.72265 1.41603ZM10.2774 3.41603L13.2774 1.41603L12.7226 0.583975L9.72265 2.58397L10.2774 3.41603ZM13 16.5H5V17.5H13V16.5ZM1.5 13V1H0.5V13H1.5ZM12.5 1V9H13.5V1H12.5ZM12.5 9V17H13.5V9H12.5ZM13 9.5H17V8.5H13V9.5ZM16.5 9V13H17.5V9H16.5ZM5 6.5H9V5.5H5V6.5ZM5 10.5H9V9.5H5V10.5ZM5 14.5H9V13.5H5V14.5ZM16.5 13C16.5 14.933 14.933 16.5 13 16.5V17.5C15.4853 17.5 17.5 15.4853 17.5 13H16.5ZM5 16.5C3.067 16.5 1.5 14.933 1.5 13H0.5C0.5 15.4853 2.51472 17.5 5 17.5V16.5Z"
                 fill="#4572EE"
@@ -170,6 +174,9 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active }) => {
         </li>
         <li>
           <Link to={"/"}>Привязать Telegram-бота</Link>
+        </li>
+        <li className={checkOnPro(userData) ? "" : "pro"}>
+          <Link to={"/"}>Перейти в Telegram-чат</Link>
         </li>
       </ul>
       <ul className="mobile__socials">

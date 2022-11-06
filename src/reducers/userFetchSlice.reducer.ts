@@ -26,30 +26,30 @@ interface IUser {
   userData: IUserState | null;
 }
 
-// export const getCurrentUser = createAsyncThunk(
-//   "user/getCurrentUser",
-//   async () => {
-//     const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
-//     const resp = await data.json();
-//     return resp;
-//   }
-// );
-
 export const getCurrentUser = createAsyncThunk(
   "user/getCurrentUser",
-  async (body: IUserLogin) => {
-    const data = await fetch("http://localhost:3001/user", {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+  async () => {
+    const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
     const resp = await data.json();
     return resp;
   }
 );
+
+// export const getCurrentUser = createAsyncThunk(
+//   "user/getCurrentUser",
+//   async (body: IUserLogin) => {
+//     const data = await fetch("/user", {
+//       method: "POST",
+//       body: JSON.stringify(body),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+
+//     const resp = await data.json();
+//     return resp;
+//   }
+// );
 
 const initialState: IUser = {
   loading: "none",

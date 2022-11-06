@@ -1,18 +1,16 @@
 import { format, parse } from "date-fns";
+import { toDate } from "date-fns-tz";
 import { useEffect, useState } from "react";
 import { useSkeleton } from "../../hooks/useSkeleton";
 import { useAppSelector } from "../../reducers/hooks.store";
-import { timeDifference } from "../../scripts/scripts";
+import { isValidDate, timeDifference } from "../../scripts/scripts";
 import { UserCardDropDown } from "../Dropdown/UserCardDropDown";
 import { Loader } from "./Loader";
 
 export const UserCard: React.FC<{}> = () => {
   const { userData, timeDiff } = useAppSelector((state) => state.userState);
   const { loaded } = useSkeleton(Boolean(userData));
-  const userDate = userData?.subscription_date
-    .slice(0, 10)
-    .split("-")
-    .join(".");
+  const userDate = isValidDate(userData, 'ua-UK')
 
   return (
     <div className="header__usercard">
@@ -31,9 +29,9 @@ export const UserCard: React.FC<{}> = () => {
 
       {!loaded ? (
         <div>
-          <p className="header__usercard-rank">{userData?.tariff}</p>
+          <p className="header__usercard-rank" style={{display: userData?.tariff ? 'block' : 'none'}}>{userData?.tariff}</p>
           <p className="header__usercard-email">{userData?.name}</p>
-          <p className="header__usercard-subscription">
+          <p className="header__usercard-subscription" style={{display: userData?.tariff ? 'block' : 'none'}}>
             Подписка до:{" "}
             <span
               style={{

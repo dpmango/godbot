@@ -1,11 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, NavLink } from "react-router-dom";
 import { LanguageDropdown } from "../Dropdown/LanguageDropdown";
-import { MenuDropdown } from "../Dropdown/MenuDropdown";
 import { QuestionDropdown } from "../Dropdown/QuestionDropdown";
-import { ThemeChanger } from "../UIelems/ThemeChanger";
 import { UserCard } from "../UIelems/UserCard";
-import { Winrate } from "../UIelems/Winrate";
 import { MobileMenu } from "./MobileMenu";
 import { useState } from "react";
 

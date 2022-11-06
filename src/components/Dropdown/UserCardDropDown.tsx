@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { formatInTimeZone, utcToZonedTime, toDate } from "date-fns-tz";
 import { Link, useLocation } from "react-router-dom";
 import { useDropdown } from "../../hooks/useDropdown";
 import { useSkeleton } from "../../hooks/useSkeleton";
+import { useAppSelector } from "../../reducers/hooks.store";
+import { checkOnPro } from "../../scripts/scripts";
 import { ThemeChanger } from "../UIelems/ThemeChanger";
+import { format } from "date-fns";
 
 export const UserCardDropDown: React.FC<{}> = () => {
+  const { userData } = useAppSelector((state) => state.userState);
   const { menuState, handleStateChange } = useDropdown();
   const { loaded } = useSkeleton(true);
   const { pathname } = useLocation();
@@ -37,8 +42,14 @@ export const UserCardDropDown: React.FC<{}> = () => {
             Сменить тариф
           </Link>
         </li>
-        <li className="user__item disabled" onClick={handleStateChange}>
-          <Link to="/partnership">Привязать Telegram-бота</Link>
+        <li className="user__item" onClick={handleStateChange}>
+          <Link to="/">Привязать Telegram-бота</Link>
+        </li>
+        <li
+          className={checkOnPro(userData) ? "user__item" : "user__item pro"}
+          onClick={handleStateChange}
+        >
+          <Link to="/partnership">Перейти в Telegram-чат</Link>
         </li>
         <div className="user__wrapper">
           <ul className="mobile__socials">

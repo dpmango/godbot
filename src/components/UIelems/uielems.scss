@@ -18,8 +18,8 @@
       line-height: 14px;
       color: #262628;
       max-width: 126px;
-      background: #FFFFFF;
-      border: 1px solid #7482E3;
+      background: #ffffff;
+      border: 1px solid #7482e3;
       box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
       transition: opacity 0.3s;
     }
@@ -27,13 +27,61 @@
     button {
       cursor: default;
       z-index: 9;
-     padding: 0px 7px;
-     font-weight: 600;
-     font-size: 9px;
-     color: white;
-     background: #1F3A99;
-     border-radius: 50%;
+      padding: 0px 7px;
+      font-weight: 600;
+      font-size: 9px;
+      color: white;
+      background: #1f3a99;
+      border-radius: 50%;
     }
-  } 
+  }
 
+  &__lock {
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(69, 114, 238, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+
+    div {
+      text-align: center;
+      max-width: 288px;
+      display: flex;
+      color: #262628;
+      flex-direction: column;
+      align-items: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+
+      svg {
+        margin-bottom: 23px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 120%;
+        text-align: center;
+        color: #262628;
+      }
+
+      h3 {
+        margin-bottom: 22px;
+      }
+
+      a {
+        padding: 14px 23px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        text-align: center;
+        color: #ffffff;
+        background: #4572ee;
+        border-radius: 40px;
+      }
+    }
+  }
 }

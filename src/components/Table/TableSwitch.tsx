@@ -1,13 +1,16 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { useSkeleton } from "../../hooks/useSkeleton";
+import { useAppSelector } from "../../reducers/hooks.store";
+import { checkOnPro } from "../../scripts/scripts";
 
 export const TableSwitch: React.FC<{
   investorTable: boolean;
   setInvestorTable: Dispatch<SetStateAction<boolean>>;
 }> = ({ investorTable, setInvestorTable }) => {
+  const { userData } = useAppSelector((state) => state.userState);
 
   return (
-    <div className="table__switch">
+    <div className={checkOnPro(userData) ? "table__switch" : "table__switch pro"}>
       <button
         onClick={() => setInvestorTable(false)}
         className={
@@ -22,8 +25,8 @@ export const TableSwitch: React.FC<{
         onClick={() => setInvestorTable(true)}
         className={
           investorTable
-            ? "table__switch-button disabled table__switch-button--active"
-            : "table__switch-button disabled"
+            ? "table__switch-button table__switch-button--active"
+            : "table__switch-button"
         }
       >
         Инвестирование

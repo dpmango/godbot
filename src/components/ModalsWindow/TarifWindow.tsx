@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { InfoCircle } from "../UIelems/InfoCircle";
 import "./modals.scss";
 import { Helmet } from "react-helmet";
 
 export const TarifWindow: React.FC<{}> = () => {
+  const [currentBlock, setCurrentBlock] = useState(0);
   const { pathname } = useLocation();
 
   return (
@@ -13,84 +14,95 @@ export const TarifWindow: React.FC<{}> = () => {
         <meta charSet="utf-8" />
         <title>Godbot | Tarifs</title>
       </Helmet>
-      <Link to={pathname.slice(0,pathname.length - 7 )} className="tarif__close">
+      <Link
+        to={pathname.slice(0, pathname.length - 7)}
+        className="tarif__close"
+      >
         &times;
       </Link>
       <h4 className="tarif__title">Тарифы</h4>
+      <div className="tarif__header">
+        {[
+          "1 месяц - без подарка",
+          "6 месяцев + 1 в подарок",
+          "12 месяцев + 4 в подарок",
+        ].map((elem, index) => (
+          <button
+            onClick={() => setCurrentBlock(index)}
+            className={index === currentBlock ? "active" : ""}
+          >
+            {elem}
+          </button>
+        ))}
+      </div>
       <ul className="tarif__inner">
         <li className="tarif__card">
+          <div className="tarif__service">Скидка 20% до 10.11.2022</div>
           <div className="tarif__wrapper">
             <div className="tarif__head">
-              <h5>НОВИЧОК</h5>
-              <p className="tarif__info">
-                1777/3000 <span>куплено</span>
-              </p>
+              <h5>Trader</h5>
             </div>
+            {currentBlock === 0 ? (
+              <p className="tarif__cost">
+                <strong>$99</strong>
+                $0 <span>/за 7 дней</span>
+              </p>
+            ) : currentBlock === 1 ? (
+              <p className="tarif__cost">
+                <strong>$124</strong>
+                $99 <span>/в месяц</span>
+              </p>
+            ) : (
+              <p className="tarif__cost">
+                <strong>$693</strong>
+                $594 <span>/за 6 месяцев</span>
+              </p>
+            )}
+            <Link className="tarif__link" to={"/payment"}>
+              Оплатить
+            </Link>
             <ul className="tarif__list">
-              <li>Доступ к обучающего курса </li>
-              <li>Доступ к графику минутного прогноза ИИ</li>
-              <li>Доступ к части сигналов на покупку/продажу от ИИ</li>
+              <li>График 15-минутного прогноза BTC</li>
+              <li>Сигналы на покупку и продажу активов от ИИ</li>
+              <li>Частичный доступ к обучающему курсу</li>
+              <li>Подключение Telegram-бота (скоро)</li>
+              <li>Служба поддержки 24/7</li>
             </ul>
-            <div className="tarif__bottom sale">
-              <InfoCircle title="По постоплате, при условии получения прибыли более 3% в неделю" />
-              <span className="tarif__sale">СКИДКА 20%</span>
-              <p className="tarif__price">
-                <span>$25 в неделю</span>
-                $20 в неделю
-              </p>
-            </div>
           </div>
-          <Link to={"/payment"} className="tarif__link active">
-            АКТИВНЫЙ ТАРИФ
-          </Link>
         </li>
         <li className="tarif__card">
+          <div className="tarif__service">Скидка 20% до 10.11.2022</div>
           <div className="tarif__wrapper">
             <div className="tarif__head">
-              <h5>ТРЕЙДЕР</h5>
-              <p className="tarif__info saled">
-                места <span>распроданы</span>
+              <h5>Trader</h5>
+            </div>
+            {currentBlock === 0 ? (
+              <p className="tarif__cost">
+                <strong>$999</strong>
+                $0 <span>/за 7 дней</span>
               </p>
-            </div>
+            ) : currentBlock === 1 ? (
+              <p className="tarif__cost">
+                <strong>$1 240</strong>
+                $999 <span>/в месяц</span>
+              </p>
+            ) : (
+              <p className="tarif__cost">
+                <strong>$6 930</strong>
+                $5 994 <span>/за 6 месяцев</span>
+              </p>
+            )}
+            <Link className="tarif__link" to={"/payment"}>
+              Оплатить
+            </Link>
             <ul className="tarif__list">
-              <li>Доступ к обучающего курса </li>
-              <li>
-                Доступ к прогнозам ИИ с ТФ: 1 мин, 5 мин, 1 час, 1 день, 1
-                неделя, 1 месяц
-              </li>
-              <li>Доступ ко всем сигналам на покупку/продажу от ИИ</li>
-              <li>Доступ криптопортфелю, сформированному ИИ</li>
-              <li>Доступ в закрытый чат трейдеров</li>
+              <li>График 15-минутного прогноза BTC</li>
+              <li>Сигналы на покупку и продажу активов от ИИ</li>
+              <li>Частичный доступ к обучающему курсу</li>
+              <li>Подключение Telegram-бота (скоро)</li>
+              <li>Служба поддержки 24/7</li>
             </ul>
-            <div className="tarif__bottom">
-              <p className="tarif__price">$999 в месяц</p>
-              <button className="tarif__promo">Ввести промокод</button>
-            </div>
           </div>
-          <Link to={"/payment"} className="tarif__link">
-            ОПЛАТИТЬ
-          </Link>
-        </li>
-        <li className="tarif__card">
-          <div className="tarif__wrapper">
-            <div className="tarif__head">
-              <h5>ИНВЕСТОР</h5>
-            </div>
-            <ul className="tarif__list">
-              <li>Доступ к обучающему курсу </li>
-              <li>Доступ в чат инвесторов</li>
-              <li>
-                Возможность получить прогноз по любому интересующему активу:
-                валютам, акциям и т.д.
-              </li>
-            </ul>
-            <div className="tarif__bottom">
-              <p className="tarif__price">Индивидуально</p>
-            </div>
-          </div>
-          <Link to={"/payment"} className="tarif__link">
-            ОСТАВИТЬ ЗАЯВКУ
-          </Link>
         </li>
       </ul>
     </div>

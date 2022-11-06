@@ -8,13 +8,14 @@ import React from "react";
 import "../Charts/chart.scss";
 import { Echrt } from "../Charts/Echrt";
 import ChartTable from "../Charts/ChartTable";
+import { LockScreen } from "../UIelems/LockScreen";
 
 export const Table: React.FC<{}> = () => {
   const [visible, setVisible] = useState(true);
   const [investorTable, setInvestorTable] = useState(false);
   const [width, setWidth] = useState<string | number>(1073);
   const { data } = useAppSelector((state) => state.chartState);
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, timeDiff } = useAppSelector((state) => state.userState);
   const [chartLines, setChartLines] = useState(data);
   const addsRef: MutableRefObject<any> = useRef();
   const dispatch = useAppDispatch();
@@ -46,7 +47,7 @@ export const Table: React.FC<{}> = () => {
 
   return (
     <div className={!visible ? "table__wrapper _hidden" : "table__wrapper"}>
-      {userData?.tariff !== "Новичок" ? (
+      {userData?.tariff && timeDiff ? (
         <TableSwitch
           investorTable={investorTable}
           setInvestorTable={setInvestorTable}
@@ -55,9 +56,8 @@ export const Table: React.FC<{}> = () => {
         ""
       )}
       <div className="table__inner" ref={addsRef}>
-        <div
-          className={visible ? "table" : "table table--hidden"}
-        >
+        {userData?.tariff === null || !timeDiff ? <LockScreen /> : ""}
+        <div className={visible ? "table" : "table table--hidden"}>
           {userData?.tariff === "New" ? (
             <div className="table__lock">
               <div>
@@ -77,7 +77,11 @@ export const Table: React.FC<{}> = () => {
           <div style={{ opacity: investorTable ? "0" : "1" }}>
             <ChartTable />
           </div>
-          {!investorTable ? <Echrt containerWidth={addsRef.current?.clientWidth}/> : ''}
+          {!investorTable ? (
+            <Echrt containerWidth={addsRef.current?.clientWidth} />
+          ) : (
+            ""
+          )}
         </div>
         {/* <SideAdds setVisible={handleClick} visible={visible} /> */}
       </div>

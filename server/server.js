@@ -127,10 +127,10 @@ let users = [
     password: "10061978Asd",
     email: "Alex",
     city: "Kiev",
-    tariff: "Трейдер",
+    tariff: "PRO Трейдер",
     name: "can4ik22@gmail.com",
     bank_value: "0",
-    subscription_date: "2022-11-01T22:53:20Z",
+    subscription_date: "2022-12-01T22:53:20Z",
     id: uniqid(),
   },
 ];

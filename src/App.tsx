@@ -4,7 +4,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { useAppDispatch } from "./reducers/hooks.store";
+import { useAppDispatch, useAppSelector } from "./reducers/hooks.store";
 import { getCurrentUser } from "./reducers/userFetchSlice.reducer";
 import { Layout } from "./components/Layout/Layout";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
@@ -25,13 +25,14 @@ function App() {
   const [theme, changeTheme] = useState(true);
   const dispatch = useAppDispatch();
 
+
   const handleChangeTheme = () => {
     changeTheme(!theme);
   };
 
   useEffect(() => {
-    // dispatch(getCurrentUser());
-    dispatch(getCurrentUser({ login: "can4ik22", password: "10061978Asd" }));
+    dispatch(getCurrentUser());
+    // dispatch(getCurrentUser({ login: "can4ik22", password: "10061978Asd" }));
   }, []);
 
   return (

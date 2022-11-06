@@ -16,7 +16,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
   const [colors, setColors] = useState<any>([]);
   const [graph, setGraph] = useState<any>(null);
   const containerRef: any = useRef();
-  const ctx = useContext(ThemeContext)
+  const ctx = useContext(ThemeContext);
 
   const initChart = async () => {
     const resp = await fetch("./test.json");
@@ -109,7 +109,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
           show: true,
           lineStyle: {
             type: "dashed",
-            color:  ctx?.theme ? '#5F636A' : '#DDDFE1'
+            color: "#efefefa3",
           },
         },
         axisLabel: {
@@ -129,7 +129,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
           show: true,
           lineStyle: {
             type: "dashed",
-            color:  ctx?.theme ? '#5F636A' : '#DDDFE1'
+            color: "#efefefa3",
           },
         },
         axisLabel: {
