@@ -42,6 +42,30 @@ export const UserCardDropDown: React.FC<{}> = () => {
             Сменить тариф
           </Link>
         </li>
+        <li className="user__item item-mobile">
+          <Link
+            to={'/partership'}
+            onClick={handleStateChange}
+          >
+            Партнерская программа
+          </Link>
+        </li>
+        <li className="user__item item-mobile">
+          <Link
+            to={'/presale'}
+            onClick={handleStateChange}
+          >
+            Пресейлы
+          </Link>
+        </li>
+        <li className="user__item item-mobile">
+          <Link
+            to={'/learning_center'}
+            onClick={handleStateChange}
+          >
+            Обучающий КУРС
+          </Link>
+        </li>
         <li className="user__item" onClick={handleStateChange}>
           <Link to="/">Привязать Telegram-бота</Link>
         </li>

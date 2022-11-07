@@ -6,6 +6,11 @@
     justify-content: space-between;
   }
 
+  &__inner {
+    width: 100%;
+    display: flex;
+  }
+
   &__title {
     font-weight: 600;
     font-size: 18px;
@@ -15,6 +20,7 @@
   }
 
   &__block {
+    margin-right: 15px;
     padding: 30px 20px;
     max-width: 555px;
     display: flex;
@@ -180,6 +186,7 @@
 
     .payment__wrapper {
       display: flex;
+      width: 100%;
       flex-direction: column;
 
       div {

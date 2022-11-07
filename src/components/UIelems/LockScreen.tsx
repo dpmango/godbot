@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../reducers/hooks.store";
+import './uielems.scss'
 
 interface ILockScreenProps {}
 
