@@ -1,0 +1,15 @@
+{
+  "graphs": [
+    {
+      "message": "success",
+      "data": [
+        {
+          "currency": "Solana",
+          "currency_icon": "https://api.dev.godbot.pro/media/crypto_currency/A720ECF1-1CBD-4E24-9D9B-97D7FBFC68B7.png",
+          "graph_path": "https://api.dev.godbot.pro/media/graphs/test_graph.json",
+          "datetime": "03.11.2022 22:13:04"
+        }
+      ]
+    }
+  ]
+}

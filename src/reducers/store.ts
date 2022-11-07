@@ -3,6 +3,7 @@ import userState from "./userFetchSlice.reducer";
 import chartState from "./chartDataSlice.reducer";
 import recState from "./recDataSlice.reducer";
 import modalState from "./modalSlice.reducer";
+import investorState from "./investorSlice.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     chartState,
     recState,
     modalState,
+    investorState
   },
 });
 

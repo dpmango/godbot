@@ -9,18 +9,22 @@ import "../Charts/chart.scss";
 import { Echrt } from "../Charts/Echrt";
 import ChartTable from "../Charts/ChartTable";
 import { LockScreen } from "../UIelems/LockScreen";
+import { getInvestorData } from "../../reducers/investorSlice.reducer";
+import { InvestorChart } from "../Charts/InvestorChart";
 
 export const Table: React.FC<{}> = () => {
   const [visible, setVisible] = useState(true);
   const [investorTable, setInvestorTable] = useState(false);
   const [width, setWidth] = useState<string | number>(1073);
   const { data } = useAppSelector((state) => state.chartState);
+  const investorData = useAppSelector((state) => state.investorState);
   const { userData, timeDiff } = useAppSelector((state) => state.userState);
   const [chartLines, setChartLines] = useState(data);
   const addsRef: MutableRefObject<any> = useRef();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(getInvestorData());
     dispatch(getChartData("coin=BTC"));
   }, []);
 
@@ -80,7 +84,7 @@ export const Table: React.FC<{}> = () => {
           {!investorTable ? (
             <Echrt containerWidth={addsRef.current?.clientWidth} />
           ) : (
-            ""
+            <InvestorChart />
           )}
         </div>
         {/* <SideAdds setVisible={handleClick} visible={visible} /> */}
