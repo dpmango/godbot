@@ -31,9 +31,9 @@ function App() {
   };
 
   useEffect(() => {
-    // dispatch(getCurrentUser());
-    dispatch(getCurrentUser({ login: "can4ik22", password: "10061978Asd" }));
-  }, []);
+    dispatch(getCurrentUser());
+    // dispatch(getCurrentUser({ login: "can4ik22", password: "10061978Asd" }));
+  }, [])
 
   return (
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>

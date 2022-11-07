@@ -140,6 +140,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
         },
       },
     };
+    
     graph?.setOption(option);
     setGraph(echarts.init(containerRef.current));
     setTimeout(() => {
