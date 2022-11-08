@@ -57,7 +57,7 @@ export const TarifWindow: React.FC<{}> = () => {
             </div>
             <p className="tarif__cost">
               <strong>99$</strong>
-              {data[2]?.plans[currentBlock].cost}$<span>/за 7 дней</span>
+              {data[2]?.plans[currentBlock].cost}$ <span>/за 7 дней</span>
             </p>
             <Link className="tarif__link" to={"/payment"}>
               Оплатить
@@ -78,8 +78,8 @@ export const TarifWindow: React.FC<{}> = () => {
               <h5>{data[1]?.title}</h5>
             </div>
             <p className="tarif__cost">
-              <strong>$999</strong>
-              {data[1]?.plans[currentBlock].cost} <span>/за 7 дней</span>
+              <strong>999$</strong>
+              {data[1]?.plans[currentBlock].cost}$ <span>/за 7 дней</span>
             </p>
             <Link className="tarif__link" to={"/payment"}>
               Оплатить
