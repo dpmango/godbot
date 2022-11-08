@@ -1,4 +1,5 @@
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../reducers/hooks.store";
 import { checkOnPro } from "../../scripts/scripts";
@@ -9,10 +10,18 @@ import "./mobile.scss";
 
 export interface IMobileMenuProps {
   active: boolean;
+  setActive: (value: boolean) => void;
 }
 
-export const MobileMenu: React.FC<IMobileMenuProps> = ({ active }) => {
+export const MobileMenu: React.FC<IMobileMenuProps> = ({
+  active,
+  setActive,
+}) => {
   const { userData } = useAppSelector((state) => state.userState);
+
+  const handleClick = () => {
+    setActive(false);
+  };
 
   return (
     <div className={active ? "mobile active" : "mobile"}>
@@ -22,8 +31,8 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active }) => {
       </div>
       <UserCard />
       <ul className="mobile__list">
-        <li className="mobile__item disabled">
-          <Link to={"*"}>
+        <li className="mobile__item" onClick={handleClick}>
+          <Link to={"/partnership"}>
             <svg
               width="24"
               height="18"

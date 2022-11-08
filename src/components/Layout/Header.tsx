@@ -4,7 +4,7 @@ import { LanguageDropdown } from "../Dropdown/LanguageDropdown";
 import { QuestionDropdown } from "../Dropdown/QuestionDropdown";
 import { UserCard } from "../UIelems/UserCard";
 import { MobileMenu } from "./MobileMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Header: React.FC<{}> = () => {
   const [menu, setMenu] = useState(false);
@@ -12,7 +12,7 @@ export const Header: React.FC<{}> = () => {
   return (
     <header className="header">
       <>
-        <MobileMenu active={menu} />
+        <MobileMenu active={menu} setActive={setMenu} />
       </>
       <nav className="menu">
         <Link to="/" className="logo">

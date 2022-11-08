@@ -1,0 +1,95 @@
+{
+  "message": "\u0423\u0441\u043f\u0435\u0445!",
+  "data": [
+    {
+      "title": "Trial",
+      "description": "\u041f\u0440\u043e\u0431\u043d\u044b\u0439 \u0442\u0430\u0440\u0438\u0444",
+      "plans": [
+        {
+          "id": 9,
+          "period": {
+            "main_period": "1 W",
+            "add_period": "0 D"
+          },
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "title": "PRO Trader",
+      "description": "\u0414\u043e\u0441\u0442\u0443\u043f \u043a \u043e\u0431\u0443\u0447\u0430\u044e\u0449\u0435\u043c\u0443 \u043a\u0443\u0440\u0441\u0443;\r\n\u0414\u043e\u0441\u0442\u0443\u043f \u043a \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u0430\u043c \u0418\u0418 \u0441 \u0422\u0424: 1 \u043c\u0438\u043d, 5 \u043c\u0438\u043d, 1 \u0447\u0430\u0441, 1 \u0434\u0435\u043d\u044c, 1 \u043d\u0435\u0434\u0435\u043b\u044f, 1 \u043c\u0435\u0441\u044f\u0446;\r\n\u0414\u043e\u0441\u0442\u0443\u043f \u043a\u043e \u0432\u0441\u0435\u043c \u0441\u0438\u0433\u043d\u0430\u043b\u0430\u043c \u043d\u0430 \u043f\u043e\u043a\u0443\u043f\u043a\u0443/\u043f\u0440\u043e\u0434\u0430\u0436\u0443 \u043e\u0442 \u0418\u0418;\r\n\u0414\u043e\u0441\u0442\u0443\u043f \u043a\u0440\u0438\u043f\u0442\u043e\u043f\u043e\u0440\u0442\u0444\u0435\u043b\u044e, \u0441\u0444\u043e\u0440\u043c\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u043c\u0443 \u0418\u0418;\r\n\u0414\u043e\u0441\u0442\u0443\u043f \u0432 \u0437\u0430\u043a\u0440\u044b\u0442\u044b\u0439 \u0447\u0430\u0442 \u0442\u0440\u0435\u0439\u0434\u0435\u0440\u043e\u0432",
+      "plans": [
+        {
+          "id": 4,
+          "period": {
+            "main_period": "1 M",
+            "add_period": "0 D"
+          },
+          "cost": 999
+        },
+        {
+          "id": 5,
+          "period": {
+            "main_period": "6 M",
+            "add_period": "1 M"
+          },
+          "cost": 1999
+        },
+        {
+          "id": 6,
+          "period": {
+            "main_period": "12 M",
+            "add_period": "4 M"
+          },
+          "cost": 2999
+        },
+        {
+          "id": 7,
+          "period": {
+            "main_period": "1 W",
+            "add_period": "0 D"
+          },
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "title": "Trader",
+      "description": "\u0414\u043e\u0441\u0442\u0443\u043f \u043a \u043e\u0431\u0443\u0447\u0430\u044e\u0449\u0435\u043c\u0443 \u043a\u0443\u0440\u0441\u0443;\r\n\u0414\u043e\u0441\u0442\u0443\u043f \u043a \u0433\u0440\u0430\u0444\u0438\u043a\u0443 \u043c\u0438\u043d\u0443\u0442\u043d\u043e\u0433\u043e \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u0430 \u0418\u0418;\r\n\u0414\u043e\u0441\u0442\u0443\u043f \u043a \u0447\u0430\u0441\u0442\u0438 \u0441\u0438\u0433\u043d\u0430\u043b\u043e\u0432 \u043d\u0430 \u043f\u043e\u043a\u0443\u043f\u043a\u0443/\u043f\u0440\u043e\u0434\u0430\u0436\u0443 \u043e\u0442 \u0418\u0418",
+      "plans": [
+        {
+          "id": 1,
+          "period": {
+            "main_period": "1 M",
+            "add_period": "0 D"
+          },
+          "cost": 99
+        },
+        {
+          "id": 2,
+          "period": {
+            "main_period": "6 M",
+            "add_period": "1 M"
+          },
+          "cost": 199
+        },
+        {
+          "id": 3,
+          "period": {
+            "main_period": "12 M",
+            "add_period": "4 M"
+          },
+          "cost": 299
+        },
+        {
+          "id": 8,
+          "period": {
+            "main_period": "1 W",
+            "add_period": "0 D"
+          },
+          "cost": 0
+        }
+      ]
+    }
+  ]
+}

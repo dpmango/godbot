@@ -5,8 +5,21 @@ import "./modals.scss";
 import { Helmet } from "react-helmet";
 
 export const TarifWindow: React.FC<{}> = () => {
+  const [data, setData] = useState<any>([]);
   const [currentBlock, setCurrentBlock] = useState(0);
   const { pathname } = useLocation();
+
+  const getTarifs = async () => {
+    const resp = await fetch("/tarif.json");
+    const data = await resp.json();
+    setData(data.data);
+  };
+
+  useEffect(() => {
+    getTarifs();
+  }, []);
+
+  if (!data.length) return <div></div>;
 
   return (
     <div className="tarif">
@@ -40,24 +53,12 @@ export const TarifWindow: React.FC<{}> = () => {
           <div className="tarif__service">Скидка 20% до 10.11.2022</div>
           <div className="tarif__wrapper">
             <div className="tarif__head">
-              <h5>Trader</h5>
+              <h5>{data[2]?.title}</h5>
             </div>
-            {currentBlock === 0 ? (
-              <p className="tarif__cost">
-                <strong>$99</strong>
-                $0 <span>/за 7 дней</span>
-              </p>
-            ) : currentBlock === 1 ? (
-              <p className="tarif__cost">
-                <strong>$124</strong>
-                $99 <span>/в месяц</span>
-              </p>
-            ) : (
-              <p className="tarif__cost">
-                <strong>$693</strong>
-                $594 <span>/за 6 месяцев</span>
-              </p>
-            )}
+            <p className="tarif__cost">
+              <strong>99$</strong>
+              {data[2]?.plans[currentBlock].cost}$<span>/за 7 дней</span>
+            </p>
             <Link className="tarif__link" to={"/payment"}>
               Оплатить
             </Link>
@@ -74,24 +75,12 @@ export const TarifWindow: React.FC<{}> = () => {
           <div className="tarif__service">Скидка 20% до 10.11.2022</div>
           <div className="tarif__wrapper">
             <div className="tarif__head">
-              <h5>Trader</h5>
+              <h5>{data[1]?.title}</h5>
             </div>
-            {currentBlock === 0 ? (
-              <p className="tarif__cost">
-                <strong>$999</strong>
-                $0 <span>/за 7 дней</span>
-              </p>
-            ) : currentBlock === 1 ? (
-              <p className="tarif__cost">
-                <strong>$1 240</strong>
-                $999 <span>/в месяц</span>
-              </p>
-            ) : (
-              <p className="tarif__cost">
-                <strong>$6 930</strong>
-                $5 994 <span>/за 6 месяцев</span>
-              </p>
-            )}
+            <p className="tarif__cost">
+              <strong>$999</strong>
+              {data[1]?.plans[currentBlock].cost} <span>/за 7 дней</span>
+            </p>
             <Link className="tarif__link" to={"/payment"}>
               Оплатить
             </Link>

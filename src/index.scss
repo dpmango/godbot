@@ -111,15 +111,6 @@ body {
   font-size: 14px;
   line-height: 18px;
   color: #262628;
-
-  &::-webkit-scrollbar-thumb {
-    background: black;
-    width: 3px;
-  }
-  &::-webkit-scrollbar-track {
-    background: black;
-    width: 3px;
-  }
 }
 
 .apexcharts-toolbar {
