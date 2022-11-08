@@ -13,7 +13,6 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
 			const graph: any = null;
 			const resp = await fetch('./inv.json');
 			const data = await resp.json();
-			console.log(data);
 
 			const color = ['#3182bd', '#1c9099', '#43a2ca', '#9ebcda'];
 
@@ -100,7 +99,7 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
           },
           axisLabel: {
             rotate: window.innerWidth < 576 ? 8 : 0,
-            fontSize: window.innerWidth < 576 ? 9 : 12,
+            fontSize: 8,
           },
           data: Object.values(data['time_list_forecast'])
         },
@@ -116,7 +115,7 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
 					axisLabel: {
 						align: 'right',
 						margin: window.innerWidth < 876 ? 3 : 12,
-						fontSize: window.innerWidth < 576 ? 9 : 12,
+						fontSize: 8,
 						verticalAlign: 'top'
 					}
 				}
@@ -132,17 +131,17 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
 	if (!graphs) return <div></div>;
 
 	return (
-		<div ref={refsCollection}>
+		<div ref={refsCollection} className='investor'>
 			{graphs?.map((elem) => (
-				<div>
-					<div>
+				<div className='investor__card'>
+					<div className='investor__wrapper'>
 						<img src={elem.data[0].currency_icon} alt={elem.data[0].currency + ' icon'} />
 						<p>
 							{elem.data[0].currency}
 							<span>{elem.data[0].currency.slice(0, 3).toUpperCase()}</span>
 						</p>
 					</div>
-					<div id='graph' style={{height: '300px', width: '253px'}}></div>
+					<div className='investor__chart' id='graph' style={{height: '252px', width: '310px'}}></div>
 				</div>
 			))}
 		</div>

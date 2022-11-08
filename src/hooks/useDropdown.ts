@@ -8,8 +8,13 @@ const useDropdown = (initValue?: string) => {
     setMenuState(!menuState);
   };
 
+  const handleChange: React.MouseEventHandler<HTMLElement> = (e) => {
+    setValue((e.target as HTMLElement).textContent as string)
+  }
+
   return {
     handleStateChange,
+    handleChange,
     menuState,
     setValue,
     value,

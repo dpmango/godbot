@@ -29,9 +29,9 @@ export const UserCard: React.FC<{}> = () => {
 
       {!loaded ? (
         <div>
-          <p className="header__usercard-rank" style={{display: userData?.tariff ? 'block' : 'none'}}>{userData?.tariff}</p>
-          <p className="header__usercard-email">{userData?.name}</p>
-          <p className="header__usercard-subscription" style={{display: userData?.tariff ? 'block' : 'none'}}>
+          <p className="header__usercard-rank" style={{display: userData?.data.tariff ? 'block' : 'none'}}>{userData?.data.tariff}</p>
+          <p className="header__usercard-email">{userData?.data.name}</p>
+          <p className="header__usercard-subscription" style={{display: userData?.data.tariff ? 'block' : 'none'}}>
             Подписка до:{" "}
             <span
               style={{

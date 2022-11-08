@@ -319,9 +319,12 @@
     background-color: #171b1d;
     color: white;
 
-    &::after,
     &::before {
-      border-color: transparent transparent #18203d #1c2326;
+      border-color: transparent transparent transparent #1c2326;
+    }
+
+    &::after {
+      border-color: transparent transparent #1c2326 transparent;
     }
   }
 
@@ -1516,15 +1519,6 @@
     .apexcharts-canvas {
       margin-left: -10px;
     }
-  }
-
-  &__card {
-    max-width: 331px;
-    padding: 16px 20px 0px 20px;
-    width: fit-content;
-    background: #ffffff;
-    box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
-    border-radius: 10px;
   }
 }
 

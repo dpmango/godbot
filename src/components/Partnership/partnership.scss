@@ -233,7 +233,7 @@
 		box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
 		border-radius: 10px;
 
-		&:not(:last-child){
+		&:not(:last-child) {
 			margin-right: 20px;
 		}
 
@@ -258,6 +258,40 @@
 			text-align: center;
 
 			color: #4572ee;
+		}
+	}
+
+	&-raiting {
+		.partnership__title {
+			text-align: left;
+		}
+
+		&__button {
+			padding: 6px 41px 6px 10px;
+			color: white;
+			border: 1px solid #ccc5ff;
+			border-radius: 10px;
+			font-weight: 500;
+			font-size: 10px;
+			line-height: 14px;
+		}
+
+		&__list {
+			top: 30px;
+			left: 0;
+			width: 100%;
+			position: absolute;
+			font-weight: 500;
+			font-size: 10px;
+			line-height: 14px;
+			color: white;
+			border: 1px solid #ccc5ff;
+			border-radius: 10px;
+		}
+
+		&__wrapper {
+			width: fit-content !important;
+			position: relative;
 		}
 	}
 }

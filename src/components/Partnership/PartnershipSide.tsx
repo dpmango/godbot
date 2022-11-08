@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+import {PartnershipRaiting} from './PartnershipRating';
 
 export const PartnershipSide: React.FC<{}> = () => {
 	const referalRef: any = useRef();
@@ -29,29 +30,30 @@ export const PartnershipSide: React.FC<{}> = () => {
 			</div>
 			<div className='partnership__referal block'>
 				<h3 className='partnership__title'>Индивидуальная партнерская система</h3>
-        <ul className="partnership__system">
-          <li className="partnership__card">
-            <p>1 уровень</p>
-            <strong>15%</strong>
-          </li>
-          <li className="partnership__card">
-            <p>2 уровень</p>
-            <strong>10%</strong>
-          </li>
-          <li className="partnership__card">
-            <p>3 уровень</p>
-            <strong>7%</strong>
-          </li>
-          <li className="partnership__card">
-            <p>4 уровень</p>
-            <strong>3%</strong>
-          </li>
-          <li className="partnership__card">
-            <p>5 уровень</p>
-            <strong>1%</strong>
-          </li>
-        </ul>
+				<ul className='partnership__system'>
+					<li className='partnership__card'>
+						<p>1 уровень</p>
+						<strong>15%</strong>
+					</li>
+					<li className='partnership__card'>
+						<p>2 уровень</p>
+						<strong>10%</strong>
+					</li>
+					<li className='partnership__card'>
+						<p>3 уровень</p>
+						<strong>7%</strong>
+					</li>
+					<li className='partnership__card'>
+						<p>4 уровень</p>
+						<strong>3%</strong>
+					</li>
+					<li className='partnership__card'>
+						<p>5 уровень</p>
+						<strong>1%</strong>
+					</li>
+				</ul>
 			</div>
+			<PartnershipRaiting />
 		</div>
 	);
 };

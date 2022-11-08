@@ -4,15 +4,13 @@ import { parse } from "date-fns";
 import { timeDifference } from "../scripts/scripts";
 
 export interface IUserState {
-  login: string;
-  password: string;
-  name: string;
-  city: string;
-  tariff: string;
-  email: string;
-  subscription_date: string;
-  bank_value: string;
-  id: string;
+   message: string
+   data: {
+    name: string
+    tariff: string
+    subscription_date: string
+    allowed_functions: string[]
+   }
 }
 
 export interface IUserLogin {
@@ -26,30 +24,24 @@ interface IUser {
   userData: IUserState | null;
 }
 
-export const getCurrentUser = createAsyncThunk(
-  "user/getCurrentUser",
-  async () => {
-    const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
-    const resp = await data.json();
-    return resp;
-  }
-);
-
 // export const getCurrentUser = createAsyncThunk(
 //   "user/getCurrentUser",
-//   async (body: IUserLogin) => {
-//     const data = await fetch("/user", {
-//       method: "POST",
-//       body: JSON.stringify(body),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-
+//   async () => {
+//     const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
 //     const resp = await data.json();
 //     return resp;
 //   }
 // );
+
+export const getCurrentUser = createAsyncThunk(
+  "user/getCurrentUser",
+  async () => {
+    const data = await fetch("/user");
+
+    const resp = await data.json();
+    return resp;
+  }
+);
 
 const initialState: IUser = {
   loading: "none",
@@ -70,8 +62,10 @@ export const userState = createSlice({
       (state, action: PayloadAction<IUserState>) => {
         state.loading = "fulfilled";
         state.userData = { ...action.payload };
-        const userDate = action.payload?.subscription_date.slice(0,10).split('-').join('.')
+        const userDate = action.payload?.data?.subscription_date.slice(0,10).split('-').join('.')
+        
         const date = parse(userDate as string, "yyyy.MM.dd", new Date());
+        console.log(date);
         state.timeDiff = timeDifference(date)
       }
     );

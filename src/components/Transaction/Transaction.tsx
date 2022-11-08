@@ -10,7 +10,7 @@ import { LockScreen } from "../UIelems/LockScreen";
 export const Transaction: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.recState);
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, timeDiff } = useAppSelector((state) => state.userState);
   const [filter, setFilter] = useState<string>("");
   const [isSelect, setIsSelect] = useState<boolean>(false);
   const [recData, setRecData] = useState<IRecObj[]>();
@@ -49,7 +49,7 @@ export const Transaction: React.FC<{}> = () => {
 
   return (
     <div className="recomendation">
-      {userData?.tariff === null ? <LockScreen /> : ""}
+      {userData?.data.tariff === null || !timeDiff ? <LockScreen /> : ''}
       <div className="recomendation__top">
         <h2 className="title">Рекомендации по торговле</h2>
         {isSelect ? (

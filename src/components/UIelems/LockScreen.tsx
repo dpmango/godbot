@@ -25,7 +25,7 @@ export const LockScreen: FC<ILockScreenProps> = () => {
           />
         </svg>
         <h3>
-          {(!timeDiff && !userData?.tariff) || userData?.tariff
+          {(!timeDiff && !userData?.data.tariff) || userData?.data.tariff
             ? "Для отображения графика нейронной сети необходимо продлить тариф"
             : "Для отображения графика нейронной сети нужно активировать тариф"}
         </h3>

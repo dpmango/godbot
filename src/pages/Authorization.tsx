@@ -28,7 +28,7 @@ export const Authorization: React.FC<{}> = () => {
   return (
     <div className="authorization">
       <Link
-        to={!userData?.tariff ? "/auth/registration" : "/"}
+        to={!userData?.data.tariff ? "/auth/registration" : "/"}
         className="authorization__logo"
       >
         <img src="http://localhost:3000/images/logo-auth.svg" alt="" />
