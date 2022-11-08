@@ -20,17 +20,17 @@ export interface Idata {
 
 export interface IInvestorObj {
   message?: string;
-  data: Idata;
+  data?: Idata[];
 }
 
 export interface IInvestorData {
   loading: string;
-  graphs: IInvestorObj[];
+  graphs: IInvestorObj;
 }
 
 const initialState: IInvestorData = {
   loading: "pending",
-  graphs: [],
+  graphs: {},
 };
 
 export const investorState = createSlice({

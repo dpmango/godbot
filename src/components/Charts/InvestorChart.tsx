@@ -9,9 +9,9 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
   const refsCollection: any = useRef();
 
   useEffect(() => {
-    graphs.forEach(async (elem, index) => {
+    graphs?.data?.forEach(async (elem, index) => {
       const graph: any = null;
-      const resp = await fetch(elem.data.graph_path);
+      const resp = await fetch(elem.graph_path);
       const data = await resp.json();
 
       const color = ["#3182bd", "#1c9099", "#43a2ca", "#9ebcda"];
@@ -133,16 +133,16 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
 
   return (
     <div ref={refsCollection} className="investor">
-      {graphs?.map((elem) => (
+      {graphs?.data?.map((elem) => (
         <div className="investor__card">
           <div className="investor__wrapper">
             <img
-              src={elem.data.currency_icon}
-              alt={elem.data.currency + " icon"}
+              src={elem.currency_icon}
+              alt={elem.currency + " icon"}
             />
             <p>
-              {elem.data.currency}
-              <span>{elem.data.currency.slice(0, 3).toUpperCase()}</span>
+              {elem.currency}
+              <span>{elem.currency.slice(0, 3).toUpperCase()}</span>
             </p>
           </div>
           <div
