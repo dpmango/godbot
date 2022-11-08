@@ -38,7 +38,7 @@ export const Table: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    if (!investorData.graphs.length) {
+    if (!investorData.graphs.data?.length) {
       dispatch(getInvestorData());
     }
   }, []);
