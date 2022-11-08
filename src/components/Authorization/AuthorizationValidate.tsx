@@ -14,17 +14,13 @@ import "./authorization.scss";
 
 export interface IAuthorization {
   sendEmail: () => Promise<Response>;
-  setValue: Dispatch<SetStateAction<string>>;
-  value: string;
 }
 
 export const AuthorizationValidate: React.FC<IAuthorization> = ({
   sendEmail,
-  setValue,
-  value,
 }) => {
   const [timer, setTimer] = useState(3);
-  // let [value, setValue] = useState<string>("");
+  let [value, setValue] = useState<string>("");
   const validInput: any = useRef();
   const inputsBox = useRef<HTMLDivElement | any>(null);
   const inputsList = inputsBox?.current?.childNodes;
@@ -53,7 +49,10 @@ export const AuthorizationValidate: React.FC<IAuthorization> = ({
   const handleSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
     try {
-      const resp = await sendEmail();
+      const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/verification/`, {
+        method: 'POST',
+        body: JSON.stringify({code: value})
+      })
       if (resp.ok) {
         window.location = "/" as Location | (string & Location);
         Cookies.set("auth", Date.now().toString(), { expires: 7 });

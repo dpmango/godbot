@@ -14,7 +14,7 @@ export const Authorization: React.FC<{}> = () => {
     const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
       method: "POST",
       body: JSON.stringify({
-        email: value,
+        email: localStorage.getItem('email'),
       }),
       headers: {
         "Content-Type": "application/json" as string,
@@ -38,13 +38,7 @@ export const Authorization: React.FC<{}> = () => {
         <Routes>
           <Route
             path="/validation"
-            element={
-              <AuthorizationValidate
-                value={value}
-                setValue={setValue}
-                sendEmail={sendEmail}
-              />
-            }
+            element={<AuthorizationValidate sendEmail={sendEmail} />}
           />
           <Route path="/registration" element={<AuthorizationForm />} />
         </Routes>

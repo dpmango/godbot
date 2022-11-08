@@ -13,6 +13,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    localStorage.setItem('email', value)
     e.preventDefault();
     const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
       method: "POST",
