@@ -20,7 +20,7 @@ export interface Idata {
 
 export interface IInvestorObj {
   message?: string;
-  data: Idata[];
+  data: Idata;
 }
 
 export interface IInvestorData {
@@ -43,7 +43,7 @@ export const investorState = createSlice({
     });
     builder.addCase(getInvestorData.fulfilled, (state, action) => {
       state.loading = "fulfilled";
-      state.graphs = action.payload.data;
+      state.graphs = action.payload;
     });
   },
 });
