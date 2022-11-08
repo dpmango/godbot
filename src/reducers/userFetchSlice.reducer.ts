@@ -24,24 +24,24 @@ interface IUser {
   userData: IUserState | null;
 }
 
-// export const getCurrentUser = createAsyncThunk(
-//   "user/getCurrentUser",
-//   async () => {
-//     const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
-//     const resp = await data.json();
-//     return resp;
-//   }
-// );
-
 export const getCurrentUser = createAsyncThunk(
   "user/getCurrentUser",
   async () => {
-    const data = await fetch("/user");
-
+    const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
     const resp = await data.json();
     return resp;
   }
 );
+
+// export const getCurrentUser = createAsyncThunk(
+//   "user/getCurrentUser",
+//   async () => {
+//     const data = await fetch("/user");
+
+//     const resp = await data.json();
+//     return resp;
+//   }
+// );
 
 const initialState: IUser = {
   loading: "none",
