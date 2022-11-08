@@ -32,9 +32,9 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
       <h2 className="title">График прогноза</h2>
       <div className="chart__wrapper">
         <ChartDropdown title={currentCoin}>
-          {data.graphs_data && (
+          {<data className="data"></data> && (
             <ul>
-              {Object.keys(data.graphs_data).map((elem, index) => (
+              {Object.keys(data.data).map((elem, index) => (
                 <li
                   onClick={handleCoinClick}
                   className={checkOnPro(userData) ? "" : "pro"}

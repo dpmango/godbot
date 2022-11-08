@@ -14,8 +14,7 @@ export const getChartData = createAsyncThunk(
 export interface IChartObj {
   title?: unknown;
   name?: string;
-  graphs_data?: any;
-  data?: number[];
+  data?: any;
 }
 
 interface IChartData {

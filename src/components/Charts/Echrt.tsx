@@ -19,9 +19,6 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
   const ctx = useContext(ThemeContext);
 
   const initChart = async () => {
-    const resp = await fetch("./test.json");
-    const dataJson = await resp.json();
-
     const color = ["#3182bd", "#1c9099", "#43a2ca", "#9ebcda"];
     const series = [
       {
@@ -32,7 +29,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.graphs_data[currentCoin].map((elem: any) => elem.real),
+        data: data.data[currentCoin].map((elem: any) => elem.real),
       },
       {
         name: "Forecast",
@@ -42,7 +39,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.graphs_data[currentCoin].map((elem: any) => elem.forecast),
+        data: data.data[currentCoin].map((elem: any) => elem.forecast),
       },
       {
         name: "Upper",
@@ -52,7 +49,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.graphs_data[currentCoin].map((elem: any) => elem.upper),
+        data: data.data[currentCoin].map((elem: any) => elem.upper),
       },
       {
         name: "Lower",
@@ -62,7 +59,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.graphs_data[currentCoin].map((elem: any) => elem.lower),
+        data: data.data[currentCoin].map((elem: any) => elem.lower),
       },
     ];
 
@@ -116,7 +113,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
           rotate: window.innerWidth < 576 ? 8 : 0,
           fontSize: window.innerWidth < 576 ? 9 : 12,
         },
-        data: data.graphs_data[currentCoin]
+        data: data.data[currentCoin]
           .map(
             (elem: any) =>
               elem.timestamp.slice(0, 10) + " " + elem.timestamp.slice(11, 19)
@@ -155,10 +152,10 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
   };
 
   useEffect(() => {
-    if (data.graphs_data) {
+    if (data.data) {
       initChart();
     }
-  }, [graph, currentCoin, data.graphs_data]);
+  }, [graph, currentCoin, data.data]);
 
   const handleClick = (title: string) => {
     graph?.dispatchAction({ type: "legendToggleSelect", name: title });
