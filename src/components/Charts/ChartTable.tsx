@@ -27,6 +27,8 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
     );
   };
 
+  if (!data.data.length) return <div></div>
+
   return (
     <div className="chart__head" ref={ref}>
       <h2 className="title">График прогноза</h2>
