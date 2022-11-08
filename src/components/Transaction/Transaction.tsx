@@ -39,12 +39,12 @@ export const Transaction: React.FC<{}> = () => {
 
   useEffect(() => {
     filter
-      ? setRecData(data.signals?.filter((elem) => elem.status === filter))
-      : setRecData(data.signals);
+      ? setRecData(data.data?.filter((elem) => elem.status === filter))
+      : setRecData(data.data);
   }, [filter]);
 
   useLayoutEffect(() => {
-    setRecData(data.signals);
+    setRecData(data.data);
   }, [data]);
 
   return (

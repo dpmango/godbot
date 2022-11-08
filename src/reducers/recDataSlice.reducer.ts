@@ -26,7 +26,7 @@ export interface IRecObj {
 
 export interface IRecSignas {
   message?: string;
-  signals?: IRecObj[];
+  data?: IRecObj[];
 }
 
 interface IRecState {
