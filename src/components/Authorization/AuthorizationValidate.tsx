@@ -49,10 +49,17 @@ export const AuthorizationValidate: React.FC<IAuthorization> = ({
   const handleSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
     try {
-      const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/verification/`, {
-        method: 'POST',
-        body: JSON.stringify({code: value})
-      })
+      const resp = await fetch(
+        `${process.env.REACT_APP_API_URL}auth/verification/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json" as string,
+            "X-CSRFToken": Cookies.get("csrftoken") as string,
+          },
+          body: JSON.stringify({ code: value }),
+        }
+      );
       if (resp.ok) {
         window.location = "/" as Location | (string & Location);
         Cookies.set("auth", Date.now().toString(), { expires: 7 });
