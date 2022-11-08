@@ -7,7 +7,7 @@ import { ChartDropdown } from "../Dropdown/ChartDropdown";
 import { ChartUpdateTimer } from "./ChartUpdateTimer";
 
 const ChartTable: React.FC<{}> = ({}, ref) => {
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, loading } = useAppSelector((state) => state.userState);
 
   const [timeChart, setTimeChart] = useState<string | null>("15 минут");
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
     );
   };
 
-  if (!data.data.length) return <div></div>
+  if (loading !== 'fulfilled') return <div></div>
 
   return (
     <div className="chart__head" ref={ref}>
