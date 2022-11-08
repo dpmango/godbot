@@ -43,7 +43,7 @@ export const investorState = createSlice({
     });
     builder.addCase(getInvestorData.fulfilled, (state, action) => {
       state.loading = "fulfilled";
-      state.graphs = action.payload.graphs;
+      state.graphs = action.payload.data;
     });
   },
 });
