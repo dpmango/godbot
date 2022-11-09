@@ -24,14 +24,7 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
   useEffect(() => {
     graphs?.data?.forEach(async (elem, index) => {
       const graph: any = null;
-      const resp = await fetch(elem.graph_path, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json" as string,
-          "X-CSRFToken": Cookies.get("csrftoken") as string,
-        },
-      });
-
+      const resp = await fetch(elem.graph_path);
       const data = await resp.json();
       const color = ["#3182bd", "#1c9099", "#43a2ca", "#9ebcda"];
 
