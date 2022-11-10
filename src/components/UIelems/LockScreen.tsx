@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../reducers/hooks.store";
-import './uielems.scss'
+import "./uielems.scss";
 
 interface ILockScreenProps {}
 
@@ -29,7 +29,12 @@ export const LockScreen: FC<ILockScreenProps> = () => {
             ? "Для отображения графика нейронной сети необходимо продлить тариф"
             : "Для отображения графика нейронной сети нужно активировать тариф"}
         </h3>
-        <Link to={"/tarifs"}>ПОПРОБОВАТЬ БЕСПЛАТНО</Link>
+        <Link to={"/tarifs"}>
+          {" "}
+          {timeDiff && !userData?.data.tariff
+            ? "ПОПРОБОВАТЬ БЕСПЛАТНО"
+            : "ВЫБРАТЬ ТАРИФ"}
+        </Link>
       </div>
     </div>
   );

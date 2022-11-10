@@ -30,10 +30,6 @@ function App() {
     changeTheme(!theme);
   };
 
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [])
-
   return (
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
       <Routes>

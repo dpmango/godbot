@@ -27,14 +27,14 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
     );
   };
 
-  if (loading !== 'fulfilled') return <div></div>
+  if (loading !== "fulfilled") return <div></div>;
 
   return (
     <div className="chart__head" ref={ref}>
       <h2 className="title">График прогноза</h2>
       <div className="chart__wrapper">
         <ChartDropdown title={currentCoin}>
-          {<data className="data"></data> && (
+          {data.data && (
             <ul>
               {Object.keys(data.data).map((elem, index) => (
                 <li

@@ -1,4 +1,10 @@
-import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { getChartData, IChartObj } from "../../reducers/chartDataSlice.reducer";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
@@ -15,7 +21,7 @@ import { ThemeContext } from "../../App";
 
 export const Table: React.FC<{}> = () => {
   const [visible, setVisible] = useState(true);
-  const ctx = useContext(ThemeContext)
+  const ctx = useContext(ThemeContext);
   const [investorTable, setInvestorTable] = useState(false);
   const [width, setWidth] = useState<string | number>(1073);
   const { data } = useAppSelector((state) => state.chartState);
@@ -58,22 +64,27 @@ export const Table: React.FC<{}> = () => {
 
   return (
     <div className={!visible ? "table__wrapper _hidden" : "table__wrapper"}>
-      {userData?.data.tariff && timeDiff ? (
+      {userData?.data.tariff === null || timeDiff ? (
+        ""
+      ) : (
         <TableSwitch
           investorTable={investorTable}
           setInvestorTable={setInvestorTable}
         />
-      ) : (
-        ""
       )}
       <div className="table__inner" ref={addsRef}>
-        {userData?.data.tariff === null || !timeDiff ? <LockScreen /> : ""}
+        {timeDiff || userData?.data.tariff === null ? <LockScreen /> : ""}
         <div
           className={visible ? "table" : "table table--hidden"}
           style={{
             overflow: investorTable ? "visible" : "hidden",
             maxHeight: investorTable ? "100%" : "570px",
-			background: (window.innerWidth < 576 && investorTable) ? 'transparent' : ctx?.theme ? "#1c2326" : 'white'
+            background:
+              window.innerWidth < 576 && investorTable
+                ? "transparent"
+                : ctx?.theme
+                ? "#1c2326"
+                : "white",
           }}
         >
           {userData?.data.tariff === "New" ? (

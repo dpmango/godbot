@@ -175,7 +175,7 @@ export const Echrt: React.FC<{ containerWidth: number }> = ({
               : window.innerWidth < 1140
               ? chartWidth + 170 + "px"
               : chartWidth + 200 + "px",
-          marginLeft: window.innerWidth < 876 ? "10px" : "-80px",
+          marginLeft: window.innerWidth < 876 ? "25px" : "-80px",
           marginTop: "-30px",
           zIndex: "-10",
           position: "relative",

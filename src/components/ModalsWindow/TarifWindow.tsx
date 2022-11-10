@@ -3,6 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { InfoCircle } from "../UIelems/InfoCircle";
 import "./modals.scss";
 import { Helmet } from "react-helmet";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
 
 export const TarifWindow: React.FC<{}> = () => {
   const [data, setData] = useState<any>([]);
@@ -10,7 +15,8 @@ export const TarifWindow: React.FC<{}> = () => {
   const { pathname } = useLocation();
 
   const getTarifs = async () => {
-    const resp = await fetch(`${process.env.REACT_APP_API_URL}get_tariffs/`);
+    // const resp = await fetch(`${process.env.REACT_APP_API_URL}get_tariffs/`);
+    const resp = await fetch(`/tarif.json`);
     const data = await resp.json();
     setData(data.data);
   };
@@ -48,52 +54,124 @@ export const TarifWindow: React.FC<{}> = () => {
           </button>
         ))}
       </div>
-      <ul className="tarif__inner">
-        <li className="tarif__card">
-          <div className="tarif__service">Скидка 20% до 10.11.2022</div>
-          <div className="tarif__wrapper">
-            <div className="tarif__head">
-              <h5>{data[2]?.title}</h5>
+      {window.innerWidth < 876 ? (
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          loop={true}
+          autoplay={true}
+          pagination={{ clickable: true }}
+        >
+          <SwiperSlide>
+            <li className="tarif__card">
+              {/* <div className="tarif__service">Скидка 20% до 10.11.2022</div> */}
+              <div className="tarif__wrapper">
+                <div className="tarif__head">
+                  <h5>{data[2]?.title}</h5>
+                </div>
+                <p className="tarif__cost">
+                  <strong>99$</strong>
+                  {data[2]?.plans[currentBlock].cost}${" "}
+                  <span>
+                    /in {data[2]?.plans[currentBlock].period.main_period}
+                  </span>
+                </p>
+                <Link className="tarif__link" to={"/payment"}>
+                  Оплатить
+                </Link>
+                <ul className="tarif__list">
+                  <li>График 15-минутного прогноза BTC</li>
+                  <li>Сигналы на покупку и продажу активов от ИИ</li>
+                  <li>Частичный доступ к обучающему курсу</li>
+                  <li>Подключение Telegram-бота (скоро)</li>
+                  <li>Служба поддержки 24/7</li>
+                </ul>
+              </div>
+            </li>
+          </SwiperSlide>
+          <SwiperSlide>
+            <li className="tarif__card">
+              {/* <div className="tarif__service">Скидка 20% до 10.11.2022</div> */}
+              <div className="tarif__wrapper">
+                <div className="tarif__head">
+                  <h5>{data[1]?.title}</h5>
+                </div>
+                <p className="tarif__cost">
+                  <strong>999$</strong>
+                  {data[1]?.plans[currentBlock].cost}${" "}
+                  <span>
+                    /in {data[1]?.plans[currentBlock].period.main_period}
+                  </span>
+                </p>
+                <Link className="tarif__link" to={"/payment"}>
+                  Оплатить
+                </Link>
+                <ul className="tarif__list">
+                  <li>График 15-минутного прогноза BTC</li>
+                  <li>Сигналы на покупку и продажу активов от ИИ</li>
+                  <li>Частичный доступ к обучающему курсу</li>
+                  <li>Подключение Telegram-бота (скоро)</li>
+                  <li>Служба поддержки 24/7</li>
+                </ul>
+              </div>
+            </li>
+          </SwiperSlide>
+        </Swiper>
+      ) : (
+        <ul className="tarif__inner">
+          <li className="tarif__card">
+            {/* <div className="tarif__service">Скидка 20% до 10.11.2022</div> */}
+            <div className="tarif__wrapper">
+              <div className="tarif__head">
+                <h5>{data[2]?.title}</h5>
+              </div>
+              <p className="tarif__cost">
+                <strong>99$</strong>
+                {data[2]?.plans[currentBlock].cost}${" "}
+                <span>
+                  /in {data[2]?.plans[currentBlock].period.main_period}
+                </span>
+              </p>
+              <Link className="tarif__link" to={"/payment"}>
+                Оплатить
+              </Link>
+              <ul className="tarif__list">
+                <li>График 15-минутного прогноза BTC</li>
+                <li>Сигналы на покупку и продажу активов от ИИ</li>
+                <li>Частичный доступ к обучающему курсу</li>
+                <li>Подключение Telegram-бота (скоро)</li>
+                <li>Служба поддержки 24/7</li>
+              </ul>
             </div>
-            <p className="tarif__cost">
-              <strong>99$</strong>
-              {data[2]?.plans[currentBlock].cost}$ <span>/за 7 дней</span>
-            </p>
-            <Link className="tarif__link" to={"/payment"}>
-              Оплатить
-            </Link>
-            <ul className="tarif__list">
-              <li>График 15-минутного прогноза BTC</li>
-              <li>Сигналы на покупку и продажу активов от ИИ</li>
-              <li>Частичный доступ к обучающему курсу</li>
-              <li>Подключение Telegram-бота (скоро)</li>
-              <li>Служба поддержки 24/7</li>
-            </ul>
-          </div>
-        </li>
-        <li className="tarif__card">
-          <div className="tarif__service">Скидка 20% до 10.11.2022</div>
-          <div className="tarif__wrapper">
-            <div className="tarif__head">
-              <h5>{data[1]?.title}</h5>
+          </li>
+          <li className="tarif__card">
+            {/* <div className="tarif__service">Скидка 20% до 10.11.2022</div> */}
+            <div className="tarif__wrapper">
+              <div className="tarif__head">
+                <h5>{data[1]?.title}</h5>
+              </div>
+              <p className="tarif__cost">
+                <strong>999$</strong>
+                {data[1]?.plans[currentBlock].cost}${" "}
+                <span>
+                  /in {data[1]?.plans[currentBlock].period.main_period}
+                </span>
+              </p>
+              <Link className="tarif__link" to={"/payment"}>
+                Оплатить
+              </Link>
+              <ul className="tarif__list">
+                <li>График 15-минутного прогноза BTC</li>
+                <li>Сигналы на покупку и продажу активов от ИИ</li>
+                <li>Частичный доступ к обучающему курсу</li>
+                <li>Подключение Telegram-бота (скоро)</li>
+                <li>Служба поддержки 24/7</li>
+              </ul>
             </div>
-            <p className="tarif__cost">
-              <strong>999$</strong>
-              {data[1]?.plans[currentBlock].cost}$ <span>/за 7 дней</span>
-            </p>
-            <Link className="tarif__link" to={"/payment"}>
-              Оплатить
-            </Link>
-            <ul className="tarif__list">
-              <li>График 15-минутного прогноза BTC</li>
-              <li>Сигналы на покупку и продажу активов от ИИ</li>
-              <li>Частичный доступ к обучающему курсу</li>
-              <li>Подключение Telegram-бота (скоро)</li>
-              <li>Служба поддержки 24/7</li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      )}
     </div>
   );
 };

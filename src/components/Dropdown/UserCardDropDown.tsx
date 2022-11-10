@@ -34,7 +34,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
       <ul
         className={menuState ? "user__list user__list--active" : "user__list"}
       >
-        <li className="user__item">
+        <li className="user__item disabled">
           <Link
             to={path !== "" ? `/${path}/tarifs` : `${path}tarifs`}
             onClick={handleStateChange}
@@ -42,7 +42,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
             Сменить тариф
           </Link>
         </li>
-        <li className="user__item item-mobile">
+        <li className="user__item item-mobile disabled">
           <Link
             to={'/partership'}
             onClick={handleStateChange}
@@ -50,7 +50,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
             Партнерская программа
           </Link>
         </li>
-        <li className="user__item item-mobile">
+        <li className="user__item item-mobile disabled">
           <Link
             to={'/presale'}
             onClick={handleStateChange}
@@ -58,7 +58,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
             Пресейлы
           </Link>
         </li>
-        <li className="user__item item-mobile">
+        <li className="user__item item-mobile disabled">
           <Link
             to={'/learning_center'}
             onClick={handleStateChange}
@@ -66,7 +66,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
             Обучающий КУРС
           </Link>
         </li>
-        <li className="user__item" onClick={handleStateChange}>
+        <li className="user__item disabled" onClick={handleStateChange}>
           <Link to="/">Привязать Telegram-бота</Link>
         </li>
         <li

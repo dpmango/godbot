@@ -4,7 +4,9 @@ import { LanguageDropdown } from "../Dropdown/LanguageDropdown";
 import { QuestionDropdown } from "../Dropdown/QuestionDropdown";
 import { UserCard } from "../UIelems/UserCard";
 import { MobileMenu } from "./MobileMenu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+
 
 export const Header: React.FC<{}> = () => {
   const [menu, setMenu] = useState(false);
@@ -38,7 +40,7 @@ export const Header: React.FC<{}> = () => {
               <p>Главная</p>
             </NavLink>
           </li>
-          <li className="menu__item">
+          <li className="menu__item disabled">
             <NavLink to="partnership">
               <svg
                 width="20"

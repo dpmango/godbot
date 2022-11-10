@@ -47,9 +47,19 @@ export const Transaction: React.FC<{}> = () => {
     setRecData(data.data);
   }, [data]);
 
+  // const checkOnSignal = () => {
+  //   if (userData?.data.tariff?.includes("Trader"))
+  // }
+
   return (
     <div className="recomendation">
-      {userData?.data.tariff === null || !timeDiff ? <LockScreen /> : ''}
+      {(userData?.data.tariff?.includes("Trader") && !timeDiff) ||
+      (userData?.data.allowed_functions?.includes("Signal") && !timeDiff) ? (
+        ""
+      ) : (
+        <LockScreen />
+      )}
+      {userData?.data.tariff === null ? <LockScreen /> : ""}
       <div className="recomendation__top">
         <h2 className="title">Рекомендации по торговле</h2>
         {isSelect ? (

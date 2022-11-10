@@ -10,7 +10,14 @@ export const TableSwitch: React.FC<{
   const { userData } = useAppSelector((state) => state.userState);
 
   return (
-    <div className={checkOnPro(userData) ? "table__switch" : "table__switch pro"}>
+    <div
+      className={
+        userData?.data?.allowed_functions?.includes("Investing") ||
+        checkOnPro(userData)
+          ? "table__switch"
+          : "table__switch pro"
+      }
+    >
       <button
         onClick={() => setInvestorTable(false)}
         className={

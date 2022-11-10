@@ -351,6 +351,7 @@
       transition: opacity 0.3s, top 0.3s;
 
       ul {
+        overflow: hidden;
         width: 100%;
         background: #ffffff;
         border: 1px solid #4572ee;

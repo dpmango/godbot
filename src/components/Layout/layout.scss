@@ -366,8 +366,6 @@
           stroke: black;
         }
 
-        color: black;
-
         button {
           color: black;
         }
@@ -1819,6 +1817,10 @@ line {
   .question__button,
   .header__usercard {
     display: none;
+  }
+
+  .recomendation .title {
+    font-size: 11px;
   }
 
   .investor {

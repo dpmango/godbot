@@ -20,15 +20,21 @@ export interface IUserLogin {
 
 interface IUser {
   loading: string;
-  timeDiff: number 
+  timeDiff: boolean 
   userData: IUserState | null;
 }
 
 export const getCurrentUser = createAsyncThunk(
   "user/getCurrentUser",
   async () => {
-    const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
+    // const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
+    const data = await fetch("/user");
     const resp = await data.json();
+
+    if (typeof resp.data.tariff === 'undefined') {
+      window.location = '/auth/registration' as Location | (string & Location)
+    }
+
     return resp;
   }
 );
@@ -45,7 +51,7 @@ export const getCurrentUser = createAsyncThunk(
 
 const initialState: IUser = {
   loading: "none",
-  timeDiff: 0,
+  timeDiff: false,
   userData: null,
 };
 
@@ -63,10 +69,9 @@ export const userState = createSlice({
         state.loading = "fulfilled";
         state.userData = { ...action.payload };
         const userDate = action.payload?.data?.subscription_date.slice(0,10).split('-').join('.')
-        
         const date = parse(userDate as string, "yyyy.MM.dd", new Date());
-        console.log(date);
-        state.timeDiff = timeDifference(date)
+        
+        state.timeDiff = timeDifference(date) < 0
       }
     );
     builder.addCase(getCurrentUser.rejected, (state) => {

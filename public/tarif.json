@@ -8,7 +8,7 @@
         {
           "id": 9,
           "period": {
-            "main_period": "1 W",
+            "main_period": "1 Week",
             "add_period": "0 D"
           },
           "cost": 0
@@ -22,7 +22,7 @@
         {
           "id": 4,
           "period": {
-            "main_period": "1 M",
+            "main_period": "1 Mounth",
             "add_period": "0 D"
           },
           "cost": 999
@@ -30,7 +30,7 @@
         {
           "id": 5,
           "period": {
-            "main_period": "6 M",
+            "main_period": "6 Mounth",
             "add_period": "1 M"
           },
           "cost": 1999
@@ -38,7 +38,7 @@
         {
           "id": 6,
           "period": {
-            "main_period": "12 M",
+            "main_period": "12 Mounth",
             "add_period": "4 M"
           },
           "cost": 2999
@@ -46,7 +46,7 @@
         {
           "id": 7,
           "period": {
-            "main_period": "1 W",
+            "main_period": "1 Week",
             "add_period": "0 D"
           },
           "cost": 0
@@ -60,7 +60,7 @@
         {
           "id": 1,
           "period": {
-            "main_period": "1 M",
+            "main_period": "1 Mounth",
             "add_period": "0 D"
           },
           "cost": 99
@@ -68,7 +68,7 @@
         {
           "id": 2,
           "period": {
-            "main_period": "6 M",
+            "main_period": "6 Mounth",
             "add_period": "1 M"
           },
           "cost": 199
@@ -76,7 +76,7 @@
         {
           "id": 3,
           "period": {
-            "main_period": "12 M",
+            "main_period": "12 Mounth",
             "add_period": "4 M"
           },
           "cost": 299
@@ -84,7 +84,7 @@
         {
           "id": 8,
           "period": {
-            "main_period": "1 W",
+            "main_period": "1 Week",
             "add_period": "0 D"
           },
           "cost": 0

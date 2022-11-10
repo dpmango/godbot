@@ -176,3 +176,14 @@ body {
     }
   }
 }
+
+* {
+  &.disabled {
+    pointer-events: none;
+    svg,
+    a,
+    p {
+      opacity: 0.5;
+    }
+  }
+}

@@ -6,9 +6,9 @@
   max-height: 686px;
   top: 50%;
   left: 50%;
-  z-index: 10;
+  z-index: 100;
   transform: translate(-50%, -50%);
-  position: absolute;
+  position: fixed;
   background: #ffffff;
   box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
   border-radius: 10px;
@@ -114,6 +114,7 @@
   &__card {
     position: relative;
     max-height: 100%;
+    overflow: auto;
     max-width: 498px;
     max-height: 523px;
     padding: 30px;
@@ -283,6 +284,57 @@
 
     &:hover {
       background: #3255d6;
+    }
+  }
+}
+
+@media (max-width: 876px) {
+  .tarif {
+    max-width: 95%;
+    margin: 0 auto;
+    overflow: auto;
+  }
+
+  .tarif__card {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .tarif__header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    button {
+      width: 100%;
+      padding: 9px;
+      font-size: 10px;
+
+      &:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .tarif {
+    max-height: 540px;
+  }
+
+  .tarif__card {
+    max-width: 80%;
+    margin: 0 auto;
+    padding-bottom: 30px;
+  }
+
+  .tarif__list {
+    li {
+      font-size: 11px;
+
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
     }
   }
 }

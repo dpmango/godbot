@@ -10,16 +10,19 @@ interface ILanguages {
 }
 
 export const LanguageDropdown: React.FC<{}> = () => {
-  const [languages, setLanguages] = useState<ILanguages[]>([]);
+  const [languages, setLanguages] = useState<ILanguages[]>([
+    { language: "RU", icon: "rus.svg" },
+    { language: "EN", icon: "eng.svg" },
+  ]);
   const [currentLanguage, setCurrentLanguage] = useState("");
   const { getFetch } = useFetch(setLanguages);
   const { loaded } = useSkeleton(Boolean(languages.length));
 
   const { handleStateChange, menuState } = useDropdown();
 
-  useLayoutEffect(() => {
-    getFetch("/languages");
-  }, []);
+  // useLayoutEffect(() => {
+  //   getFetch("/languages");
+  // }, []);
 
   useLayoutEffect(() => {
     setCurrentLanguage(languages[0]?.icon);

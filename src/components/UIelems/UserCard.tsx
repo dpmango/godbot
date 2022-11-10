@@ -35,7 +35,7 @@ export const UserCard: React.FC<{}> = () => {
             Подписка до:{" "}
             <span
               style={{
-                color: timeDiff <= 0 ? "red" : "green",
+                color: timeDiff ? "red" : "green",
               }}
             >
               {userDate}
