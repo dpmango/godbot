@@ -26,7 +26,7 @@ export const TableSwitch: React.FC<{
             : "table__switch-button"
         }
       >
-        Трейдинг
+        <p>Трейдинг</p>
       </button>
       <button
         onClick={() => setInvestorTable(true)}
@@ -36,7 +36,7 @@ export const TableSwitch: React.FC<{
             : "table__switch-button"
         }
       >
-        Инвестирование
+        <p>Инвестирование</p>
       </button>
     </div>
   );

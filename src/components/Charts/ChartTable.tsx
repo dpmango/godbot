@@ -63,7 +63,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
           }
         </ChartDropdown>
       </div>
-      <ChartUpdateTimer />
+      {/* <ChartUpdateTimer /> */}
       <button className="chart__download">CКАЧАТЬ</button>
     </div>
   );

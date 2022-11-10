@@ -22,13 +22,20 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  const [theme, changeTheme] = useState(true);
-  const dispatch = useAppDispatch();
-
+  if (!localStorage.getItem('theme')) {
+    localStorage.setItem('theme', 'false')
+  }
+  const [theme, changeTheme] = useState<boolean>(
+    JSON.parse(localStorage.getItem("theme") as any)
+  );
 
   const handleChangeTheme = () => {
     changeTheme(!theme);
   };
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme.toString());
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>

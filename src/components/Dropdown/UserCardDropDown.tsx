@@ -15,6 +15,7 @@ export const UserCardDropDown: React.FC<{}> = () => {
   const { pathname } = useLocation();
   const path = pathname.split("/").at(-1);
 
+
   return (
     <div className="user">
       <button
