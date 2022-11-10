@@ -15,8 +15,8 @@ export const TarifWindow: React.FC<{}> = () => {
   const { pathname } = useLocation();
 
   const getTarifs = async () => {
-    // const resp = await fetch(`${process.env.REACT_APP_API_URL}get_tariffs/`);
-    const resp = await fetch(`/tarif.json`);
+    const resp = await fetch(`${process.env.REACT_APP_API_URL}get_tariffs/`);
+    // const resp = await fetch(`/tarif.json`);
     const data = await resp.json();
     setData(data.data);
   };

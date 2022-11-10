@@ -4,13 +4,13 @@ import { parse } from "date-fns";
 import { timeDifference } from "../scripts/scripts";
 
 export interface IUserState {
-   message: string
-   data: {
-    name: string
-    tariff: string
-    subscription_date: string
-    allowed_functions: string[]
-   }
+  message: string;
+  data: {
+    name: string;
+    tariff: string;
+    subscription_date: string;
+    allowed_functions: string[];
+  };
 }
 
 export interface IUserLogin {
@@ -20,19 +20,19 @@ export interface IUserLogin {
 
 export interface IUser {
   loading: string;
-  timeDiff: boolean 
+  timeDiff: boolean;
   userData: IUserState | null;
 }
 
 export const getCurrentUser = createAsyncThunk(
   "user/getCurrentUser",
   async () => {
-    // const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
-    const data = await fetch("/user");
+    const data = await fetch(`${process.env.REACT_APP_API_URL}auth/user/`);
+    // const data = await fetch("/user");
     const resp = await data.json();
 
-    if (typeof resp.data.tariff === 'undefined') {
-      window.location = '/auth/registration' as Location | (string & Location)
+    if (typeof resp.data.tariff === "undefined") {
+      window.location = "/auth/registration" as Location | (string & Location);
     }
 
     return resp;
@@ -68,10 +68,13 @@ export const userState = createSlice({
       (state, action: PayloadAction<IUserState>) => {
         state.loading = "fulfilled";
         state.userData = { ...action.payload };
-        const userDate = action.payload?.data?.subscription_date.slice(0,10).split('-').join('.')
+        const userDate = action.payload?.data?.subscription_date
+          .slice(0, 10)
+          .split("-")
+          .join(".");
         const date = parse(userDate as string, "yyyy.MM.dd", new Date());
-        
-        state.timeDiff = timeDifference(date) < 0
+
+        state.timeDiff = timeDifference(date) < 0;
       }
     );
     builder.addCase(getCurrentUser.rejected, (state) => {

@@ -4,8 +4,8 @@ import { act } from "react-dom/test-utils";
 export const getInvestorData = createAsyncThunk(
   "investor/investorData",
   async () => {
-    // const data = await fetch(`${process.env.REACT_APP_API_URL}get_investing/`);
-    const data = await fetch(`./invest.json`);
+    const data = await fetch(`${process.env.REACT_APP_API_URL}get_investing/`);
+    // const data = await fetch(`./invest.json`);
     const resp = await data.json();
     return resp;
   }
