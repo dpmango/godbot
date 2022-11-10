@@ -126,8 +126,8 @@ let users = {
   data: {
     name: "esofdes@gmail.com",
     subscription_date: "2022-12-01T22:53:20Z",
-    allowed_functions: ["Signal"],
-    tariff: "PRO Trader",
+    allowed_functions: [],
+    tariff: 'PRO Trader',
     access_level: 3,
   },
 };
