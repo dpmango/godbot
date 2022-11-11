@@ -12,7 +12,7 @@ interface ILanguages {
 export const LanguageDropdown: React.FC<{}> = () => {
   const [languages, setLanguages] = useState<ILanguages[]>([
     { language: "RU", icon: "rus.svg" },
-    { language: "EN", icon: "eng.svg" },
+    // { language: "EN", icon: "eng.svg" },
   ]);
   const [currentLanguage, setCurrentLanguage] = useState("");
   const { getFetch } = useFetch(setLanguages);

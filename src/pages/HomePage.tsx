@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useLayoutEffect, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { TarifWindow } from "../components/ModalsWindow/TarifWindow";
 import { Table } from "../components/Table/Table";
 import { Transaction } from "../components/Transaction/Transaction";
@@ -11,6 +11,7 @@ import { getCurrentUser } from "../reducers/userFetchSlice.reducer";
 export const HomePage: React.FC<{}> = () => {
   const { userData } = useAppSelector((state) => state.userState);
   const navigate = useNavigate();
+  const params = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,8 +20,36 @@ export const HomePage: React.FC<{}> = () => {
     }
   }, []);
 
+  const setTrial = async () => {
+    const resp = await fetch(
+      `${process.env.REACT_APP_API_URL}activate_tariff/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json" as string,
+          "X-CSRFToken": Cookies.get("csrftoken") as string,
+        },
+        body: JSON.stringify({ id: 9 }),
+      }
+    );
+
+    if (resp.ok) {
+      Cookies.remove("trial");
+      setTimeout(() => {
+        window.location = "/" as Location | (string & Location);
+      }, 500);
+    } else {
+      Cookies.remove("trial");
+      window.location = "/error" as Location | (string & Location);
+    }
+  };
+
   useLayoutEffect(() => {
-    dispatch(getCurrentUser());
+    if (Cookies.get("trial") && params["*"] !== "error") {
+      setTrial();
+    } else {
+      dispatch(getCurrentUser());
+    }
   }, []);
 
   return (

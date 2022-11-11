@@ -87,13 +87,22 @@
     }
 
     &-close {
-      padding: 11px 7px;
+      position: relative;
+      width: 40px;
+      height: 40px;
       color: white;
       font-weight: 300;
       font-size: 46px;
       background: #4572ee;
       border-radius: 10px;
       transition: background 0.3s;
+
+      p {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 54%;
+        left: 52%;
+      }
 
       &:hover {
         background: #192e7b;
@@ -258,7 +267,7 @@
   &__dropdown {
     margin-right: 10px;
     position: relative;
-    width: 121px;
+    width: 136px;
 
     &.disabled {
       pointer-events: none;
@@ -470,13 +479,13 @@
     padding: 16px 20px 0px 20px;
     width: 100%;
     background: #ffffff;
-	margin-bottom: 20px;
+    margin-bottom: 20px;
     box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
     border-radius: 10px;
 
-	&:not(:last-child) {
-		margin-right: 20px;
-	}
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
   }
 }
 

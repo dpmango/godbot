@@ -1,6 +1,13 @@
 import Cookies from "js-cookie";
 import { useState, Dispatch, SetStateAction } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { AuthorizationForm } from "../components/Authorization/AuthorizationForm";
 import { AuthorizationSlider } from "../components/Authorization/AuthorizationSlider";
 import { AuthorizationValidate } from "../components/Authorization/AuthorizationValidate";
@@ -8,13 +15,18 @@ import { useAppSelector } from "../reducers/hooks.store";
 
 export const Authorization: React.FC<{}> = () => {
   const [value, setValue] = useState("");
+  const { search } = useLocation();
   const { userData } = useAppSelector((state) => state.userState);
+
+  if (search === "?Trial=true") {
+    Cookies.set("trial", "active");
+  }
 
   const sendEmail = async () => {
     const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
       method: "POST",
       body: JSON.stringify({
-        email: localStorage.getItem('email'),
+        email: localStorage.getItem("email"),
       }),
       headers: {
         "Content-Type": "application/json" as string,

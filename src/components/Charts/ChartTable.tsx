@@ -1,5 +1,5 @@
-import React, { ForwardRefRenderFunction, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { ForwardRefRenderFunction, useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setStateCoin } from "../../reducers/chartDataSlice.reducer";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
 import { checkOnPro } from "../../scripts/scripts";
@@ -8,10 +8,10 @@ import { ChartUpdateTimer } from "./ChartUpdateTimer";
 
 const ChartTable: React.FC<{}> = ({}, ref) => {
   const { userData, loading } = useAppSelector((state) => state.userState);
-
   const [timeChart, setTimeChart] = useState<string | null>("15 минут");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { search } = useLocation();
   const { currentCoin, data } = useAppSelector((state) => state.chartState);
 
   const handleTimeClick: React.MouseEventHandler<HTMLElement> = (e) => {
@@ -26,6 +26,12 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
       }`
     );
   };
+
+  useEffect(() => {
+    if (search) {
+      dispatch(setStateCoin(search.slice(6, 9)));
+    }
+  }, [search]);
 
   if (loading !== "fulfilled") return <div></div>;
 

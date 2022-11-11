@@ -18,7 +18,7 @@ export interface IUserLogin {
   password: string;
 }
 
-interface IUser {
+export interface IUser {
   loading: string;
   timeDiff: boolean 
   userData: IUserState | null;

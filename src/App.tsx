@@ -22,8 +22,8 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  if (!localStorage.getItem('theme')) {
-    localStorage.setItem('theme', 'false')
+  if (!localStorage.getItem("theme")) {
+    localStorage.setItem("theme", "false");
   }
   const [theme, changeTheme] = useState<boolean>(
     JSON.parse(localStorage.getItem("theme") as any)
@@ -53,7 +53,9 @@ function App() {
         </Route>
         <Route path="/auth" element={<Authorization />}>
           <Route index element={<Authorization />} />
-          <Route path="*" element={<Authorization />} />
+          <Route path="*" element={<Authorization />}>
+            <Route path="?Trial=true" element={<Authorization />} />
+          </Route>
         </Route>
       </Routes>
     </ThemeContext.Provider>

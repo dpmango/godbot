@@ -127,7 +127,7 @@ let users = {
     name: "esofdes@gmail.com",
     subscription_date: "2022-12-01T22:53:20Z",
     allowed_functions: [],
-    tariff: 'Trial',
+    tariff: 'PRO Trader',
     access_level: 3,
   },
 };

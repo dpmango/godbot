@@ -38,7 +38,7 @@ export const ChartLegend: React.FC<{
         return elem;
       })
     );
-    handleToggle(title)
+    handleToggle(title);
   };
 
   return (
@@ -83,7 +83,7 @@ export const ChartLegend: React.FC<{
             className="chart__legend-close"
             onClick={() => setActive(!active)}
           >
-            &times;
+            <p>&times;</p>
           </button>
         </div>
         <ul className="chart__legend-list">
