@@ -44,7 +44,7 @@ export const Transaction: React.FC<{}> = () => {
       filter !== ""
         ? data.data?.filter(
             (elem) =>
-              elem.status.toLowerCase().trim() ===
+              elem?.status?.toLowerCase().trim() ===
               filter?.split("|")[1].toLowerCase().trim()
           )
         : data.data

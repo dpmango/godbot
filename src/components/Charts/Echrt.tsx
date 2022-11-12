@@ -187,9 +187,9 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
       setLoader(true);
     }, 1000);
     window.onresize = function () {
-      setChartWidth(
-        document.querySelector(".table__inner")?.clientWidth as number
-      );
+      // setChartWidth(
+      //   document.querySelector(".table__inner")?.clientWidth as number
+      // );
       graph.resize();
     };
   };

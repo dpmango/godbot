@@ -444,7 +444,8 @@
 .investor {
   display: grid;
   overflow-x: auto;
-  overflow-y: hidden;
+  grid-gap: 20px;
+  overflow-y: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   padding: 0 0px 0px 15px;
   &__wrapper {
@@ -474,19 +475,26 @@
   }
 
   &__card {
-    max-width: 315px;
+    overflow: hidden;
+    max-width: 100%;
     max-height: 213px;
     padding: 16px 20px 0px 20px;
     width: 100%;
     background: #ffffff;
-    margin-bottom: 20px;
     box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
     border-radius: 10px;
-
-    &:not(:last-child) {
-      margin-right: 20px;
-    }
   }
+}
+
+@media (max-width: 1100px) {
+ .investor {
+  grid-template-columns: 1fr 1fr;
+  &__chart {
+    max-width: 100%;
+    margin-left: 13px;
+    width: calc(100% + 100px) !important;
+  }
+ }
 }
 
 @media (max-width: 876px) {

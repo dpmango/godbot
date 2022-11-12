@@ -12,7 +12,7 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
   useEffect(() => {
     graphs?.data?.forEach(async (elem, index) => {
       const graph: any = null;
-      const resp = await fetch(elem.graph_path, {
+      const resp = await fetch('./inv.json', {
         method: "GET",
         headers: {
           "Content-Type": "application/json" as string,
@@ -143,7 +143,7 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
       {graphs?.data?.map((elem) => (
         <div className="investor__card">
           <div className="investor__wrapper">
-            <img src={elem.currency_icon} alt={elem.currency + " icon"} />
+            <img src={elem.currency_icon} />
             <p>
               {elem.currency}
               <span>{elem.currency.slice(0, 3).toUpperCase()}</span>
