@@ -1,27 +1,55 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import * as echarts from "echarts";
 import { useAppSelector } from "../../reducers/hooks.store";
 import Cookies from "js-cookie";
+import { parse } from "date-fns";
 
 interface IInvestorChartProps {}
 
 export const InvestorChart: FC<IInvestorChartProps> = () => {
+  const [visible, setVisible] = useState<boolean>(true);
   const { graphs } = useAppSelector((state) => state.investorState);
   const refsCollection: any = useRef();
+
+  const setCardsVisible = (method: string) => {
+    for (let i = 4; i < refsCollection.current.childNodes.length; i++) {
+      refsCollection.current.childNodes[i].classList[method]("mob-hidden");
+    }
+
+    if (method === "remove") {
+      setVisible(false);
+    }
+  };
 
   useEffect(() => {
     graphs?.data?.forEach(async (elem, index) => {
       const graph: any = null;
-      const resp = await fetch('./inv.json', {
+      const resp = await fetch(elem.graph_path, {
         method: "GET",
         headers: {
           "Content-Type": "application/json" as string,
           "X-CSRFToken": Cookies.get("csrftoken") as string,
         },
       });
-      const data = await resp.json();
 
+      const data = await resp.json();
       const color = ["#3182bd", "#1c9099", "#43a2ca", "#9ebcda"];
+
+      const timestamp = Object.values(data.time_list_forecast).map(
+        (elem: any) => {
+          const userDate = elem.slice(0, 10).split("-").join(".");
+          const userMinutes = elem.slice(11, 16).split("-").join(":");
+          const options = {
+            weekday: "short",
+            month: "long",
+            day: "numeric",
+          };
+          const date = parse(userDate as string, "yyyy.MM.dd", new Date());
+          return (
+            date.toLocaleDateString("eu-EU", options as any) + " " + userMinutes
+          );
+        }
+      );
 
       const series = [
         {
@@ -68,9 +96,30 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
 
       const option = {
         tooltip: {
+          formatter: function (params: any[]) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "chart-info";
+            const axisLabel = document.createElement("label");
+            axisLabel.innerHTML = params[0]?.axisValue;
+
+            params.forEach((elem) => {
+              wrapper.insertAdjacentHTML(
+                "afterbegin",
+                `<div><i style="background: ${elem.color}"></i> <p>${
+                  elem.seriesName
+                }:</p>  ${elem?.data?.toFixed(2) || "-"}</div>`
+              );
+            });
+            wrapper.prepend(axisLabel);
+
+            return wrapper;
+          },
           position: "top",
-          trigger: "item",
+          trigger: "axis",
           className: "chart__tooltip",
+          axisPointer: {
+            animation: false,
+          },
         },
         color,
         dataZoom: [
@@ -78,14 +127,14 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
             throttle: 0,
             type: "inside",
             xAxisIndex: [0],
-            start: 50,
-            end: 60,
+            start: 80,
+            end: 90,
           },
           {
             throttle: 0,
             type: "inside",
             yAxisIndex: [0],
-            start: 90,
+            start: 98,
             end: 100,
           },
         ],
@@ -108,7 +157,7 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
             rotate: window.innerWidth < 576 ? 8 : 0,
             fontSize: 8,
           },
-          data: Object.values(data["time_list_forecast"]),
+          data: timestamp,
         },
         yAxis: {
           type: "value",
@@ -134,14 +183,20 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
 
       myChart.setOption(option);
     });
+
+    if (window.innerWidth < 786) {
+      setTimeout(() => {
+        setCardsVisible("add");
+      }, 100);
+    }
   }, []);
 
   if (!graphs) return <div></div>;
 
   return (
     <div ref={refsCollection} className="investor">
-      {graphs?.data?.map((elem) => (
-        <div className="investor__card">
+      {graphs?.data?.map((elem, index) => (
+        <div className="investor__card" key={index}>
           <div className="investor__wrapper">
             <img src={elem.currency_icon} />
             <p>
@@ -156,6 +211,12 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
           ></div>
         </div>
       ))}
+      <button
+        className={visible ? "investor__button" : "investor__button hidden"}
+        onClick={() => setCardsVisible("remove")}
+      >
+        Показать больше
+      </button>
     </div>
   );
 };

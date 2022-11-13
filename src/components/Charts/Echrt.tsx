@@ -142,6 +142,7 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
         },
         data: data.data[currentCoin]
           .map((elem: any) => {
+            
             const userDate = elem.timestamp.slice(0, 10).split("-").join(".");
             const userMinutes = elem.timestamp
               .slice(11, 16)

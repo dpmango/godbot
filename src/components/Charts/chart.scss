@@ -475,6 +475,7 @@
   }
 
   &__card {
+    position: relative;
     overflow: hidden;
     max-width: 100%;
     max-height: 213px;
@@ -483,18 +484,49 @@
     background: #ffffff;
     box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
     border-radius: 10px;
+    transition: all 0.3s;
+
+    &.mob-hidden {
+      position: absolute;
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+  }
+
+  &__button {
+    position: relative;
+    max-width: 280px;
+    width: 100%;
+    display: none;
+    margin: 0 auto;
+    padding: 14px;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 14px;
+    text-align: center;
+    color: #262628;
+    border: 1px solid #858585;
+    border-radius: 40px;
+    transition: all 0.3s;
+
+    &.hidden {
+      display: none;
+    }
   }
 }
 
 @media (max-width: 1100px) {
- .investor {
-  grid-template-columns: 1fr 1fr;
-  &__chart {
-    max-width: 100%;
-    margin-left: 13px;
-    width: calc(100% + 100px) !important;
+  .investor {
+    padding-right: 15px;
+    grid-template-columns: 1fr 1fr;
+    &__chart {
+      max-width: 100%;
+      margin-left: 13px;
+      width: calc(100% + 100px) !important;
+    }
   }
- }
 }
 
 @media (max-width: 876px) {
@@ -529,7 +561,7 @@
     box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
     border-radius: 10px;
     margin-right: 8px;
-    padding: 12px 16px;
+    padding: 12px 16px !important;
     font-weight: 600;
     font-size: 11px;
     line-height: 14px;
@@ -544,5 +576,13 @@
   .chart__head .title {
     margin-left: 8px;
     margin-right: 6px;
+  }
+}
+
+@media (max-width: 576px) {
+  .investor {
+    &__button {
+      display: block;
+    }
   }
 }

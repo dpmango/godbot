@@ -1886,6 +1886,10 @@ line {
     margin-bottom: 15px;
   }
 
+  .table {
+    padding: 10px 0;
+  }
+
   .payment__form {
     width: 100%;
     max-width: 100% !important;
@@ -1938,7 +1942,10 @@ line {
     grid-template-columns: 1fr !important;
     overflow-y: unset !important;
     overflow-x: unset !important;
-    padding-left: 0 !important;
+
+    &__button {
+      display: block;
+    }
   }
 
   .partnership-raiting__head li p {
