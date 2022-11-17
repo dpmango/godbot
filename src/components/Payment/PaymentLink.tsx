@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useDropdown } from "../../hooks/useDropdown";
+import { useState } from 'react';
+import { useDropdown } from '@hooks/useDropdown';
 
 export const PaymentLink: React.FC<{}> = () => {
-  const [currentLink, setCurrentLink] = useState<string | null>("TRC20");
+  const [currentLink, setCurrentLink] = useState<string | null>('TRC20');
   const { menuState, handleStateChange } = useDropdown();
 
   const handleClick: React.MouseEventHandler<HTMLLIElement> = (e) => {
@@ -12,14 +12,16 @@ export const PaymentLink: React.FC<{}> = () => {
 
   return (
     <div className="payment__block">
-      <div className={menuState ? "payment__select active" : "payment__select"}>
+      <div className={menuState ? 'payment__select active' : 'payment__select'}>
         <p className="payment__label">Выберите сеть:</p>
         <button className="payment__select-button" onClick={handleStateChange}>
           {currentLink}
         </button>
         <ul className="payment__select-list">
-          {["TRC20", "TRC19"].map((elem) => (
-            <li onClick={handleClick}>{elem}</li>
+          {['TRC20', 'TRC19'].map((elem, idx) => (
+            <li key={idx} onClick={handleClick}>
+              {elem}
+            </li>
           ))}
         </ul>
       </div>
@@ -33,9 +35,8 @@ export const PaymentLink: React.FC<{}> = () => {
         </div>
       </div>
       <p className="payment__text">
-        Ваш платеж будет подтвержден после 3 подтверждений от сети blockchain.
-        Обычно это происходит в течении 15-20 минут. Затем статус платежа
-        изменится на “Оплачен”.
+        Ваш платеж будет подтвержден после 3 подтверждений от сети blockchain. Обычно это происходит
+        в течении 15-20 минут. Затем статус платежа изменится на “Оплачен”.
       </p>
       <p className="payment__timer">Платеж будет отменен через: 20:23</p>
     </div>

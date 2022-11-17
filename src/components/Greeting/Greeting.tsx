@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react";
-import { useAppSelector } from "../../reducers/hooks.store";
-import "./greeting.scss";
+import { FC, useState } from 'react';
+import { useAppSelector } from '@store/hooks.store';
+import './greeting.scss';
 
 interface IGreetingProps {}
 
@@ -11,12 +11,12 @@ export const Greeting: FC<IGreetingProps> = () => {
     <>
       <div className="greeting__bg"></div>
       <div className="greeting__form">
-        {currentModal === "selebrate" ? (
+        {currentModal === 'selebrate' ? (
           <div>
             <h3>Поздравляем!</h3>
             <p>
-              Вы активировали тариф Pro на 7 дней. Вам доступен весь функционал
-              приложения. Желаем успешной торговли
+              Вы активировали тариф Pro на 7 дней. Вам доступен весь функционал приложения. Желаем
+              успешной торговли
             </p>
             <div>
               <button>НАЧАТЬ</button>
@@ -24,15 +24,12 @@ export const Greeting: FC<IGreetingProps> = () => {
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
-        {currentModal === "greeting" ? (
+        {currentModal === 'greeting' ? (
           <div>
             <h3>Благодарим за регистрацию!</h3>
-            <p>
-              Предлагаем ознакомиться с сервисом чуть подробней с помощью нашего
-              руководства
-            </p>
+            <p>Предлагаем ознакомиться с сервисом чуть подробней с помощью нашего руководства</p>
             <div>
               <button>НАЧАТЬ</button>
               <button>ПРОПУСТИТЬ</button>
@@ -40,7 +37,7 @@ export const Greeting: FC<IGreetingProps> = () => {
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
       </div>
     </>

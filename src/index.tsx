@@ -1,15 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
-import {BrowserRouter} from 'react-router-dom'
-import { store } from "./reducers/store";
-import './index.scss'
+import { createRoot } from 'react-dom/client';
+import App from '@/App';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { store } from '@store/store';
+import '@styles/index.scss';
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = createRoot(document.getElementById('root') as HTMLElement);
+
 root.render(
   <BrowserRouter>
     <Provider store={store}>
@@ -17,5 +14,3 @@ root.render(
     </Provider>
   </BrowserRouter>
 );
-
-reportWebVitals();

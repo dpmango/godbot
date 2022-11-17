@@ -1,7 +1,7 @@
-import { PaymentLink } from "../components/Payment/PaymentLink";
-import "../components/Payment/payment.scss";
-import { PaymentSum } from "../components/Payment/PaymentSum";
-import { Helmet } from "react-helmet";
+import { PaymentLink } from '@c/Payment/PaymentLink';
+import '@c/Payment/payment.scss';
+import { PaymentSum } from '@c/Payment/PaymentSum';
+import { Helmet } from 'react-helmet';
 
 export const PaymentPage: React.FC<{}> = () => {
   return (

@@ -1,8 +1,8 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useDropdown } from "../../hooks/useDropdown";
-import { IUseFetch, useFetch } from "../../hooks/useFetch";
-import { useSkeleton } from "../../hooks/useSkeleton";
-import { Loader } from "../UIelems/Loader";
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { useDropdown } from '@hooks/useDropdown';
+import { IUseFetch, useFetch } from '@hooks/useFetch';
+import { useSkeleton } from '@hooks/useSkeleton';
+import { Loader } from '@c/UIelems/Loader';
 
 interface ILanguages {
   icon: string;
@@ -11,10 +11,10 @@ interface ILanguages {
 
 export const LanguageDropdown: React.FC<{}> = () => {
   const [languages, setLanguages] = useState<ILanguages[]>([
-    { language: "RU", icon: "rus.svg" },
+    { language: 'RU', icon: 'rus.svg' },
     // { language: "EN", icon: "eng.svg" },
   ]);
-  const [currentLanguage, setCurrentLanguage] = useState("");
+  const [currentLanguage, setCurrentLanguage] = useState('');
   const { getFetch } = useFetch(setLanguages);
   const { loaded } = useSkeleton(Boolean(languages.length));
 
@@ -36,30 +36,25 @@ export const LanguageDropdown: React.FC<{}> = () => {
   return (
     <div className="language">
       <button
-        className={menuState ? "language__button _active" : "language__button"}
-        onClick={() => handleStateChange()}
-      >
+        className={menuState ? 'language__button _active' : 'language__button'}
+        onClick={() => handleStateChange()}>
         {loaded ? (
           <div
             className="skeleton-box"
-            style={{ width: "20px", height: "21px", borderRadius: "4px" }}
-          ></div>
+            style={{ width: '20px', height: '21px', borderRadius: '4px' }}></div>
         ) : (
           <img src={`./images/${currentLanguage}`} alt="Current Language" />
         )}
       </button>
-      <ul className={menuState ? "language__list _active" : "language__list"}>
+      <ul className={menuState ? 'language__list _active' : 'language__list'}>
         {languages &&
           languages.map((elem) => (
             <li
               className={
-                elem.icon === currentLanguage
-                  ? "language__item _disabled"
-                  : "language__item"
+                elem.icon === currentLanguage ? 'language__item _disabled' : 'language__item'
               }
               key={elem.language}
-              onClick={() => handleClick(elem.icon)}
-            >
+              onClick={() => handleClick(elem.icon)}>
               <img src={`./images/${elem.icon}`} alt={elem.language} />
               {elem.language}
             </li>

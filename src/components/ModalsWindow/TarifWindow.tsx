@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { InfoCircle } from "../UIelems/InfoCircle";
-import "./modals.scss";
-import { Helmet } from "react-helmet";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { InfoCircle } from '@c/UIelems/InfoCircle';
+import './modals.scss';
+import { Helmet } from 'react-helmet';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 
 export const TarifWindow: React.FC<{}> = () => {
   const [data, setData] = useState<any>([]);
@@ -33,26 +33,21 @@ export const TarifWindow: React.FC<{}> = () => {
         <meta charSet="utf-8" />
         <title>Godbot | Tarifs</title>
       </Helmet>
-      <Link
-        to={pathname.slice(0, pathname.length - 7)}
-        className="tarif__close"
-      >
+      <Link to={pathname.slice(0, pathname.length - 7)} className="tarif__close">
         &times;
       </Link>
       <h4 className="tarif__title">Тарифы</h4>
       <div className="tarif__header">
-        {[
-          "1 месяц - без подарка",
-          "6 месяцев + 1 в подарок",
-          "12 месяцев + 4 в подарок",
-        ].map((elem, index) => (
-          <button
-            onClick={() => setCurrentBlock(index)}
-            className={index === currentBlock ? "active" : ""}
-          >
-            {elem}
-          </button>
-        ))}
+        {['1 месяц - без подарка', '6 месяцев + 1 в подарок', '12 месяцев + 4 в подарок'].map(
+          (elem, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentBlock(index)}
+              className={index === currentBlock ? 'active' : ''}>
+              {elem}
+            </button>
+          )
+        )}
       </div>
       {window.innerWidth < 876 ? (
         <Swiper
@@ -61,8 +56,7 @@ export const TarifWindow: React.FC<{}> = () => {
           slidesPerView={1}
           loop={true}
           autoplay={true}
-          pagination={{ clickable: true }}
-        >
+          pagination={{ clickable: true }}>
           <SwiperSlide>
             <li className="tarif__card">
               {/* <div className="tarif__service">Скидка 20% до 10.11.2022</div> */}
@@ -72,12 +66,10 @@ export const TarifWindow: React.FC<{}> = () => {
                 </div>
                 <p className="tarif__cost">
                   <strong>99$</strong>
-                  {data[2]?.plans[currentBlock].cost}${" "}
-                  <span>
-                    /in {data[2]?.plans[currentBlock].period.main_period}
-                  </span>
+                  {data[2]?.plans[currentBlock].cost}${' '}
+                  <span>/in {data[2]?.plans[currentBlock].period.main_period}</span>
                 </p>
-                <Link className="tarif__link" to={"/payment"}>
+                <Link className="tarif__link" to={'/payment'}>
                   Оплатить
                 </Link>
                 <ul className="tarif__list">
@@ -99,12 +91,10 @@ export const TarifWindow: React.FC<{}> = () => {
                 </div>
                 <p className="tarif__cost">
                   <strong>999$</strong>
-                  {data[1]?.plans[currentBlock].cost}${" "}
-                  <span>
-                    /in {data[1]?.plans[currentBlock].period.main_period}
-                  </span>
+                  {data[1]?.plans[currentBlock].cost}${' '}
+                  <span>/in {data[1]?.plans[currentBlock].period.main_period}</span>
                 </p>
-                <Link className="tarif__link" to={"/payment"}>
+                <Link className="tarif__link" to={'/payment'}>
                   Оплатить
                 </Link>
                 <ul className="tarif__list">
@@ -128,12 +118,10 @@ export const TarifWindow: React.FC<{}> = () => {
               </div>
               <p className="tarif__cost">
                 <strong>99$</strong>
-                {data[2]?.plans[currentBlock].cost}${" "}
-                <span>
-                  /in {data[2]?.plans[currentBlock].period.main_period}
-                </span>
+                {data[2]?.plans[currentBlock].cost}${' '}
+                <span>/in {data[2]?.plans[currentBlock].period.main_period}</span>
               </p>
-              <Link className="tarif__link" to={"/payment"}>
+              <Link className="tarif__link" to={'/payment'}>
                 Оплатить
               </Link>
               <ul className="tarif__list">
@@ -153,12 +141,10 @@ export const TarifWindow: React.FC<{}> = () => {
               </div>
               <p className="tarif__cost">
                 <strong>999$</strong>
-                {data[1]?.plans[currentBlock].cost}${" "}
-                <span>
-                  /in {data[1]?.plans[currentBlock].period.main_period}
-                </span>
+                {data[1]?.plans[currentBlock].cost}${' '}
+                <span>/in {data[1]?.plans[currentBlock].period.main_period}</span>
               </p>
-              <Link className="tarif__link" to={"/payment"}>
+              <Link className="tarif__link" to={'/payment'}>
                 Оплатить
               </Link>
               <ul className="tarif__list">

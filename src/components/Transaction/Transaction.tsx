@@ -1,17 +1,17 @@
-import { useEffect, useState, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
-import { useSkeleton } from "../../hooks/useSkeleton";
-import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
-import { getRecData } from "../../reducers/recDataSlice.reducer";
-import { TransactionFilter } from "./TransactionFilter";
-import { IRecObj } from "../../reducers/recDataSlice.reducer";
-import { LockScreen } from "../UIelems/LockScreen";
+import { useEffect, useState, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useSkeleton } from '@hooks/useSkeleton';
+import { useAppDispatch, useAppSelector } from '@store/hooks.store';
+import { getRecData } from '@store/recDataSlice.reducer';
+import { TransactionFilter } from './TransactionFilter';
+import { IRecObj } from '@store/recDataSlice.reducer';
+import { LockScreen } from '@c/UIelems/LockScreen';
 
 export const Transaction: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.recState);
   const { userData, timeDiff } = useAppSelector((state) => state.userState);
-  const [filter, setFilter] = useState<string>("waiting");
+  const [filter, setFilter] = useState<string>('waiting');
   const [isSelect, setIsSelect] = useState<boolean>(false);
   const [recData, setRecData] = useState<IRecObj[]>();
   const { loaded } = useSkeleton(true);
@@ -23,29 +23,28 @@ export const Transaction: React.FC<{}> = () => {
   }, []);
 
   const checkStatus = (status: string) => {
-    if (status === "В ожидании") {
-      return "#EFAD10";
-    } else if (status === "Отменена") {
-      return "#CA390C";
-    } else if (status === "Закрыта в прибыль, +10%") {
-      return "#449C62";
+    if (status === 'В ожидании') {
+      return '#EFAD10';
+    } else if (status === 'Отменена') {
+      return '#CA390C';
+    } else if (status === 'Закрыта в прибыль, +10%') {
+      return '#449C62';
     } else {
-      return "#CA390C";
+      return '#CA390C';
     }
   };
 
   const handleClick = () => {
     setIsSelect(false);
-    setFilter("");
+    setFilter('');
   };
 
   useEffect(() => {
     setRecData(
-      filter !== ""
+      filter !== ''
         ? data.data?.filter(
             (elem) =>
-              elem?.status?.toLowerCase().trim() ===
-              filter?.split("|")[1].toLowerCase().trim()
+              elem?.status?.toLowerCase().trim() === filter?.split('|')[1].toLowerCase().trim()
           )
         : data.data
     );
@@ -61,22 +60,19 @@ export const Transaction: React.FC<{}> = () => {
 
   return (
     <div className="recomendation">
-      {(userData?.data.tariff?.includes("Trader") && !timeDiff) ||
-      (userData?.data.allowed_functions?.includes("Signal") && !timeDiff) ? (
-        ""
+      {(userData?.data.tariff?.includes('Trader') && !timeDiff) ||
+      (userData?.data.allowed_functions?.includes('Signal') && !timeDiff) ? (
+        ''
       ) : (
         <LockScreen />
       )}
-      {userData?.data.tariff === null ? <LockScreen /> : ""}
+      {userData?.data.tariff === null ? <LockScreen /> : ''}
       <div className="recomendation__top">
         <h2 className="title">Рекомендации по торговле</h2>
         {isSelect ? (
-          <button
-            className="chart__dropdown-button active"
-            onClick={handleClick}
-          >
+          <button className="chart__dropdown-button active" onClick={handleClick}>
             <span></span>
-            {filter.split("|")[0]}
+            {filter.split('|')[0]}
           </button>
         ) : (
           <TransactionFilter filter={setFilter} isSelected={setIsSelect} />
@@ -97,40 +93,37 @@ export const Transaction: React.FC<{}> = () => {
             </thead>
             <tbody>
               {recData?.map((elem, index) => (
-                <tr>
+                <tr key={index}>
                   <td>{elem.date}</td>
                   <td>
                     <div>
                       <img
                         src={`./images/${elem.currency.toLowerCase()}.png`}
                         alt={`Coin name ${elem.currency}`}
-                      />{" "}
+                      />{' '}
                       <p>{elem.currency}</p>
                     </div>
                   </td>
                   <td
                     style={{
-                      color: elem.direction === "SHORT" ? "#CA390C" : "#449C62",
-                    }}
-                  >
+                      color: elem.direction === 'SHORT' ? '#CA390C' : '#449C62',
+                    }}>
                     {elem.direction}
                   </td>
                   <td style={{ color: checkStatus(elem.status) }}>
-                    {elem.stop_loss
-                      ? `${elem.status} ${elem.stop_loss}`
-                      : elem.status}
+                    {elem.stop_loss ? `${elem.status} ${elem.stop_loss}` : elem.status}
                   </td>
                   <td>
                     <span>
-                      {elem.entry_price_range.map((item) => (
-                        <p>${item}</p>
+                      {elem.entry_price_range.map((item, idx) => (
+                        <p key={idx}>${item}</p>
                       ))}
                     </span>
                   </td>
                   <td>
                     <span>
-                      {elem.get_exit_range.map((item) => (
-                        <p>${item}</p>
+                      {elem.get_exit_range.map((item, idx) => (
+                        <p key={idx}>${item}</p>
                       ))}
                     </span>
                   </td>
@@ -145,7 +138,7 @@ export const Transaction: React.FC<{}> = () => {
         )}
       </div>
       <ul className="recomendation__pagination">
-        <Link to={"/recomenation/${page}"}></Link>
+        <Link to={'/recomenation/${page}'}></Link>
       </ul>
     </div>
   );

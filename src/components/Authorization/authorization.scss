@@ -1,6 +1,6 @@
 .authorization {
   min-height: 100vh;
-  background: #000000;
+  background: #000;
 
   .invisible {
     right: 0;
@@ -8,7 +8,7 @@
     pointer-events: none;
     opacity: 0;
     position: absolute;
-    height: 0px;
+    height: 0;
     overflow: hidden;
 
     &::-webkit-credentials-auto-fill-button {
@@ -40,8 +40,9 @@
   &__window {
     &.cursor-active {
       position: relative;
+
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         width: 1px;
         height: 20px;
@@ -110,14 +111,14 @@
     line-height: 130%;
     text-align: center;
     margin-bottom: 34px;
-    color: #ffffff;
+    color: #fff;
   }
 
   &__text {
     font-weight: 400;
     font-size: 14px;
     line-height: 130%;
-    color: #ffffff;
+    color: #fff;
   }
 
   &__resend {
@@ -156,13 +157,9 @@
     padding: 50px 40px;
     max-width: 440px;
     margin-top: 130px;
-    background: linear-gradient(
-      180deg,
-      rgba(102, 175, 203, 0.1) 0%,
-      rgba(102, 175, 203, 0) 100%
-    );
+    background: linear-gradient(180deg, rgba(102, 175, 203, 0.1) 0%, rgba(102, 175, 203, 0) 100%);
     border-radius: 21.163px;
-    box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+    box-shadow: 0 2px 20px rgba(9, 5, 183, 0.06);
     display: flex;
     flex-direction: column;
 
@@ -206,7 +203,7 @@
     }
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       width: 18px;
       height: 15px;
@@ -216,7 +213,7 @@
       bottom: 43px;
       background-repeat: no-repeat;
       background-size: contain;
-      background-image: url("http://localhost:3000/images/Mail.svg");
+      background-image: url('http://localhost:3000/images/Mail.svg');
     }
   }
 
@@ -226,12 +223,12 @@
     outline: #ccc5ff;
     color: white;
     background-color: transparent;
-    border: 1px solid #ffffff;
-    filter: drop-shadow(0px 2px 20px rgba(9, 5, 183, 0.06));
+    border: 1px solid #fff;
+    filter: drop-shadow(0 2px 20px rgba(9, 5, 183, 0.06));
     border-radius: 40px;
 
     &.validation {
-      padding: 22px 0px;
+      padding: 22px 0;
       text-align: center;
       margin-right: 5px;
       max-width: 48px;
@@ -243,13 +240,12 @@
   }
 
   &__submit {
-    color: white;
     padding: 24px 0;
     font-weight: 600;
     font-size: 18px;
     line-height: 14px;
     text-align: center;
-    color: #ffffff;
+    color: #fff;
     background: #4572ee;
     border-radius: 40px;
     transition: opacity 0.3s;
@@ -290,6 +286,7 @@
 @media (max-width: 900px) {
   .authorization {
     padding: 0 10px;
+
     &__inner {
       justify-content: center;
     }
@@ -320,13 +317,12 @@
 
     &__form {
       text-align: center;
-      padding: 25px 20px;
+      padding: 47px 20px 25px;
 
       .authorization__title {
         font-weight: 600;
         font-size: 22px;
         line-height: 14px;
-        text-align: center;
         color: #262628;
         margin-bottom: 12px;
         text-align: center !important;
@@ -338,6 +334,7 @@
       max-width: 100%;
       display: block;
       margin-bottom: 15px;
+
       &.onMobile {
         display: none;
       }
@@ -350,23 +347,17 @@
           top: 55%;
         }
       }
-    }
 
-    &__input {
-      &.validation {
-        padding: 17px 0;
-      }
-    }
-
-    &__window {
       input {
         padding: 17px 0;
         margin-bottom: 10px;
       }
     }
 
-    &__form {
-      padding-top: 47px;
+    &__input {
+      &.validation {
+        padding: 17px 0;
+      }
     }
   }
 

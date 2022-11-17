@@ -1,18 +1,10 @@
-import React, {
-  createContext,
-  useLayoutEffect,
-  useState,
-  useEffect,
-} from "react";
-import { useAppDispatch, useAppSelector } from "./reducers/hooks.store";
-import { getCurrentUser } from "./reducers/userFetchSlice.reducer";
-import { Layout } from "./components/Layout/Layout";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
-import { HomePage } from "./pages/HomePage";
-import { PaymentPage } from "./pages/PaymentPage";
-import { Authorization } from "./pages/Authorization";
-import { Partnership } from "./pages/Partnership";
-import Cookies from "js-cookie";
+import { createContext, useLayoutEffect, useState, useEffect } from 'react';
+import { Layout } from '@c/Layout/Layout';
+import { Routes, Route } from 'react-router-dom';
+import { HomePage } from '@/pages/HomePage';
+import { PaymentPage } from '@/pages/PaymentPage';
+import { Authorization } from '@/pages/Authorization';
+import { Partnership } from '@/pages/Partnership';
 
 interface IThemeContext {
   theme: boolean;
@@ -22,19 +14,17 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  if (!localStorage.getItem("theme")) {
-    localStorage.setItem("theme", "false");
+  if (!localStorage.getItem('theme')) {
+    localStorage.setItem('theme', 'false');
   }
-  const [theme, changeTheme] = useState<boolean>(
-    JSON.parse(localStorage.getItem("theme") as any)
-  );
+  const [theme, changeTheme] = useState<boolean>(JSON.parse(localStorage.getItem('theme') as any));
 
   const handleChangeTheme = () => {
     changeTheme(!theme);
   };
 
   useEffect(() => {
-    localStorage.setItem("theme", theme.toString());
+    localStorage.setItem('theme', theme.toString());
   }, [theme]);
 
   return (

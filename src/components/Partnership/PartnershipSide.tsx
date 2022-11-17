@@ -1,13 +1,13 @@
-import React, { useRef } from "react";
-import { PartnershipBonus } from "./PartnershipBonus";
-import { PartnershipRaiting } from "./PartnershipRating";
+import { useRef } from 'react';
+import { PartnershipBonus } from './PartnershipBonus';
+import { PartnershipRaiting } from './PartnershipRating';
 
 export const PartnershipSide: React.FC<{}> = () => {
   const referalRef: any = useRef();
 
   const handleCopy = () => {
     referalRef.current.select();
-    document.execCommand("copy");
+    document.execCommand('copy');
   };
 
   return (
@@ -32,9 +32,7 @@ export const PartnershipSide: React.FC<{}> = () => {
         <p className="partnership__text">на свой счет в личном кабинете</p>
       </div>
       <div className="partnership__referal block">
-        <h3 className="partnership__title">
-          Индивидуальная партнерская система
-        </h3>
+        <h3 className="partnership__title">Индивидуальная партнерская система</h3>
         <ul className="partnership__system">
           <li className="partnership__card">
             <p>1 уровень</p>

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from 'react';
 
 interface IPartnershipBonusProps {}
 
@@ -18,23 +18,23 @@ export const PartnershipBonus: FC<IPartnershipBonusProps> = () => {
       <ul className="partnership-bonus__list">
         <li className="partnership-bonus__card">
           <p>1 ранг</p>
-          <strong>оплат {">"} 5k</strong>
+          <strong>оплат {'>'} 5k</strong>
         </li>
         <li className="partnership-bonus__card">
           <p>2 ранг</p>
-          <strong>оплат {">"} 20k</strong>
+          <strong>оплат {'>'} 20k</strong>
         </li>
         <li className="partnership-bonus__card">
           <p>3 ранг</p>
-          <strong>оплат {">"} 50k</strong>
+          <strong>оплат {'>'} 50k</strong>
         </li>
         <li className="partnership-bonus__card">
           <p>4 ранг</p>
-          <strong>оплат {">"} 100k</strong>
+          <strong>оплат {'>'} 100k</strong>
         </li>
         <li className="partnership-bonus__card">
           <p>5 ранг</p>
-          <strong>оплат {">"} 200k</strong>
+          <strong>оплат {'>'} 200k</strong>
         </li>
       </ul>
     </div>

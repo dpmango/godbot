@@ -5,6 +5,7 @@
     right: -65px;
     top: 10px;
     position: absolute;
+
     p {
       pointer-events: none;
       border-radius: 10px;
@@ -18,16 +19,16 @@
       line-height: 14px;
       color: #262628;
       max-width: 126px;
-      background: #ffffff;
+      background: #fff;
       border: 1px solid #7482e3;
-      box-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+      box-shadow: 0 2px 20px rgba(9, 5, 183, 0.06);
       transition: opacity 0.3s;
     }
 
     button {
       cursor: default;
       z-index: 9;
-      padding: 0px 7px;
+      padding: 0 7px;
       font-weight: 600;
       font-size: 9px;
       color: white;
@@ -78,7 +79,7 @@
         font-size: 12px;
         line-height: 14px;
         text-align: center;
-        color: #ffffff;
+        color: #fff;
         background: #4572ee;
         border-radius: 40px;
       }

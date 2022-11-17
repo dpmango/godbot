@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from 'react';
 interface IButton {
   title: string;
   active: boolean;
@@ -21,11 +20,7 @@ export const ChartLegend: React.FC<{
 
   useEffect(() => {
     if (data.length) {
-      setButtons(
-        data.map((elem) =>
-          Object.assign({}, { title: elem.name, active: true })
-        )
-      );
+      setButtons(data.map((elem) => Object.assign({}, { title: elem.name, active: true })));
     }
   }, [data]);
 
@@ -43,18 +38,13 @@ export const ChartLegend: React.FC<{
 
   return (
     <>
-      <button
-        className="chart__settings"
-        ref={settingRef}
-        onClick={() => setActive(!active)}
-      >
+      <button className="chart__settings" ref={settingRef} onClick={() => setActive(!active)}>
         <svg
           width="20"
           height="20"
           viewBox="0 0 20 20"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -67,22 +57,12 @@ export const ChartLegend: React.FC<{
       </button>
       <div
         className={
-          active
-            ? "chart__legend-blur chart__legend-blur--active"
-            : "chart__legend-blur"
-        }
-      ></div>
-      <div
-        className={
-          active ? "chart__legend chart__legend--active" : "chart__legend"
-        }
-      >
+          active ? 'chart__legend-blur chart__legend-blur--active' : 'chart__legend-blur'
+        }></div>
+      <div className={active ? 'chart__legend chart__legend--active' : 'chart__legend'}>
         <div className="chart__legend-head">
           <p className="chart__legend-title">Trading Legend</p>
-          <button
-            className="chart__legend-close"
-            onClick={() => setActive(!active)}
-          >
+          <button className="chart__legend-close" onClick={() => setActive(!active)}>
             <p>&times;</p>
           </button>
         </div>
@@ -94,10 +74,9 @@ export const ChartLegend: React.FC<{
                 onClick={() => handleClick(elem.title)}
                 className={
                   elem.active
-                    ? "chart__legend-item chart__legend-item--active"
-                    : "chart__legend-item"
-                }
-              >
+                    ? 'chart__legend-item chart__legend-item--active'
+                    : 'chart__legend-item'
+                }>
                 <button></button>
                 <div style={{ background: colors[index] }}></div>
                 <p>{elem.title}</p>

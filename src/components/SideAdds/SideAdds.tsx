@@ -1,44 +1,40 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Autoplay, Pagination } from "swiper";
-import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../../App";
-import { useAppSelector } from "../../reducers/hooks.store";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Autoplay, Pagination } from 'swiper';
+import { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '@/App';
+import { useAppSelector } from '@store/hooks.store';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 
 export const SideAdds: React.FC<{
   setVisible: () => void;
   visible: boolean;
 }> = ({ setVisible, visible }) => {
-  const [display, setDisplay] = useState("block");
+  const [display, setDisplay] = useState('block');
   const { userData } = useAppSelector((state) => state.userState);
   const ctx = useContext(ThemeContext);
 
   useEffect(() => {
     if (!visible) {
       setTimeout(() => {
-        setDisplay("none");
+        setDisplay('none');
       }, 700);
     }
   }, [visible]);
 
   return (
-    <div
-      style={{ display }}
-      className={visible === true ? "adds" : "adds adds--hidden"}
-    >
-      {userData?.data.tariff === "Инвестор" ? (
+    <div style={{ display }} className={visible === true ? 'adds' : 'adds adds--hidden'}>
+      {userData?.data.tariff === 'Инвестор' ? (
         <div className="adds__cash">
           <p>
-            Общий заработок:{" "}
-            <span style={{ color: "#EFAD10" }}>$19,481.29</span>
+            Общий заработок: <span style={{ color: '#EFAD10' }}>$19,481.29</span>
           </p>
           <p>
-            Ваш доход: <span style={{ color: "#449C62" }}>$9,481.29</span>
+            Ваш доход: <span style={{ color: '#449C62' }}>$9,481.29</span>
           </p>
           <p>
-            Сумма оплаты: <span style={{ color: "#88019E" }}>$8,481.29</span>
+            Сумма оплаты: <span style={{ color: '#88019E' }}>$8,481.29</span>
           </p>
         </div>
       ) : (
@@ -48,8 +44,7 @@ export const SideAdds: React.FC<{
             height="20"
             viewBox="0 0 25 20"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -62,12 +57,12 @@ export const SideAdds: React.FC<{
       )}
 
       <div>
-        {userData?.data.tariff === "Трейдер" ? (
+        {userData?.data.tariff === 'Трейдер' ? (
           <button className="adds__close" onClick={setVisible}>
             &times;
           </button>
         ) : (
-          ""
+          ''
         )}
         <Swiper
           modules={[Pagination, Autoplay]}
@@ -75,8 +70,7 @@ export const SideAdds: React.FC<{
           slidesPerView={1}
           loop={true}
           autoplay={true}
-          pagination={{ clickable: true }}
-        >
+          pagination={{ clickable: true }}>
           <SwiperSlide>
             <li>
               <img src="./images/bybit.svg" alt="" />

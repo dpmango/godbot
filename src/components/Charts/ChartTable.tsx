@@ -1,14 +1,14 @@
-import React, { ForwardRefRenderFunction, useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { setStateCoin } from "../../reducers/chartDataSlice.reducer";
-import { useAppDispatch, useAppSelector } from "../../reducers/hooks.store";
-import { checkOnPro } from "../../scripts/scripts";
-import { ChartDropdown } from "../Dropdown/ChartDropdown";
-import { ChartUpdateTimer } from "./ChartUpdateTimer";
+import { forwardRef, ForwardRefRenderFunction, useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { setStateCoin } from '@store/chartDataSlice.reducer';
+import { useAppDispatch, useAppSelector } from '@store/hooks.store';
+import { checkOnPro } from '@utils/scripts';
+import { ChartDropdown } from '@c/Dropdown/ChartDropdown';
+import { ChartUpdateTimer } from '@c/Charts/ChartUpdateTimer';
 
 const ChartTable: React.FC<{}> = ({}, ref) => {
   const { userData, loading } = useAppSelector((state) => state.userState);
-  const [timeChart, setTimeChart] = useState<string | null>("15 минут");
+  const [timeChart, setTimeChart] = useState<string | null>('15 минут');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -21,9 +21,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
   const handleCoinClick: React.MouseEventHandler<HTMLElement> = (e) => {
     dispatch(setStateCoin((e.target as HTMLElement).textContent as string));
     navigate(
-      `?coin=${(e.target as HTMLElement).textContent}?timestamp=${
-        timeChart?.split(" ")[0]
-      }`
+      `?coin=${(e.target as HTMLElement).textContent}?timestamp=${timeChart?.split(' ')[0]}`
     );
   };
 
@@ -33,7 +31,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
     }
   }, [search]);
 
-  if (loading !== "fulfilled") return <div></div>;
+  if (loading !== 'fulfilled') return <div></div>;
 
   return (
     <div className="chart__head" ref={ref}>
@@ -45,9 +43,8 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
               {Object.keys(data.data).map((elem, index) => (
                 <li
                   onClick={handleCoinClick}
-                  className={checkOnPro(userData) ? "" : "pro"}
-                  key={index}
-                >
+                  className={checkOnPro(userData) ? '' : 'pro'}
+                  key={index}>
                   <p>{elem}</p>
                 </li>
               ))}
@@ -56,7 +53,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
                   <button>Заказать просчет +</button>
                 </li>
               ) : (
-                ""
+                ''
               )}
             </ul>
           )}
@@ -75,6 +72,4 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
   );
 };
 
-export default React.forwardRef(
-  ChartTable as ForwardRefRenderFunction<React.ReactElement>
-);
+export default forwardRef(ChartTable as ForwardRefRenderFunction<React.ReactElement>);

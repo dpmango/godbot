@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const PartnershipHead: React.FC<{}> = () => {
   return (
@@ -10,14 +10,19 @@ export const PartnershipHead: React.FC<{}> = () => {
       </Link>
       <ul className="partnership__list">
         <li className="partnership__item">
-          <p>Заработок <br /> с нами</p> <span className="blue">85.05%</span>
+          <p>
+            Заработок <br /> с нами
+          </p>{' '}
+          <span className="blue">85.05%</span>
         </li>
         <li className="partnership__item">
           <p>Количество сигналов </p>
           <span className="blue">14 789</span>
         </li>
         <li className="partnership__item">
-          <p>Проходимость <br /> сигналов</p>
+          <p>
+            Проходимость <br /> сигналов
+          </p>
           <span className="blue">98.5%</span>
         </li>
       </ul>

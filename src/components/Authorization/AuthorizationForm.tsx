@@ -1,11 +1,11 @@
-import Cookies from "js-cookie";
-import { useState } from "react";
-import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom";
-import "./authorization.scss";
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
+import './authorization.scss';
 
 export const AuthorizationForm: React.FC<{}> = () => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
   const navigate = useNavigate();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -13,22 +13,22 @@ export const AuthorizationForm: React.FC<{}> = () => {
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
-    localStorage.setItem('email', value)
+    localStorage.setItem('email', value);
     e.preventDefault();
     const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         email: value,
       }),
       headers: {
-        "Content-Type": "application/json" as string,
-        "X-CSRFToken": Cookies.get("csrftoken") as string,
+        'Content-Type': 'application/json' as string,
+        'X-CSRFToken': Cookies.get('csrftoken') as string,
       },
     });
     if (resp.ok) {
-      navigate("/auth/validation");
+      navigate('/auth/validation');
     } else {
-      console.log("error");
+      console.log('error');
     }
   };
 

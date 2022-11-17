@@ -1,8 +1,8 @@
-import { PartnershipHead } from "../components/Partnership/PartnershipHead";
-import "../components/Partnership/partnership.scss";
-import { PartnershipBody } from "../components/Partnership/PartnershipBody";
-import { PartnershipSide } from "../components/Partnership/PartnershipSide";
-import { Helmet } from "react-helmet";
+import { PartnershipHead } from '@c/Partnership/PartnershipHead';
+import '@c/Partnership/partnership.scss';
+import { PartnershipBody } from '@c/Partnership/PartnershipBody';
+import { PartnershipSide } from '@c/Partnership/PartnershipSide';
+import { Helmet } from 'react-helmet';
 
 export const Partnership: React.FC<{}> = () => {
   return (
