@@ -88,35 +88,5 @@
     "*.{css,scss}": [
       "stylelint --fix"
     ]
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "plugin:react/recommended",
-      "plugin:prettier/recommended"
-    ],
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "rules": {
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "prettier/prettier": "warn",
-      "react/display-name": [
-        "off"
-      ],
-      "react/prop-types": "off",
-      "react/state-in-constructor": [
-        "error",
-        "never"
-      ],
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off"
-    }
-  },
-  "proxy": "http://localhost:3001"
+  }
 }

@@ -7,7 +7,6 @@ import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 import { useAppSelector } from '@store/hooks.store';
 
 export const Authorization: React.FC<{}> = () => {
-  const [value, setValue] = useState('');
   const { search } = useLocation();
   const { userData } = useAppSelector((state) => state.userState);
 
