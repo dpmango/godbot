@@ -1,15 +1,15 @@
 import { MutableRefObject, useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getChartData, IChartObj } from '@store/chartDataSlice.reducer';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
+import { getChart } from '@store';
+import { useAppDispatch, useAppSelector } from '@store';
 import { SideAdds } from '@c/SideAdds/SideAdds';
 import { TableSwitch } from './TableSwitch';
 
 import '../Charts/chart.scss';
 import { Echrt } from '@c/Charts/Echrt';
 import ChartTable from '@c/Charts/ChartTable';
-import { LockScreen } from '@c/UIelems/LockScreen';
-import { getInvestorData } from '@store/investorSlice.reducer';
+import { LockScreen } from '@ui/LockScreen';
+import { getInvesting } from '@store';
 import { InvestorChart } from '@c/Charts/InvestorChart';
 import { ThemeContext } from '@/App';
 
@@ -25,8 +25,8 @@ export const Table: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (userData?.data.tariff !== null && !timeDiff) {
-      dispatch(getChartData('coin=BTC'));
+    if (userData?.allowed_functions.includes('Forecasst') && !timeDiff) {
+      dispatch(getChart('coin=BTC'));
     }
   }, []);
 
@@ -39,20 +39,24 @@ export const Table: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    if (!investorData.graphs.data?.length && userData?.data.tariff !== null && !timeDiff) {
-      dispatch(getInvestorData());
+    if (
+      !investorData.graphs.data?.length &&
+      userData?.allowed_functions.includes('Investing') !== null &&
+      !timeDiff
+    ) {
+      dispatch(getInvesting());
     }
   }, []);
 
   return (
     <div className={!visible ? 'table__wrapper _hidden' : 'table__wrapper'}>
-      {userData?.data.tariff === null || timeDiff ? (
+      {userData?.tariff === null || timeDiff ? (
         ''
       ) : (
         <TableSwitch investorTable={investorTable} setInvestorTable={setInvestorTable} />
       )}
       <div className="table__inner" ref={addsRef}>
-        {timeDiff || userData?.data.tariff === null ? <LockScreen /> : ''}
+        {timeDiff || userData?.tariff === null ? <LockScreen /> : ''}
         <div
           className={visible ? 'table' : 'table table--hidden'}
           style={{
@@ -65,7 +69,7 @@ export const Table: React.FC<{}> = () => {
                 ? '#1c2326'
                 : 'white',
           }}>
-          {userData?.data.tariff === 'New' ? (
+          {userData?.tariff === 'New' ? (
             <div className="table__lock">
               <div>
                 <img src="./images/Lock.svg" alt="Lock" />

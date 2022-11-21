@@ -63,7 +63,8 @@ export const PaymentSum: React.FC<{}> = () => {
           ))}
         </div>
         <div className="payment__wallet">
-          <img src="./images/qr-code.svg" alt="Wallet link" />
+          <span>TODO - generate qr or use payment api</span>
+          {/* <img src="./images/qr-code.svg" alt="Wallet link" /> */}
           <p>Для совершения платежа отправьте USDT на указанный адрес кошелька.</p>
         </div>
       </div>

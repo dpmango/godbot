@@ -111,11 +111,12 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       text-transform: uppercase;
       border-top: 1px solid #dddfe1;
 
       svg {
+        font-size: 18px;
         margin-right: 6px;
       }
     }
@@ -161,7 +162,7 @@
         font-size: 12px;
         line-height: 14px;
         text-transform: uppercase;
-        color: #262628;
+        color: $colorFont;
       }
 
       &::before {
@@ -172,7 +173,7 @@
         border-radius: 50%;
         left: -10px;
         top: 8px;
-        background-color: #262628;
+        background-color: $colorFont;
       }
     }
   }
@@ -186,7 +187,7 @@
         font-size: 12px;
         line-height: 14px;
         text-transform: uppercase;
-        color: #262628;
+        color: $colorFont;
         border-bottom: 1px solid #dddfe1;
       }
 
@@ -198,7 +199,7 @@
           position: absolute;
           padding: 1px 4px;
           content: 'PRO';
-          background-color: #ca390c;
+          background-color: $colorRed;
           border-radius: 4px;
           font-weight: 500;
           font-size: 8px;
@@ -251,7 +252,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@include r($sm) {
   .language {
     display: none;
   }

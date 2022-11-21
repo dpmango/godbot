@@ -1,8 +1,9 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
-import { useAppSelector } from '@store/hooks.store';
-import Cookies from 'js-cookie';
 import { parse } from 'date-fns';
+
+import { useAppSelector } from '@store';
+import { api } from '@core';
 
 interface IInvestorChartProps {}
 
@@ -24,8 +25,8 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
   useEffect(() => {
     graphs?.data?.forEach(async (elem, index) => {
       const graph: any = null;
-      const resp = await fetch(elem.graph_path);
-      const data = await resp.json();
+      const { data } = await api(elem.graph_path, {});
+
       const color = ['#3182bd', '#1c9099', '#43a2ca', '#9ebcda'];
 
       const timestamp = Object.values(data.time_list_forecast).map((elem: any) => {

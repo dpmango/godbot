@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useAppSelector } from '@store/hooks.store';
+import { useAppSelector } from '@store';
 import './greeting.scss';
 
 interface IGreetingProps {}

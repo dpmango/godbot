@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useDropdown } from '@hooks/useDropdown';
+import { useDropdown } from '@hooks';
 import '../Charts/chart.scss';
 
 interface IAppProps {

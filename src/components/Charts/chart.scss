@@ -12,7 +12,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       margin-right: 20px;
     }
   }
@@ -83,7 +83,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
     }
 
     &-close {
@@ -93,7 +93,7 @@
       color: white;
       font-weight: 300;
       font-size: 46px;
-      background: #4572ee;
+      background: $colorPrimary;
       border-radius: 10px;
       transition: background 0.3s;
 
@@ -152,7 +152,7 @@
           height: 14px;
           left: 2px;
           top: 2px;
-          background: #4572ee;
+          background: $colorPrimary;
           border-radius: 4px;
           transition: opacity 0.3s;
         }
@@ -170,7 +170,7 @@
 
   &__settings {
     padding: 10px 10px 6px;
-    background: #4572ee;
+    background: $colorPrimary;
     border-radius: 10px;
     position: absolute;
     right: 20px;
@@ -185,7 +185,7 @@
     line-height: 130%;
     // margin-right: 10px;
     text-align: center;
-    color: #262628;
+    color: $colorFont;
     border-radius: 10px;
     position: relative;
     padding: 10px 0;
@@ -200,7 +200,7 @@
       height: 18px;
       background-repeat: no-repeat;
       background-size: contain;
-      background-image: url('http://localhost:3000/images/header/Download.svg');
+      background-image: url('/assets/images/Download.svg');
     }
   }
 
@@ -217,7 +217,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: #262628;
+    color: $colorFont;
     padding-left: 40px;
 
     &::before {
@@ -279,10 +279,10 @@
       font-weight: 500;
       font-size: 10px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       padding: 5px 9px;
       background: #fff;
-      border: 1px solid #4572ee;
+      border: 1px solid $colorPrimary;
       border-radius: 15px;
       transition: border-radius 0.3s;
 
@@ -361,7 +361,7 @@
         overflow: hidden;
         width: 100%;
         background: #fff;
-        border: 1px solid #4572ee;
+        border: 1px solid $colorPrimary;
         border-radius: 10px;
         transition: border-radius 0.3s;
       }
@@ -373,12 +373,12 @@
         font-size: 10px;
         line-height: 14px;
         text-align: left;
-        color: #262628;
+        color: $colorFont;
         padding: 5px 9px;
         transition: background 0.3s;
 
         button {
-          color: #4572ee;
+          color: $colorPrimary;
         }
 
         &.pro {
@@ -393,7 +393,7 @@
             position: absolute;
             padding: 1px 4px;
             content: 'PRO';
-            background-color: #ca390c;
+            background-color: $colorRed;
             border-radius: 4px;
             font-weight: 500;
             font-size: 8px;
@@ -507,7 +507,7 @@
     text-transform: uppercase;
     line-height: 14px;
     text-align: center;
-    color: #262628;
+    color: $colorFont;
     border: 1px solid #858585;
     border-radius: 40px;
     transition: all 0.3s;
@@ -531,7 +531,7 @@
   }
 }
 
-@media (max-width: 876px) {
+@include r($md) {
   .chart__download,
   .chart__settings,
   .chart__timer {
@@ -546,7 +546,7 @@
     .title {
       font-size: 11px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       margin-left: 8px;
       margin-right: 6px;
     }
@@ -570,7 +570,7 @@
     font-size: 11px;
     line-height: 14px;
     text-align: center;
-    color: #262628;
+    color: $colorFont;
 
     &::before {
       display: none;
@@ -578,7 +578,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@include r($sm) {
   .investor {
     &__button {
       display: block;

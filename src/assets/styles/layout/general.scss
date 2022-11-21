@@ -10,7 +10,7 @@ html {
     /* Handle */
     &::-webkit-scrollbar-thumb {
       height: 2px;
-      background: #4572ee;
+      background: $colorPrimary;
     }
   }
 
@@ -21,7 +21,7 @@ html {
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: #4572ee;
+    background: $colorPrimary;
   }
 }
 
@@ -103,11 +103,12 @@ time {
 
 body {
   overflow-x: hidden;
-  font-family: GilroyWeb, sans-serif;
+  min-width: 320px;
+  font-family: $baseFont;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  color: #262628;
+  color: $colorFont;
 }
 
 .blur-bg {

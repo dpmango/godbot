@@ -1,6 +1,17 @@
-# Getting Started with Create React App
+# godbot-app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Прокси
+
+Для локальной среды `API_URL` можно делать относительным, в таком случае будет использован прокси на `API_PROXY` для обхода CORS. Если задать абсолютный путь, например для локального бекенда `http://loclhost:3001`, прокси не используется
+
+Прокси работает только в dev режиме
+
+```
+REACT_APP_API_URL=/api/
+REACT_APP_API_PROXY=https://dev.godbot.pro/
+```
 
 ## Available Scripts
 

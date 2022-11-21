@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useDropdown } from '@hooks/useDropdown';
+import { useDropdown } from '@hooks';
 
 interface IPartnershipRaitingProps {}
 

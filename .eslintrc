@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:react/recommended", "plugin:react/jsx-runtime", "plugin:prettier/recommended"],
+  "extends": [ "plugin:prettier/recommended"],
   "settings": {
     "react": {
       "version": "detect"

@@ -7,6 +7,7 @@ const aliases = {
   '@ui': 'src/components/UI',
   '@core': 'src/core',
   '@hooks': 'src/core/hooks',
+  '@interface': 'src/core/interface',
   '@utils': 'src/core/utils',
   '@store': 'src/store',
   '@assets': 'src/assets',

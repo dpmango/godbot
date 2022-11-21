@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Pagination } from 'swiper';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '@/App';
-import { useAppSelector } from '@store/hooks.store';
+import { useAppSelector } from '@store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
@@ -25,7 +25,7 @@ export const SideAdds: React.FC<{
 
   return (
     <div style={{ display }} className={visible === true ? 'adds' : 'adds adds--hidden'}>
-      {userData?.data.tariff === 'Инвестор' ? (
+      {userData?.tariff === 'Инвестор' ? (
         <div className="adds__cash">
           <p>
             Общий заработок: <span style={{ color: '#EFAD10' }}>$19,481.29</span>
@@ -57,7 +57,7 @@ export const SideAdds: React.FC<{
       )}
 
       <div>
-        {userData?.data.tariff === 'Трейдер' ? (
+        {userData?.tariff === 'Трейдер' ? (
           <button className="adds__close" onClick={setVisible}>
             &times;
           </button>

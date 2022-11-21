@@ -1,24 +1,23 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSkeleton } from '@hooks/useSkeleton';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
-import { getRecData } from '@store/recDataSlice.reducer';
+import { useSkeleton } from '@hooks';
+
+import { useAppDispatch, useAppSelector, getSignals } from '@store';
+import { ISignal } from '@interface/Signal';
+import { LockScreen } from '@ui/LockScreen';
 import { TransactionFilter } from './TransactionFilter';
-import { IRecObj } from '@store/recDataSlice.reducer';
-import { LockScreen } from '@c/UIelems/LockScreen';
 
 export const Transaction: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
-  const { data } = useAppSelector((state) => state.recState);
+  const { data } = useAppSelector((state) => state.signalState);
   const { userData, timeDiff } = useAppSelector((state) => state.userState);
   const [filter, setFilter] = useState<string>('waiting');
   const [isSelect, setIsSelect] = useState<boolean>(false);
-  const [recData, setRecData] = useState<IRecObj[]>();
-  const { loaded } = useSkeleton(true);
+  const [recData, setRecData] = useState<ISignal[] | null>(null);
 
   useLayoutEffect(() => {
-    if (userData?.data.tariff !== null && !timeDiff) {
-      dispatch(getRecData());
+    if (userData?.allowed_functions.includes('Signal') && !timeDiff) {
+      dispatch(getSignals());
     }
   }, []);
 
@@ -26,11 +25,11 @@ export const Transaction: React.FC<{}> = () => {
     if (status === 'В ожидании') {
       return '#EFAD10';
     } else if (status === 'Отменена') {
-      return '#CA390C';
+      return '$colorRed;';
     } else if (status === 'Закрыта в прибыль, +10%') {
       return '#449C62';
     } else {
-      return '#CA390C';
+      return '$colorRed;';
     }
   };
 
@@ -40,33 +39,31 @@ export const Transaction: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    setRecData(
-      filter !== ''
-        ? data.data?.filter(
-            (elem) =>
-              elem?.status?.toLowerCase().trim() === filter?.split('|')[1].toLowerCase().trim()
-          )
-        : data.data
-    );
+    let newData = null;
+    if (filter && data) {
+      newData = data.filter(
+        (elem) => elem?.status?.toLowerCase().trim() === filter?.split('|')[1].toLowerCase().trim()
+      );
+    } else {
+      newData = data;
+    }
+
+    setRecData(newData);
   }, [filter]);
 
   useLayoutEffect(() => {
-    setRecData(data.data);
+    setRecData(data);
   }, [data]);
-
-  // const checkOnSignal = () => {
-  //   if (userData?.data.tariff?.includes("Trader"))
-  // }
 
   return (
     <div className="recomendation">
-      {(userData?.data.tariff?.includes('Trader') && !timeDiff) ||
-      (userData?.data.allowed_functions?.includes('Signal') && !timeDiff) ? (
+      {(userData?.tariff?.includes('Trader') && !timeDiff) ||
+      (userData?.allowed_functions?.includes('Signal') && !timeDiff) ? (
         ''
       ) : (
         <LockScreen />
       )}
-      {userData?.data.tariff === null ? <LockScreen /> : ''}
+      {userData?.tariff === null ? <LockScreen /> : ''}
       <div className="recomendation__top">
         <h2 className="title">Рекомендации по торговле</h2>
         {isSelect ? (
@@ -106,7 +103,7 @@ export const Transaction: React.FC<{}> = () => {
                   </td>
                   <td
                     style={{
-                      color: elem.direction === 'SHORT' ? '#CA390C' : '#449C62',
+                      color: elem.direction === 'SHORT' ? '$colorRed;' : '#449C62',
                     }}>
                     {elem.direction}
                   </td>

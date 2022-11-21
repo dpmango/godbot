@@ -32,9 +32,19 @@
   }
 
   &__wrapper {
+    margin-top: 40px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &._error {
+      .authorization {
+        &__input {
+          border-color: $colorRed;
+        }
+      }
+    }
   }
 
   &__window {
@@ -107,7 +117,7 @@
 
   &__title {
     font-weight: 600;
-    font-size: 24px;
+    font-size: 32px;
     line-height: 130%;
     text-align: center;
     margin-bottom: 34px;
@@ -116,9 +126,14 @@
 
   &__text {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 130%;
     color: #fff;
+
+    &._error {
+      text-align: center;
+      color: $colorRed;
+    }
   }
 
   &__resend {
@@ -153,8 +168,9 @@
 
   &__form {
     z-index: 1;
+    min-width: 1px;
     text-align: left;
-    padding: 50px 40px;
+    padding: 40px 40px 50px;
     max-width: 440px;
     margin-top: 130px;
     background: linear-gradient(180deg, rgba(102, 175, 203, 0.1) 0%, rgba(102, 175, 203, 0) 100%);
@@ -167,15 +183,6 @@
       max-width: 465px;
       padding-bottom: 30px;
 
-      .authorization__text {
-        color: white;
-        font-weight: 400;
-        text-align: left;
-        margin-bottom: 17px;
-        font-size: 14px;
-        line-height: 130%;
-      }
-
       .authorization__label::before {
         display: none;
       }
@@ -183,7 +190,7 @@
 
     .authorization__title {
       text-align: left;
-      margin-bottom: 15px;
+      margin-bottom: 8px;
     }
   }
 
@@ -213,7 +220,7 @@
       bottom: 43px;
       background-repeat: no-repeat;
       background-size: contain;
-      background-image: url('http://localhost:3000/images/Mail.svg');
+      background-image: url('/assets/images/Mail.svg');
     }
   }
 
@@ -226,37 +233,28 @@
     border: 1px solid #fff;
     filter: drop-shadow(0 2px 20px rgba(9, 5, 183, 0.06));
     border-radius: 40px;
+    transition: border-color 0.25s $ease;
 
     &.validation {
       padding: 22px 0;
+      margin: 0;
       text-align: center;
       margin-right: 5px;
       max-width: 48px;
+      border-radius: 20px;
+    }
+
+    &._error {
+      border-color: tomato;
     }
 
     &::placeholder {
-      color: #4572ee;
+      color: $colorPrimary;
     }
   }
 
-  &__submit {
-    padding: 24px 0;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 14px;
-    text-align: center;
-    color: #fff;
-    background: #4572ee;
-    border-radius: 40px;
-    transition: opacity 0.3s;
-
-    &:hover {
-      opacity: 0.7;
-    }
-
-    &:active {
-      opacity: 1;
-    }
+  &__confirm {
+    margin-top: 16px;
   }
 
   &__return {
@@ -271,6 +269,7 @@
     color: white;
 
     svg {
+      font-size: 12px;
       margin-right: 10px;
       transition: margin-right 0.3s;
     }
@@ -283,12 +282,16 @@
   }
 }
 
-@media (max-width: 900px) {
+@include r($lg) {
   .authorization {
-    padding: 0 10px;
+    padding: 0 20px;
 
     &__inner {
       justify-content: center;
+    }
+
+    &__bg {
+      display: none;
     }
 
     &__form {
@@ -298,18 +301,10 @@
     &__swiper {
       max-width: 100%;
     }
-
-    &__title {
-      font-size: 17px;
-    }
-
-    &__text {
-      font-size: 16px;
-    }
   }
 }
 
-@media (max-width: 576px) {
+@include r($sm) {
   .authorization {
     &__inner {
       padding-top: 90px;
@@ -320,12 +315,49 @@
       padding: 47px 20px 25px;
 
       .authorization__title {
-        font-weight: 600;
-        font-size: 22px;
-        line-height: 14px;
-        color: #262628;
-        margin-bottom: 12px;
-        text-align: center !important;
+        text-align: center;
+      }
+    }
+
+    &__title {
+      font-size: 22px;
+    }
+
+    &__label {
+      font-size: 12px;
+    }
+
+    &__wrapper {
+      margin-top: 20px;
+      max-width: 280px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &__window {
+      &.cursor-active {
+        &::before {
+          left: 45%;
+          top: 55%;
+        }
+      }
+
+      .authorization__input {
+        margin-right: 0;
+      }
+
+      input {
+        padding: 17px 0;
+        margin-bottom: 10px;
+      }
+    }
+
+    &__input {
+      &.validation {
+        padding: 12px 0;
+        max-width: 36px;
+        border-radius: 10px;
       }
     }
 
@@ -340,28 +372,10 @@
       }
     }
 
-    &__window {
-      &.cursor-active {
-        &::before {
-          left: 45%;
-          top: 55%;
-        }
-      }
-
-      input {
-        padding: 17px 0;
-        margin-bottom: 10px;
-      }
+    &__return {
+      margin-top: 4px;
+      padding: 10px 0;
+      font-size: 16px;
     }
-
-    &__input {
-      &.validation {
-        padding: 17px 0;
-      }
-    }
-  }
-
-  .authorization__form.validation .authorization__text {
-    text-align: center;
   }
 }

@@ -1,5 +1,5 @@
 import { toDate } from 'date-fns-tz';
-import { IUserState, IUser } from '@store/userFetchSlice.reducer';
+import { IUserState } from '@store';
 
 function timeDifference(date: any) {
   let now: any = new Date();
@@ -9,11 +9,11 @@ function timeDifference(date: any) {
 }
 
 const checkOnPro = (userData: IUserState | null) => {
-  return userData?.data.tariff?.toLocaleLowerCase().includes('pro');
+  return userData?.tariff?.toLocaleLowerCase().includes('pro');
 };
 
 const isValidDate = (userData: IUserState | null, countryFormat: string) => {
-  const date = new Date(userData?.data.subscription_date as string);
+  const date = new Date(userData?.subscription_date as string);
   const clonedDate = toDate(date, { timeZone: 'Europe/Paris' });
   return clonedDate?.toLocaleDateString(countryFormat);
 };

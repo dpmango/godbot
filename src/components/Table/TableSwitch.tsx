@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useSkeleton } from '@hooks/useSkeleton';
-import { useAppSelector } from '@store/hooks.store';
-import { checkOnPro } from '@utils/scripts';
+import { useAppSelector } from '@store';
+import { checkOnPro } from '@utils';
 
 export const TableSwitch: React.FC<{
   investorTable: boolean;
@@ -12,7 +11,7 @@ export const TableSwitch: React.FC<{
   return (
     <div
       className={
-        userData?.data?.allowed_functions?.includes('Investing') || checkOnPro(userData)
+        userData?.allowed_functions?.includes('Investing') || checkOnPro(userData)
           ? 'table__switch'
           : 'table__switch pro'
       }>

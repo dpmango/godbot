@@ -1,10 +1,10 @@
 import { forwardRef, ForwardRefRenderFunction, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { setStateCoin } from '@store/chartDataSlice.reducer';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
-import { checkOnPro } from '@utils/scripts';
-import { ChartDropdown } from '@c/Dropdown/ChartDropdown';
-import { ChartUpdateTimer } from '@c/Charts/ChartUpdateTimer';
+
+import { useAppDispatch, useAppSelector, setStateCoin } from '@store';
+import { checkOnPro } from '@utils';
+import { ChartDropdown } from '@c/Charts/ChartDropdown';
+import { Loader } from '@ui/Loader';
 
 const ChartTable: React.FC<{}> = ({}, ref) => {
   const { userData, loading } = useAppSelector((state) => state.userState);
@@ -38,9 +38,9 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
       <h2 className="title">График прогноза</h2>
       <div className="chart__wrapper">
         <ChartDropdown title={currentCoin}>
-          {data.data && (
+          {data && Object.keys(data).length > 0 ? (
             <ul>
-              {Object.keys(data.data).map((elem, index) => (
+              {Object.keys(data).map((elem, index) => (
                 <li
                   onClick={handleCoinClick}
                   className={checkOnPro(userData) ? '' : 'pro'}
@@ -56,6 +56,8 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
                 ''
               )}
             </ul>
+          ) : (
+            <Loader />
           )}
         </ChartDropdown>
         <ChartDropdown title={timeChart} disabled>
@@ -66,7 +68,7 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
           }
         </ChartDropdown>
       </div>
-      {/* <ChartUpdateTimer /> */}
+
       <button className="chart__download">CКАЧАТЬ</button>
     </div>
   );

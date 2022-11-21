@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import * as echarts from 'echarts';
 import { ChartLegend } from '@c/Charts/ChartLegend';
-import { Loader } from '@c/UIelems/Loader';
-import { set } from 'immer/dist/internal';
-import { useAppSelector } from '@store/hooks.store';
+import { Loader } from '@ui/Loader';
+import { useAppSelector } from '@store';
 import { ThemeContext } from '@/App';
 import { parse } from 'date-fns';
 
@@ -22,6 +21,9 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
 
   const initChart = async () => {
     const color = ['#3182bd', '#1c9099', '#43a2ca', '#9ebcda'];
+    const coinData = data?.[currentCoin];
+
+    if (!coinData) return;
     const series = [
       {
         name: 'Real',
@@ -32,7 +34,7 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.data[currentCoin].map((elem: any) => elem.real),
+        data: coinData.map((elem: any) => elem.real),
       },
       {
         name: 'Forecast',
@@ -43,7 +45,7 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.data[currentCoin].map((elem: any) => elem.forecast),
+        data: coinData.map((elem: any) => elem.forecast),
       },
       {
         name: 'Upper',
@@ -54,7 +56,7 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.data[currentCoin].map((elem: any) => elem.upper),
+        data: coinData.map((elem: any) => elem.upper),
       },
       {
         name: 'Lower',
@@ -65,7 +67,7 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
         lineStyle: {
           width: 2,
         },
-        data: data.data[currentCoin].map((elem: any) => elem.lower),
+        data: coinData.map((elem: any) => elem.lower),
       },
     ];
 
@@ -140,7 +142,7 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
           rotate: window.innerWidth < 576 ? 8 : 0,
           fontSize: window.innerWidth < 576 ? 9 : 12,
         },
-        data: data.data[currentCoin]
+        data: coinData
           .map((elem: any) => {
             const userDate = elem.timestamp.slice(0, 10).split('-').join('.');
             const userMinutes = elem.timestamp.slice(11, 16).split('-').join(':');
@@ -180,18 +182,15 @@ export const Echrt: React.FC<{ containerWidth: number; axisColor: string }> = ({
       setLoader(true);
     }, 1000);
     window.onresize = function () {
-      // setChartWidth(
-      //   document.querySelector(".table__inner")?.clientWidth as number
-      // );
       graph.resize();
     };
   };
 
   useEffect(() => {
-    if (data.data) {
+    if (data) {
       initChart();
     }
-  }, [graph, currentCoin, data.data]);
+  }, [graph, currentCoin, data]);
 
   useEffect(() => {
     initChart();

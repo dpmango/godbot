@@ -1,13 +1,20 @@
 import { useContext } from 'react';
 import { ThemeContext } from '@/App';
-import { Header } from './Header';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import './layout.scss';
-import { TarifWindow } from '@c/ModalsWindow/TarifWindow';
-import { Greeting } from '@c/Greeting/Greeting';
-import { useAppSelector } from '@store/hooks.store';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-export const Layout: React.FC<{}> = () => {
+import { useAppSelector } from '@store';
+
+import { Header } from '@c/Layout/Header';
+import { TarifWindow } from '@c/Modals';
+import { Greeting } from '@c/Greeting/Greeting';
+import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
+
+import './layout.scss';
+interface ILayout {
+  children: React.ReactElement[] | React.ReactElement;
+}
+
+export const Layout: React.FC<ILayout> = ({ children }) => {
   const { currentModal } = useAppSelector((state) => state.modalState);
   let ctx = useContext(ThemeContext);
   const params = useParams();
@@ -15,16 +22,19 @@ export const Layout: React.FC<{}> = () => {
 
   return (
     <>
-      <Link
-        to={pathname.slice(0, pathname.length - 7)}
-        className={params['*'] === 'tarifs' ? 'blur-bg show' : 'blur-bg'}></Link>
-      {currentModal ? <Greeting /> : ''}
       <div className={ctx?.theme ? 'main _black-theme' : 'main'}>
         {params['*'] === 'tarifs' ? <TarifWindow /> : ''}
         <div className="container">
           <Header />
-          <Outlet />
+          {children}
         </div>
+
+        {/* <Link
+        to={pathname.slice(0, pathname.length - 7)}
+        className={params['*'] === 'tarifs' ? 'blur-bg show' : 'blur-bg'}></Link> */}
+        {currentModal ? <Greeting /> : ''}
+
+        <TeletypeWidget />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDropdown } from '@hooks/useDropdown';
+import { useDropdown } from '@hooks';
 
 export const PaymentLink: React.FC<{}> = () => {
   const [currentLink, setCurrentLink] = useState<string | null>('TRC20');

@@ -1,10 +1,11 @@
-import { createContext, useLayoutEffect, useState, useEffect } from 'react';
-import { Layout } from '@c/Layout/Layout';
-import { Routes, Route } from 'react-router-dom';
-import { HomePage } from '@/pages/HomePage';
-import { PaymentPage } from '@/pages/PaymentPage';
-import { Authorization } from '@/pages/Authorization';
-import { Partnership } from '@/pages/Partnership';
+import { createContext, useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useAppDispatch, getCurrentUser } from '@store';
+import { localStorageGet, localStorageSet } from '@utils';
+import Router from '@/pages/Routes';
 
 interface IThemeContext {
   theme: boolean;
@@ -14,40 +15,39 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  if (!localStorage.getItem('theme')) {
-    localStorage.setItem('theme', 'false');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  if (!localStorageGet('theme')) {
+    localStorageSet('theme', false);
   }
-  const [theme, changeTheme] = useState<boolean>(JSON.parse(localStorage.getItem('theme') as any));
+  const [theme, changeTheme] = useState<boolean>(localStorageGet('theme'));
 
   const handleChangeTheme = () => {
     changeTheme(!theme);
+    localStorageSet('theme', !theme);
   };
 
   useEffect(() => {
-    localStorage.setItem('theme', theme.toString());
-  }, [theme]);
+    const initStore = async () => {
+      const { payload } = await dispatch(getCurrentUser());
+
+      if (!payload?.tariff) {
+        if (localStorageGet('email') && localStorageGet('lastEmailSend')) {
+          navigate('/auth/validation', { replace: true });
+        } else {
+          navigate('/auth', { replace: true });
+        }
+      }
+    };
+
+    initStore();
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="*" element={<HomePage />} />
-          <Route path="?coin/:timestamp" element={<HomePage />} />
-          <Route path="partnership" element={<Partnership />}>
-            <Route path="*" element={<Partnership />} />
-          </Route>
-          <Route path="payment" element={<PaymentPage />}>
-            <Route path="*" element={<PaymentPage />} />
-          </Route>
-        </Route>
-        <Route path="/auth" element={<Authorization />}>
-          <Route index element={<Authorization />} />
-          <Route path="*" element={<Authorization />}>
-            <Route path="?Trial=true" element={<Authorization />} />
-          </Route>
-        </Route>
-      </Routes>
+      <Router />
+      <ToastContainer />
     </ThemeContext.Provider>
   );
 }

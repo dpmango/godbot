@@ -12,7 +12,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 14px;
-    color: #262628;
+    color: $colorFont;
     margin-bottom: 26px;
   }
 
@@ -31,7 +31,7 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 14px;
-    color: #262628;
+    color: $colorFont;
     margin-bottom: 16px;
   }
 
@@ -125,7 +125,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
     }
 
     div {
@@ -135,7 +135,7 @@
       font-size: 16px;
       line-height: 14px;
       text-align: right;
-      color: #262628;
+      color: $colorFont;
 
       span {
         color: #26a17b;
@@ -163,7 +163,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 130%;
-    color: #262628;
+    color: $colorFont;
     border-bottom: 1px dashed #dddfe1;
   }
 
@@ -247,7 +247,7 @@
     font-size: 14px;
     line-height: 130%;
     text-align: center;
-    color: #262628;
+    color: $colorFont;
 
     img {
       margin-bottom: 15px;
@@ -282,7 +282,7 @@
     padding: 11px 0;
     width: 137px;
     color: white;
-    background: #4572ee;
+    background: $colorPrimary;
     border-radius: 40px;
     transition: opacity 0.3s;
 

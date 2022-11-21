@@ -4,7 +4,7 @@
       font-weight: 600;
       font-size: 28px;
       line-height: 100%;
-      color: #4572ee;
+      color: $colorPrimary;
     }
   }
 
@@ -32,7 +32,7 @@
       font-size: 16px;
       line-height: 14px;
       text-align: left;
-      color: #262628;
+      color: $colorFont;
     }
 
     &.block {
@@ -56,7 +56,7 @@
           font-weight: 600;
           font-size: 16px;
           line-height: 20px;
-          color: #262628;
+          color: $colorFont;
         }
 
         strong {
@@ -69,7 +69,7 @@
           font-size: 16px;
           line-height: 14px;
           text-align: center;
-          color: #262628;
+          color: $colorFont;
         }
       }
     }
@@ -93,7 +93,7 @@
     margin-right: auto;
     padding: 14px 23px;
     color: white;
-    background: #4572ee;
+    background: $colorPrimary;
     border-radius: 40px;
   }
 
@@ -130,7 +130,7 @@
         font-size: 12px;
         line-height: 14px;
         text-align: center;
-        color: #262628;
+        color: $colorFont;
 
         &:nth-child(2) {
           margin-left: 45px;
@@ -139,7 +139,7 @@
         &.email {
           font-weight: 500;
           text-align: center;
-          color: #262628;
+          color: $colorFont;
         }
 
         &.sum {
@@ -166,7 +166,7 @@
     font-weight: 600;
     font-size: 28px;
     line-height: 100%;
-    color: #4572ee;
+    color: $colorPrimary;
   }
 
   &__text {
@@ -174,7 +174,7 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 14px;
-    color: #262628;
+    color: $colorFont;
   }
 
   &__list {
@@ -200,7 +200,7 @@
 
         text-align: right;
         margin-right: 18px;
-        color: #262628;
+        color: $colorFont;
         max-width: 90px;
       }
 
@@ -214,7 +214,7 @@
     padding: 14px 16px;
     margin-right: auto;
     color: white;
-    background: #4572ee;
+    background: $colorPrimary;
     border-radius: 40px;
   }
 
@@ -248,7 +248,7 @@
 
       text-align: center;
 
-      color: #262628;
+      color: $colorFont;
     }
 
     strong {
@@ -260,7 +260,7 @@
 
       text-align: center;
 
-      color: #4572ee;
+      color: $colorPrimary;
     }
   }
 
@@ -288,7 +288,7 @@
       font-size: 12px;
       line-height: 14px;
       text-align: center;
-      color: #262628;
+      color: $colorFont;
     }
 
     table {
@@ -422,14 +422,14 @@
         font-weight: 500;
         font-size: 14px;
         line-height: 14px;
-        color: #262628;
+        color: $colorFont;
 
         span {
           font-weight: 600;
           font-size: 14px;
           line-height: 100%;
           margin-left: 15px;
-          color: #4572ee;
+          color: $colorPrimary;
         }
       }
     }
@@ -440,8 +440,8 @@
       font-size: 8px;
       line-height: 130%;
       text-align: center;
-      color: #262628;
-      border: 1px solid #262628;
+      color: $colorFont;
+      border: 1px solid $colorFont;
       border-radius: 40px;
     }
 
@@ -475,7 +475,7 @@
         line-height: 100%;
         margin-bottom: 8px;
         text-align: center;
-        color: #4572ee;
+        color: $colorPrimary;
       }
 
       strong {
@@ -483,12 +483,12 @@
         font-size: 10px;
         line-height: 14px;
         text-align: center;
-        color: #262628;
+        color: $colorFont;
         white-space: nowrap;
       }
 
       &.active {
-        background: #4572ee;
+        background: $colorPrimary;
         border-radius: 10px;
       }
     }

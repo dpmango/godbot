@@ -48,7 +48,7 @@
         position: absolute;
         padding: 1px 4px;
         content: 'PRO';
-        background-color: #ca390c;
+        background-color: $colorRed;
         border-radius: 4px;
         font-weight: 500;
         font-size: 8px;
@@ -205,7 +205,7 @@
       color: white !important;
 
       strong {
-        color: #ca390c !important;
+        color: $colorRed !important;
       }
 
       .tarif__cost span {
@@ -292,31 +292,15 @@
     color: white;
 
     svg {
-      stroke: white;
+      color: white;
     }
 
-    svg path {
-      stroke: white;
+    &:hover:not(.active) {
+      color: white;
     }
 
     &.active {
       color: #4572ee;
-
-      svg path {
-        stroke: #4572ee;
-      }
-
-      &:hover {
-        svg path {
-          stroke: #4572ee;
-        }
-      }
-    }
-
-    &:hover {
-      svg path {
-        stroke: white;
-      }
     }
   }
 
@@ -387,8 +371,8 @@
   ul {
     li {
       &:hover {
-        svg path {
-          stroke: black;
+        svg {
+          color: black;
         }
 
         button {
@@ -410,10 +394,6 @@
       color: white;
     }
 
-    svg path {
-      stroke: white;
-    }
-
     * {
       color: white;
     }
@@ -428,7 +408,7 @@
     backdrop-filter: blur(5px);
 
     &::before {
-      background-image: url('http://localhost:3000/images/ChevronDown-white.svg');
+      background-image: url('/assets/images/ChevronDown-white.svg');
     }
 
     &._active,
@@ -455,7 +435,7 @@
     }
 
     &::before {
-      background-image: url('http://localhost:3000/images/ChevronDown-white.svg');
+      background-image: url('/assets/images/ChevronDown-white.svg');
     }
 
     &._active,
@@ -607,19 +587,14 @@
 
         &.active {
           color: #4572ee;
-
-          svg path {
-            stroke: #4572ee;
-          }
         }
       }
 
       &.disabled {
         pointer-events: none;
 
-        svg path,
+        svg,
         a {
-          stroke: #b4b4b4;
           color: #b4b4b4;
         }
       }
@@ -631,6 +606,10 @@
 
     &:not(:last-child) {
       margin-right: 14px;
+    }
+
+    svg {
+      font-size: 12px;
     }
   }
 
@@ -747,7 +726,7 @@
         position: absolute;
         width: 12px;
         height: 12px;
-        background-image: url('http://localhost:3000/images/CheckCircle.svg');
+        background-image: url('/assets/images/CheckCircle.svg');
       }
     }
   }
@@ -775,7 +754,7 @@
       top: 17px;
       background-repeat: no-repeat;
       background-size: contain;
-      background-image: url('http://localhost:3000/images/ChevronDown.svg');
+      background-image: url('/assets/images/ChevronDown.svg');
       transition: transform 0.3s, top 0.1s;
     }
 
@@ -784,7 +763,7 @@
       background-color: #4572ee;
 
       &::before {
-        background-image: url('http://localhost:3000/images/ChevronDown-white.svg');
+        background-image: url('/assets/images/ChevronDown-white.svg');
       }
     }
   }
@@ -876,7 +855,7 @@
       }
 
       &::before {
-        background-image: url('http://localhost:3000/images/ChevronDown-white.svg');
+        background-image: url('/assets/images/ChevronDown-white.svg');
       }
     }
 
@@ -889,7 +868,7 @@
       top: 17px;
       background-repeat: no-repeat;
       background-size: contain;
-      background-image: url('http://localhost:3000/images/ChevronDown.svg');
+      background-image: url('/assets/images/ChevronDown.svg');
       transition: background-image 0.3s, transform 0.3s, top 0.1s;
     }
   }
@@ -901,7 +880,7 @@
     &::before {
       top: 12px;
       transform: rotateX(-180deg);
-      background-image: url('http://localhost:3000/images/ChevronDown-white.svg');
+      background-image: url('/assets/images/ChevronDown-white.svg');
     }
 
     svg path {
@@ -1276,7 +1255,7 @@
           border: none;
           opacity: 1;
           padding: 1px 4px;
-          background-color: #ca390c;
+          background-color: $colorRed;
           border-radius: 4px;
           font-weight: 500;
           font-size: 8px;
@@ -1870,7 +1849,7 @@ line {
   }
 }
 
-@media (max-width: 876px) {
+@include r($md) {
   .partnership__inner {
     display: flex;
     align-items: center;
@@ -1901,7 +1880,7 @@ line {
   }
 }
 
-@media (max-width: 576px) {
+@include r($sm) {
   .question,
   .question__button,
   .header__usercard {

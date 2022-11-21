@@ -1,10 +1,7 @@
 import Cookies from 'js-cookie';
-import { useState, Dispatch, SetStateAction } from 'react';
-import { Link, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
-import { AuthorizationSlider } from '@c/Authorization/AuthorizationSlider';
-import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
-import { useAppSelector } from '@store/hooks.store';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+
+import { useAppSelector } from '@store';
 
 export const Authorization: React.FC<{}> = () => {
   const { search } = useLocation();
@@ -14,34 +11,15 @@ export const Authorization: React.FC<{}> = () => {
     Cookies.set('trial', 'active');
   }
 
-  const sendEmail = async () => {
-    const resp = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: localStorage.getItem('email'),
-      }),
-      headers: {
-        'Content-Type': 'application/json' as string,
-        'X-CSRFToken': Cookies.get('csrftoken') as string,
-      },
-    });
-
-    return resp;
-  };
-
   return (
     <div className="authorization">
-      <Link
-        to={!userData?.data.tariff ? '/auth/registration' : '/'}
-        className="authorization__logo">
-        <img src="http://localhost:3000/images/logo-auth.svg" alt="" />
+      <Link to={!userData?.tariff ? '/auth' : '/'} className="authorization__logo">
+        <img src="./images/logo-auth.svg" alt="" />
       </Link>
 
       <div className="authorization__inner">
-        <Routes>
-          <Route path="/validation" element={<AuthorizationValidate sendEmail={sendEmail} />} />
-          <Route path="/registration" element={<AuthorizationForm />} />
-        </Routes>
+        <Outlet />
+
         <img className="authorization__bg" src="/images/reg-bg.png" alt="" />
       </div>
     </div>
