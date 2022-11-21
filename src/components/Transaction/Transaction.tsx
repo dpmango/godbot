@@ -1,22 +1,23 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSkeleton } from '@hooks';
 
 import { useAppDispatch, useAppSelector, getSignals } from '@store';
-import { ISignal } from '@interface/Signal';
 import { LockScreen } from '@ui/LockScreen';
+import { Loader } from '@ui/Loader';
+import { ISignal } from '@interface/Signal';
+
 import { TransactionFilter } from './TransactionFilter';
 
 export const Transaction: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.signalState);
-  const { userData, timeDiff } = useAppSelector((state) => state.userState);
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const [filter, setFilter] = useState<string>('waiting');
   const [isSelect, setIsSelect] = useState<boolean>(false);
   const [recData, setRecData] = useState<ISignal[] | null>(null);
 
   useLayoutEffect(() => {
-    if (userData?.allowed_functions.includes('Signal') && !timeDiff) {
+    if (userData?.allowed_functions.includes('Signal') && tariffActive) {
       dispatch(getSignals());
     }
   }, []);
@@ -55,15 +56,12 @@ export const Transaction: React.FC<{}> = () => {
     setRecData(data);
   }, [data]);
 
+  if (!userData) return <Loader />;
+
   return (
     <div className="recomendation">
-      {(userData?.tariff?.includes('Trader') && !timeDiff) ||
-      (userData?.allowed_functions?.includes('Signal') && !timeDiff) ? (
-        ''
-      ) : (
-        <LockScreen />
-      )}
-      {userData?.tariff === null ? <LockScreen /> : ''}
+      {!userData?.tariff?.includes('Trader') && !tariffActive && <LockScreen section="прогнозов" />}
+
       <div className="recomendation__top">
         <h2 className="title">Рекомендации по торговле</h2>
         {isSelect ? (

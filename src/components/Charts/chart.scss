@@ -177,33 +177,6 @@
     top: 20px;
   }
 
-  &__download {
-    width: 0;
-    overflow: hidden;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 130%;
-    // margin-right: 10px;
-    text-align: center;
-    color: $colorFont;
-    border-radius: 10px;
-    position: relative;
-    padding: 10px 0;
-    border: transparent;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 7px;
-      width: 14px;
-      left: 16px;
-      height: 18px;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-image: url('/assets/images/Download.svg');
-    }
-  }
-
   &__line {
     width: 10px;
     position: absolute;
@@ -258,7 +231,7 @@
     line-height: 14px;
     margin-left: auto;
     text-align: right;
-    color: #818184;
+    color: $colorGray;
     margin-right: 19px;
   }
 
@@ -467,7 +440,7 @@
       color: #585960;
 
       span {
-        color: #818184;
+        color: $colorGray;
         margin-left: 10px;
         line-height: 12px;
         font-size: 12px;
@@ -532,7 +505,6 @@
 }
 
 @include r($md) {
-  .chart__download,
   .chart__settings,
   .chart__timer {
     display: none;

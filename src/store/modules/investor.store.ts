@@ -3,7 +3,8 @@ import { api } from '@core';
 
 export const getInvesting = createAsyncThunk('investor/investorData', async () => {
   const { data } = await api('get_investing/', {});
-  return data;
+
+  return { data };
 });
 
 export interface Idata {

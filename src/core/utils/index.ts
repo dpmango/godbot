@@ -1,4 +1,4 @@
-export { timeDifference, checkOnPro, isValidDate } from './scripts';
+export { timeDiff, isValidDate } from './scripts';
 export { formatDate, dateToDDMMMM, secondsToStamp } from './datetime';
 export {
   clearString,

@@ -1,19 +1,23 @@
+import { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import cns from 'classnames';
 
-import { useSkeleton, useDropdown } from '@hooks';
+import { useSkeleton, useDropdown, useClickOutside } from '@hooks';
 import { useAppSelector } from '@store';
-import { checkOnPro } from '@utils';
 import { ThemeChanger } from '@ui/ThemeChanger';
 
 export const UserCardDropdown: React.FC<{}> = () => {
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, isProUser } = useAppSelector((state) => state.userState);
   const { menuState, handleStateChange } = useDropdown();
   const { loaded } = useSkeleton(true);
   const { pathname } = useLocation();
   const path = pathname.split('/').at(-1);
 
+  const wrapperRef = useRef(null);
+  useClickOutside(wrapperRef, () => handleStateChange(false));
+
   return (
-    <div className="user">
+    <div className="user" ref={wrapperRef}>
       <button
         disabled={loaded ? true : false}
         className={
@@ -51,9 +55,7 @@ export const UserCardDropdown: React.FC<{}> = () => {
         <li className="user__item disabled" onClick={handleStateChange}>
           <Link to="/">Привязать Telegram-бота</Link>
         </li>
-        <li
-          className={checkOnPro(userData) ? 'user__item' : 'user__item pro'}
-          onClick={handleStateChange}>
+        <li className={cns('user__item', !isProUser && 'pro')} onClick={handleStateChange}>
           <Link to="https://t.me/+fQvg8JT7oUVhZDZi" target="_blank">
             Перейти в Telegram-чат
           </Link>

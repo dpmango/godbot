@@ -1,6 +1,5 @@
-import { useLayoutEffect, useState } from 'react';
-
-import { useSkeleton, useDropdown } from '@hooks';
+import { useLayoutEffect, useState, useRef } from 'react';
+import { useSkeleton, useDropdown, useClickOutside } from '@hooks';
 
 interface ILanguages {
   icon: string;
@@ -17,6 +16,8 @@ export const LanguageDropdown: React.FC<{}> = () => {
   const { loaded } = useSkeleton(Boolean(languages.length));
 
   const { handleStateChange, menuState } = useDropdown();
+  const wrapperRef = useRef(null);
+  useClickOutside(wrapperRef, () => handleStateChange(false));
 
   useLayoutEffect(() => {
     setCurrentLanguage(languages[0]?.icon);
@@ -28,7 +29,7 @@ export const LanguageDropdown: React.FC<{}> = () => {
   };
 
   return (
-    <div className="language">
+    <div className="language" ref={wrapperRef}>
       <button
         className={menuState ? 'language__button _active' : 'language__button'}
         onClick={() => handleStateChange()}>

@@ -5,7 +5,7 @@ import { isValidDate } from '@utils';
 import { UserCardDropdown } from '@c/Layout/Header';
 
 export const UserCard: React.FC<{}> = () => {
-  const { userData, timeDiff } = useAppSelector((state) => state.userState);
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const { loaded } = useSkeleton(Boolean(userData));
   const userDate = isValidDate(userData, 'ua-UK');
 
@@ -33,7 +33,7 @@ export const UserCard: React.FC<{}> = () => {
             Подписка до:{' '}
             <span
               style={{
-                color: timeDiff ? 'red' : '#339987',
+                color: tariffActive ? '#339987' : 'red',
               }}>
               {userDate}
             </span>

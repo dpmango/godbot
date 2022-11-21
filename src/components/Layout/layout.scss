@@ -8,8 +8,8 @@
   position: relative;
 
   &__list {
-    padding: 0 0 18px;
-    width: 280px;
+    padding: 4px 0 18px;
+    width: 268px;
     position: absolute;
     top: 40px;
     overflow: hidden;
@@ -66,9 +66,9 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       display: flex;
-      padding: 20px;
+      padding: 17px 20px;
       text-transform: uppercase;
     }
 
@@ -450,7 +450,7 @@
     backdrop-filter: blur(5px);
 
     &-subscription {
-      color: #818184;
+      color: $colorGray;
     }
 
     &-rank {
@@ -583,7 +583,7 @@
         font-size: 12px;
         line-height: 14px;
         text-transform: uppercase;
-        color: #262628;
+        color: $colorFont;
 
         &.active {
           color: #4572ee;
@@ -596,6 +596,7 @@
         svg,
         a {
           color: #b4b4b4;
+          opacity: 1;
         }
       }
     }
@@ -610,6 +611,10 @@
 
     svg {
       font-size: 12px;
+    }
+
+    .svg-icon--ticket {
+      font-size: 17px;
     }
   }
 
@@ -670,7 +675,7 @@
         margin: 0 auto;
         margin-bottom: 2px;
         border-radius: 50%;
-        background-color: #262628;
+        background-color: $colorFont;
         transition: width 0.2s, margin-bottom 0.2s 0.3s, transform 0.2s 0.3s,
           background-color 0.3s 0.6s, border-radius 0.3s, margin-top 0.2s 0.3s, opacity 0.2s 0.3s;
       }
@@ -709,13 +714,17 @@
       line-height: 14px;
     }
 
+    &-subscription {
+      color: $colorGray;
+    }
+
     &-rank {
       width: fit-content;
       font-weight: 600;
       font-size: 12px;
       padding-right: 18px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       margin-bottom: 3px;
       position: relative;
 
@@ -918,7 +927,7 @@
     font-weight: 600;
     font-size: 12px;
     line-height: 14px;
-    color: #262628;
+    color: $colorFont;
     transition: background 0.3s;
 
     svg {
@@ -951,7 +960,7 @@
       font-weight: 600;
       font-size: 12px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       margin-bottom: 18px;
       border-bottom: 1px solid transparent;
       transition: border 0.3s, color 0.2s;
@@ -973,7 +982,7 @@
         font-weight: 400;
         font-size: 8px;
         line-height: 130%;
-        color: #818184;
+        color: $colorGray;
 
         &:nth-child(1) {
           margin-right: 2px;
@@ -990,7 +999,7 @@
     font-weight: 600;
     font-size: 12px;
     line-height: 14px;
-    color: #818184;
+    color: $colorGray;
     margin-bottom: 14px;
   }
 }
@@ -1127,7 +1136,7 @@
         font-size: 16px;
         line-height: 120%;
         text-align: center;
-        color: #262628;
+        color: $colorFont;
         margin-bottom: 22px;
       }
     }
@@ -1181,7 +1190,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       background: #dde6ff;
       border-radius: 10px 10px 0 0;
       transition: background 0.3s;
@@ -1305,7 +1314,7 @@
       font-size: 10px;
       padding-bottom: 11px;
       line-height: 14px;
-      color: #818184 !important;
+      color: $colorGray !important;
 
       &:nth-child(1) {
         text-align: left;
@@ -1335,7 +1344,7 @@
       font-weight: 400;
       font-size: 12px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: center;
@@ -1386,7 +1395,7 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 14px;
-    color: #262628;
+    color: $colorFont;
     margin-bottom: 35px;
   }
 
@@ -1416,7 +1425,7 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 17px;
-    color: #262628;
+    color: $colorFont;
 
     &:not(:last-child) {
       padding-bottom: 12px;
@@ -1456,7 +1465,7 @@
     font-weight: 400;
     font-size: 10px;
     line-height: 14px;
-    color: #818184;
+    color: $colorGray;
 
     &:nth-child(1) {
       width: 139px;
@@ -1498,7 +1507,7 @@
   }
 
   &__los {
-    color: #818184;
+    color: $colorGray;
     width: 153px;
   }
 
@@ -1523,7 +1532,7 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 14px;
-      color: #262628;
+      color: $colorFont;
       margin-bottom: 1px;
     }
 
@@ -1531,7 +1540,7 @@
       font-weight: 400;
       font-size: 12px;
       line-height: 14px;
-      color: #818184;
+      color: $colorGray;
     }
 
     img {

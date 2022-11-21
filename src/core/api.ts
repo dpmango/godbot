@@ -46,10 +46,13 @@ export const api = async (
       };
     }
 
-    const { data, message } = await ofetch(
-      `${process.env.REACT_APP_API_URL}${url}`,
-      requestOptions
-    );
+    let requestUrl = `${process.env.REACT_APP_API_URL}${url}`;
+
+    if (url.startsWith('http')) {
+      requestUrl = url;
+    }
+
+    const { data, message } = await ofetch(requestUrl, requestOptions);
 
     console.log(`👌 fetch ${url}`, data);
 

@@ -1,12 +1,16 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useDropdown } from '@hooks';
+import { useDropdown, useClickOutside } from '@hooks';
 import { SvgIcon } from '@ui';
 
 export const MenuDropdown: React.FC<{}> = () => {
   const { menuState, handleStateChange } = useDropdown();
 
+  const wrapperRef = useRef(null);
+  useClickOutside(wrapperRef, () => handleStateChange(false));
+
   return (
-    <div className={menuState ? 'menu menu--active' : 'menu'}>
+    <div className={menuState ? 'menu menu--active' : 'menu'} ref={wrapperRef}>
       <button className="menu__button" onClick={handleStateChange}>
         Меню
         <div className="menu__burger">

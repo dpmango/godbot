@@ -24,6 +24,11 @@ function App() {
   const [theme, changeTheme] = useState<boolean>(localStorageGet('theme'));
 
   const handleChangeTheme = () => {
+    document.body.classList.add('theme-switching');
+    setTimeout(() => {
+      document.body.classList.remove('theme-switching');
+    }, 200);
+
     changeTheme(!theme);
     localStorageSet('theme', !theme);
   };
@@ -32,7 +37,7 @@ function App() {
     const initStore = async () => {
       const { payload } = await dispatch(getCurrentUser());
 
-      if (!payload?.tariff) {
+      if (!payload) {
         if (localStorageGet('email') && localStorageGet('lastEmailSend')) {
           navigate('/auth/validation', { replace: true });
         } else {

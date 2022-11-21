@@ -1,11 +1,15 @@
-import { useDropdown } from '@hooks';
+import { useDropdown, useClickOutside } from '@hooks';
 import { SvgIcon } from '@ui';
+import { useRef } from 'react';
 
 export const QuestionDropdown: React.FC<{}> = () => {
   const { handleStateChange, menuState } = useDropdown();
+  const wrapperRef = useRef(null);
+
+  useClickOutside(wrapperRef, () => handleStateChange(false));
 
   return (
-    <div className="question">
+    <div className="question" ref={wrapperRef}>
       <button
         onClick={handleStateChange}
         className={menuState ? 'question__button _active' : 'question__button'}>
@@ -42,7 +46,8 @@ export const QuestionDropdown: React.FC<{}> = () => {
           </button>
         </li>
         <li className="question__item" onClick={handleStateChange}>
-          <button className="question__btn">
+          {/* @ts-ignore */}
+          <button className="question__btn" onClick={() => window._teletypeWidget.show()}>
             <SvgIcon name="conversation" />
             Написать нам
           </button>

@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import { api } from '@core';
 
 import { Layout } from '@c/Layout/Layout';
-import { Table } from '@c/Table/Table';
+import { ChartsRouter } from '@/components/Charts/ChartsRouter';
 import { Transaction } from '@c/Transaction/Transaction';
 
 export const HomePage: React.FC<{}> = () => {
@@ -40,7 +40,7 @@ export const HomePage: React.FC<{}> = () => {
         <title>Godbot | Home</title>
       </Helmet>
 
-      <Table />
+      <ChartsRouter />
       <Transaction />
     </Layout>
   );

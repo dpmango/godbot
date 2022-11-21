@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
+import cns from 'classnames';
 
 import { LanguageDropdown } from '@c/Layout/Header';
 import { ThemeChanger } from '@ui/ThemeChanger';
 import { UserCard } from '@ui/UserCard';
 import { SvgIcon } from '@ui';
 import { useAppSelector } from '@store';
-import { checkOnPro } from '@utils';
 
 import './mobile.scss';
 
@@ -15,7 +15,7 @@ export interface IMobileMenuProps {
 }
 
 export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) => {
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, isProUser } = useAppSelector((state) => state.userState);
 
   const handleClick = () => {
     setActive(false);
@@ -60,10 +60,11 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) =>
           </Link>
         </li> */}
         <li className="mobile__item disabled">
-          <Link to={'*'}>
+          {/* @ts-ignore */}
+          <a href="#" onClick={() => window._teletypeWidget.show()}>
             <SvgIcon name="conversation" />
             Написать нам
-          </Link>
+          </a>
         </li>
         {/* <li className="mobile__item disabled">
           <Link to={'*'}>
@@ -88,7 +89,7 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) =>
         <li>
           <Link to={'/'}>Привязать Telegram-бота</Link>
         </li>
-        <li className={checkOnPro(userData) ? '' : 'pro'}>
+        <li className={cns(isProUser && 'pro')}>
           <Link to="https://t.me/+fQvg8JT7oUVhZDZi" target="_blank">
             Перейти в Telegram-чат
           </Link>

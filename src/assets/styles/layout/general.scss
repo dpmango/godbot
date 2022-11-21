@@ -104,11 +104,21 @@ time {
 body {
   overflow-x: hidden;
   min-width: 320px;
+  background: #f8f9fb;
   font-family: $baseFont;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   color: $colorFont;
+
+  &.theme-switching * {
+    transition: 0.2s linear !important;
+
+    &::before,
+    &::after {
+      transition: 0.2s linear !important;
+    }
+  }
 }
 
 .blur-bg {

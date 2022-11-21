@@ -6,7 +6,7 @@ import { useAppSelector } from '@store';
 
 import { Header } from '@c/Layout/Header';
 import { TarifWindow } from '@c/Modals';
-import { Greeting } from '@c/Greeting/Greeting';
+import { Greeting } from '@/components/Modals/Greeting/Greeting';
 import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
 
 import './layout.scss';

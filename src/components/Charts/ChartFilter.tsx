@@ -1,13 +1,13 @@
 import { forwardRef, ForwardRefRenderFunction, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector, setStateCoin } from '@store';
-import { checkOnPro } from '@utils';
 import { ChartDropdown } from '@c/Charts/ChartDropdown';
 import { Loader } from '@ui/Loader';
 
-const ChartTable: React.FC<{}> = ({}, ref) => {
-  const { userData, loading } = useAppSelector((state) => state.userState);
+const ChartFilter: React.FC<{}> = ({}, ref) => {
+  const { isProUser, loading } = useAppSelector((state) => state.userState);
   const [timeChart, setTimeChart] = useState<string | null>('15 минут');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -41,37 +41,39 @@ const ChartTable: React.FC<{}> = ({}, ref) => {
           {data && Object.keys(data).length > 0 ? (
             <ul>
               {Object.keys(data).map((elem, index) => (
-                <li
-                  onClick={handleCoinClick}
-                  className={checkOnPro(userData) ? '' : 'pro'}
-                  key={index}>
+                <li onClick={handleCoinClick} className={cns(!isProUser && 'pro')} key={index}>
                   <p>{elem}</p>
                 </li>
               ))}
-              {checkOnPro(userData) ? (
+              {isProUser && (
                 <li>
                   <button>Заказать просчет +</button>
                 </li>
-              ) : (
-                ''
               )}
             </ul>
           ) : (
             <Loader />
           )}
         </ChartDropdown>
-        <ChartDropdown title={timeChart} disabled>
+
+        <ChartDropdown title={timeChart}>
           {
             <ul>
-              <li onClick={handleTimeClick}>15 минут</li>
+              <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
+                15 минут
+              </li>
+              <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
+                1 час
+              </li>
+              <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
+                1 день
+              </li>
             </ul>
           }
         </ChartDropdown>
       </div>
-
-      <button className="chart__download">CКАЧАТЬ</button>
     </div>
   );
 };
 
-export default forwardRef(ChartTable as ForwardRefRenderFunction<React.ReactElement>);
+export default forwardRef(ChartFilter as ForwardRefRenderFunction<React.ReactElement>);

@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { parse } from 'date-fns';
 
 import { api } from '@core';
-import { timeDifference } from '@utils';
+import { timeDiff } from '@utils';
 
 export interface IUserState {
   name: string;
@@ -19,7 +19,8 @@ export interface IUserLogin {
 
 export interface IUser {
   loading: string;
-  timeDiff: boolean;
+  tariffActive: boolean;
+  isProUser: boolean;
   userData: IUserState | null;
 }
 
@@ -31,7 +32,8 @@ export const getCurrentUser = createAsyncThunk('user/getCurrentUser', async () =
 
 const initialState: IUser = {
   loading: 'none',
-  timeDiff: false,
+  tariffActive: false,
+  isProUser: false,
   userData: null,
 };
 
@@ -51,8 +53,10 @@ export const userState = createSlice({
         const userDate = action.payload?.subscription_date.slice(0, 10).split('-').join('.');
         const date = parse(userDate as string, 'yyyy.MM.dd', new Date());
 
-        state.timeDiff = timeDifference(date) < 0;
+        state.tariffActive = timeDiff(date) > 0;
       }
+
+      state.isProUser = action.payload?.tariff === 'PRO Trader';
     });
     builder.addCase(getCurrentUser.rejected, (state) => {
       state.loading = 'rejected';
