@@ -12,8 +12,6 @@ interface ILockScreenProps {
 export const LockScreen: FC<ILockScreenProps> = ({ section }) => {
   const { tariffActive, userData } = useAppSelector((state) => state.userState);
 
-  const isExpired = !tariffActive;
-
   return (
     <div className="ui__lock">
       <div>
@@ -21,12 +19,14 @@ export const LockScreen: FC<ILockScreenProps> = ({ section }) => {
 
         <h3>
           {!userData?.tariff && `Для отображения ${section} нужно активировать тариф`}
-          {!tariffActive && `Для отображения ${section} необходимо продлить тариф`}
+          {userData?.tariff &&
+            !tariffActive &&
+            `Для отображения ${section} необходимо продлить тариф`}
         </h3>
 
         <Link to={'/tarifs'}>
           {!userData?.tariff && 'ВЫБРАТЬ ТАРИФ'}
-          {!tariffActive && 'ПОПРОБОВАТЬ БЕСПЛАТНО'}
+          {userData?.tariff && !tariffActive && 'ПОПРОБОВАТЬ БЕСПЛАТНО'}
         </Link>
       </div>
     </div>

@@ -56,7 +56,6 @@ export const Header: React.FC<{}> = () => {
           </li>
         </ul>
         {/* <MenuDropdown /> */}
-        {/* <ThemeChanger /> */}
         {/* <Winrate /> */}
         <QuestionDropdown />
         <LanguageDropdown />

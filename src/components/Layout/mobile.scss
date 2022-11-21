@@ -238,6 +238,21 @@
           left: 50%;
           transform: translate(-50%, -50%);
           position: absolute;
+          font-size: 12px;
+        }
+
+        .svg-icon--social {
+          &-twitter {
+            color: #55acee;
+          }
+
+          &-discord {
+            color: #5f70be;
+          }
+
+          &-telegram {
+            color: #37aee2;
+          }
         }
       }
     }

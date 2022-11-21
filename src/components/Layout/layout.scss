@@ -102,10 +102,6 @@
   .mobile__socials {
     justify-content: flex-start;
     margin: 0;
-
-    * svg path {
-      stroke: transparent !important;
-    }
   }
 }
 
@@ -222,10 +218,6 @@
   .ui__lock {
     div {
       color: white;
-
-      svg path {
-        fill: white;
-      }
     }
   }
 
@@ -345,8 +337,6 @@
 
   .investor__card {
     color: white;
-    fill: white;
-    stroke: white;
     background: #232425;
     border: 1px solid #303235;
   }
@@ -940,10 +930,6 @@
 
     &:active {
       color: #88019e;
-
-      svg path {
-        stroke: #88019e;
-      }
     }
   }
 
