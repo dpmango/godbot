@@ -2,6 +2,8 @@
   max-height: 487px;
 
   &__head {
+    position: relative;
+    z-index: 3;
     padding-left: 30px;
     display: flex;
     margin-bottom: 10px;
@@ -169,6 +171,7 @@
   }
 
   &__settings {
+    z-index: 3;
     padding: 10px 10px 6px;
     background: $colorPrimary;
     border-radius: 10px;
@@ -401,6 +404,9 @@
   }
 
   &-container {
+    position: relative;
+    margin-top: 0;
+    height: 400px;
     transition: opacity 0.6s;
   }
 }

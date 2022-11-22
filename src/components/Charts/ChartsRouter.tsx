@@ -8,7 +8,7 @@ import { Loader } from '@ui/Loader';
 import { ThemeContext } from '@/App';
 
 import { ChartTabs } from '@/components/Charts/ChartTabs';
-import { Echrt } from '@c/Charts/Echrt';
+import { Forecast } from '@/components/Charts/Forecast';
 import ChartFilter from '@c/Charts/ChartFilter';
 import { LockScreen } from '@ui/LockScreen';
 import { InvestorChart } from '@c/Charts/InvestorChart';
@@ -68,12 +68,7 @@ export const ChartsRouter: React.FC<{}> = () => {
             <ChartFilter />
           </div>
 
-          {activeTab === 'Forecast' && (
-            <Echrt
-              containerWidth={addsRef.current?.clientWidth}
-              axisColor={ctx?.theme ? '#303235' : '#ccc5ff7b'}
-            />
-          )}
+          {activeTab === 'Forecast' && <Forecast />}
           {activeTab === 'Investing' && <InvestorChart />}
         </div>
       </div>

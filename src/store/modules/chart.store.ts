@@ -1,18 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '@core';
+import { IChartTick } from '@core/interface/Chart';
 
 export const getChart = createAsyncThunk('chart/chartData', async (url: string) => {
   const { data } = await api('get_graph/', {});
   return data;
 });
-
-interface IChartTick {
-  real: number | null;
-  lower: number;
-  upper: number;
-  forecast: number;
-  timestamp: Date;
-}
 
 interface IChartData {
   loading: string;
