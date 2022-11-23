@@ -1,13 +1,13 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
 import { Formik, FormikProps, Form, Field, FieldProps } from 'formik';
 import cns from 'classnames';
 
 import { Button } from '@ui';
 import { api } from '@core';
-import { validEmail, localStorageSet } from '@utils';
+import { validEmail, localStorageSet, localStorageGet } from '@utils';
 import './authorization.scss';
 
 interface IFormValues {
@@ -19,8 +19,10 @@ const formInitial: IFormValues = {
 
 export const AuthorizationForm: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleValidation = (values: IFormValues) => {
     const errors: any = {};
@@ -38,6 +40,17 @@ export const AuthorizationForm: React.FC<{}> = () => {
     async (values: IFormValues) => {
       if (loading) return;
 
+      const lockedState = localStorageGet('locked');
+      if (lockedState) {
+        const secondsPast = Math.round((Date.now() - lockedState) / 1000);
+
+        if (secondsPast < 60 * 60) {
+          const minutesToUnlock = 60 - Math.round(secondsPast / 60);
+          setError(`Вход заблокирован на ${minutesToUnlock} минут`);
+          return;
+        }
+      }
+
       setLoading(true);
       localStorageSet('email', values.email);
       const { data, error } = await api('auth/login/', {
@@ -47,7 +60,8 @@ export const AuthorizationForm: React.FC<{}> = () => {
       setLoading(false);
 
       if (error) {
-        toast.error(`${error.status} ${error.message}`);
+        // toast.error(`${error.status} ${error.message}`);
+        setError(error.message);
         return;
       }
 
@@ -56,6 +70,12 @@ export const AuthorizationForm: React.FC<{}> = () => {
     },
     [loading]
   );
+
+  useEffect(() => {
+    if (location.state?.error) {
+      setError(location.state?.error);
+    }
+  }, [location]);
 
   return (
     <div className="authorization__form">
@@ -67,12 +87,14 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
       <Formik initialValues={formInitial} validate={handleValidation} onSubmit={handleSubmit}>
         {({ isValid, touched, errors, setFieldError }: FormikProps<IFormValues>) => (
-          <Form className={'authorization__label'}>
+          <Form className={cns('authorization__label', error && '_error')}>
             <p>Введите ваш Email для получения кода авторизации</p>
 
             <Field type="text" name="email">
-              {({ field, form: { setFieldValue }, meta }: FieldProps) => (
+              {({ field, form: { setFieldValue }, meta, ...props }: FieldProps) => (
                 <input
+                  {...field}
+                  {...props}
                   value={field.value}
                   className={cns('authorization__input', meta.touched && errors.email && '_error')}
                   placeholder="Введите ваш Email"
@@ -80,12 +102,19 @@ export const AuthorizationForm: React.FC<{}> = () => {
                   onChange={(v) => {
                     setFieldValue(field.name, v.target.value);
                     setFieldError(field.name, '');
+                    setError('');
                   }}
                 />
               )}
             </Field>
 
-            <Button type="submit" loading={loading} block={true} disabled={!isValid}>
+            {error && <div className="authorization__text _error _error-main">{error}</div>}
+
+            <Button
+              type="submit"
+              loading={loading}
+              block={true}
+              disabled={!touched.email || !isValid}>
               Войти
             </Button>
           </Form>

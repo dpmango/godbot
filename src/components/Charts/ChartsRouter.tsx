@@ -34,8 +34,6 @@ export const ChartsRouter: React.FC<{}> = () => {
     }
   }, [userData?.allowed_functions]);
 
-  if (!userData) return <Loader />;
-
   return (
     <div className={'table__wrapper'}>
       {(userData?.tariff || tariffActive) && (

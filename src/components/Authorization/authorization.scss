@@ -134,6 +134,11 @@
       text-align: center;
       color: $colorRed;
     }
+
+    &._error-main {
+      margin-top: -10px;
+      margin-bottom: 14px;
+    }
   }
 
   &__resend {
@@ -222,6 +227,19 @@
       background-size: contain;
       background-image: url('/assets/images/Mail.svg');
     }
+
+    &._error {
+      &::before {
+        background-image: url('/assets/images/MailError.svg');
+      }
+
+      .authorization {
+        &__input {
+          border-color: $colorRed;
+          color: $colorRed;
+        }
+      }
+    }
   }
 
   &__input {
@@ -245,7 +263,7 @@
     }
 
     &._error {
-      border-color: tomato;
+      border-color: $colorRed;
     }
 
     &::placeholder {

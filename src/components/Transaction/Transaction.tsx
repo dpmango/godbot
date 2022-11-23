@@ -56,8 +56,6 @@ export const Transaction: React.FC<{}> = () => {
     setRecData(data);
   }, [data]);
 
-  if (!userData) return <Loader />;
-
   return (
     <div className="recomendation">
       {!userData?.tariff?.includes('Trader') && !tariffActive && <LockScreen section="прогнозов" />}

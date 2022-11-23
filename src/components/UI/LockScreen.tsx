@@ -14,21 +14,23 @@ export const LockScreen: FC<ILockScreenProps> = ({ section }) => {
 
   return (
     <div className="ui__lock">
-      <div>
-        <SvgIcon name="lock" />
+      {userData && (
+        <div>
+          <SvgIcon name="lock" />
 
-        <h3>
-          {!userData?.tariff && `Для отображения ${section} нужно активировать тариф`}
-          {userData?.tariff &&
-            !tariffActive &&
-            `Для отображения ${section} необходимо продлить тариф`}
-        </h3>
+          <h3>
+            {!userData?.tariff && `Для отображения ${section} нужно активировать тариф`}
+            {userData?.tariff &&
+              !tariffActive &&
+              `Для отображения ${section} необходимо продлить тариф`}
+          </h3>
 
-        <Link to={'/tarifs'}>
-          {!userData?.tariff && 'ВЫБРАТЬ ТАРИФ'}
-          {userData?.tariff && !tariffActive && 'ПОПРОБОВАТЬ БЕСПЛАТНО'}
-        </Link>
-      </div>
+          <Link to={'/tarifs'}>
+            {!userData?.tariff && 'ВЫБРАТЬ ТАРИФ'}
+            {userData?.tariff && !tariffActive && 'ПОПРОБОВАТЬ БЕСПЛАТНО'}
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

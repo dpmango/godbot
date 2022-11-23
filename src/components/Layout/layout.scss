@@ -558,12 +558,16 @@
 
     li {
       svg {
+        line-height: 1;
         margin-right: 6px;
-        margin-top: -4px;
+      }
 
-        path {
-          transition: stroke 0.3s;
-        }
+      .svg-icon--home {
+        font-size: 16px;
+      }
+
+      .svg-icon--crown {
+        font-size: 13px;
       }
 
       a {
@@ -596,7 +600,7 @@
     cursor: pointer;
 
     &:not(:last-child) {
-      margin-right: 14px;
+      margin-right: 18px;
     }
 
     svg {
@@ -648,6 +652,7 @@
     width: fit-content;
     display: flex;
     align-items: center;
+    min-width: 267px;
     background: #fff;
     box-shadow: 0 2px 20px rgba(9, 5, 183, 0.06);
     border-radius: 13px;
@@ -728,6 +733,10 @@
         background-image: url('/assets/images/CheckCircle.svg');
       }
     }
+
+    .user {
+      margin-left: auto;
+    }
   }
 }
 
@@ -749,7 +758,7 @@
       position: absolute;
       width: 11px;
       height: 11px;
-      right: 7px;
+      right: 11px;
       top: 17px;
       background-repeat: no-repeat;
       background-size: contain;
@@ -837,7 +846,7 @@
     background: #fff;
     border: 1px solid #4572ee;
     border-radius: 10px;
-    padding: 8px 30px 5px 10px;
+    padding: 8px 26px 5px 9px;
     transition: background 0.3s;
 
     svg path {
@@ -863,7 +872,7 @@
       position: absolute;
       width: 11px;
       height: 11px;
-      right: 7px;
+      right: 11px;
       top: 17px;
       background-repeat: no-repeat;
       background-size: contain;
@@ -1740,60 +1749,26 @@ line {
   }
 }
 
-@media (max-width: 1140px) {
+@include r($xl) {
+  .header {
+    position: static;
+  }
+
+  .header .menu {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .partnership__out {
     font-size: 14px;
   }
 
-  .menu__list li a {
-    font-size: 10px;
+  .question,
+  .question__button,
+  .header__usercard {
+    display: none;
   }
 
-  .menu__item:not(:last-child) {
-    margin-right: 5px;
-  }
-
-  .logo {
-    max-width: 80%;
-  }
-
-  .language {
-    margin-right: 10px;
-  }
-
-  nav {
-    .question__button {
-      padding: 8px 10px 6px;
-
-      &::before {
-        display: none;
-      }
-    }
-
-    .language__button {
-      padding: 10px 11px 14px;
-      max-height: 42px;
-
-      &::before {
-        display: none;
-      }
-    }
-  }
-
-  .menu__list {
-    margin-left: 10px;
-  }
-
-  .language__item {
-    font-size: 0;
-  }
-
-  .partnership__list li {
-    padding: 13.5px 14px;
-  }
-}
-
-@media (max-width: 1040px) {
   .menu__list {
     display: none;
   }
@@ -1802,6 +1777,55 @@ line {
     display: block;
   }
 
+  // .menu__list li a {
+  //   font-size: 10px;
+  // }
+
+  // .menu__item:not(:last-child) {
+  //   margin-right: 5px;
+  // }
+
+  // .logo {
+  //   max-width: 80%;
+  // }
+
+  // .language {
+  //   margin-right: 10px;
+  // }
+
+  // nav {
+  //   .question__button {
+  //     padding: 8px 10px 6px;
+
+  //     &::before {
+  //       display: none;
+  //     }
+  //   }
+
+  //   .language__button {
+  //     padding: 10px 11px 14px;
+  //     max-height: 42px;
+
+  //     &::before {
+  //       display: none;
+  //     }
+  //   }
+  // }
+
+  // .menu__list {
+  //   margin-left: 10px;
+  // }
+
+  // .language__item {
+  //   font-size: 0;
+  // }
+
+  .partnership__list li {
+    padding: 13.5px 14px;
+  }
+}
+
+@media (max-width: 1040px) {
   .partnership__head {
     max-width: 988px;
     overflow-x: auto;
@@ -1876,12 +1900,6 @@ line {
 }
 
 @include r($sm) {
-  .question,
-  .question__button,
-  .header__usercard {
-    display: none;
-  }
-
   .recomendation .title {
     font-size: 11px;
   }
@@ -1937,11 +1955,6 @@ line {
     font-size: 10px;
   }
 
-  .header .menu {
-    width: 100%;
-    justify-content: space-between;
-  }
-
   .container {
     padding: 0 15px;
   }
@@ -1952,10 +1965,6 @@ line {
 
   .payment__wrapper p {
     font-size: 13px;
-  }
-
-  .header {
-    position: static;
   }
 
   .partnership__body li p {

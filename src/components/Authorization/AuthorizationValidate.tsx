@@ -56,7 +56,6 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     e.preventDefault();
     if (loading) return;
 
-    setError('');
     setLoading(true);
     const { data, error } = await api('auth/verification/', {
       method: 'POST',
@@ -65,8 +64,13 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     setLoading(false);
 
     if (error) {
-      toast.error(`${error.status} ${error.message}`);
-      setError('Неверный код подтверждения');
+      // toast.error(`${error.status} ${error.message}`);
+      setError(error.message);
+      if (error.message.includes('заблокирован')) {
+        navigate('/auth', { state: { error: error.message }, replace: true });
+        localStorageSet('locked', Date.now());
+      }
+
       return;
     }
 
