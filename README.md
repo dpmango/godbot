@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Запуск dev (linux / mac)
+Для работы с CSRF требуется домен вида https://local.devgodbot.ru/ (вместо localhost:3000)
+
+В /etc/hosts нужно добавить алиас
+`127.0.0.1 local.devgodbot.ru`
+
+Запуск команды старт с флагами `sudo HTTPS=true HOST=local.devgodbot.ru PORT=443`
+
+Потребуется ввести пароль администратора. Команда через `sudo`, так как порт `443` (ниже 1024) в unix системах
+
+Запуск в режиме прокси для обхода CORS
+
 ## Прокси
 
 Для локальной среды `API_URL` можно делать относительным, в таком случае будет использован прокси на `API_PROXY` для обхода CORS. Если задать абсолютный путь, например для локального бекенда `http://loclhost:3001`, прокси не используется

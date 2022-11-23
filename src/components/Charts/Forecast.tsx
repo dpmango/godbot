@@ -6,50 +6,32 @@ import {
   LineWidth,
   CrosshairMode,
   IChartApi,
+  ISeriesApi,
 } from 'lightweight-charts';
-import { parse } from 'date-fns';
-
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@store';
-import { timeToTz } from '@utils';
+import { timeToTz, formatPrice } from '@utils';
 import { IChartTick } from '@core/interface/Chart';
 
 import { ChartLegend } from '@c/Charts/ChartLegend';
 import { Loader } from '@ui/Loader';
 
+interface IChartLines {
+  id: string;
+  instance: ISeriesApi<'Line'>;
+}
+
 export const Forecast: React.FC<{}> = () => {
   const { data, currentCoin } = useAppSelector((state) => state.chartState);
   const [loading, setLoading] = useState<boolean>(true);
   const [chart, setChart] = useState<IChartApi | null>(null);
+  const [chartLines, setChartLines] = useState<IChartLines[]>([]);
   const [series, setSeries] = useState<any>([]);
   const [colors, setColors] = useState<any>([]);
 
   const containerRef: any = useRef();
   const tooltipRef: any = useRef();
   const ctx = useContext(ThemeContext);
-
-  // const option = {
-  //   tooltipRef: {
-  //     formatter: function (params: any[]) {
-  //       const wrapper = document.createElement('div');
-  //       wrapper.className = 'chart-info';
-  //       const axisLabel = document.createElement('label');
-  //       axisLabel.innerHTML = params[0]?.axisValue;
-
-  //       params.forEach((elem) => {
-  //         wrapper.insertAdjacentHTML(
-  //           'afterbegin',
-  //           `<div><i style="background: ${elem.color}"></i> <p>${elem.seriesName}:</p>  ${
-  //             elem?.data?.toFixed(2) || '-'
-  //           }</div>`
-  //         );
-  //       });
-  //       wrapper.prepend(axisLabel);
-
-  //       return wrapper;
-  //     },
-  //   },
-  // };
 
   const initChart = () => {
     const color: string[] = ['#3182bd', '#1c9099', '#43a2ca', '#9ebcda'];
@@ -60,7 +42,10 @@ export const Forecast: React.FC<{}> = () => {
     const coinDataMapped = coinData
       .map((x) => ({
         ...x,
-        timestamp: timeToTz(x.timestamp, 'Europe/Moscow'),
+        timestamp: timeToTz(
+          x.timestamp,
+          Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/Moscow'
+        ),
       }))
       .reverse();
 
@@ -171,35 +156,46 @@ export const Forecast: React.FC<{}> = () => {
           secondsVisible: false,
         },
         localization: {
-          priceFormatter: (p: number) => {
-            const thousands = Math.round(p / 100).toString();
-            return `${thousands.slice(0, 2)}.${thousands.slice(2, 3)}к`;
+          priceFormatter: (price: number) => {
+            // const thousands = Math.round(p / 100).toString();
+            // return `${thousands.slice(0, 2)}.${thousands.slice(2, 3)}к`;
+            return formatPrice(price, 0);
           },
         },
       });
       setChart(chartInstance);
 
+      let newSeries: IChartLines[] = [];
       series.forEach((series, idx) => {
         const lineSeries = chartInstance.addLineSeries(series.lineStyle);
         lineSeries.setData(series.data);
+
+        newSeries.push({
+          id: series.name,
+          instance: lineSeries,
+        });
       });
+
+      setChartLines([...newSeries]);
 
       chartInstance.timeScale().fitContent();
 
-      chartInstance.subscribeCrosshairMove((param) => {
-        if (param.point === undefined || !param.time || param.point.x < 0 || param.point.y < 0) {
-          tooltipRef.current.style.display = 'none';
-        } else {
-          // const dateStr = dateToString(param.time);
-          tooltipRef.current.style.display = 'block';
-          // const price = param.seriesPrices.get(chartInstance.series);
-          // tooltipRef.current.innerHTML = `<div>${price.toFixed(2)}</div>`;
-
-          // Position tooltipRef according to mouse cursor position
-          tooltipRef.current.style.left = param.point.x + 'px';
-          tooltipRef.current.style.top = param.point.y + 'px';
-        }
-      });
+      // chartInstance.subscribeCrosshairMove((param) => {
+      //   if (param.point === undefined || !param.time || param.point.x < 0 || param.point.y < 0) {
+      //     tooltipRef.current.style.display = 'none';
+      //   } else {
+      //     // const dateStr = dateToString(param.time);
+      //     tooltipRef.current.style.display = 'block';
+      //     // const price = param.seriesPrices.get(chartInstance.series);
+      //     // tooltipRef.current.innerHTML = `<div>${price.toFixed(2)}</div>`;
+      //     //           `<div><i style="background: ${elem.color}"></i> <p>${elem.seriesName}:</p>  ${
+      //     //             elem?.data?.toFixed(2) || '-'
+      //     //           }</div>`
+      //     // Position tooltipRef according to mouse cursor position
+      //     tooltipRef.current.style.left = param.point.x + 'px';
+      //     tooltipRef.current.style.top = param.point.y + 'px';
+      //   }
+      // });
     }
 
     setLoading(false);
@@ -258,13 +254,26 @@ export const Forecast: React.FC<{}> = () => {
     changeTheme();
   }, [ctx?.theme]);
 
-  const handleClick = (title: string) => {
-    // chart?.dispatchAction({ type: 'legendToggleSelect', name: title });
+  const handleChangeSeries = (title: string, disabled: boolean) => {
+    const targetLine = chartLines.find((x) => x.id === title);
+    const targetSeries = series.find((x: any) => x.name === title);
+
+    if (targetLine && targetSeries) {
+      if (!disabled) {
+        targetLine.instance.applyOptions({
+          color: targetSeries.lineStyle.color,
+        });
+      } else {
+        targetLine.instance.applyOptions({
+          color: 'transparent',
+        });
+      }
+    }
   };
 
   return (
     <>
-      <ChartLegend colors={colors} data={series} handleToggle={handleClick} />
+      <ChartLegend colors={colors} data={series} handleToggle={handleChangeSeries} />
 
       <div
         ref={containerRef}
@@ -274,7 +283,7 @@ export const Forecast: React.FC<{}> = () => {
         }}
       />
 
-      <div className="chart-info" ref={tooltipRef}></div>
+      {/* <div className="chart-info" ref={tooltipRef}></div> */}
 
       {loading && (
         <div className="chart__load">

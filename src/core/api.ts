@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { ofetch, FetchError } from 'ofetch';
+import { ofetch, FetchError, FetchOptions } from 'ofetch';
 
 interface IRequestOptions {
   method?: string;
@@ -23,8 +23,7 @@ export const api = async (
       method,
       headers: {
         'Content-Type': 'application/json' as string,
-        'X-CSRF-TOKEN': Cookies.get('csrftoken') || '',
-        'X-XSRF-TOKEN': Cookies.get('csrftoken') || '',
+        'X-CSRFTOKEN': Cookies.get('csrftoken') || '',
       },
       body,
       params,

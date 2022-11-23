@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import cns from 'classnames';
 interface IButton {
   title: string;
   active: boolean;
@@ -12,7 +13,7 @@ interface ISeries {
 export const ChartLegend: React.FC<{
   colors: string[];
   data: ISeries[];
-  handleToggle: (title: string) => void;
+  handleToggle: (title: string, active: boolean) => void;
 }> = ({ colors, data, handleToggle }) => {
   const settingRef: any = useRef();
   const [active, setActive] = useState(false);
@@ -25,15 +26,19 @@ export const ChartLegend: React.FC<{
   }, [data]);
 
   const handleClick = (title: string) => {
+    let newState = null;
+
     setButtons(
       buttons.map((elem) => {
         if (elem.title === title) {
           elem.active = !elem.active;
+          newState = !elem.active;
         }
         return elem;
       })
     );
-    handleToggle(title);
+
+    handleToggle(title, !!newState);
   };
 
   return (
@@ -55,10 +60,7 @@ export const ChartLegend: React.FC<{
           />
         </svg>
       </button>
-      <div
-        className={
-          active ? 'chart__legend-blur chart__legend-blur--active' : 'chart__legend-blur'
-        }></div>
+      <div className={cns('chart__legend-blur', active && 'chart__legend-blur--active')} />
       <div className={active ? 'chart__legend chart__legend--active' : 'chart__legend'}>
         <div className="chart__legend-head">
           <p className="chart__legend-title">Trading Legend</p>
@@ -72,11 +74,7 @@ export const ChartLegend: React.FC<{
               <li
                 key={elem.title}
                 onClick={() => handleClick(elem.title)}
-                className={
-                  elem.active
-                    ? 'chart__legend-item chart__legend-item--active'
-                    : 'chart__legend-item'
-                }>
+                className={cns('chart__legend-item', elem.active && 'chart__legend-item--active')}>
                 <button></button>
                 <div style={{ background: colors[index] }}></div>
                 <p>{elem.title}</p>
