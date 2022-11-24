@@ -34,7 +34,7 @@ export const UserCardDropdown: React.FC<{}> = () => {
 
       <ul className={menuState ? 'user__list user__list--active' : 'user__list'}>
         <li className="user__item">
-          <Link to={path !== '' ? `/${path}/tarifs` : `${path}tarifs`} onClick={handleStateChange}>
+          <Link to={path !== '' ? `/${path}?tarifs` : `${path}tarifs`} onClick={handleStateChange}>
             Сменить тариф
           </Link>
         </li>
@@ -57,9 +57,9 @@ export const UserCardDropdown: React.FC<{}> = () => {
           <Link to="/">Привязать Telegram-бота</Link>
         </li>
         <li className={cns('user__item', !isProUser && 'pro')} onClick={handleStateChange}>
-          <Link to="https://t.me/+fQvg8JT7oUVhZDZi" target="_blank">
+          <a href="https://t.me/+fQvg8JT7oUVhZDZi" target="_blank">
             Перейти в Telegram-чат
-          </Link>
+          </a>
         </li>
         <div className="user__wrapper">
           <Socials />

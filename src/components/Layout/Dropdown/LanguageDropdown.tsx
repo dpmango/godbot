@@ -1,6 +1,8 @@
 import { useLayoutEffect, useState, useRef } from 'react';
 import { useSkeleton, useDropdown, useClickOutside } from '@hooks';
 
+import { SvgIcon } from '@ui';
+
 interface ILanguages {
   icon: string;
   language: string;
@@ -38,7 +40,12 @@ export const LanguageDropdown: React.FC<{}> = () => {
             className="skeleton-box"
             style={{ width: '20px', height: '21px', borderRadius: '4px' }}></div>
         ) : (
-          <img src={`./images/${currentLanguage}`} alt="Current Language" />
+          <>
+            <img src={`./images/${currentLanguage}`} alt="Current Language" />
+            <div className="language__toggle">
+              <SvgIcon name="chevron" />
+            </div>
+          </>
         )}
       </button>
       <ul className={menuState ? 'language__list _active' : 'language__list'}>

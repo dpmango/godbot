@@ -6,6 +6,8 @@ import { UserCard } from '@c/Layout/Atom';
 import { SvgIcon } from '@ui';
 import { MobileMenu } from './MobileMenu';
 
+import './header.scss';
+
 export const Header: React.FC<{}> = () => {
   const [menu, setMenu] = useState(false);
 

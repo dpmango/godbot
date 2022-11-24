@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState, useContext, useCallback, useLayoutEffect } from 'react';
 import {
   createChart,
   ColorType,
@@ -24,7 +24,7 @@ interface IChartLines {
 export const Forecast: React.FC<{}> = () => {
   const { data, currentCoin } = useAppSelector((state) => state.chartState);
   const [loading, setLoading] = useState<boolean>(true);
-  const [chart, setChart] = useState<IChartApi | null>(null);
+  const chart = useRef<IChartApi | null>(null);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
   const [series, setSeries] = useState<any>([]);
   const [colors, setColors] = useState<any>([]);
@@ -33,11 +33,8 @@ export const Forecast: React.FC<{}> = () => {
   const tooltipRef: any = useRef();
   const ctx = useContext(ThemeContext);
 
-  const initChart = () => {
+  const initChart = (coinData: IChartTick[]) => {
     const color: string[] = ['#3182bd', '#1c9099', '#43a2ca', '#9ebcda'];
-    const coinData = data?.[currentCoin];
-
-    if (!coinData) return;
 
     const coinDataMapped = coinData
       .map((x) => ({
@@ -123,7 +120,7 @@ export const Forecast: React.FC<{}> = () => {
 
     // graph?.setOption(option);
 
-    if (!chart) {
+    if (!chart.current) {
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
@@ -136,14 +133,14 @@ export const Forecast: React.FC<{}> = () => {
           visible: false,
         },
         layout: {
-          textColor: '#262628',
+          textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: window.innerWidth < 576 ? 9 : 12,
           fontFamily: 'GilroyWeb, sans-serif',
-          background: { type: ColorType.Solid, color: 'white' },
+          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1C2326' },
         },
         grid: {
           vertLines: { visible: false },
-          horzLines: { color: '#AFCDEB', style: LineStyle.Dashed },
+          horzLines: { color: !ctx?.theme ? '#AFCDEB' : '#5F636A', style: LineStyle.Dashed },
         },
         crosshair: {
           mode: CrosshairMode.Magnet,
@@ -163,7 +160,8 @@ export const Forecast: React.FC<{}> = () => {
           },
         },
       });
-      setChart(chartInstance);
+
+      chart.current = chartInstance;
 
       let newSeries: IChartLines[] = [];
       series.forEach((series, idx) => {
@@ -200,28 +198,15 @@ export const Forecast: React.FC<{}> = () => {
 
     setLoading(false);
 
-    const handleResize = () => {
-      chart?.applyOptions({
-        width: containerRef.current.clientWidth,
-        height: containerRef.current.clientHeight,
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-
     return () => {
-      window.removeEventListener('resize', handleResize);
-
-      chart?.remove();
+      chart?.current?.remove();
     };
   };
 
   const changeTheme = () => {
-    if (!chart) return;
-
     if (ctx?.theme) {
       // dark theme
-      chart.applyOptions({
+      chart?.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
           background: { color: '#1C2326' },
@@ -232,7 +217,7 @@ export const Forecast: React.FC<{}> = () => {
       });
     } else {
       // white theme
-      chart.applyOptions({
+      chart?.current?.applyOptions({
         layout: {
           textColor: '#262628',
           background: { color: 'white' },
@@ -245,14 +230,30 @@ export const Forecast: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      initChart();
+    if (data && currentCoin) {
+      const coinData = data?.[currentCoin];
+      if (coinData) initChart(coinData);
     }
   }, [currentCoin, data]);
 
   useEffect(() => {
     changeTheme();
   }, [ctx?.theme]);
+
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      chart?.current?.applyOptions({
+        width: containerRef.current.clientWidth,
+        height: containerRef.current.clientHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleChangeSeries = (title: string, disabled: boolean) => {
     const targetLine = chartLines.find((x) => x.id === title);
