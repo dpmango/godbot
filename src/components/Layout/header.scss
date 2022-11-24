@@ -370,9 +370,9 @@
     pointer-events: none;
     z-index: 10;
     top: 40px;
-    left: 50%;
+    left: 0;
     width: 100%;
-    transform: translateX(-50%);
+    max-width: 40px;
     background: #fff;
     border: 1px solid $colorPrimary;
     border-radius: 10px;
@@ -380,9 +380,6 @@
     transition: top 0.3s, opacity 0.3s;
 
     li {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       cursor: pointer;
 
       img {
@@ -395,6 +392,7 @@
     }
 
     img {
+      flex: 0 0 auto;
       display: block;
       width: fit-content;
     }

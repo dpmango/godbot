@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState, useRef } from 'react';
 import { useSkeleton, useDropdown, useClickOutside } from '@hooks';
+import cns from 'classnames';
 
 import { SvgIcon } from '@ui';
 
@@ -11,7 +12,7 @@ interface ILanguages {
 export const LanguageDropdown: React.FC<{}> = () => {
   const [languages, setLanguages] = useState<ILanguages[]>([
     { language: 'RU', icon: 'rus.svg' },
-    // { language: "EN", icon: "eng.svg" },
+    { language: 'EN', icon: 'eng.svg' },
   ]);
   const [currentLanguage, setCurrentLanguage] = useState('');
 
@@ -52,9 +53,10 @@ export const LanguageDropdown: React.FC<{}> = () => {
         {languages &&
           languages.map((elem) => (
             <li
-              className={
-                elem.icon === currentLanguage ? 'language__item _disabled' : 'language__item'
-              }
+              className={cns(
+                'language__item _disabled',
+                elem.icon === currentLanguage && '_disabled'
+              )}
               key={elem.language}
               onClick={() => handleClick(elem.icon)}>
               <img src={`./images/${elem.icon}`} alt={elem.language} />

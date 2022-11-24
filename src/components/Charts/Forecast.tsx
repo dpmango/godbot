@@ -34,7 +34,7 @@ export const Forecast: React.FC<{}> = () => {
   const ctx = useContext(ThemeContext);
 
   const initChart = (coinData: IChartTick[]) => {
-    const color: string[] = ['#3182bd', '#1c9099', '#43a2ca', '#9ebcda'];
+    const color: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
 
     const coinDataMapped = coinData
       .map((x) => ({
@@ -52,7 +52,7 @@ export const Forecast: React.FC<{}> = () => {
         type: 'line',
         lineStyle: {
           color: color[0],
-          lineWidth: 2 as LineWidth,
+          lineWidth: 3 as LineWidth,
         },
         data: coinDataMapped
           .map((x: IChartTick) => {
@@ -68,7 +68,7 @@ export const Forecast: React.FC<{}> = () => {
         type: 'line',
         lineStyle: {
           color: color[1],
-          lineWidth: 2 as LineWidth,
+          lineWidth: 3 as LineWidth,
         },
         data: coinDataMapped
           .map((x: IChartTick) => {
@@ -165,7 +165,10 @@ export const Forecast: React.FC<{}> = () => {
 
       let newSeries: IChartLines[] = [];
       series.forEach((series, idx) => {
-        const lineSeries = chartInstance.addLineSeries(series.lineStyle);
+        const lineSeries = chartInstance.addLineSeries({
+          lastValueVisible: false,
+          ...series.lineStyle,
+        });
         lineSeries.setData(series.data);
 
         newSeries.push({
@@ -257,18 +260,11 @@ export const Forecast: React.FC<{}> = () => {
 
   const handleChangeSeries = (title: string, disabled: boolean) => {
     const targetLine = chartLines.find((x) => x.id === title);
-    const targetSeries = series.find((x: any) => x.name === title);
 
-    if (targetLine && targetSeries) {
-      if (!disabled) {
-        targetLine.instance.applyOptions({
-          color: targetSeries.lineStyle.color,
-        });
-      } else {
-        targetLine.instance.applyOptions({
-          color: 'transparent',
-        });
-      }
+    if (targetLine) {
+      targetLine.instance.applyOptions({
+        visible: !disabled,
+      });
     }
   };
 
