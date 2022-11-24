@@ -8,6 +8,7 @@ export const Authorization: React.FC<{}> = () => {
   const { userData } = useAppSelector((state) => state.userState);
 
   if (search === '?Trial=true') {
+    console.log('set trial cookie');
     Cookies.set('trial', 'active');
   }
 

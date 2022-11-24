@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { SvgIcon } from '@ui';
 import { useAppSelector } from '@store';
@@ -11,6 +11,7 @@ interface ILockScreenProps {
 
 export const LockScreen: FC<ILockScreenProps> = ({ section }) => {
   const { tariffActive, userData } = useAppSelector((state) => state.userState);
+  let [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div className="ui__lock">
@@ -25,7 +26,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section }) => {
               `Для отображения ${section} необходимо продлить тариф`}
           </h3>
 
-          <Link to={'/tarifs'}>
+          <Link to="?tariff">
             {!userData?.tariff && 'ВЫБРАТЬ ТАРИФ'}
             {userData?.tariff && !tariffActive && 'ПОПРОБОВАТЬ БЕСПЛАТНО'}
           </Link>

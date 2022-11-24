@@ -27,6 +27,8 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
       const graph: any = null;
       const { data } = await api(elem.graph_path, {});
 
+      if (!data) return;
+
       const color = ['#3182bd', '#1c9099', '#43a2ca', '#9ebcda'];
 
       const timestamp = Object.values(data.time_list_forecast).map((elem: any) => {

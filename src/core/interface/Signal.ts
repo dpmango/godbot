@@ -1,8 +1,9 @@
 export interface ISignal {
   date: string;
   currency: string;
+  currency_icon: string;
   shortname: string;
-  stop_loss?: string;
+  stop_loss?: number;
   icon: string;
   direction: string;
   status: string;

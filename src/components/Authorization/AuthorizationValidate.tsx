@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import cns from 'classnames';
 
 import { api } from '@core';
+import { useAppDispatch, getCurrentUser } from '@store';
 import { SvgIcon, Button } from '@ui';
 import { secondsToStamp, localStorageGet, localStorageSet } from '@utils';
 import './authorization.scss';
@@ -18,6 +19,8 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     const secondsPast = Math.round((Date.now() - last) / 1000);
     return secondsPast < 60 ? 60 - secondsPast : 0;
   }, []);
+
+  const dispatch = useAppDispatch();
 
   const [countdownConfirm, setCountdownConfirm] = useState<number>(lastEmailRest);
   let [value, setValue] = useState<string>('');
@@ -75,6 +78,9 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     }
 
     Cookies.set('auth', Date.now().toString(), { expires: 7 });
+
+    await dispatch(getCurrentUser());
+
     navigate('/', { replace: true });
   };
 

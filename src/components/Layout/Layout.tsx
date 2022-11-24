@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ThemeContext } from '@/App';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import cns from 'classnames';
 
 import { useAppSelector } from '@store';
 
@@ -19,19 +20,22 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
   let ctx = useContext(ThemeContext);
   const params = useParams();
   const { pathname } = useLocation();
+  let [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <>
-      <div className={ctx?.theme ? 'main _black-theme' : 'main'}>
-        {params['*'] === 'tarifs' ? <TarifWindow /> : ''}
+      <div className={cns('main', ctx?.theme && '_black-theme')}>
+        {searchParams.get('tariff') !== null && <TarifWindow />}
+
         <div className="container">
           <Header />
           {children}
         </div>
 
-        {/* <Link
-        to={pathname.slice(0, pathname.length - 7)}
-        className={params['*'] === 'tarifs' ? 'blur-bg show' : 'blur-bg'}></Link> */}
+        <Link
+          to={pathname}
+          className={cns('blur-bg', searchParams.get('tariff') !== null && 'show')}
+        />
         {currentModal ? <Greeting /> : ''}
 
         <TeletypeWidget />

@@ -19,7 +19,7 @@ const initialState: ISignalState = {
 };
 
 export const signalState = createSlice({
-  name: 'recomendation',
+  name: 'signals',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

@@ -6,7 +6,7 @@
   width: 100%;
   transform: translateY(-100%);
   padding-top: 20px;
-  z-index: 5;
+  z-index: 9;
   padding-bottom: 60px;
   background-color: white;
   position: fixed;
@@ -23,8 +23,8 @@
 
   .header__usercard {
     display: flex;
-    width: 95%;
-    margin: 0 auto 20px;
+    width: calc(100% - 40px);
+    margin: 0 20px 20px;
   }
 
   .language__list li img {
@@ -99,8 +99,8 @@
   &__head {
     display: flex;
     align-items: center;
-    width: 95%;
-    margin: 0 auto 15px;
+    width: calc(100% - 40px);
+    margin: 0 20px 15px;
   }
 
   &__item {

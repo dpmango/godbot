@@ -46,7 +46,7 @@
     position: absolute;
     background: rgba(69, 114, 238, 0.1);
     backdrop-filter: blur(10px);
-    border-radius: 10px;
+    // border-radius: 10px;
 
     div {
       text-align: center;
@@ -64,7 +64,6 @@
         font-size: 31px;
         margin-bottom: 23px;
         text-align: center;
-        color: $colorFont;
       }
 
       h3 {
@@ -74,7 +73,7 @@
       }
 
       a {
-        padding: 14px 23px;
+        padding: 13px 22px;
         font-weight: 500;
         font-size: 12px;
         line-height: 14px;

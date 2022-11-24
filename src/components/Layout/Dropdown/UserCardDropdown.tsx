@@ -10,7 +10,7 @@ import { Socials, ThemeChanger } from '@c/Layout/Atom';
 export const UserCardDropdown: React.FC<{}> = () => {
   const { isProUser } = useAppSelector((state) => state.userState);
   const { menuState, handleStateChange } = useDropdown();
-  const { loaded } = useSkeleton(true);
+  const { loading } = useSkeleton(true);
   const { pathname } = useLocation();
   const path = pathname.split('/').at(-1);
 
@@ -20,16 +20,16 @@ export const UserCardDropdown: React.FC<{}> = () => {
   return (
     <div className="user" ref={wrapperRef}>
       <button
-        disabled={loaded ? true : false}
+        disabled={loading ? true : false}
         className={
           menuState
             ? 'header__usercard-menu header__usercard-menu--active'
             : 'header__usercard-menu'
         }
         onClick={handleStateChange}>
-        <span style={{ backgroundColor: loaded ? 'silver' : '#262628' }}></span>
-        <span style={{ backgroundColor: loaded ? 'silver' : '#262628' }}></span>
-        <span style={{ backgroundColor: loaded ? 'silver' : '#262628' }}></span>
+        <span style={{ backgroundColor: loading ? 'silver' : '#262628' }}></span>
+        <span style={{ backgroundColor: loading ? 'silver' : '#262628' }}></span>
+        <span style={{ backgroundColor: loading ? 'silver' : '#262628' }}></span>
       </button>
 
       <ul className={menuState ? 'user__list user__list--active' : 'user__list'}>

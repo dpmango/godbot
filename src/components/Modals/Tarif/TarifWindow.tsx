@@ -10,27 +10,35 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
 import { api } from '@core';
+import { localizeKeys } from '@utils';
+import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modals';
 import { Loader } from '@c/UI/Loader';
 import { IPlan } from '@interface/Tarif';
 
 export const TarifWindow: React.FC<{}> = () => {
   const [data, setData] = useState<any>([]);
-  const [activePeriod, setActivePeriod] = useState<string>('1 Month');
+  const [activePeriodIdx, setActivePeriod] = useState<number>(0);
 
   const { pathname } = useLocation();
   const { t } = useTranslation('tariff');
 
-  const displaySelectes: { key: string; title: string }[] | null = useMemo(() => {
+  const localizeUnits = ({ number, units }: IPeriodObj) => {
+    const plural = localizeKeys(number, 'units', units.toLowerCase(), t);
+
+    return `${number} ${plural}`;
+  };
+
+  const displaySelectes: { title: string }[] | null = useMemo(() => {
     if (data && data.length) {
-      return data[0].plans.map((x: IPlan) => {
-        const giftStr = !x.period.add_period.startsWith('0')
-          ? `+ ${t('gift')} ${x.period.add_period}`
-          : `- ${t('noGift')}`;
+      return data[1].plans.map((x: IPlan) => {
+        const giftStr =
+          x.period.add_period.number !== 0
+            ? `+ ${t('gift')} ${localizeUnits(x.period.add_period)}`
+            : `- ${t('noGift')}`;
 
         return {
-          key: x.period.main_period,
-          title: `${x.period.main_period} ${giftStr}`,
+          title: `${localizeUnits(x.period.main_period)} ${giftStr}`,
         };
       });
     }
@@ -53,12 +61,7 @@ export const TarifWindow: React.FC<{}> = () => {
     getTarifs();
   }, []);
 
-  if (!data.length)
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
+  if (!data.length) return null;
 
   return (
     <div className="tarif">
@@ -71,11 +74,11 @@ export const TarifWindow: React.FC<{}> = () => {
       <h4 className="tarif__title">Тарифы</h4>
       <div className="tarif__header">
         {displaySelectes &&
-          displaySelectes.map((x) => (
+          displaySelectes.map((x, idx) => (
             <button
-              key={x.key}
-              onClick={() => setActivePeriod(x.key)}
-              className={x.key === activePeriod ? 'active' : ''}>
+              key={idx}
+              onClick={() => setActivePeriod(idx)}
+              className={idx === activePeriodIdx ? 'active' : ''}>
               {x.title}
             </button>
           ))}
@@ -89,16 +92,16 @@ export const TarifWindow: React.FC<{}> = () => {
           autoplay={true}
           pagination={{ clickable: true }}>
           <SwiperSlide>
-            <TarifCard {...data[1]} activePeriod={activePeriod} />
+            <TarifCard {...data[1]} activePeriodIdx={activePeriodIdx} />
           </SwiperSlide>
           <SwiperSlide>
-            <TarifCard {...data[0]} activePeriod={activePeriod} />
+            <TarifCard {...data[2]} activePeriodIdx={activePeriodIdx} />
           </SwiperSlide>
         </Swiper>
       ) : (
         <ul className="tarif__inner">
-          <TarifCard {...data[1]} activePeriod={activePeriod} />
-          <TarifCard {...data[0]} activePeriod={activePeriod} />
+          <TarifCard {...data[1]} activePeriodIdx={activePeriodIdx} />
+          <TarifCard {...data[2]} activePeriodIdx={activePeriodIdx} />
         </ul>
       )}
     </div>

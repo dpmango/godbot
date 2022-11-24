@@ -1,19 +1,20 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import { formatPrice } from '@utils';
-import { ITarifDto } from '@interface/Tarif';
+import { formatPrice, localizeKeys, openExternalLink } from '@utils';
+import { api } from '@core';
+import { ITarifDto, IPeriodObj } from '@interface/Tarif';
 
 interface ITarifCard extends ITarifDto {
-  activePeriod: string;
+  activePeriodIdx: number;
 }
 
-export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, activePeriod }) => {
+export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, activePeriodIdx }) => {
   const { t } = useTranslation('tariff');
 
   const descriptionList = useMemo(() => {
-    console.log(title, description);
     try {
       return description.split('\r\n');
     } catch {
@@ -21,12 +22,32 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
     }
   }, [description]);
 
+  const localizeUnits = ({ number, units }: IPeriodObj) => {
+    const plural = localizeKeys(number, 'units', units.toLowerCase(), t);
+
+    return `${number} ${plural}`;
+  };
+
   const currentPlan = useMemo(() => {
-    const findByMainPeriod = plans.find((x) => x.period.main_period === activePeriod);
+    const findByMainPeriod = plans[activePeriodIdx];
     if (findByMainPeriod) return findByMainPeriod;
 
     return null;
-  }, [activePeriod, plans]);
+  }, [activePeriodIdx, plans]);
+
+  const handleActivate = useCallback(async () => {
+    const { data, error } = await api('activate_tariff/', {
+      method: 'POST',
+      body: { id: currentPlan?.id },
+    });
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    openExternalLink(data.url);
+  }, [currentPlan]);
 
   return (
     <li className="tarif__card">
@@ -36,16 +57,19 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
         <div className="tarif__head">
           <h5>{title}</h5>
         </div>
-        <p className="tarif__cost">
-          {/* <strong>{formatPrice(plans[activePeriod].cost)}$</strong> */}
-          {formatPrice(currentPlan?.cost, 0)}$
-          <span>
-            /{t('pricePer')} {currentPlan?.period.main_period}
-          </span>
-        </p>
-        <Link className="tarif__link" to={'/payment'}>
+        {currentPlan && (
+          <p className="tarif__cost">
+            {/* <strong>{formatPrice(plans[activePeriod].cost)}$</strong> */}
+            {formatPrice(currentPlan.cost, 0)}$
+            <span>
+              /{t('pricePer')} {localizeUnits(currentPlan.period.main_period)}
+            </span>
+          </p>
+        )}
+
+        <a className="tarif__link" onClick={handleActivate}>
           {t('pay')}
-        </Link>
+        </a>
         <ul className="tarif__list">
           {descriptionList && descriptionList.map((x, idx) => <li key={idx}>{x}</li>)}
         </ul>

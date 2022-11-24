@@ -1,5 +1,6 @@
-import * as React from 'react';
 import { useDropdown } from '@hooks';
+import cns from 'classnames';
+
 import '../Charts/chart.scss';
 
 interface IAppProps {
@@ -7,7 +8,7 @@ interface IAppProps {
   isSelected: (value: boolean) => void;
 }
 
-const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter, isSelected }) => {
+const SignalsFilter: React.FC<IAppProps> = ({ filter, isSelected }) => {
   const { menuState, handleStateChange, setValue, value } = useDropdown('Активно');
   const handleClick = (value: string) => {
     handleStateChange();
@@ -17,22 +18,14 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter, isSelec
   };
 
   return (
-    <div className="recomendation__select">
+    <div className="signals__select">
       <button
         onClick={handleStateChange}
-        className={
-          !menuState
-            ? 'chart__dropdown-button'
-            : 'chart__dropdown-button chart__dropdown-button--active'
-        }>
+        className={cns('chart__dropdown-button', menuState && 'chart__dropdown-button--active')}>
         Показать все
       </button>
       <div
-        className={
-          !menuState
-            ? 'chart__dropdown-wrapper'
-            : 'chart__dropdown-wrapper chart__dropdown-wrapper--active'
-        }>
+        className={cns('chart__dropdown-wrapper', menuState && 'chart__dropdown-wrapper--active')}>
         <ul>
           {[
             'Активно | Active',
@@ -40,8 +33,8 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter, isSelec
             'Отменено | Cancel',
             'Закрыта по стопу | Loss',
             'Закрыто в прибыль | Profit',
-          ].map((elem: string, index) => (
-            <li onClick={() => handleClick(elem)} key={index}>
+          ].map((elem: string, idx) => (
+            <li onClick={() => handleClick(elem)} key={idx}>
               {elem.split('|')[0]}
             </li>
           ))}
@@ -51,4 +44,4 @@ const TransactionFilter: React.FunctionComponent<IAppProps> = ({ filter, isSelec
   );
 };
 
-export { TransactionFilter };
+export { SignalsFilter };

@@ -1,17 +1,19 @@
 import Cookies from 'js-cookie';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 
 import { api } from '@core';
+import { useAppDispatch, getCurrentUser } from '@store';
 
 import { Layout } from '@c/Layout/Layout';
 import { ChartsRouter } from '@/components/Charts/ChartsRouter';
-import { Transaction } from '@c/Transaction/Transaction';
+import { Signals } from '@c/Signal';
 
 export const HomePage: React.FC<{}> = () => {
-  const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const setTrial = async () => {
     const { data, error } = await api('activate_tariff/', {
@@ -19,17 +21,20 @@ export const HomePage: React.FC<{}> = () => {
       body: { id: 9 },
     });
 
-    if (data) {
-      Cookies.remove('trial');
-      navigate('/', { replace: true });
-    } else {
-      Cookies.remove('trial');
-      navigate('/error', { replace: true }); // TODO - what's error route?
+    if (error) {
+      toast.error(error.message);
+      return;
     }
+
+    await dispatch(getCurrentUser());
+
+    toast.success('Активирована пробная версия');
+    Cookies.remove('trial');
+    navigate('/', { replace: true });
   };
 
-  useLayoutEffect(() => {
-    if (Cookies.get('trial') && params['*'] !== 'error') {
+  useEffect(() => {
+    if (Cookies.get('trial')) {
       setTrial();
     }
   }, []);
@@ -41,7 +46,7 @@ export const HomePage: React.FC<{}> = () => {
       </Helmet>
 
       <ChartsRouter />
-      <Transaction />
+      <Signals />
     </Layout>
   );
 };

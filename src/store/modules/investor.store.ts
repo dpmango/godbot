@@ -1,22 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '@core';
+import { IInvesting } from '@core/interface/Investor';
 
 export const getInvesting = createAsyncThunk('investor/investorData', async () => {
-  const { data } = await api('get_investing/', {});
+  const { data, message } = await api('get_investing/', {});
 
-  return { data };
+  return { data, message };
 });
-
-export interface Idata {
-  currency: string;
-  currency_icon: string;
-  graph_path: string;
-  datetime: string;
-}
 
 export interface IInvestorObj {
   message?: string;
-  data?: Idata[];
+  data?: IInvesting[];
 }
 
 export interface IInvestorData {

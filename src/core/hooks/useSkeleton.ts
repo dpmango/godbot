@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 
 const useSkeleton = (status: boolean) => {
-  const [loaded, setLoaded] = useState<boolean>(true);
+  const [loading, setLoaded] = useState<boolean>(true);
 
   useEffect(() => {
     if (status === true) {
       setTimeout(() => {
         setLoaded(false);
-      }, 1000);
+      }, 500);
     }
-  });
+  }, [status]);
 
   return {
-    loaded,
+    loading,
   };
 };
 export { useSkeleton };

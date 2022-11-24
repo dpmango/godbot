@@ -13,7 +13,7 @@ export const LanguageDropdown: React.FC<{}> = () => {
   ]);
   const [currentLanguage, setCurrentLanguage] = useState('');
 
-  const { loaded } = useSkeleton(Boolean(languages.length));
+  const { loading } = useSkeleton(Boolean(languages.length));
 
   const { handleStateChange, menuState } = useDropdown();
   const wrapperRef = useRef(null);
@@ -33,7 +33,7 @@ export const LanguageDropdown: React.FC<{}> = () => {
       <button
         className={menuState ? 'language__button _active' : 'language__button'}
         onClick={() => handleStateChange()}>
-        {loaded ? (
+        {loading ? (
           <div
             className="skeleton-box"
             style={{ width: '20px', height: '21px', borderRadius: '4px' }}></div>

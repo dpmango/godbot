@@ -411,14 +411,6 @@
   }
 }
 
-.recomendation {
-  .chart__dropdown-wrapper li {
-    &:first-child {
-      border-radius: 0;
-    }
-  }
-}
-
 .investor {
   display: grid;
   overflow-x: auto;

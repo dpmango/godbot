@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import { LanguageDropdown, QuestionDropdown } from '@c/Layout/Header';
-import { UserCard } from '@ui/UserCard';
+import { LanguageDropdown, QuestionDropdown } from '@c/Layout/Dropdown';
+import { UserCard } from '@c/Layout/Atom';
 import { SvgIcon } from '@ui';
-import { MobileMenu } from '../MobileMenu';
+import { MobileMenu } from './MobileMenu';
 
 export const Header: React.FC<{}> = () => {
   const [menu, setMenu] = useState(false);

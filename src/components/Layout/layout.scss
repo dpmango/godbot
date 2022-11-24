@@ -133,10 +133,6 @@
     border: 1px solid #303235;
   }
 
-  .recomendation table tbody tr {
-    border-color: #3f424f;
-  }
-
   .menu__list li {
     &.disabled {
       opacity: 0.5;
@@ -404,15 +400,6 @@
     &._active,
     &:hover {
       background: #4572ee;
-    }
-  }
-
-  .recomendation {
-    background: #1c2326;
-    // backdrop-filter: blur(2.5px);
-
-    * {
-      color: white;
     }
   }
 
@@ -700,6 +687,8 @@
     }
 
     &-card {
+      min-width: 60px;
+      min-height: 60px;
       margin-right: 14px;
     }
 
@@ -749,7 +738,8 @@
     background: #fff;
     border: 1px solid #4572ee;
     border-radius: 10px;
-    max-height: 41px;
+    height: 41px;
+    line-height: 1;
     padding: 9px 29px 9px 10px;
     transition: all 0.3s;
 
@@ -1166,7 +1156,9 @@
   &__inner {
     z-index: 0;
     position: relative;
+    overflow: hidden;
     display: flex;
+    border-radius: 10px;
   }
 
   &__switch {
@@ -1285,265 +1277,6 @@
 
     .adds__link {
       top: 0;
-    }
-  }
-}
-
-.recomendation {
-  &__nothing {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 32px;
-    position: absolute;
-  }
-
-  table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    width: 100%;
-
-    th {
-      text-align: center;
-      font-weight: 400;
-      font-size: 10px;
-      padding-bottom: 11px;
-      line-height: 14px;
-      color: $colorGray !important;
-
-      &:nth-child(1) {
-        text-align: left;
-      }
-
-      &:last-child {
-        text-align: center;
-      }
-
-      &:nth-child(2) {
-        text-align: left;
-      }
-    }
-
-    tbody tr {
-      //   border-bottom: 1px dashed #3f424f;
-      border-bottom: 1px dashed #dddfe1;
-      position: relative;
-      transition: all 0.3s;
-
-      &:last-child {
-        border: transparent;
-      }
-    }
-
-    td {
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 14px;
-      color: $colorFont;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: center;
-
-      div {
-        display: flex;
-        align-items: center;
-
-        p {
-          text-align: left;
-        }
-      }
-
-      span {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-      }
-
-      img {
-        display: block;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        object-fit: contain;
-        margin-right: 10px;
-      }
-
-      &:first-child {
-        text-align: left;
-      }
-
-      &:last-child {
-        text-align: center;
-      }
-    }
-  }
-  position: relative;
-  margin-top: 20px;
-  min-height: 240px;
-  padding: 30px 20px;
-  background: #fff;
-  box-shadow: 0 2px 20px rgba(9, 5, 183, 0.06);
-  border-radius: 10px;
-  transition: background 0.3s;
-
-  .title {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 14px;
-    color: $colorFont;
-    margin-bottom: 35px;
-  }
-
-  &__select {
-    z-index: 2;
-    position: relative;
-
-    .chart__dropdown-button {
-      min-width: 120px;
-      padding: 5px 30px 5px 9px;
-    }
-  }
-
-  &__list {
-    width: 1320px;
-  }
-
-  &__top {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-  }
-
-  &__item {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 17px;
-    color: $colorFont;
-
-    &:not(:last-child) {
-      padding-bottom: 12px;
-      margin-bottom: 10px;
-      border-bottom: 1px dashed #dddfe1;
-    }
-  }
-
-  &__signal {
-    width: 135px;
-  }
-
-  &__headers {
-    display: flex;
-    width: 1320px;
-    align-items: center;
-    margin-bottom: 21px;
-  }
-
-  &__inner {
-    width: 100%;
-    overflow: auto;
-    padding-bottom: 10px;
-
-    &::-webkit-scrollbar {
-      width: 2px;
-      height: 2px;
-    }
-
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-      background: #4572ee;
-    }
-  }
-
-  &__head {
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 14px;
-    color: $colorGray;
-
-    &:nth-child(1) {
-      width: 139px;
-    }
-
-    &:nth-child(2) {
-      width: 188px;
-    }
-
-    &:nth-child(3) {
-      width: 197px;
-    }
-
-    &:nth-child(4) {
-      width: 221px;
-    }
-
-    &:nth-child(5) {
-      width: 171px;
-    }
-
-    &:nth-child(6) {
-      width: 178px;
-    }
-
-    &:nth-child(7) {
-      width: 127px;
-    }
-  }
-
-  &__costs {
-    display: flex;
-    width: 171px;
-    flex-direction: column;
-
-    &--enter {
-      width: 176px;
-    }
-  }
-
-  &__los {
-    color: $colorGray;
-    width: 153px;
-  }
-
-  &__orderType {
-    width: 190px;
-  }
-
-  &__orderStatus {
-    width: 226px;
-  }
-
-  &__risk {
-    color: #449c62;
-  }
-
-  &__wrapper {
-    display: flex;
-    align-items: center;
-    width: 195px;
-
-    h6 {
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 14px;
-      color: $colorFont;
-      margin-bottom: 1px;
-    }
-
-    p {
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 14px;
-      color: $colorGray;
-    }
-
-    img {
-      border-radius: 50%;
-      object-fit: contain;
-      max-height: 24px;
-      max-width: 24px;
-      margin-right: 10px;
     }
   }
 }
@@ -1777,49 +1510,6 @@ line {
     display: block;
   }
 
-  // .menu__list li a {
-  //   font-size: 10px;
-  // }
-
-  // .menu__item:not(:last-child) {
-  //   margin-right: 5px;
-  // }
-
-  // .logo {
-  //   max-width: 80%;
-  // }
-
-  // .language {
-  //   margin-right: 10px;
-  // }
-
-  // nav {
-  //   .question__button {
-  //     padding: 8px 10px 6px;
-
-  //     &::before {
-  //       display: none;
-  //     }
-  //   }
-
-  //   .language__button {
-  //     padding: 10px 11px 14px;
-  //     max-height: 42px;
-
-  //     &::before {
-  //       display: none;
-  //     }
-  //   }
-  // }
-
-  // .menu__list {
-  //   margin-left: 10px;
-  // }
-
-  // .language__item {
-  //   font-size: 0;
-  // }
-
   .partnership__list li {
     padding: 13.5px 14px;
   }
@@ -1887,12 +1577,6 @@ line {
     }
   }
 
-  .recomendation__inner {
-    table {
-      width: 900px;
-    }
-  }
-
   .table__switch-button::before,
   .table__switch-button::after {
     display: none !important;
@@ -1900,10 +1584,6 @@ line {
 }
 
 @include r($sm) {
-  .recomendation .title {
-    font-size: 11px;
-  }
-
   .investor {
     grid-template-columns: 1fr !important;
     overflow-y: unset !important;

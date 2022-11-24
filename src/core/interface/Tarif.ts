@@ -11,6 +11,11 @@ export interface IPlan {
 }
 
 export interface IPeriod {
-  main_period: string;
-  add_period: string;
+  main_period: IPeriodObj;
+  add_period: IPeriodObj;
+}
+
+export interface IPeriodObj {
+  number: number;
+  units: string;
 }

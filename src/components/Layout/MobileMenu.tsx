@@ -4,9 +4,8 @@ import cns from 'classnames';
 import { SvgIcon } from '@ui';
 import { useAppSelector } from '@store';
 
-import { LanguageDropdown } from '@c/Layout/Header';
-import { UserCard } from '@ui/UserCard';
-import { Socials, ThemeChanger } from '@c/Layout/Atom';
+import { LanguageDropdown } from '@c/Layout/Dropdown';
+import { Socials, ThemeChanger, UserCard } from '@c/Layout/Atom';
 
 import './mobile.scss';
 
@@ -74,15 +73,7 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) =>
           </Link>
         </li> */}
       </ul>
-      <ul className="mobile__rights">
-        <p>Документы</p>
-        <li>
-          <Link to={'/'}>Отказ от ответственности</Link>
-        </li>
-        <li>
-          <Link to={'/'}>Оферта</Link>
-        </li>
-      </ul>
+
       <ul className="mobile__services">
         <li>
           <Link to={'/'}>Сменить тариф</Link>
