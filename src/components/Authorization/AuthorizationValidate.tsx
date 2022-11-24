@@ -55,8 +55,8 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     }
   };
 
-  const handleSubmit: React.FormEventHandler = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e: any) => {
+    e?.preventDefault();
     if (loading) return;
 
     setLoading(true);
@@ -83,6 +83,12 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
 
     navigate('/', { replace: true });
   };
+
+  useEffect(() => {
+    if (value.trim().length === 6) {
+      handleSubmit(null);
+    }
+  }, [value]);
 
   const handleResend = async () => {
     if (loading) return;
