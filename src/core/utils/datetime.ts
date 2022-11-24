@@ -4,7 +4,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import isToday from 'dayjs/plugin/isToday';
 import locale_ru from 'dayjs/locale/ru';
-import { utcToZonedTime } from 'date-fns-tz';
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { UTCTimestamp } from 'lightweight-charts';
 
 dayjs.extend(customParseFormat);
@@ -45,6 +45,7 @@ export const secondsToStamp = (sec: number, showMinutes = true) => {
 };
 
 export const timeToTz = (originalTime: UTCTimestamp, timeZone: string) => {
-  const zonedDate = utcToZonedTime(originalTime, timeZone);
+  // const zonedDate = utcToZonedTime(originalTime, 'Etc/UTC');
+  const zonedDate = zonedTimeToUtc(originalTime, 'Etc/UTC');
   return (zonedDate.getTime() / 1000) as UTCTimestamp;
 };

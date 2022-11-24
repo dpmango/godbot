@@ -2,15 +2,17 @@ import Cookies from 'js-cookie';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import { useAppSelector } from '@store';
+import { useEffect } from 'react';
 
 export const Authorization: React.FC<{}> = () => {
   const { search } = useLocation();
   const { userData } = useAppSelector((state) => state.userState);
 
-  if (search === '?Trial=true') {
-    console.log('set trial cookie');
-    Cookies.set('trial', 'active');
-  }
+  useEffect(() => {
+    if (search === '?Trial=true') {
+      Cookies.set('trial', 'active');
+    }
+  }, [search]);
 
   return (
     <div className="authorization">

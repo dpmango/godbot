@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useLocation } from 'react-router-dom';
@@ -16,6 +17,12 @@ const ProtectedRoute = () => {
   if (!accessToken) {
     return <Navigate to="/auth" state={{ from: location }} replace />;
   }
+
+  useEffect(() => {
+    if (location.search === '?Trial=true') {
+      Cookies.set('trial', 'active');
+    }
+  }, [location.search]);
 
   return <Outlet />;
 };

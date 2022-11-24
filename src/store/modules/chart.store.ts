@@ -3,7 +3,7 @@ import { api } from '@core';
 import { IChartTick } from '@core/interface/Chart';
 
 export const getChart = createAsyncThunk('chart/chartData', async (url: string) => {
-  const { data } = await api('get_graph/', {});
+  const { data } = await api('get_graph/200', {});
   return data;
 });
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { formatPrice } from '@utils';
+import { formatPrice, formatDate } from '@utils';
 import { ISignal } from '@interface/Signal';
 
 interface ISignalCard {
@@ -24,8 +24,8 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
         title = t('status.waiting');
         color = '#EFAD10';
         break;
-      case 'CANCELLED':
-        title = t('status.cancelled');
+      case 'CANCEL':
+        title = t('status.cancel');
         color = '#CA390C';
         break;
       case 'PROFIT':
@@ -48,7 +48,7 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
 
   return (
     <tr>
-      <td className="signal-date">{signal.date}</td>
+      <td className="signal-date">{formatDate(signal.date)}</td>
       <td>
         <div className="signal-coin">
           <img src={signal.currency_icon} alt={signal.currency} />

@@ -1,5 +1,5 @@
 export interface ISignal {
-  date: string;
+  date: Date;
   currency: string;
   currency_icon: string;
   shortname: string;
