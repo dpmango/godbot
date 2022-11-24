@@ -23,26 +23,32 @@ export const QuestionDropdown: React.FC<{}> = () => {
       <ul className={cns('question__list', menuState && '_active')}>
         <li className="question__item" onClick={handleStateChange}>
           <button className="question__btn">
-            <SvgIcon name="lightbulb" />
+            <div className="question__btn-ico">
+              <SvgIcon name="lightbulb" />
+            </div>
             Предложить идею
           </button>
         </li>
         <li className="question__item" onClick={handleStateChange}>
           <button className="question__btn">
-            <SvgIcon name="stickynote" />
+            <div className="question__btn-ico">
+              <SvgIcon name="stickynote" />
+            </div>
             Справочный центр
           </button>
         </li>
         <li className="question__item" onClick={handleStateChange}>
           {/* @ts-ignore */}
           <button className="question__btn" onClick={() => window._teletypeWidget?.show()}>
-            <SvgIcon name="conversation" />
+            <div className="question__btn-ico">
+              <SvgIcon name="conversation" />
+            </div>
             Написать нам
           </button>
         </li>
         {/* <li className="question__item" onClick={handleStateChange}>
           <button className="question__btn">
-            <SvgIcon name="gift" />
+            <div className="question__btn-ico"><SvgIcon name="gift" /></div>
             Что нового
           </button>
         </li> */}

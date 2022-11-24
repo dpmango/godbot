@@ -58,7 +58,7 @@ export const LanguageDropdown: React.FC<{}> = () => {
               key={elem.language}
               onClick={() => handleClick(elem.icon)}>
               <img src={`./images/${elem.icon}`} alt={elem.language} />
-              {elem.language}
+              {/* {elem.language} */}
             </li>
           ))}
       </ul>
