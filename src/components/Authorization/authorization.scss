@@ -2,21 +2,13 @@
   min-height: 100vh;
   background: #000;
 
-  .invisible {
-    right: 0;
-    top: 0;
-    pointer-events: none;
-    opacity: 0;
-    position: absolute;
-    height: 0;
-    overflow: hidden;
-
-    &::-webkit-credentials-auto-fill-button {
-      visibility: hidden;
-      pointer-events: none;
-      position: absolute;
-      right: 0;
-    }
+  &__inner {
+    margin: auto;
+    max-width: 1160px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   &__bg {
@@ -29,6 +21,15 @@
     background-size: contain;
     pointer-events: none;
     position: absolute;
+  }
+
+  &__spacer {
+    min-height: 100vh;
+    padding: 120px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   &__wrapper {
@@ -76,42 +77,6 @@
       100% {
         opacity: 1;
       }
-    }
-  }
-
-  &__inner {
-    margin: auto;
-    padding-top: 143px;
-    max-width: 1160px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  &__swiper {
-    padding-bottom: 60px;
-    color: white;
-    text-align: center;
-    max-width: 484px;
-
-    img {
-      width: fit-content;
-      margin: 0 auto;
-      margin-bottom: 35px;
-    }
-  }
-
-  .swiper-wrapper {
-    padding-bottom: 30px;
-  }
-
-  .swiper-pagination-bullet {
-    background: white;
-
-    &-active {
-      height: 3px !important;
-      background-color: #f034b0;
     }
   }
 
@@ -183,7 +148,6 @@
     text-align: left;
     padding: 40px 40px 50px;
     max-width: 440px;
-    margin-top: 130px;
     background: linear-gradient(180deg, rgba(102, 175, 203, 0.1) 0%, rgba(102, 175, 203, 0) 100%);
     border-radius: 21.163px;
     box-shadow: 0 2px 20px rgba(9, 5, 183, 0.06);
@@ -304,6 +268,23 @@
       }
     }
   }
+
+  .invisible {
+    right: 0;
+    top: 0;
+    pointer-events: none;
+    opacity: 0;
+    position: absolute;
+    height: 0;
+    overflow: hidden;
+
+    &::-webkit-credentials-auto-fill-button {
+      visibility: hidden;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+    }
+  }
 }
 
 @include r($lg) {
@@ -321,19 +302,11 @@
     &__form {
       margin-bottom: 30px;
     }
-
-    &__swiper {
-      max-width: 100%;
-    }
   }
 }
 
 @include r($sm) {
   .authorization {
-    &__inner {
-      padding-top: 90px;
-    }
-
     &__form {
       text-align: center;
       padding: 47px 20px 25px;

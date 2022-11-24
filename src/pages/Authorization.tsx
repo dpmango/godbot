@@ -22,7 +22,9 @@ export const Authorization: React.FC<{}> = () => {
       </Link>
 
       <div className="authorization__inner">
-        <Outlet />
+        <div className="authorization__spacer">
+          <Outlet />
+        </div>
 
         <img className="authorization__bg" src="/images/reg-bg.png" alt="" />
       </div>
