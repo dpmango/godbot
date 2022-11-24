@@ -5,9 +5,9 @@ import { parse } from 'date-fns';
 import { useAppSelector } from '@store';
 import { api } from '@core';
 
-interface IInvestorChartProps {}
+interface IInvestingProps {}
 
-export const InvestorChart: FC<IInvestorChartProps> = () => {
+export const Investing: FC<IInvestingProps> = () => {
   const [visible, setVisible] = useState<boolean>(true);
   const { graphs } = useAppSelector((state) => state.investorState);
   const refsCollection: any = useRef();
@@ -25,7 +25,7 @@ export const InvestorChart: FC<IInvestorChartProps> = () => {
   useEffect(() => {
     graphs?.data?.forEach(async (elem, index) => {
       const graph: any = null;
-      const { data } = await api(elem.graph_path, {});
+      const { raw: data } = await api(`get_invest_graph/${elem.invest_id}`, {});
 
       if (!data) return;
 

@@ -11,7 +11,7 @@ import { ChartTabs } from '@/components/Charts/ChartTabs';
 import { Forecast } from '@/components/Charts/Forecast';
 import ChartFilter from '@c/Charts/ChartFilter';
 import { LockScreen } from '@ui/LockScreen';
-import { InvestorChart } from '@c/Charts/InvestorChart';
+import { Investing } from '@/components/Charts/Investing';
 
 import './chart.scss';
 
@@ -67,7 +67,7 @@ export const ChartsRouter: React.FC<{}> = () => {
           </div>
 
           {activeTab === 'Forecast' && <Forecast />}
-          {activeTab === 'Investing' && <InvestorChart />}
+          {activeTab === 'Investing' && <Investing />}
         </div>
       </div>
     </div>

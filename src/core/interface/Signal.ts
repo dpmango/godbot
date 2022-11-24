@@ -2,6 +2,7 @@ export interface ISignal {
   date: Date;
   currency: string;
   currency_icon: string;
+  currency_code: string;
   shortname: string;
   stop_loss?: number;
   icon: string;

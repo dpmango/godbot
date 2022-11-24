@@ -54,7 +54,7 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
           <img src={signal.currency_icon} alt={signal.currency} />
           <div className="signal-coin__description">
             <p>{signal.currency}</p>
-            {/* <small>{signal.currency}</small> */}
+            <small>{signal.currency_code}</small>
           </div>
         </div>
       </td>

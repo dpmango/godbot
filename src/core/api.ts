@@ -51,11 +51,11 @@ export const api = async (
       requestUrl = url;
     }
 
-    const { data, message } = await ofetch(requestUrl, requestOptions);
+    const { data, message, ...raw } = await ofetch(requestUrl, requestOptions);
 
     console.log(`👌 fetch ${url}`, data);
 
-    return { data, message, error: null };
+    return { data, raw, message, error: null };
   } catch (err: any) {
     let errMessage = err?.data?.message || '';
 
