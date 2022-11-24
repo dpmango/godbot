@@ -34,7 +34,7 @@ export const UserCardDropdown: React.FC<{}> = () => {
 
       <ul className={menuState ? 'user__list user__list--active' : 'user__list'}>
         <li className="user__item">
-          <Link to={path !== '' ? `/${path}?tarifs` : `${path}tarifs`} onClick={handleStateChange}>
+          <Link to={`/${path}?tariffs`} onClick={handleStateChange}>
             Сменить тариф
           </Link>
         </li>

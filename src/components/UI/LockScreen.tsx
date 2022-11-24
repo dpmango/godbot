@@ -26,7 +26,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section }) => {
               `Для отображения ${section} необходимо продлить тариф`}
           </h3>
 
-          <Link to="?tariff">
+          <Link to="?tariffs">
             {!userData?.tariff && 'ВЫБРАТЬ ТАРИФ'}
             {userData?.tariff && !tariffActive && 'ПОПРОБОВАТЬ БЕСПЛАТНО'}
           </Link>

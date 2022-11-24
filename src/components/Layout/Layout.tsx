@@ -25,7 +25,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
   return (
     <>
       <div className={cns('main', ctx?.theme && '_black-theme')}>
-        {searchParams.get('tariff') !== null && <TarifWindow />}
+        {searchParams.get('tariffs') !== null && <TarifWindow />}
 
         <div className="container">
           <Header />
@@ -34,7 +34,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
 
         <Link
           to={pathname}
-          className={cns('blur-bg', searchParams.get('tariff') !== null && 'show')}
+          className={cns('blur-bg', searchParams.get('tariffs') !== null && 'show')}
         />
         {currentModal ? <Greeting /> : ''}
 

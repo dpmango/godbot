@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import cns from 'classnames';
 
 import { SvgIcon } from '@ui';
@@ -16,6 +16,8 @@ export interface IMobileMenuProps {
 
 export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) => {
   const { userData, isProUser } = useAppSelector((state) => state.userState);
+  const { pathname } = useLocation();
+  const path = pathname.split('/').at(-1);
 
   const handleClick = () => {
     setActive(false);
@@ -76,7 +78,7 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) =>
 
       <ul className="mobile__services">
         <li>
-          <Link to={'/'}>Сменить тариф</Link>
+          <Link to={`/${path}?tariffs`}>Сменить тариф</Link>
         </li>
         <li>
           <Link to={'/'}>Привязать Telegram-бота</Link>
