@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import { useAppSelector } from '@store';
-import { useEffect } from 'react';
+import { Logo } from '@c/Layout/Atom';
 
 export const Authorization: React.FC<{}> = () => {
   const { search } = useLocation();
@@ -17,7 +18,7 @@ export const Authorization: React.FC<{}> = () => {
   return (
     <div className="authorization">
       <Link to={!userData?.tariff ? '/auth' : '/'} className="authorization__logo">
-        <img src="./images/logo-auth.svg" alt="" />
+        <Logo />
       </Link>
 
       <div className="authorization__inner">

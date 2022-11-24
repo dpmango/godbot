@@ -16,9 +16,16 @@ export const HomePage: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
 
   const setTrial = async () => {
+    const { data: trialData, error: trialError } = await api('get_trial/', {});
+
+    if (trialError) {
+      toast.error(trialError.message);
+      return;
+    }
+
     const { data, error } = await api('activate_tariff/', {
       method: 'POST',
-      body: { id: 9 },
+      body: { id: trialData.trial_id },
     });
 
     if (error) {

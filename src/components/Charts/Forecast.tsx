@@ -86,6 +86,7 @@ export const Forecast: React.FC<{}> = () => {
           color: color[2],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
+          crosshairMarkerVisible: false,
         },
         data: coinDataMapped
           .map((x: IChartTick) => {
@@ -103,6 +104,7 @@ export const Forecast: React.FC<{}> = () => {
           color: color[3],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
+          crosshairMarkerVisible: false,
         },
         data: coinDataMapped
           .map((x: IChartTick) => {
@@ -167,6 +169,7 @@ export const Forecast: React.FC<{}> = () => {
       series.forEach((series, idx) => {
         const lineSeries = chartInstance.addLineSeries({
           lastValueVisible: false,
+          priceLineVisible: false,
           ...series.lineStyle,
         });
         lineSeries.setData(series.data);

@@ -169,6 +169,12 @@
     top: 37px;
     left: 40px;
     position: absolute;
+
+    svg {
+      .logo-letter {
+        fill: white !important;
+      }
+    }
   }
 
   &__form {

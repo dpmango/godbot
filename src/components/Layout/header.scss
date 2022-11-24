@@ -9,6 +9,17 @@
     align-items: center;
   }
 
+  .logo {
+    font-size: 0;
+    line-height: 1;
+    width: 100%;
+    max-width: 174px;
+
+    svg {
+      max-width: 100%;
+    }
+  }
+
   &__usercard {
     width: fit-content;
     display: flex;
@@ -650,6 +661,12 @@
 }
 
 .main._black-theme {
+  .logo {
+    .logo-letter {
+      fill: white;
+    }
+  }
+
   .menu__list li {
     &.disabled {
       opacity: 0.5;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { LanguageDropdown, QuestionDropdown } from '@c/Layout/Dropdown';
-import { UserCard } from '@c/Layout/Atom';
+import { UserCard, Logo } from '@c/Layout/Atom';
 import { SvgIcon } from '@ui';
 import { MobileMenu } from './MobileMenu';
 
@@ -17,7 +17,7 @@ export const Header: React.FC<{}> = () => {
 
       <nav className="menu">
         <Link to="/" className="logo">
-          <img src="./images/Logo.svg" alt="" />
+          <Logo />
         </Link>
         <ul className="menu__list">
           <li className="menu__item">

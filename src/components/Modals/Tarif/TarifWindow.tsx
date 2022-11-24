@@ -14,10 +14,10 @@ import { localizeKeys } from '@utils';
 import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modals';
 import { Loader } from '@c/UI/Loader';
-import { IPlan } from '@interface/Tarif';
+import { IPlan, ITarifDto } from '@interface/Tarif';
 
 export const TarifWindow: React.FC<{}> = () => {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<ITarifDto[]>([]);
   const [activePeriodIdx, setActivePeriod] = useState<number>(0);
 
   const { pathname } = useLocation();
@@ -91,17 +91,17 @@ export const TarifWindow: React.FC<{}> = () => {
           loop={true}
           autoplay={true}
           pagination={{ clickable: true }}>
-          <SwiperSlide>
-            <TarifCard {...data[1]} activePeriodIdx={activePeriodIdx} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <TarifCard {...data[2]} activePeriodIdx={activePeriodIdx} />
-          </SwiperSlide>
+          {data.map((tarif, idx) => (
+            <SwiperSlide>
+              <TarifCard {...tarif} activePeriodIdx={activePeriodIdx} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       ) : (
         <ul className="tarif__inner">
-          <TarifCard {...data[1]} activePeriodIdx={activePeriodIdx} />
-          <TarifCard {...data[2]} activePeriodIdx={activePeriodIdx} />
+          {data.map((tarif, idx) => (
+            <TarifCard {...tarif} key={idx} activePeriodIdx={activePeriodIdx} />
+          ))}
         </ul>
       )}
     </div>
