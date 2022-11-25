@@ -12,9 +12,9 @@ import {
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@store';
 import { timeToTz, formatPrice, formatUnixDate } from '@utils';
-import { IChartTick } from '@core/interface/Chart';
+import { IForecastTick } from '@/core/interface/Forecast';
 
-import { ChartLegend } from '@c/Charts/ChartLegend';
+import { ForecastLegend } from '@c/Charts';
 import { Loader } from '@ui/Loader';
 
 interface IChartLines {
@@ -23,7 +23,7 @@ interface IChartLines {
 }
 
 export const Forecast: React.FC<{}> = () => {
-  const { data, currentCoin } = useAppSelector((state) => state.chartState);
+  const { data, currentCoin } = useAppSelector((state) => state.forecastState);
   const [loading, setLoading] = useState<boolean>(true);
   const chart = useRef<IChartApi | null>(null);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
@@ -34,7 +34,7 @@ export const Forecast: React.FC<{}> = () => {
   const tooltipRef: any = useRef();
   const ctx = useContext(ThemeContext);
 
-  const initChart = (coinData: IChartTick[]) => {
+  const initChart = (coinData: IForecastTick[]) => {
     const color: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
 
     const coinDataMapped = coinData
@@ -53,7 +53,7 @@ export const Forecast: React.FC<{}> = () => {
           lineWidth: 3 as LineWidth,
         },
         data: coinDataMapped
-          .map((x: IChartTick) => {
+          .map((x: IForecastTick) => {
             return {
               time: x.timestamp,
               value: x.real || 0,
@@ -69,7 +69,7 @@ export const Forecast: React.FC<{}> = () => {
           lineWidth: 3 as LineWidth,
         },
         data: coinDataMapped
-          .map((x: IChartTick) => {
+          .map((x: IForecastTick) => {
             return {
               time: x.timestamp,
               value: x.forecast,
@@ -87,7 +87,7 @@ export const Forecast: React.FC<{}> = () => {
           crosshairMarkerVisible: false,
         },
         data: coinDataMapped
-          .map((x: IChartTick) => {
+          .map((x: IForecastTick) => {
             return {
               time: x.timestamp,
               value: x.upper,
@@ -105,7 +105,7 @@ export const Forecast: React.FC<{}> = () => {
           crosshairMarkerVisible: false,
         },
         data: coinDataMapped
-          .map((x: IChartTick) => {
+          .map((x: IForecastTick) => {
             return {
               time: x.timestamp,
               value: x.lower,
@@ -202,7 +202,7 @@ export const Forecast: React.FC<{}> = () => {
           param.point.y < 0 ||
           param.point.y > container.clientHeight
         ) {
-          // toolTip.style.display = 'none';
+          toolTip.style.display = 'none';
           return;
         }
 
@@ -314,7 +314,7 @@ export const Forecast: React.FC<{}> = () => {
 
   return (
     <>
-      <ChartLegend colors={colors} data={series} handleToggle={handleChangeSeries} />
+      <ForecastLegend colors={colors} data={series} handleToggle={handleChangeSeries} />
 
       <div
         ref={containerRef}

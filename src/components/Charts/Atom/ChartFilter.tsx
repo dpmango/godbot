@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector, setStateCoin } from '@store';
-import { ChartDropdown } from '@c/Charts/ChartDropdown';
+import { ChartDropdown } from '@/components/Charts';
 import { Loader } from '@ui/Loader';
 
 const ChartFilter: React.FC<{}> = ({}, ref) => {
@@ -12,7 +12,7 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
-  const { currentCoin, data } = useAppSelector((state) => state.chartState);
+  const { currentCoin, data } = useAppSelector((state) => state.forecastState);
 
   const handleTimeClick: React.MouseEventHandler<HTMLElement> = (e) => {
     setTimeChart((e.target as HTMLElement).textContent);

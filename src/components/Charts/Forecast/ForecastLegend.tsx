@@ -10,7 +10,7 @@ interface ISeries {
   type: string;
 }
 
-export const ChartLegend: React.FC<{
+export const ForecastLegend: React.FC<{
   colors: string[];
   data: ISeries[];
   handleToggle: (title: string, active: boolean) => void;

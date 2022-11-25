@@ -1,6 +1,6 @@
 import { UTCTimestamp } from 'lightweight-charts';
 
-export interface IChartTick {
+export interface IForecastTick {
   real: number | null;
   lower: number;
   upper: number;

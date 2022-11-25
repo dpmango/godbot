@@ -6,14 +6,11 @@ import { useAppDispatch, useAppSelector } from '@store';
 import { getInvesting } from '@store';
 import { Loader } from '@ui/Loader';
 import { ThemeContext } from '@/App';
-
-import { ChartTabs } from '@/components/Charts/ChartTabs';
-import { Forecast } from '@/components/Charts/Forecast';
-import ChartFilter from '@c/Charts/ChartFilter';
 import { LockScreen } from '@ui/LockScreen';
-import { Investing } from '@/components/Charts/Investing';
 
-import './chart.scss';
+import { ChartTabs, ChartFilter, Forecast, Investing } from '@c/Charts';
+
+// TODO - переделать табы на роутер
 
 export const ChartsRouter: React.FC<{}> = () => {
   const ctx = useContext(ThemeContext);

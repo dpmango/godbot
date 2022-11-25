@@ -413,14 +413,10 @@
 
 .investor {
   display: grid;
-  overflow-x: auto;
   grid-gap: 20px;
-  overflow-y: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  padding: 0 0 0 15px;
 
   &__wrapper {
-    margin-bottom: -40px;
     display: flex;
     align-items: center;
 
@@ -448,11 +444,9 @@
 
   &__card {
     position: relative;
-    overflow: hidden;
-    max-width: 100%;
-    max-height: 213px;
-    padding: 16px 20px 0;
+    padding: 16px 20px 10px;
     width: 100%;
+    max-width: 315px;
     background: #fff;
     box-shadow: 0 2px 20px rgba(9, 5, 183, 0.06);
     border-radius: 10px;
@@ -464,6 +458,12 @@
       opacity: 0;
       overflow: hidden;
     }
+  }
+
+  &__chart {
+    position: relative;
+    margin-top: 14px;
+    height: 150px;
   }
 
   &__button {

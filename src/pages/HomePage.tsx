@@ -8,7 +8,7 @@ import { api } from '@core';
 import { useAppDispatch, getCurrentUser } from '@store';
 
 import { Layout } from '@c/Layout/Layout';
-import { ChartsRouter } from '@/components/Charts/ChartsRouter';
+import { ChartsRouter } from '@c/Charts';
 import { Signals } from '@c/Signal';
 
 export const HomePage: React.FC<{}> = () => {

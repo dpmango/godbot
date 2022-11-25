@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '@core';
-import { IChartTick } from '@core/interface/Chart';
+import { IForecastTick } from '@/core/interface/Forecast';
 
 export const getChart = createAsyncThunk('chart/chartData', async (url: string) => {
   const { data } = await api('get_graph/200', {});
@@ -10,7 +10,7 @@ export const getChart = createAsyncThunk('chart/chartData', async (url: string) 
 interface IChartData {
   loading: string;
   currentCoin: string;
-  data: { [key: string]: IChartTick[] };
+  data: { [key: string]: IForecastTick[] };
 }
 
 const initialState: IChartData = {
@@ -19,8 +19,8 @@ const initialState: IChartData = {
   data: {},
 };
 
-export const chartState = createSlice({
-  name: 'chart',
+export const forecastState = createSlice({
+  name: 'forecast',
   initialState,
   reducers: {
     setStateCoin(state, action: PayloadAction<string>) {
@@ -38,6 +38,6 @@ export const chartState = createSlice({
   },
 });
 
-export const { setStateCoin } = chartState.actions;
+export const { setStateCoin } = forecastState.actions;
 
-export default chartState.reducer;
+export default forecastState.reducer;
