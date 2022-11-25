@@ -1,19 +1,34 @@
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from '@store';
+import { useAppSelector, useAppDispatch, getCurrentUser } from '@store';
 import { Logo } from '@c/Layout/Atom';
 
 export const Authorization: React.FC<{}> = () => {
   const { search } = useLocation();
   const { userData } = useAppSelector((state) => state.userState);
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (search === '?Trial=true') {
       Cookies.set('trial', 'active');
     }
   }, [search]);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { payload } = await dispatch(getCurrentUser());
+
+      if (payload) {
+        navigate('/', { replace: true });
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   return (
     <div className="authorization">

@@ -3,6 +3,7 @@ import cns from 'classnames';
 
 import { SvgIcon } from '@ui';
 import { useAppDispatch, useAppSelector, resetUser } from '@store';
+import { isDevelopmentSite } from '@utils';
 
 import { LanguageDropdown } from '@c/Layout/Dropdown';
 import { Socials, ThemeChanger, UserCard } from '@c/Layout/Atom';
@@ -94,11 +95,13 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) =>
             Перейти в Telegram-чат
           </Link>
         </li>
-        <li>
-          <a href={'#'} onClick={handleLogout}>
-            Выйти
-          </a>
-        </li>
+        {isDevelopmentSite() && (
+          <li>
+            <a href={'#'} onClick={handleLogout}>
+              Выйти
+            </a>
+          </li>
+        )}
       </ul>
       <Socials />
       <p className="mobile__conf">

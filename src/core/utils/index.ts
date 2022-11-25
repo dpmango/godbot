@@ -11,4 +11,4 @@ export {
 export { localStorageSet, localStorageGet } from './localstorage';
 export { formatPrice } from './price';
 export { Plurize, localizeKeys } from './localize';
-export { openExternalLink } from './url';
+export { openExternalLink, isDevelopmentSite } from './url';

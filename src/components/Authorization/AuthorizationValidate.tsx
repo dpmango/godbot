@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useMemo } from 'react';
 import Cookies from 'js-cookie';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import cns from 'classnames';
 
@@ -31,6 +31,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
   const inputsBox = useRef<HTMLDivElement | any>(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
     validInput.current?.focus();
@@ -131,6 +132,12 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       clearTimeout(timerConfirm.current as NodeJS.Timeout);
     };
   }, [countdownConfirm]);
+
+  useEffect(() => {
+    if (location.state?.resend) {
+      handleResend();
+    }
+  }, [location]);
 
   return (
     <form className="authorization__form validation" action="" onSubmit={handleSubmit}>

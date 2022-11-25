@@ -39,7 +39,7 @@ function App() {
 
       if (!payload) {
         if (localStorageGet('email') && localStorageGet('lastEmailSend')) {
-          navigate('/auth/validation', { replace: true });
+          navigate('/auth/validation', { state: { resend: true }, replace: true });
         } else {
           navigate('/auth', { replace: true });
         }

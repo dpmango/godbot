@@ -4,6 +4,7 @@ import cns from 'classnames';
 
 import { useSkeleton, useDropdown, useClickOutside } from '@hooks';
 import { useAppSelector, useAppDispatch, resetUser } from '@store';
+import { isDevelopmentSite } from '@utils';
 
 import { Socials, ThemeChanger } from '@c/Layout/Atom';
 
@@ -67,11 +68,14 @@ export const UserCardDropdown: React.FC<{}> = () => {
             Перейти в Telegram-чат
           </a>
         </li>
-        <li className="user__item">
-          <a href={'#'} onClick={handleLogout}>
-            Выйти
-          </a>
-        </li>
+        {isDevelopmentSite() && (
+          <li className="user__item">
+            <a href={'#'} onClick={handleLogout}>
+              Выйти
+            </a>
+          </li>
+        )}
+
         <div className="user__wrapper">
           <Socials />
           <ThemeChanger />

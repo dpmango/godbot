@@ -73,7 +73,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: 8,
           fontFamily: 'GilroyWeb, sans-serif',
-          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1C2326' },
+          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#232425' },
         },
         grid: {
           vertLines: { color: !ctx?.theme ? '#AFCDEB' : '#5F636A', style: LineStyle.Dashed },
@@ -120,7 +120,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
       chart?.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
-          background: { color: '#1C2326' },
+          background: { color: '#232425' },
         },
         grid: {
           horzLines: { color: '#5F636A' },
