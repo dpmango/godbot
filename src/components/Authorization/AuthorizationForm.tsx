@@ -86,7 +86,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
       <h2 className="authorization__title">Вход / Регистрация</h2>
 
       <Formik initialValues={formInitial} validate={handleValidation} onSubmit={handleSubmit}>
-        {({ isValid, touched, errors, setFieldError }: FormikProps<IFormValues>) => (
+        {({ isValid, dirty, errors, setFieldError }: FormikProps<IFormValues>) => (
           <Form className={cns('authorization__label', error && '_error')}>
             <p>Введите ваш Email для получения кода авторизации</p>
 
@@ -110,11 +110,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
             {error && <div className="authorization__text _error _error-main">{error}</div>}
 
-            <Button
-              type="submit"
-              loading={loading}
-              block={true}
-              disabled={!touched.email || !isValid}>
+            <Button type="submit" loading={loading} block={true} disabled={!dirty || !isValid}>
               Войти
             </Button>
           </Form>
