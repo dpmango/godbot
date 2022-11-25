@@ -7,10 +7,11 @@ import {
   CrosshairMode,
   IChartApi,
   ISeriesApi,
+  UTCTimestamp,
 } from 'lightweight-charts';
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@store';
-import { timeToTz, formatPrice } from '@utils';
+import { timeToTz, formatPrice, formatUnixDate } from '@utils';
 import { IChartTick } from '@core/interface/Chart';
 
 import { ChartLegend } from '@c/Charts/ChartLegend';
@@ -39,10 +40,7 @@ export const Forecast: React.FC<{}> = () => {
     const coinDataMapped = coinData
       .map((x) => ({
         ...x,
-        timestamp: timeToTz(
-          x.timestamp,
-          Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/Moscow'
-        ),
+        timestamp: timeToTz(x.timestamp),
       }))
       .reverse();
 
@@ -146,6 +144,10 @@ export const Forecast: React.FC<{}> = () => {
         },
         crosshair: {
           mode: CrosshairMode.Magnet,
+          vertLine: {
+            visible: false,
+            labelVisible: false,
+          },
         },
         timeScale: {
           fixLeftEdge: true,
@@ -184,22 +186,61 @@ export const Forecast: React.FC<{}> = () => {
 
       chartInstance.timeScale().fitContent();
 
-      // chartInstance.subscribeCrosshairMove((param) => {
-      //   if (param.point === undefined || !param.time || param.point.x < 0 || param.point.y < 0) {
-      //     tooltipRef.current.style.display = 'none';
-      //   } else {
-      //     // const dateStr = dateToString(param.time);
-      //     tooltipRef.current.style.display = 'block';
-      //     // const price = param.seriesPrices.get(chartInstance.series);
-      //     // tooltipRef.current.innerHTML = `<div>${price.toFixed(2)}</div>`;
-      //     //           `<div><i style="background: ${elem.color}"></i> <p>${elem.seriesName}:</p>  ${
-      //     //             elem?.data?.toFixed(2) || '-'
-      //     //           }</div>`
-      //     // Position tooltipRef according to mouse cursor position
-      //     tooltipRef.current.style.left = param.point.x + 'px';
-      //     tooltipRef.current.style.top = param.point.y + 'px';
-      //   }
-      // });
+      chartInstance.subscribeCrosshairMove((param) => {
+        const container = containerRef.current;
+        const toolTip = tooltipRef.current;
+
+        const toolTipWidth = 120;
+        const priceScaleWidth = 50;
+        const toolTipMargin = 15;
+
+        if (
+          param.point === undefined ||
+          !param.time ||
+          param.point.x < 0 ||
+          param.point.x > container.clientWidth ||
+          param.point.y < 0 ||
+          param.point.y > container.clientHeight
+        ) {
+          // toolTip.style.display = 'none';
+          return;
+        }
+
+        tooltipRef.current.style.display = 'block';
+
+        // build tooltip html
+
+        const dateStr = formatUnixDate(param.time as UTCTimestamp);
+        let pricesHtml = '';
+        newSeries.forEach((ser, idx) => {
+          const price = param.seriesPrices.get(ser.instance);
+          if (!price) return;
+          const seriesData = series[idx];
+
+          pricesHtml += `
+            <div class="chart-info__pricedata">
+              <i style="background: ${color[idx]}"></i> 
+              <p>${seriesData.name}:</p>&nbsp;${formatPrice(price as number, 0)}
+            </div>`;
+        });
+
+        tooltipRef.current.innerHTML = `<div class="chart-info__inner">
+            <div class="chart-info__label">${dateStr}</div>
+            <div class="chart-info__prices">${pricesHtml}</div>
+          </div>`;
+
+        // set tooltip position
+        let left = param.point.x as number;
+
+        if (left > container.clientWidth - toolTipWidth - toolTipMargin) {
+          left = container.clientWidth - toolTipWidth;
+        } else if (left < toolTipWidth / 2) {
+          left = priceScaleWidth;
+        }
+
+        toolTip.style.left = left + 'px';
+        toolTip.style.top = 0 + 'px';
+      });
     }
 
     setLoading(false);
@@ -280,10 +321,9 @@ export const Forecast: React.FC<{}> = () => {
         className="chart-container"
         style={{
           opacity: loading ? '0' : '1',
-        }}
-      />
-
-      {/* <div className="chart-info" ref={tooltipRef}></div> */}
+        }}>
+        <div className="chart-info" ref={tooltipRef}></div>
+      </div>
 
       {loading && (
         <div className="chart__load">

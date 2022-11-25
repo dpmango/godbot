@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { parse } from 'date-fns';
+import Cookies from 'js-cookie';
 
 import { api } from '@core';
 import { timeDiff } from '@utils';
@@ -40,7 +41,16 @@ const initialState: IUser = {
 export const userState = createSlice({
   name: 'counter',
   initialState,
-  reducers: {},
+  reducers: {
+    resetUser(state, action: PayloadAction) {
+      Cookies.remove('auth');
+
+      state.loading = 'none';
+      state.tariffActive = false;
+      state.isProUser = false;
+      state.userData = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getCurrentUser.pending, (state) => {
       state.loading = 'pending';
@@ -64,6 +74,6 @@ export const userState = createSlice({
   },
 });
 
-export const {} = userState.actions;
+export const { resetUser } = userState.actions;
 
 export default userState.reducer;

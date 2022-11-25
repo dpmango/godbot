@@ -31,7 +31,7 @@ export const TarifWindow: React.FC<{}> = () => {
 
   const displaySelectes: { title: string }[] | null = useMemo(() => {
     if (data && data.length) {
-      return data[1].plans.map((x: IPlan) => {
+      return data[0].plans.map((x: IPlan) => {
         const giftStr =
           x.period.add_period.number !== 0
             ? `+ ${t('gift')} ${localizeUnits(x.period.add_period)}`
@@ -54,7 +54,14 @@ export const TarifWindow: React.FC<{}> = () => {
       return;
     }
 
-    setData(data);
+    let updateData: ITarifDto[] = data.map((x: ITarifDto) => ({
+      ...x,
+      plans: x.plans.sort((planA: IPlan, planB: IPlan) => {
+        return planA.period.main_period.number - planB.period.main_period.number;
+      }),
+    }));
+
+    setData(updateData);
   };
 
   useEffect(() => {

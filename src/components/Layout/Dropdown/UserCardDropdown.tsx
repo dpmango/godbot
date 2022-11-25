@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import cns from 'classnames';
 
 import { useSkeleton, useDropdown, useClickOutside } from '@hooks';
-import { useAppSelector } from '@store';
+import { useAppSelector, useAppDispatch, resetUser } from '@store';
 
 import { Socials, ThemeChanger } from '@c/Layout/Atom';
 
@@ -16,6 +16,12 @@ export const UserCardDropdown: React.FC<{}> = () => {
 
   const wrapperRef = useRef(null);
   useClickOutside(wrapperRef, () => handleStateChange(false));
+
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(resetUser());
+  };
 
   return (
     <div className="user" ref={wrapperRef}>
@@ -59,6 +65,11 @@ export const UserCardDropdown: React.FC<{}> = () => {
         <li className={cns('user__item', !isProUser && 'pro')} onClick={handleStateChange}>
           <a href="https://t.me/+fQvg8JT7oUVhZDZi" target="_blank">
             Перейти в Telegram-чат
+          </a>
+        </li>
+        <li className="user__item">
+          <a href={'#'} onClick={handleLogout}>
+            Выйти
           </a>
         </li>
         <div className="user__wrapper">

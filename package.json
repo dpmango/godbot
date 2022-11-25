@@ -6,7 +6,7 @@
     "node": ">=16.11.0"
   },
   "scripts": {
-    "start": "sudo HTTPS=true HOST=local.devgodbot.ru PORT=443 craco start",
+    "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "lint": "bash lint.sh",

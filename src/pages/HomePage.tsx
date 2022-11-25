@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
@@ -33,8 +33,6 @@ export const HomePage: React.FC<{}> = () => {
       return;
     }
 
-    await dispatch(getCurrentUser());
-
     toast.success('Активирована пробная версия');
     Cookies.remove('trial');
     navigate('/', { replace: true });
@@ -44,6 +42,18 @@ export const HomePage: React.FC<{}> = () => {
     if (Cookies.get('trial')) {
       setTrial();
     }
+  }, []);
+
+  // проверка оплаченных тарифов
+  const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
+  useEffect(() => {
+    timerConfirm.current = setTimeout(() => {
+      dispatch(getCurrentUser());
+    }, 10000);
+
+    return () => {
+      clearTimeout(timerConfirm.current as NodeJS.Timeout);
+    };
   }, []);
 
   return (

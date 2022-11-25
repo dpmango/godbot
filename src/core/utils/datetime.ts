@@ -5,7 +5,7 @@ import timezone from 'dayjs/plugin/timezone';
 import isToday from 'dayjs/plugin/isToday';
 import locale_ru from 'dayjs/locale/ru';
 import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
-import { UTCTimestamp } from 'lightweight-charts';
+import { UTCTimestamp, BusinessDay } from 'lightweight-charts';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -15,6 +15,10 @@ dayjs.locale('ru');
 
 export const formatDate = (d: Date) => {
   return dayjs(d).format('DD.MM.YY HH:mm');
+};
+
+export const formatUnixDate = (d: UTCTimestamp) => {
+  return dayjs.unix(d).tz('Etc/UTC').format('DD.MM.YY HH:mm');
 };
 
 export const dateToDDMMMM = (d: string) => {
@@ -44,7 +48,8 @@ export const secondsToStamp = (sec: number, showMinutes = true) => {
   return returnable;
 };
 
-export const timeToTz = (originalTime: UTCTimestamp, timeZone: string) => {
+export const timeToTz = (originalTime: UTCTimestamp) => {
+  // Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/Moscow'
   // const zonedDate = utcToZonedTime(originalTime, 'Etc/UTC');
   const zonedDate = zonedTimeToUtc(originalTime, 'Etc/UTC');
   return (zonedDate.getTime() / 1000) as UTCTimestamp;

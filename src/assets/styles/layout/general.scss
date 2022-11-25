@@ -110,6 +110,8 @@ body {
   font-size: 14px;
   line-height: 18px;
   color: $colorFont;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   &.theme-switching * {
     transition: 0.2s linear !important;
@@ -189,47 +191,4 @@ body {
       opacity: 0.5;
     }
   }
-}
-
-.chart-info {
-  color: black;
-  padding: 8px;
-  border-radius: 10px;
-  background: white;
-  border: 1px solid #ccc5ff;
-
-  label {
-    display: block;
-    padding: 0 13px;
-    margin-bottom: 10px;
-  }
-
-  div {
-    display: flex;
-    font-weight: 300;
-    align-items: center;
-
-    &:not(:last-child) {
-      margin-bottom: 5px;
-    }
-
-    i {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 5px;
-    }
-
-    p {
-      font-weight: 500;
-      margin-right: 6px;
-    }
-  }
-}
-
-.chart__tooltip {
-  box-shadow: 0 2px 20px rgba(9, 5, 183, 0.06) !important;
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
 }

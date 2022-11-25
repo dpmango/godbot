@@ -555,3 +555,66 @@
     }
   }
 }
+
+.chart-info {
+  position: absolute;
+  display: none;
+  z-index: 1000;
+  top: 12px;
+  left: 12px;
+  width: 120px;
+  height: 100%;
+  color: $colorFont;
+  background: rgba(white, 0.25);
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  box-shadow: 0 2px 5px 0 rgba(117, 134, 150, 0.45);
+  pointer-events: none;
+
+  &__inner {
+    padding: 8px;
+  }
+
+  &__label {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  &__prices {
+    margin-top: 12px;
+  }
+
+  &__pricedata {
+    display: flex;
+    // flex-wrap: wrap;
+    font-weight: 600;
+    align-items: center;
+    font-size: 12px;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+
+    i {
+      flex: 0 0 auto;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    p {
+      // flex: 0 0 calc(100% - 12px);
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+}
+
+.main._black-theme {
+  .chart-info {
+    color: white;
+    background: rgba(black, 0.2);
+  }
+}

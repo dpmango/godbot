@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import cns from 'classnames';
 
 import { SvgIcon } from '@ui';
-import { useAppSelector } from '@store';
+import { useAppDispatch, useAppSelector, resetUser } from '@store';
 
 import { LanguageDropdown } from '@c/Layout/Dropdown';
 import { Socials, ThemeChanger, UserCard } from '@c/Layout/Atom';
@@ -19,8 +19,14 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) =>
   const { pathname } = useLocation();
   const path = pathname.split('/').at(-1);
 
+  const dispatch = useAppDispatch();
+
   const handleClick = () => {
     setActive(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(resetUser());
   };
 
   return (
@@ -87,6 +93,11 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ active, setActive }) =>
           <Link to="https://t.me/+fQvg8JT7oUVhZDZi" target="_blank">
             Перейти в Telegram-чат
           </Link>
+        </li>
+        <li>
+          <a href={'#'} onClick={handleLogout}>
+            Выйти
+          </a>
         </li>
       </ul>
       <Socials />

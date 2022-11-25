@@ -1,5 +1,5 @@
 export { timeDiff, isValidDate } from './scripts';
-export { formatDate, dateToDDMMMM, secondsToStamp, timeToTz } from './datetime';
+export { formatDate, formatUnixDate, dateToDDMMMM, secondsToStamp, timeToTz } from './datetime';
 export {
   clearString,
   isValidNumber,
