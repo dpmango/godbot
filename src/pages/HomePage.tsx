@@ -35,7 +35,7 @@ export const HomePage: React.FC<{}> = () => {
 
     toast.success('Активирована пробная версия');
     Cookies.remove('trial');
-    navigate('/', { replace: true });
+    await dispatch(getCurrentUser());
   };
 
   useEffect(() => {

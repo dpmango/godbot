@@ -59,7 +59,11 @@ export const userState = createSlice({
     builder.addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUserState>) => {
       state.loading = 'fulfilled';
 
-      state.userData = action.payload;
+      state.userData = {
+        // @ts-ignore
+        allowed_functions: [],
+        ...action.payload,
+      };
 
       if (action.payload?.subscription_date) {
         const userDate = action.payload?.subscription_date.slice(0, 10).split('-').join('.');
