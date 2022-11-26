@@ -21,15 +21,25 @@ export const ChartsRouter: React.FC<{}> = () => {
   const addsRef: MutableRefObject<any> = useRef();
   const dispatch = useAppDispatch();
 
+  const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
+
   useEffect(() => {
     if (userData?.allowed_functions.includes('Forecast')) {
       dispatch(getChart('coin=BTC'));
+
+      timerConfirm.current = setInterval(() => {
+        dispatch(getChart('coin=BTC'));
+      }, 5 * 60 * 1000);
     }
 
     if (!investorData.graphs.data?.length && userData?.allowed_functions.includes('Investing')) {
       dispatch(getInvesting());
     }
-  }, [userData?.allowed_functions]);
+
+    return () => {
+      clearInterval(timerConfirm.current as NodeJS.Timeout);
+    };
+  }, [userData?.allowed_functions[0]]);
 
   return (
     <div className={'table__wrapper'}>

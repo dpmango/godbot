@@ -31,7 +31,7 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
     }
   }, [search]);
 
-  if (loading !== 'fulfilled') return <div></div>;
+  // if (loading !== 'fulfilled') return <div></div>;
 
   return (
     <div className="chart__head" ref={ref}>
@@ -62,12 +62,12 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
               <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
                 15 минут
               </li>
-              <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
+              {/* <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
                 1 час
               </li>
               <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
                 1 день
-              </li>
+              </li> */}
             </ul>
           }
         </ChartDropdown>

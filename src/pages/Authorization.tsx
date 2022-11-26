@@ -20,10 +20,12 @@ export const Authorization: React.FC<{}> = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
+      console.log('check auth');
       const { payload } = await dispatch(getCurrentUser());
 
       if (payload) {
         navigate('/', { replace: true });
+        Cookies.set('auth', Date.now().toString(), { expires: 7 });
       }
     };
 
