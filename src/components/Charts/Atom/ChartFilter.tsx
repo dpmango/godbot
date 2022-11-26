@@ -22,7 +22,7 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
   const handleCoinClick: React.MouseEventHandler<HTMLElement> = (e) => {
     dispatch(setStateCoin((e.target as HTMLElement).textContent as string));
     navigate(
-      `?coin=${(e.target as HTMLElement).textContent}?timestamp=${timeChart?.split(' ')[0]}`
+      `?coin=${(e.target as HTMLElement).textContent}&timestamp=${timeChart?.split(' ')[0]}`
     );
   };
 
