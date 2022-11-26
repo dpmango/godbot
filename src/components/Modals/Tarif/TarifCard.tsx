@@ -60,7 +60,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
         {currentPlan && (
           <p className="tarif__cost">
             {/* <strong>{formatPrice(plans[activePeriod].cost)}$</strong> */}
-            {formatPrice(currentPlan.cost)}$
+            {formatPrice(currentPlan.cost, 0)}$
             <span>
               /{t('pricePer')} {localizeUnits(currentPlan.period.main_period)}
             </span>
