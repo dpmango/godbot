@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { parse } from 'date-fns';
 import Cookies from 'js-cookie';
+import xor from 'lodash/xor';
 
 import { api } from '@core';
 import { timeDiff } from '@utils';
@@ -57,7 +58,12 @@ export const userState = createSlice({
     });
     builder.addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUserState>) => {
       state.loading = 'fulfilled';
-      state.userData = { ...action.payload };
+
+      state.userData = {
+        // @ts-ignore
+        allowed_functions: [],
+        ...action.payload,
+      };
 
       if (action.payload?.subscription_date) {
         const userDate = action.payload?.subscription_date.slice(0, 10).split('-').join('.');

@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction, useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector, setStateCoin } from '@store';
@@ -11,7 +11,8 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
   const [timeChart, setTimeChart] = useState<string | null>('15 минут');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { search } = useLocation();
+  let [searchParams, setSearchParams] = useSearchParams();
+
   const { currentCoin, data } = useAppSelector((state) => state.forecastState);
 
   const handleTimeClick: React.MouseEventHandler<HTMLElement> = (e) => {
@@ -21,17 +22,18 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
   const handleCoinClick: React.MouseEventHandler<HTMLElement> = (e) => {
     dispatch(setStateCoin((e.target as HTMLElement).textContent as string));
     navigate(
-      `?coin=${(e.target as HTMLElement).textContent}?timestamp=${timeChart?.split(' ')[0]}`
+      `?coin=${(e.target as HTMLElement).textContent}&timestamp=${timeChart?.split(' ')[0]}`
     );
   };
 
   useEffect(() => {
-    if (search) {
-      dispatch(setStateCoin(search.slice(6, 9)));
+    const coinParam = searchParams.get('coin');
+    if (coinParam) {
+      dispatch(setStateCoin(coinParam));
     }
-  }, [search]);
+  }, [searchParams]);
 
-  if (loading !== 'fulfilled') return <div></div>;
+  // if (loading !== 'fulfilled') return <div></div>;
 
   return (
     <div className="chart__head" ref={ref}>
@@ -41,7 +43,10 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
           {data && Object.keys(data).length > 0 ? (
             <ul>
               {Object.keys(data).map((elem, index) => (
-                <li onClick={handleCoinClick} className={cns(!isProUser && 'pro')} key={index}>
+                <li
+                  onClick={handleCoinClick}
+                  className={cns(!isProUser && elem !== 'BTC' && 'pro')}
+                  key={index}>
                   <p>{elem}</p>
                 </li>
               ))}
@@ -59,9 +64,7 @@ const ChartFilter: React.FC<{}> = ({}, ref) => {
         <ChartDropdown title={timeChart}>
           {
             <ul>
-              <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
-                15 минут
-              </li>
+              <li onClick={handleTimeClick}>15 минут</li>
               <li onClick={handleTimeClick} className={cns(!isProUser && 'pro')}>
                 1 час
               </li>

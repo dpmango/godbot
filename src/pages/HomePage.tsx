@@ -35,7 +35,7 @@ export const HomePage: React.FC<{}> = () => {
 
     toast.success('Активирована пробная версия');
     Cookies.remove('trial');
-    navigate('/', { replace: true });
+    await dispatch(getCurrentUser());
   };
 
   useEffect(() => {
@@ -47,12 +47,12 @@ export const HomePage: React.FC<{}> = () => {
   // проверка оплаченных тарифов
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
-    timerConfirm.current = setTimeout(() => {
+    timerConfirm.current = setInterval(() => {
       dispatch(getCurrentUser());
-    }, 10000);
+    }, 10 * 1000);
 
     return () => {
-      clearTimeout(timerConfirm.current as NodeJS.Timeout);
+      clearInterval(timerConfirm.current as NodeJS.Timeout);
     };
   }, []);
 

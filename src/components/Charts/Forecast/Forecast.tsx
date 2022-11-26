@@ -160,7 +160,7 @@ export const Forecast: React.FC<{}> = () => {
           priceFormatter: (price: number) => {
             // const thousands = Math.round(p / 100).toString();
             // return `${thousands.slice(0, 2)}.${thousands.slice(2, 3)}к`;
-            return formatPrice(price, 0);
+            return formatPrice(price);
           },
         },
       });
@@ -220,7 +220,7 @@ export const Forecast: React.FC<{}> = () => {
           pricesHtml += `
             <div class="chart-info__pricedata">
               <i style="background: ${color[idx]}"></i> 
-              <p>${seriesData.name}:</p>&nbsp;${formatPrice(price as number, 0)}
+              <p>${seriesData.name}:</p>&nbsp;${formatPrice(price as number)}
             </div>`;
         });
 
@@ -240,6 +240,11 @@ export const Forecast: React.FC<{}> = () => {
 
         toolTip.style.left = left + 'px';
         toolTip.style.top = 0 + 'px';
+      });
+    } else {
+      // update data
+      chartLines.forEach((lineSeries, idx) => {
+        lineSeries.instance.setData(series[idx].data);
       });
     }
 

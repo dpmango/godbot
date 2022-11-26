@@ -22,8 +22,9 @@ export const Authorization: React.FC<{}> = () => {
     const checkAuth = async () => {
       const { payload } = await dispatch(getCurrentUser());
 
-      if (payload) {
+      if (payload?.name) {
         navigate('/', { replace: true });
+        Cookies.set('auth', Date.now().toString(), { expires: 7 });
       }
     };
 

@@ -12,7 +12,7 @@ export const Signals: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.signalState);
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
-  const [filter, setFilter] = useState<string>('waiting');
+  const [filter, setFilter] = useState<string>('');
   const [isSelect, setIsSelect] = useState<boolean>(false);
   const [recData, setRecData] = useState<ISignal[] | null>(null);
 
@@ -23,7 +23,7 @@ export const Signals: React.FC<{}> = () => {
 
   useEffect(() => {
     let newData = null;
-    if (filter && data) {
+    if (filter && data?.length) {
       newData = data.filter(
         (elem) => elem?.status?.toLowerCase().trim() === filter?.split('|')[1].toLowerCase().trim()
       );

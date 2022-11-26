@@ -93,7 +93,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
           priceFormatter: (price: number) => {
             // const thousands = Math.round(p / 100).toString();
             // return `${thousands.slice(0, 2)}.${thousands.slice(2, 3)}к`;
-            return formatPrice(price, 0);
+            return formatPrice(price);
           },
         },
       });

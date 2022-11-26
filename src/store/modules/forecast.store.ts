@@ -15,7 +15,7 @@ interface IChartData {
 
 const initialState: IChartData = {
   loading: 'pending',
-  currentCoin: window.location.search.slice(6, 9) || 'BTC',
+  currentCoin: 'BTC',
   data: {},
 };
 
@@ -33,7 +33,7 @@ export const forecastState = createSlice({
     });
     builder.addCase(getChart.fulfilled, (state, action) => {
       state.loading = 'fulfilled';
-      state.data = action.payload;
+      state.data = { ...action.payload };
     });
   },
 });
