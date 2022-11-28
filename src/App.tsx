@@ -40,11 +40,13 @@ function App() {
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
       <Router />
       <ToastContainer />
-      <YMInitializer
-        accounts={[process.env.REACT_APP_YM_ID]}
-        options={{ webvisor: true }}
-        version="2"
-      />
+      {process.env.REACT_APP_YM_ID && (
+        <YMInitializer
+          accounts={[+process.env.REACT_APP_YM_ID]}
+          options={{ webvisor: true }}
+          version="2"
+        />
+      )}
     </ThemeContext.Provider>
   );
 }
