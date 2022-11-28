@@ -132,6 +132,14 @@ export const Forecast: React.FC<{}> = () => {
         rightPriceScale: {
           visible: false,
         },
+        watermark: {
+          visible: true,
+          text: 'GODBOT-PRO',
+          fontSize: window.innerWidth < 576 ? 34 : 56,
+          fontFamily: 'GilroyWeb, sans-serif',
+          // fontStyle: 'font-weight: 700',
+          color: '#E2E2E2',
+        },
         layout: {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: window.innerWidth < 576 ? 9 : 12,

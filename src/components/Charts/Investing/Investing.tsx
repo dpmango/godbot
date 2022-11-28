@@ -40,7 +40,7 @@ export const Investing: FC<IInvestingProps> = () => {
             <img src={investing.currency_icon} />
             <p>
               {investing.currency}
-              <span>{investing.currency.slice(0, 3).toUpperCase()}</span>
+              <span>{investing.currency_code}</span>
             </p>
           </div>
           <InvestingChart id={investing.invest_id} />

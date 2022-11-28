@@ -1,5 +1,7 @@
-import { useEffect, useState, useLayoutEffect } from 'react';
+import { useEffect, useState, useLayoutEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import xorBy from 'lodash/xorBy';
+import { toast } from 'react-toastify';
 
 import { useAppDispatch, useAppSelector, getSignals } from '@store';
 import { LockScreen } from '@ui/LockScreen';
@@ -14,34 +16,46 @@ export const Signals: React.FC<{}> = () => {
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const [filter, setFilter] = useState<string>('');
   const [isSelect, setIsSelect] = useState<boolean>(false);
-  const [recData, setRecData] = useState<ISignal[] | null>(null);
+  const [prevSignals, setPrevSignals] = useState<ISignal[] | null>(null);
 
   const handleClick = () => {
     setIsSelect(false);
     setFilter('');
   };
 
-  useEffect(() => {
-    let newData = null;
+  const signalsWithFilter = useMemo(() => {
     if (filter && data?.length) {
-      newData = data.filter(
+      return data.filter(
         (elem) => elem?.status?.toLowerCase().trim() === filter?.split('|')[1].toLowerCase().trim()
       );
-    } else {
-      newData = data;
     }
 
-    setRecData(newData);
-  }, [filter]);
+    return data;
+  }, [filter, data]);
 
+  const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     if (userData?.allowed_functions.includes('Signal') && tariffActive) {
       dispatch(getSignals());
-    }
-  }, [tariffActive]);
 
-  useLayoutEffect(() => {
-    setRecData(data);
+      timerConfirm.current = setInterval(() => {
+        dispatch(getSignals());
+      }, 1 * 60 * 1000);
+    }
+
+    return () => {
+      clearInterval(timerConfirm.current as NodeJS.Timeout);
+    };
+  }, [userData?.allowed_functions[0], tariffActive]);
+
+  useEffect(() => {
+    const newSignals = xorBy(prevSignals, data, 'date');
+
+    if (newSignals.length) {
+      toast.info(`Добавлено ${newSignals.length} новых сигналов`);
+    }
+
+    setPrevSignals(data);
   }, [data]);
 
   return (
@@ -61,7 +75,7 @@ export const Signals: React.FC<{}> = () => {
       </div>
 
       <div className="signals__inner">
-        {recData?.length ? (
+        {signalsWithFilter?.length ? (
           <table>
             <thead>
               <tr>
@@ -76,7 +90,7 @@ export const Signals: React.FC<{}> = () => {
               </tr>
             </thead>
             <tbody>
-              {recData?.map((x, idx) => (
+              {signalsWithFilter?.map((x, idx) => (
                 <SignalCard key={idx} signal={x} />
               ))}
             </tbody>

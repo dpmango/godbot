@@ -79,7 +79,9 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
           ))}
         </span>
       </td>
-      <td className="signal-stoploss">${formatPrice(signal.stop_loss)}</td>
+      <td className="signal-stoploss">
+        {signal.stop_loss ? <>${formatPrice(signal.stop_loss)}</> : '-'}
+      </td>
       <td>{signal.risk}%</td>
     </tr>
   );

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '@core';
 import { ISignal } from '@interface/Signal';
+import dayjs from 'dayjs';
 
 export const getSignals = createAsyncThunk('recomendation/recomendationData', async () => {
   const { data } = await api('get_signals/', {});
@@ -28,7 +29,10 @@ export const signalState = createSlice({
     });
     builder.addCase(getSignals.fulfilled, (state, action) => {
       state.loading = 'fulfilled';
-      state.data = action.payload;
+
+      state.data = action.payload.sort(
+        (a: ISignal, b: ISignal) => dayjs(b.date).unix() - dayjs(a.date).unix()
+      );
     });
   },
 });
