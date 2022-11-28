@@ -16,6 +16,7 @@ export const Signals: React.FC<{}> = () => {
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const [filter, setFilter] = useState<string>('');
   const [isSelect, setIsSelect] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [prevSignals, setPrevSignals] = useState<ISignal[] | null>(null);
 
   const handleClick = () => {
@@ -51,10 +52,11 @@ export const Signals: React.FC<{}> = () => {
   useEffect(() => {
     const newSignals = xorBy(prevSignals, data, 'date');
 
-    if (newSignals.length) {
+    if (loaded && newSignals.length) {
       toast.info(`Добавлено ${newSignals.length} новых сигналов`);
     }
 
+    setLoaded(true);
     setPrevSignals(data);
   }, [data]);
 

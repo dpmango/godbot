@@ -9,6 +9,7 @@ import { Authorization } from '@/pages/Authorization';
 import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 import { Partnership } from '@/pages/Partnership';
+import { NotFound } from '@/pages/NotFound';
 
 const ProtectedRoute = () => {
   const accessToken = Cookies.get('auth');
@@ -40,7 +41,7 @@ const Router = () => (
       <Route path="payment" element={<PaymentPage />} />
     </Route>
 
-    <Route path="*" element={<Navigate to="/" replace />} />
+    <Route path="*" element={<NotFound />} />
   </Routes>
 );
 
