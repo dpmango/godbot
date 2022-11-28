@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 
 import { api } from '@core';
 import { useAppDispatch, getCurrentUser } from '@store';
+import { useProfileRequest } from '@hooks';
 
 import { Layout } from '@c/Layout/Layout';
 import { ChartsRouter } from '@c/Charts';
@@ -14,6 +15,8 @@ import { Signals } from '@c/Signal';
 export const HomePage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const { requestProfile } = useProfileRequest();
 
   const setTrial = async () => {
     const { data: trialData, error: trialError } = await api('get_trial/', {});
@@ -48,7 +51,7 @@ export const HomePage: React.FC<{}> = () => {
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     timerConfirm.current = setInterval(() => {
-      dispatch(getCurrentUser());
+      requestProfile();
     }, 10 * 1000);
 
     return () => {
