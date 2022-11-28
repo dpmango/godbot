@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { YMInitializer } from 'react-yandex-metrika';
 
 import { localStorageGet, localStorageSet } from '@utils';
 import { useProfileRequest } from '@hooks';
@@ -39,6 +40,11 @@ function App() {
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
       <Router />
       <ToastContainer />
+      <YMInitializer
+        accounts={[process.env.REACT_APP_YM_ID]}
+        options={{ webvisor: true }}
+        version="2"
+      />
     </ThemeContext.Provider>
   );
 }

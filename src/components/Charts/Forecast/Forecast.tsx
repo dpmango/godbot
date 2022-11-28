@@ -8,6 +8,8 @@ import {
   IChartApi,
   ISeriesApi,
   UTCTimestamp,
+  SeriesMarkerPosition,
+  SeriesMarkerShape,
 } from 'lightweight-charts';
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@store';
@@ -68,6 +70,7 @@ export const Forecast: React.FC<{}> = () => {
           color: color[1],
           lineWidth: 3 as LineWidth,
         },
+        showChanges: true,
         data: coinDataMapped
           .map((x: IForecastTick) => {
             return {
@@ -182,6 +185,7 @@ export const Forecast: React.FC<{}> = () => {
           priceLineVisible: false,
           ...series.lineStyle,
         });
+
         lineSeries.setData(series.data);
 
         newSeries.push({
@@ -253,6 +257,20 @@ export const Forecast: React.FC<{}> = () => {
       // update data
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(series[idx].data);
+
+        // if (series[idx].showChanges) {
+        //   const markers = [
+        //     {
+        //       time: series[idx].data[50].time,
+        //       position: 'belowBar' as SeriesMarkerPosition,
+        //       color: '#f68410',
+        //       shape: 'circle' as SeriesMarkerShape,
+        //       text: 'i',
+        //     },
+        //   ];
+
+        //   lineSeries.instance.setMarkers(markers);
+        // }
       });
     }
 

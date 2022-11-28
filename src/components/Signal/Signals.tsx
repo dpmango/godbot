@@ -52,11 +52,14 @@ export const Signals: React.FC<{}> = () => {
   useEffect(() => {
     const newSignals = xorBy(prevSignals, data, 'date');
 
-    if (loaded && newSignals.length) {
+    if (loaded && data?.length && newSignals.length) {
       toast.info(`Добавлено ${newSignals.length} новых сигналов`);
     }
 
-    setLoaded(true);
+    if (data?.length) {
+      setLoaded(true);
+    }
+
     setPrevSignals(data);
   }, [data]);
 

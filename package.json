@@ -38,6 +38,7 @@
     "react-router-dom": "^6.4.3",
     "react-spinners": "^0.13.6",
     "react-toastify": "^9.1.1",
+    "react-yandex-metrika": "^2.6.0",
     "swiper": "^8.4.4"
   },
   "devDependencies": {
