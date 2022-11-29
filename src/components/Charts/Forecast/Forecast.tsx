@@ -11,11 +11,13 @@ import {
   SeriesMarkerPosition,
   SeriesMarkerShape,
 } from 'lightweight-charts';
+
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@store';
 import { timeToTz, formatPrice, formatUnixDate } from '@utils';
 import { IForecastTick } from '@/core/interface/Forecast';
 
+import { Logo } from '@c/Layout/Atom';
 import { ForecastLegend } from '@c/Charts';
 import { Loader } from '@ui/Loader';
 
@@ -135,14 +137,14 @@ export const Forecast: React.FC<{}> = () => {
         rightPriceScale: {
           visible: false,
         },
-        watermark: {
-          visible: true,
-          text: 'GODBOT-PRO',
-          fontSize: window.innerWidth < 576 ? 34 : 56,
-          fontFamily: 'GilroyWeb, sans-serif',
-          // fontStyle: 'font-weight: 700',
-          color: '#E2E2E2',
-        },
+        // watermark: {
+        //   visible: true,
+        //   text: 'GODBOT-PRO',
+        //   fontSize: window.innerWidth < 576 ? 34 : 56,
+        //   fontFamily: 'GilroyWeb, sans-serif',
+        //   // fontStyle: 'font-weight: 700',
+        //   color: '#E2E2E2',
+        // },
         layout: {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: window.innerWidth < 576 ? 9 : 12,
@@ -354,6 +356,19 @@ export const Forecast: React.FC<{}> = () => {
           opacity: loading ? '0' : '1',
         }}>
         <div className="chart-info" ref={tooltipRef}></div>
+        <div className="chart-watermark">
+          {[0, 1, 2, 3].map((x) => (
+            <>
+              <div className="chart-watermark__col">
+                <Logo />
+              </div>
+              <div className="chart-watermark__col">
+                <Logo />
+                <Logo />
+              </div>
+            </>
+          ))}
+        </div>
       </div>
 
       {loading && (

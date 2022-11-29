@@ -1,5 +1,4 @@
 import { useLayoutEffect, useState } from 'react';
-import { useFetch } from '@hooks';
 
 interface IWinrate {
   winrate: number;
@@ -7,11 +6,11 @@ interface IWinrate {
 
 export const Winrate: React.FC<{}> = () => {
   const [winrate, setWinrate] = useState<IWinrate | null>(null);
-  const { getFetch } = useFetch(setWinrate);
+  // const { getFetch } = useFetch(setWinrate);
 
-  useLayoutEffect(() => {
-    getFetch('/winrateToday');
-  }, []);
+  // useLayoutEffect(() => {
+  //   getFetch('/winrateToday');
+  // }, []);
 
   return (
     <div className="winrate">

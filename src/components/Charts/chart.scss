@@ -618,3 +618,31 @@
     background: rgba(black, 0.2);
   }
 }
+
+.chart-watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  padding: 10px 40px;
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 40px;
+
+    svg {
+      margin: auto 0;
+      opacity: 0.15;
+
+      path {
+        fill: $colorFont;
+      }
+    }
+  }
+}
