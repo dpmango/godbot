@@ -14,6 +14,7 @@ import {
   Time,
 } from 'lightweight-charts';
 import xorBy from 'lodash/xorBy';
+import { useTranslation } from 'react-i18next';
 
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@store';
@@ -44,6 +45,8 @@ export const Forecast: React.FC<{}> = () => {
   const containerRef: any = useRef();
   const tooltipRef: any = useRef();
   const ctx = useContext(ThemeContext);
+
+  const { t } = useTranslation('forecast');
 
   const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
 
@@ -84,7 +87,7 @@ export const Forecast: React.FC<{}> = () => {
           .map((x: IForecastTick, idx) => {
             return {
               time: x.timestamp,
-              // value: idx >= 150 ? getRandomInt(16000, 17000) : x.forecast,
+              // value: idx >= 180 ? getRandomInt(16000, 17000) : x.forecast,
               value: x.forecast,
             };
           })
@@ -250,9 +253,22 @@ export const Forecast: React.FC<{}> = () => {
             </div>`;
         });
 
+        let markersHtml = '';
+
+        // show markers data
+        if (param.hoveredMarkerId) {
+          if (param.hoveredMarkerId === 'update') {
+            markersHtml += `<div class="chart-info__marker">
+              <i style="background: #f68410"></i> 
+              <span>${t('marker.changes')}</span>
+            </div>`;
+          }
+        }
+
         tooltipRef.current.innerHTML = `<div class="chart-info__inner">
             <div class="chart-info__label">${dateStr}</div>
             <div class="chart-info__prices">${pricesHtml}</div>
+            <div class="chart-info__markers">${markersHtml}</div>
           </div>`;
 
         // set tooltip position
@@ -273,16 +289,15 @@ export const Forecast: React.FC<{}> = () => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
         if (series[idx].showChanges) {
-          console.log({ forecastChanges });
-
           let markers: SeriesMarker<Time>[] = [];
           forecastChanges.forEach((x) => {
             markers.push({
+              id: 'update',
               time: x.time,
               position: 'belowBar' as SeriesMarkerPosition,
               color: '#f68410',
               shape: 'circle' as SeriesMarkerShape,
-              text: 'change',
+              text: 'Update',
             });
           });
 

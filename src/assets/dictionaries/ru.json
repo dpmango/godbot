@@ -22,6 +22,11 @@
       }
     }
   },
+  "forecast": {
+    "marker": {
+      "changes": "Изминения в прогнозе"
+    }
+  },
   "signal": {
     "status": {
       "active": "Активно",

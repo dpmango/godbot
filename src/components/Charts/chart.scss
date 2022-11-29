@@ -610,6 +610,24 @@
       font-weight: 400;
     }
   }
+
+  &__markers {
+    margin-top: 12px;
+  }
+
+  &__marker {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+
+    i {
+      flex: 0 0 auto;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+  }
 }
 
 .main._black-theme {

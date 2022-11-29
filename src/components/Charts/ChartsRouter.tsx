@@ -18,7 +18,6 @@ export const ChartsRouter: React.FC<{}> = () => {
 
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const investorData = useAppSelector((state) => state.investorState);
-  const addsRef: MutableRefObject<any> = useRef();
   const dispatch = useAppDispatch();
 
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
@@ -29,7 +28,7 @@ export const ChartsRouter: React.FC<{}> = () => {
 
       timerConfirm.current = setInterval(() => {
         dispatch(getChart('coin=BTC'));
-      }, 1 * 60 * 1000);
+      }, 15 * 60 * 1000);
     }
 
     if (!investorData.graphs.data?.length && userData?.allowed_functions.includes('Investing')) {
@@ -47,7 +46,7 @@ export const ChartsRouter: React.FC<{}> = () => {
         <ChartTabs activeTab={activeTab} setActiveTab={setActiveTab} />
       )}
 
-      <div className="table__inner" ref={addsRef}>
+      <div className="table__inner">
         {(userData?.tariff === null || !tariffActive) && (
           <LockScreen section="графика нейронной сети" />
         )}
