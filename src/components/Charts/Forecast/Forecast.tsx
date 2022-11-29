@@ -10,11 +10,14 @@ import {
   UTCTimestamp,
   SeriesMarkerPosition,
   SeriesMarkerShape,
+  SeriesMarker,
+  Time,
 } from 'lightweight-charts';
+import xorBy from 'lodash/xorBy';
 
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@store';
-import { timeToTz, formatPrice, formatUnixDate } from '@utils';
+import { timeToTz, formatPrice, formatUnixDate, getRandomInt } from '@utils';
 import { IForecastTick } from '@/core/interface/Forecast';
 
 import { Logo } from '@c/Layout/Atom';
@@ -26,21 +29,25 @@ interface IChartLines {
   instance: ISeriesApi<'Line'>;
 }
 
+interface ISeriesData {
+  time: UTCTimestamp;
+  value: number;
+}
+
 export const Forecast: React.FC<{}> = () => {
   const { data, currentCoin } = useAppSelector((state) => state.forecastState);
   const [loading, setLoading] = useState<boolean>(true);
   const chart = useRef<IChartApi | null>(null);
-  const [chartLines, setChartLines] = useState<IChartLines[]>([]);
   const [series, setSeries] = useState<any>([]);
-  const [colors, setColors] = useState<any>([]);
+  const [chartLines, setChartLines] = useState<IChartLines[]>([]);
 
   const containerRef: any = useRef();
   const tooltipRef: any = useRef();
   const ctx = useContext(ThemeContext);
 
-  const initChart = (coinData: IForecastTick[]) => {
-    const color: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+  const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
 
+  const initOrUpdateChart = (coinData: IForecastTick[]) => {
     const coinDataMapped = coinData
       .map((x) => ({
         ...x,
@@ -48,12 +55,12 @@ export const Forecast: React.FC<{}> = () => {
       }))
       .reverse();
 
-    const series = [
+    const currentSeries = [
       {
         name: 'Real',
         type: 'line',
         lineStyle: {
-          color: color[0],
+          color: colors[0],
           lineWidth: 3 as LineWidth,
         },
         data: coinDataMapped
@@ -69,14 +76,15 @@ export const Forecast: React.FC<{}> = () => {
         name: 'Forecast',
         type: 'line',
         lineStyle: {
-          color: color[1],
+          color: colors[1],
           lineWidth: 3 as LineWidth,
         },
         showChanges: true,
         data: coinDataMapped
-          .map((x: IForecastTick) => {
+          .map((x: IForecastTick, idx) => {
             return {
               time: x.timestamp,
+              // value: idx >= 150 ? getRandomInt(16000, 17000) : x.forecast,
               value: x.forecast,
             };
           })
@@ -86,7 +94,7 @@ export const Forecast: React.FC<{}> = () => {
         name: 'Upper',
         type: 'line',
         lineStyle: {
-          color: color[2],
+          color: colors[2],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -104,7 +112,7 @@ export const Forecast: React.FC<{}> = () => {
         name: 'Lower',
         type: 'line',
         lineStyle: {
-          color: color[3],
+          color: colors[3],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -120,11 +128,15 @@ export const Forecast: React.FC<{}> = () => {
       },
     ];
 
-    setSeries(series);
-    setColors(color);
+    // watch changes in data
+    let forecastChanges: ISeriesData[] = [];
+    if (series.length && currentSeries[1].data) {
+      forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
+    }
 
-    // graph?.setOption(option);
+    setSeries(currentSeries);
 
+    // create or update chart
     if (!chart.current) {
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
@@ -180,23 +192,23 @@ export const Forecast: React.FC<{}> = () => {
 
       chart.current = chartInstance;
 
-      let newSeries: IChartLines[] = [];
-      series.forEach((series, idx) => {
+      let newChartLines: IChartLines[] = [];
+      currentSeries.forEach((s, idx) => {
         const lineSeries = chartInstance.addLineSeries({
           lastValueVisible: false,
           priceLineVisible: false,
-          ...series.lineStyle,
+          ...s.lineStyle,
         });
 
-        lineSeries.setData(series.data);
+        lineSeries.setData(s.data);
 
-        newSeries.push({
-          id: series.name,
+        newChartLines.push({
+          id: s.name,
           instance: lineSeries,
         });
       });
 
-      setChartLines([...newSeries]);
+      setChartLines([...newChartLines]);
 
       chartInstance.timeScale().fitContent();
 
@@ -226,14 +238,14 @@ export const Forecast: React.FC<{}> = () => {
 
         const dateStr = formatUnixDate(param.time as UTCTimestamp);
         let pricesHtml = '';
-        newSeries.forEach((ser, idx) => {
+        newChartLines.forEach((ser, idx) => {
           const price = param.seriesPrices.get(ser.instance);
           if (!price) return;
-          const seriesData = series[idx];
+          const seriesData = currentSeries[idx];
 
           pricesHtml += `
             <div class="chart-info__pricedata">
-              <i style="background: ${color[idx]}"></i> 
+              <i style="background: ${colors[idx]}"></i> 
               <p>${seriesData.name}:</p>&nbsp;${formatPrice(price as number)}
             </div>`;
         });
@@ -258,21 +270,24 @@ export const Forecast: React.FC<{}> = () => {
     } else {
       // update data
       chartLines.forEach((lineSeries, idx) => {
-        lineSeries.instance.setData(series[idx].data);
+        lineSeries.instance.setData(currentSeries[idx].data);
 
-        // if (series[idx].showChanges) {
-        //   const markers = [
-        //     {
-        //       time: series[idx].data[50].time,
-        //       position: 'belowBar' as SeriesMarkerPosition,
-        //       color: '#f68410',
-        //       shape: 'circle' as SeriesMarkerShape,
-        //       text: 'i',
-        //     },
-        //   ];
+        if (series[idx].showChanges) {
+          console.log({ forecastChanges });
 
-        //   lineSeries.instance.setMarkers(markers);
-        // }
+          let markers: SeriesMarker<Time>[] = [];
+          forecastChanges.forEach((x) => {
+            markers.push({
+              time: x.time,
+              position: 'belowBar' as SeriesMarkerPosition,
+              color: '#f68410',
+              shape: 'circle' as SeriesMarkerShape,
+              text: 'change',
+            });
+          });
+
+          lineSeries.instance.setMarkers(markers);
+        }
       });
     }
 
@@ -312,7 +327,7 @@ export const Forecast: React.FC<{}> = () => {
   useEffect(() => {
     if (data && currentCoin) {
       const coinData = data?.[currentCoin];
-      if (coinData) initChart(coinData);
+      if (coinData) initOrUpdateChart(coinData);
     }
   }, [currentCoin, data]);
 

@@ -4,14 +4,27 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import isToday from 'dayjs/plugin/isToday';
 import locale_ru from 'dayjs/locale/ru';
-import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
+import { toDate, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { UTCTimestamp, BusinessDay } from 'lightweight-charts';
+import { IUserState } from '@store';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isToday);
 dayjs.locale('ru');
+
+export const timeDiff = (date: any) => {
+  let now: any = new Date();
+
+  return Math.round((date - now) / 1000);
+};
+
+export const isValidDate = (userData: IUserState | null, countryFormat: string) => {
+  const date = new Date(userData?.subscription_date as string);
+  const clonedDate = toDate(date, { timeZone: 'Europe/Paris' });
+  return clonedDate?.toLocaleDateString(countryFormat);
+};
 
 export const formatDate = (d: Date) => {
   return dayjs(d).format('DD.MM.YY HH:mm');

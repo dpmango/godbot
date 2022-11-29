@@ -29,7 +29,7 @@ export const ChartsRouter: React.FC<{}> = () => {
 
       timerConfirm.current = setInterval(() => {
         dispatch(getChart('coin=BTC'));
-      }, 5 * 60 * 1000);
+      }, 1 * 60 * 1000);
     }
 
     if (!investorData.graphs.data?.length && userData?.allowed_functions.includes('Investing')) {
