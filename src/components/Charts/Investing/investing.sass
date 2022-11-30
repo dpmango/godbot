@@ -1,0 +1,42 @@
+@charset "UTF-8"
+
+@media only screen and (min-width: 768px)
+  .investing
+    background: var(--block-bg)
+    box-shadow: var(--block-shadow)
+    border-radius: 10px
+    padding: 20px
+    position: relative
+
+.investing__grid
+  display: grid
+  gap: 20px
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+
+.investing__block
+  background: var(--block-bg)
+  box-shadow: var(--block-shadow)
+  border-radius: 10px
+  position: relative
+  padding: 16px 20px
+  text-decoration: none
+  color: inherit
+
+.investing__name
+  display: flex
+  align-items: center
+  gap: 0 12px
+  font-weight: normal
+  font-size: 12px
+  line-height: 14px
+  color: var(--grey)
+  margin: 0 0 16px 0
+
+  img
+    flex: 0 0 auto
+    height: 20px
+    width: auto
+    margin-right: -3px
+
+  strong
+    font-weight: 500

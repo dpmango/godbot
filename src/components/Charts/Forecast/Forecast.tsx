@@ -15,15 +15,16 @@ import {
 } from 'lightweight-charts';
 import xorBy from 'lodash/xorBy';
 import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
 
 import { ThemeContext } from '@/App';
-import { useAppSelector } from '@store';
-import { timeToTz, formatPrice, formatUnixDate, getRandomInt } from '@utils';
+import { useAppSelector } from '@core';
+import { timeToTz, formatPrice, formatUnixDate, getRandomInt, formatDate } from '@utils';
+import { LockScreen } from '@ui';
 import { IForecastTick } from '@/core/interface/Forecast';
 
-import { Logo } from '@c/Layout/Atom';
-import { ForecastLegend } from '@c/Charts';
-import { Loader } from '@ui/Loader';
+import { ForecastFilter, ForecastLegend } from '@c/Charts';
+import { Logo } from '@c/Layout/Header';
 
 interface IChartLines {
   id: string;
@@ -37,7 +38,10 @@ interface ISeriesData {
 
 export const Forecast: React.FC<{}> = () => {
   const { data, currentCoin } = useAppSelector((state) => state.forecastState);
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const [loading, setLoading] = useState<boolean>(true);
+  const [legendActive, setLegendActive] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<string>('');
   const chart = useRef<IChartApi | null>(null);
   const [series, setSeries] = useState<any>([]);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
@@ -132,10 +136,10 @@ export const Forecast: React.FC<{}> = () => {
     ];
 
     // watch changes in data
-    let forecastChanges: ISeriesData[] = [];
-    if (series.length && currentSeries[1].data) {
-      forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
-    }
+    // let forecastChanges: ISeriesData[] = [];
+    // if (series.length && currentSeries[1].data) {
+    //   forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
+    // }
 
     setSeries(currentSeries);
 
@@ -288,25 +292,26 @@ export const Forecast: React.FC<{}> = () => {
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
-        if (series[idx].showChanges) {
-          let markers: SeriesMarker<Time>[] = [];
-          forecastChanges.forEach((x) => {
-            markers.push({
-              id: 'update',
-              time: x.time,
-              position: 'belowBar' as SeriesMarkerPosition,
-              color: '#f68410',
-              shape: 'circle' as SeriesMarkerShape,
-              text: 'Update',
-            });
-          });
+        // if (series[idx].showChanges) {
+        //   let markers: SeriesMarker<Time>[] = [];
+        //   forecastChanges.forEach((x) => {
+        //     markers.push({
+        //       id: 'update',
+        //       time: x.time,
+        //       position: 'belowBar' as SeriesMarkerPosition,
+        //       color: '#f68410',
+        //       shape: 'circle' as SeriesMarkerShape,
+        //       text: 'Update',
+        //     });
+        //   });
 
-          lineSeries.instance.setMarkers(markers);
-        }
+        //   lineSeries.instance.setMarkers(markers);
+        // }
       });
     }
 
     setLoading(false);
+    setLastUpdate(formatDate(new Date()));
 
     return () => {
       chart?.current?.remove();
@@ -376,8 +381,19 @@ export const Forecast: React.FC<{}> = () => {
   };
 
   return (
-    <>
-      <ForecastLegend colors={colors} data={series} handleToggle={handleChangeSeries} />
+    <div className="chart">
+      <ForecastFilter
+        legendActive={legendActive}
+        setLegendActive={(x) => setLegendActive(x)}
+        lastUpdate={lastUpdate}
+      />
+
+      <ForecastLegend
+        active={legendActive}
+        colors={colors}
+        data={series}
+        handleToggle={handleChangeSeries}
+      />
 
       <div
         ref={containerRef}
@@ -401,11 +417,17 @@ export const Forecast: React.FC<{}> = () => {
         </div>
       </div>
 
-      {loading && (
+      <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
+
+      {(!userData?.tariff || !tariffActive) && (
+        <LockScreen section={t('lock')} textModifier={'big'} />
+      )}
+
+      {/* {loading && (
         <div className="chart__load">
           <Loader />
         </div>
-      )}
-    </>
+      )} */}
+    </div>
   );
 };

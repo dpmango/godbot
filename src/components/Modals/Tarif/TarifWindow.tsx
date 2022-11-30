@@ -1,27 +1,34 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useMemo, useState, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
+import cns from 'classnames';
 
 import { api } from '@core';
 import { localizeKeys } from '@utils';
+import { Modal } from '@ui';
+import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modals';
-import { Loader } from '@c/UI/Loader';
 import { IPlan, ITarifDto } from '@interface/Tarif';
+
+import './tarifes.sass';
 
 export const TarifWindow: React.FC<{}> = () => {
   const [data, setData] = useState<ITarifDto[]>([]);
   const [activePeriodIdx, setActivePeriod] = useState<number>(0);
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { t } = useTranslation('tariff');
+
+  const closeModal = () => {
+    navigate(pathname);
+  };
+
+  const modalRef = useRef(null);
+  useClickOutside(modalRef, closeModal);
 
   const localizeUnits = ({ number, units }: IPeriodObj) => {
     const plural = localizeKeys(number, 'units', units.toLowerCase(), t);
@@ -71,46 +78,36 @@ export const TarifWindow: React.FC<{}> = () => {
   if (!data.length) return null;
 
   return (
-    <div className="tarif">
+    <>
       <Helmet>
         <title>Godbot | Tarifs</title>
       </Helmet>
-      <Link to={pathname.slice(0, pathname.length - 7)} className="tarif__close">
-        &times;
-      </Link>
-      <h4 className="tarif__title">Тарифы</h4>
-      <div className="tarif__header">
-        {displaySelectes &&
-          displaySelectes.map((x, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActivePeriod(idx)}
-              className={idx === activePeriodIdx ? 'active' : ''}>
-              {x.title}
-            </button>
-          ))}
-      </div>
-      {window.innerWidth < 876 ? (
-        <Swiper
-          modules={[Autoplay]}
-          spaceBetween={30}
-          slidesPerView={1}
-          loop={true}
-          autoplay={true}
-          pagination={{ clickable: true }}>
-          {data.map((tarif, idx) => (
-            <SwiperSlide>
-              <TarifCard {...tarif} activePeriodIdx={activePeriodIdx} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        <ul className="tarif__inner">
-          {data.map((tarif, idx) => (
-            <TarifCard {...tarif} key={idx} activePeriodIdx={activePeriodIdx} />
-          ))}
-        </ul>
-      )}
-    </div>
+
+      <Modal name="tarifes">
+        <div className="tarifes" ref={modalRef}>
+          <div className="tarifes__title">{t('title')}</div>
+          <div className="tarifes__labels">
+            {displaySelectes &&
+              displaySelectes.map((x, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setActivePeriod(idx)}
+                  className={cns(
+                    'tarifes__label',
+                    idx === activePeriodIdx && 'tarifes__label--active'
+                  )}>
+                  {x.title}
+                </div>
+              ))}
+          </div>
+          <div className="tarifes__grid">
+            {data.map((tarif, idx) => (
+              <TarifCard {...tarif} key={idx} activePeriodIdx={activePeriodIdx} />
+            ))}
+          </div>
+          <div className="modal__close" onClick={closeModal}></div>
+        </div>
+      </Modal>
+    </>
   );
 };

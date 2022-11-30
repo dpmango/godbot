@@ -1,56 +1,38 @@
 import { FC, useEffect, useRef, useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { useAppSelector } from '@store';
+import { useAppSelector } from '@core';
+import { LockScreen } from '@ui';
 
 import { InvestingChart } from '@c/Charts';
+import './investing.sass';
 
 interface IInvestingProps {}
 
 export const Investing: FC<IInvestingProps> = () => {
-  const [visible, setVisible] = useState<boolean>(true);
   const { graphs } = useAppSelector((state) => state.investorState);
+  const { isProUser } = useAppSelector((state) => state.userState);
 
-  const refsCollection: any = useRef();
-
-  const setCardsVisible = (method: string) => {
-    for (let i = 4; i < refsCollection.current.childNodes.length; i++) {
-      refsCollection.current.childNodes[i].classList[method]('mob-hidden');
-    }
-
-    if (method === 'remove') {
-      setVisible(false);
-    }
-  };
-
-  useEffect(() => {
-    if (window.innerWidth < 786) {
-      setTimeout(() => {
-        setCardsVisible('add');
-      }, 100);
-    }
-  });
-
-  if (!graphs) return <div></div>;
+  const { t } = useTranslation('investing');
 
   return (
-    <div ref={refsCollection} className="investor">
-      {graphs?.data?.map((investing, index) => (
-        <div className="investor__card" key={index}>
-          <div className="investor__wrapper">
-            <img src={investing.currency_icon} />
-            <p>
-              {investing.currency}
-              <span>{investing.currency_code}</span>
-            </p>
+    <div className="investing">
+      <div className="investing__grid">
+        {graphs?.data?.map((investing, index) => (
+          <div className="investing__block" key={index}>
+            <div className="investing__name">
+              <img src={investing.currency_icon} />
+              <strong>{investing.currency}</strong> <span>{investing.currency_code}</span>
+            </div>
+
+            {isProUser ? (
+              <InvestingChart id={investing.invest_id} />
+            ) : (
+              <LockScreen section={t('lock') as string} />
+            )}
           </div>
-          <InvestingChart id={investing.invest_id} />
-        </div>
-      ))}
-      <button
-        className={visible ? 'investor__button' : 'investor__button hidden'}
-        onClick={() => setCardsVisible('remove')}>
-        Показать больше
-      </button>
+        ))}
+      </div>
     </div>
   );
 };

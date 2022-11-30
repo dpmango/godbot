@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
 
 import { formatPrice, formatDate } from '@utils';
 import { ISignal } from '@interface/Signal';
@@ -12,29 +13,28 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
   const { t } = useTranslation('signal');
 
   const signalStatus = useMemo(() => {
-    let color = '#262628';
+    let color = '';
     let title = '';
 
     switch (signal.status) {
       case 'ACTIVE':
         title = t('status.active');
-        color = '#262628';
         break;
       case 'WAITING':
         title = t('status.waiting');
-        color = '#EFAD10';
+        color = 'recommend__table-yellow';
         break;
       case 'CANCEL':
         title = t('status.cancel');
-        color = '#CA390C';
+        color = 'recommend__table-red';
         break;
       case 'PROFIT':
         title = t('status.profit');
-        color = '#339987';
+        color = 'recommend__table-green';
         break;
       case 'LOSS':
         title = t('status.loss');
-        color = '#CA390C';
+        color = 'recommend__table-red';
         break;
       default:
         break;
@@ -48,41 +48,47 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
 
   return (
     <tr>
-      <td className="signal-date">{formatDate(signal.date)}</td>
+      <td className="recommend__table-light recommend__table-nowrap recommend__hide-mobile">
+        {formatDate(signal.date)}
+      </td>
+      <td className="recommend__table-min">
+        <img src={signal.currency_icon} alt={signal.currency} />
+      </td>
       <td>
-        <div className="signal-coin">
-          <img src={signal.currency_icon} alt={signal.currency} />
-          <div className="signal-coin__description">
-            <p>{signal.currency}</p>
-            <small>{signal.currency_code}</small>
-          </div>
-        </div>
+        {signal.currency}
+        <div className="recommend__table-light recommend__table-grey">{signal.currency_code}</div>
       </td>
       <td
-        style={{
-          color: signal.direction === 'SHORT' ? '#CA390C' : '#339987',
-        }}>
+        className={cns(
+          'recommend__table-center',
+          signal.direction === 'SHORT' ? 'recommend__table-red' : 'recommend__table-green'
+        )}>
         {signal.direction}
       </td>
-      <td style={{ color: signalStatus.color }}>{signalStatus.title}</td>
-      <td>
-        <span>
-          {signal.entry_price_range.map((item, idx) => (
-            <p key={idx}>${item}</p>
-          ))}
-        </span>
+      <td className={cns('recommend__table-center', signalStatus.color)}>{signalStatus.title}</td>
+      <td className="recommend__table-center recommend__table-nowrap">
+        {signal.entry_price_range.map((item, idx) => (
+          <div key={idx}>${item}</div>
+        ))}
       </td>
-      <td>
-        <span>
-          {signal.get_exit_range.map((item, idx) => (
-            <p key={idx}>${item}</p>
-          ))}
-        </span>
+      <td className="recommend__table-center recommend__table-nowrap">
+        {signal.get_exit_range.map((item, idx) => (
+          <div key={idx}>${item}</div>
+        ))}
       </td>
-      <td className="signal-stoploss">
-        {signal.stop_loss ? <>${formatPrice(signal.stop_loss)}</> : '-'}
+      <td className="recommend__table-center recommend__table-nowrap">
+        <div>
+          {signal.stop_loss ? (
+            <>
+              ${formatPrice(signal.stop_loss)}{' '}
+              {signal.trigger_stop && <sup>{signal.trigger_stop}</sup>}
+            </>
+          ) : (
+            '-'
+          )}
+        </div>
       </td>
-      <td>{signal.risk}%</td>
+      <td className="recommend__table-center">{signal.risk}%</td>
     </tr>
   );
 };

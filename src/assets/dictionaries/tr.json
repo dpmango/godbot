@@ -1,0 +1,163 @@
+{
+  "auth": {
+    "entry": {
+      "title": "Giriş Kayıt",
+      "instruction": "Bir yetkilendirme kodu almak için E-postanızı girin",
+      "action": "İçeri gel"
+    },
+    "code": {
+      "title": "Doğrulama",
+      "instruction": "Doğrulama kodu içeren bir e-posta alacaksınız. ",
+      "spamcheck": "Bir e-posta almadıysanız, spam'inizi kontrol edin",
+      "resend": "Tekrar gönderin",
+      "confirm": "Onaylamak",
+      "back": "Geri"
+    },
+    "email": {
+      "placeholder": "E-postanızı giriniz",
+      "validation": {
+        "empty": "E-posta girin",
+        "mask": "Geçersiz e-posta"
+      }
+    }
+  },
+  "header": {
+    "menu": {
+      "home": "ev",
+      "partner": "Ortaklık Programı",
+      "education": "Eğitim Merkezi"
+    },
+    "user": {
+      "subscription": "Abone olmak"
+    },
+    "actions": {
+      "changeTariff": "Tarifeyi değiştir",
+      "connectBot": "Telegram botunu bağla",
+      "payedChat": "Telegram sohbetine git"
+    },
+    "policies": {
+      "confidentiality": "Gizlilik",
+      "terms": "Kullanım Şartları",
+      "cookies": "Çerez politikası"
+    }
+  },
+  "charts": {
+    "tabs": {
+      "trading": "ticaret",
+      "investing": "Yatırım"
+    }
+  },
+  "forecast": {
+    "filter": {
+      "title": "Tahmin Grafiği",
+      "estimate": "yanlış hesaplama siparişi ver",
+      "coins": {},
+      "ticks": {
+        "15min": "15 dakika",
+        "1h": "1 saat",
+        "1d": "1 gün"
+      }
+    },
+    "legend": {
+      "title": "Grafik seçenekleri"
+    },
+    "marker": {
+      "changes": "Tahmin güncellendi"
+    },
+    "lastUpdate": "Tahmin güncellendi",
+    "lock": "sinir ağı grafikleri"
+  },
+  "investing": {
+    "lock": "tahmin etmek"
+  },
+  "signal": {
+    "title": "Alım Satım Önerileri",
+    "select": {
+      "all": "Herşey",
+      "placeholder": "Anlaşma durumu"
+    },
+    "status": {
+      "active": "aktif olarak",
+      "waiting": "Askıda olması",
+      "cancel": "İptal edildi",
+      "profit": "Kârda kapandı",
+      "loss": "kayıpla kapandı"
+    },
+    "table": {
+      "date": "Sinyal tarihi",
+      "name": "İsim",
+      "type": "Sipariş türü",
+      "status": "Anlaşma durumu",
+      "enter": "Giriş ücreti",
+      "exit": "çıkış fiyatı",
+      "stop": "Kaybı durdurmak",
+      "risk": "İşlem başına risk"
+    },
+    "lock": "tahminler"
+  },
+  "tariff": {
+    "title": "tarifeler",
+    "pricePer": "başına",
+    "pay": "Ödemek",
+    "gift": "hediye",
+    "noGift": "hediye yok",
+    "units": {
+      "day": {
+        "one": "Gün",
+        "two": "Günün",
+        "five": "günler"
+      },
+      "week": {
+        "one": "Bir hafta",
+        "two": "haftalar",
+        "five": "Haftalar"
+      },
+      "month": {
+        "one": "Ay",
+        "two": "aylar",
+        "five": "aylar"
+      }
+    }
+  },
+  "activated": {
+    "title": "Tebrikler!",
+    "text": "7 günlük bir deneme planını etkinleştirdiniz. ",
+    "action": "GİT!"
+  },
+  "greeting": {
+    "title": "Kişisel hesabınıza hoş geldiniz!",
+    "text": "Rehberimiz yardımıyla hizmeti biraz daha detaylı tanımanızı öneriyoruz.",
+    "action": "GİT!",
+    "skip": "ATLAMAK"
+  },
+  "error": {
+    "notfound": {
+      "title": "sayfa bulunamadı",
+      "action": "Ana sayfaya git"
+    }
+  },
+  "ui": {
+    "select": {
+      "defaultPlaceholder": "Seçme",
+      "empty": "Seçenekler mevcut değil"
+    },
+    "lock": {
+      "activate": {
+        "text": "Göstermek {{section}} tarifeyi etkinleştirmeniz gerekiyor",
+        "action": "TARİFE SEÇ"
+      },
+      "upgrade": {
+        "text": "Göstermek {{section}} PRO tarifesini bağlamanız gerekiyor",
+        "action": "PRO'YA BAĞLAN"
+      },
+      "prolong": {
+        "text": "Göstermek {{section}} tarifeyi uzatmak lazım",
+        "action": "TARİFE SEÇ"
+      },
+      "trial": {
+        "text": "Göstermek {{section}} tarifeyi etkinleştirmeniz gerekiyor",
+        "action": "ÜCRETSİZ DENEYİN"
+      }
+    }
+  }
+}

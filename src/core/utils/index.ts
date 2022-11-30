@@ -1,7 +1,6 @@
 export { getRandomInt } from './dev';
 export {
   timeDiff,
-  isValidDate,
   formatDate,
   formatUnixDate,
   dateToDDMMMM,

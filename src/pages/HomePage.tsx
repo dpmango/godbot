@@ -4,9 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 
-import { api } from '@core';
-import { useAppDispatch, getCurrentUser } from '@store';
-import { useProfileRequest } from '@hooks';
+import { api, useAppDispatch } from '@core';
+import { getCurrentUser } from '@store';
+import { useProfile } from '@hooks';
 
 import { Layout } from '@c/Layout/Layout';
 import { ChartsRouter } from '@c/Charts';
@@ -16,7 +16,7 @@ export const HomePage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { requestProfile } = useProfileRequest();
+  const { fetchProfileWithLogout } = useProfile();
 
   const setTrial = async () => {
     const { data: trialData, error: trialError } = await api('get_trial/', {});
@@ -51,7 +51,7 @@ export const HomePage: React.FC<{}> = () => {
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     timerConfirm.current = setInterval(() => {
-      requestProfile();
+      fetchProfileWithLogout();
     }, 10 * 1000);
 
     return () => {
@@ -65,8 +65,12 @@ export const HomePage: React.FC<{}> = () => {
         <title>Godbot | Home</title>
       </Helmet>
 
-      <ChartsRouter />
-      <Signals />
+      <div className="content">
+        <div className="container">
+          <ChartsRouter />
+          <Signals />
+        </div>
+      </div>
     </Layout>
   );
 };

@@ -37,7 +37,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
     const investDataMapped = Object.keys(data.time_list_forecast).map((key, idx) => {
       const timeUnix = dayjs(
         data.time_list_forecast[key],
-        'YYYY-MM-DD HH:mm:ss',
+        'YYYY-MM-DD',
         true
       ).unix() as UTCTimestamp;
 
@@ -160,5 +160,5 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
     };
   }, []);
 
-  return <div className="investor__chart" ref={containerRef} />;
+  return <div ref={containerRef} />;
 };

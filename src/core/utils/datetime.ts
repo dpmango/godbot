@@ -20,12 +20,6 @@ export const timeDiff = (date: any) => {
   return Math.round((date - now) / 1000);
 };
 
-export const isValidDate = (userData: IUserState | null, countryFormat: string) => {
-  const date = new Date(userData?.subscription_date as string);
-  const clonedDate = toDate(date, { timeZone: 'Europe/Paris' });
-  return clonedDate?.toLocaleDateString(countryFormat);
-};
-
 export const formatDate = (d: Date) => {
   return dayjs(d).format('DD.MM.YY HH:mm');
 };

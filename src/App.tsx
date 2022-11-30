@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { YMInitializer } from 'react-yandex-metrika';
 
 import { localStorageGet, localStorageSet } from '@utils';
-import { useProfileRequest } from '@hooks';
+import { useProfile } from '@hooks';
 import Router from '@/pages/Routes';
 
 interface IThemeContext {
@@ -15,7 +15,7 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  const { requestProfile } = useProfileRequest();
+  const { fetchProfileWithLogout } = useProfile();
 
   if (!localStorageGet('theme')) {
     localStorageSet('theme', false);
@@ -23,17 +23,12 @@ function App() {
   const [theme, changeTheme] = useState<boolean>(localStorageGet('theme'));
 
   const handleChangeTheme = () => {
-    document.body.classList.add('theme-switching');
-    setTimeout(() => {
-      document.body.classList.remove('theme-switching');
-    }, 200);
-
     changeTheme(!theme);
     localStorageSet('theme', !theme);
   };
 
   useEffect(() => {
-    requestProfile();
+    fetchProfileWithLogout();
   }, []);
 
   return (

@@ -1,9 +1,11 @@
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch, getCurrentUser } from '@store';
-import { Logo } from '@c/Layout/Atom';
+import { useAppSelector, useAppDispatch } from '@core';
+import { getCurrentUser } from '@store';
+
+import '@c/Authorization/login.sass';
 
 export const Authorization: React.FC<{}> = () => {
   const { search } = useLocation();
@@ -32,17 +34,16 @@ export const Authorization: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="authorization">
-      <Link to={!userData?.tariff ? '/auth' : '/'} className="authorization__logo">
-        <Logo />
-      </Link>
-
-      <div className="authorization__inner">
-        <div className="authorization__spacer">
-          <Outlet />
+    <div className="login">
+      <div className="container container--login">
+        <div className="login__logo">
+          <img src="/img/logo.svg" alt="" />
         </div>
+        <Outlet />
 
-        <img className="authorization__bg" src="/images/reg-bg.png" alt="" />
+        <div className="login__image">
+          <img src="/img/hand.png" alt="" />
+        </div>
       </div>
     </div>
   );

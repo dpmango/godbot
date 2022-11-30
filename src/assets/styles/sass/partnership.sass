@@ -1,0 +1,285 @@
+@charset "UTF-8"
+
+@media only screen and (max-width: 1299px)
+  .partnership__balance
+    display: none
+
+@media only screen and (min-width: 1300px)
+  .partnership__balance
+    display: flex
+    gap: 0 20px
+    margin: 0 0 20px 0
+    padding: 0 0 20px 0
+    border-bottom: 1px solid var(--border)
+
+  .partnership__balance-acc
+    flex: 1
+    display: flex
+    align-items: center
+    gap: 0 20px
+
+  .partnership__balance-label
+    flex: 0 0 auto
+    margin-right: 10px
+    font-weight: 600
+    font-size: 16px
+    line-height: 20px
+
+  .partnership__balance-sum
+    flex: 0 0 auto
+    font-weight: 600
+    font-size: 28px
+    line-height: 31px
+    color: var(--blue)
+    background: var(--block-bg)
+    box-shadow: var(--block-shadow)
+    border-radius: 10px
+    padding: 0 22px
+    display: flex
+    align-items: center
+    height: 65px
+    min-width: 152px
+
+  .partnership__balance .btn
+    min-width: 175px
+
+  .partnership__balance-info
+    flex: 0 0 auto
+    width: calc((40.8088% - 20px) / 2)
+    background: var(--block-bg)
+    box-shadow: var(--block-shadow)
+    border-radius: 10px
+    display: flex
+    align-items: center
+    height: 65px
+    gap: 0 18px
+    font-weight: 600
+    font-size: 12px
+    line-height: 14px
+    padding: 0 0 0 32px
+
+    strong
+      font-weight: 600
+      font-size: 28px
+      line-height: 1
+      color: var(--blue)
+      flex: 0 0 auto
+
+.partnership__grid
+  display: flex
+
+@media only screen and (max-width: 1023px)
+  .partnership__grid
+    flex-direction: column
+    gap: 20px 0
+
+@media only screen and (min-width: 1024px)
+  .partnership__grid
+    justify-content: space-between
+
+.partnership__side
+  flex: 0 0 auto
+  display: flex
+  flex-direction: column
+  gap: 20px 0
+
+@media only screen and (max-width: 1023px)
+  .partnership__side
+    width: 100%
+
+@media only screen and (min-width: 1024px)
+  .partnership__side--left
+    width: calc(59.1912% - 20px)
+
+  .partnership__side--right
+    width: 40.8088%
+
+.partnership__block
+  flex: 0 0 auto
+  width: 100%
+  background: var(--block-bg)
+  box-shadow: var(--block-shadow)
+  border-radius: 10px
+
+@media only screen and (max-width: 767px)
+  .partnership__block
+    padding: 22px 10px
+
+@media only screen and (min-width: 768px)
+  .partnership__block
+    padding: 30px 20px 24px 20px
+
+.partnership__block--partners
+  padding-bottom: 4px
+
+.partnership__block--reflink
+  padding-bottom: 30px
+
+@media only screen and (max-width: 767px)
+  .partnership__block--reflink
+    text-align: center
+
+.partnership__block--discount
+  text-align: center
+  padding-bottom: 24px
+  font-weight: normal
+
+  strong
+    display: block
+    font-size: 32px
+    line-height: 1
+    font-weight: 600
+    color: var(--blue)
+    margin: 0 0 10px 0
+
+@media only screen and (max-width: 767px)
+  .partnership__block--discount
+    font-size: 12px
+    line-height: 14px
+
+@media only screen and (min-width: 768px)
+  .partnership__block--discount
+    font-size: 16px
+    line-height: 20px
+
+.partnership__block--individual
+  text-align: center
+  padding-bottom: 30px
+
+.partnership__title
+  font-weight: 600
+  font-size: 16px
+  line-height: 20px
+  margin: 0 0 12px 0
+
+.partnership__table
+  overflow: hidden
+  overflow-x: auto
+  font-weight: 500
+  font-size: 12px
+  line-height: 1.4
+  margin: 26px 0 0 0
+
+  table
+    border-collapse: collapse
+    min-width: 100%
+    border-style: solid
+    border-width: 0
+    border-color: var(--block-bg)
+    outline: none
+    margin: 0
+    padding: 0
+
+  th
+    text-align: left
+    vertical-align: top
+    border: 0
+    font-weight: normal
+    font-size: 10px
+    line-height: 14px
+    color: var(--grey)
+    padding: 0 10px 9px 0
+
+    &:last-child
+      padding-right: 0
+
+  td
+    text-align: left
+    vertical-align: middle
+    border: 0
+    padding: 14px 10px 15px 0
+    border-style: dashed
+    border-color: var(--border)
+    border-width: 0
+
+    &:last-child
+      padding-right: 0
+
+  tr:not(:first-child) td
+    border-top-width: 1px
+
+@media only screen and (max-width: 767px)
+  .partnership__table
+    margin-left: -10px
+    margin-right: -10px
+    padding-left: 10px
+
+@media only screen and (min-width: 768px)
+  .partnership__table
+    margin-left: -20px
+    margin-right: -20px
+    padding-left: 20px
+
+@media only screen and (max-width: 767px)
+  .partnership__table table
+    border-right-width: 10px
+
+@media only screen and (min-width: 768px)
+  .partnership__table table
+    border-right-width: 20px
+
+.partnership__table-center
+  text-align: center !important
+
+.partnership__table-light
+  font-weight: normal
+
+.partnership__table-price
+  white-space: nowrap
+  color: var(--green)
+  font-weight: bold
+
+.partnership__reflink
+  display: flex
+  flex-direction: column
+  gap: 20px 0
+
+  .btn
+    min-width: 207px
+    width: auto
+
+  .main-input
+    padding-right: 0
+    text-overflow: ellipsis
+    text-align: inherit
+
+@media only screen and (max-width: 767px)
+  .partnership__reflink
+    align-items: center
+
+@media only screen and (min-width: 768px)
+  .partnership__reflink
+    align-items: flex-start
+
+.partnership__individual
+  margin: 16px 0 0 0
+  padding: 0
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr))
+  text-align: center
+  font-weight: 600
+  font-size: 12px
+  line-height: 14px
+
+  li
+    margin: 0
+    padding: 9px 0
+    background: var(--block-bg2)
+    box-shadow: var(--block-shadow)
+    border-radius: 10px
+
+  strong
+    display: block
+    font-weight: 600
+    font-size: 28px
+    line-height: 1
+    color: var(--blue)
+    margin: 4px 0 0 0
+
+@media only screen and (max-width: 767px)
+  .partnership__individual
+    gap: 10px
+
+@media only screen and (min-width: 768px)
+  .partnership__individual
+    gap: 20px

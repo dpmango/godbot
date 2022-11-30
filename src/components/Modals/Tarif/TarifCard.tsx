@@ -50,30 +50,28 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
   }, [currentPlan]);
 
   return (
-    <li className="tarif__card">
-      {/* <div className="tarif__service">Скидка 20% до 10.11.2022</div> */}
+    <div className="tarifes__block">
+      {/* <div class="tarifes__gift">В подарок 1 неделя</div> */}
 
-      <div className="tarif__wrapper">
-        <div className="tarif__head">
-          <h5>{title}</h5>
-        </div>
-        {currentPlan && (
-          <p className="tarif__cost">
-            {/* <strong>{formatPrice(plans[activePeriod].cost)}$</strong> */}
-            {formatPrice(currentPlan.cost, 0)}$
+      <div className="tarifes__name">{title}</div>
+      {currentPlan && (
+        <>
+          <div className="tarifes__price">
+            {/* <del>$6 930</del> */}
+            <strong>${formatPrice(currentPlan.cost, 0)}</strong>{' '}
             <span>
               /{t('pricePer')} {localizeUnits(currentPlan.period.main_period)}
             </span>
-          </p>
-        )}
+          </div>
+          <a className="btn btn--tarifes" onClick={handleActivate}>
+            {t('pay')}
+          </a>
+        </>
+      )}
 
-        <a className="tarif__link" onClick={handleActivate}>
-          {t('pay')}
-        </a>
-        <ul className="tarif__list">
-          {descriptionList && descriptionList.map((x, idx) => <li key={idx}>{x}</li>)}
-        </ul>
-      </div>
-    </li>
+      <ul className="tarifes__text">
+        {descriptionList && descriptionList.map((x, idx) => <li key={idx}>{x}</li>)}
+      </ul>
+    </div>
   );
 };

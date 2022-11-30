@@ -1,3 +1,7 @@
 export { default as Button } from './Button/Button';
-export { default as Spinner } from './Spinner/Spinner';
-export { default as SvgIcon } from './SvgIcon';
+export { SpriteIcon } from './SpriteIcon';
+export { Select } from './Select/Select';
+export type { ISelectOption } from './Select/Select';
+export { Pagination } from './Pagination/Pagination';
+export { LockScreen } from './LockScreen/LockScreen';
+export { Modal } from './Modal/Modal';

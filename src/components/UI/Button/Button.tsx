@@ -2,7 +2,6 @@ import { memo } from 'react';
 import { Link, To } from 'react-router-dom';
 import cns from 'classnames';
 
-import { SvgIcon, Spinner } from '@ui';
 import st from './Button.module.scss';
 
 interface IButton {
@@ -59,13 +58,11 @@ const Button: React.FC<IButton> = ({
 
   return (
     <button className={classStyle} type={type} {...props}>
-      {iconLeft && <SvgIcon name={iconLeft} />}
+      {/* {iconLeft && <SvgIcon name={iconLeft} />} */}
 
       {children}
 
-      {loading && <Spinner theme="button" color="#FFF" />}
-
-      {iconRight && <SvgIcon name={iconRight} />}
+      {/* {iconRight && <SvgIcon name={iconRight} />} */}
     </button>
   );
 };
