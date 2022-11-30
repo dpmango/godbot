@@ -20,8 +20,8 @@ export const timeDiff = (date: any) => {
   return Math.round((date - now) / 1000);
 };
 
-export const formatDate = (d: Date) => {
-  return dayjs(d).format('DD.MM.YY HH:mm');
+export const formatDate = (d: Date, mask?: string) => {
+  return dayjs(d).format(mask || 'DD.MM.YY HH:mm');
 };
 
 export const formatUnixDate = (d: UTCTimestamp) => {

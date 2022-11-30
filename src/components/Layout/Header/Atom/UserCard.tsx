@@ -41,7 +41,7 @@ export const UserCard: React.FC<{}> = () => {
                 style={{
                   color: tariffActive ? '' : 'red',
                 }}>
-                {formatDate(userData?.subscription_date)}
+                {formatDate(userData?.subscription_date, 'DD.MM.YYYY')}
               </strong>
             </div>
           )}

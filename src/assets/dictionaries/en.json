@@ -3,12 +3,12 @@
     "entry": {
       "title": "Login / Registration",
       "instruction": "Enter your Email to receive an authorization code",
-      "action": "To come in"
+      "action": "Login"
     },
     "code": {
       "title": "Verification",
-      "instruction": "You will receive an email with a verification code. ",
-      "spamcheck": "If you didn't receive an email, check your spam",
+      "instruction": "You will receive an email with a verification code. Enter it here to confirm your login",
+      "spamcheck": "If you didn't receive an email, check your spam folder",
       "resend": "Send again",
       "confirm": "Confirm",
       "back": "Back"
@@ -28,7 +28,7 @@
       "education": "Education Centre"
     },
     "user": {
-      "subscription": "Subscribe to"
+      "subscription": "Subscription until"
     },
     "actions": {
       "changeTariff": "Change tariff",
@@ -36,7 +36,7 @@
       "payedChat": "Go to Telegram chat"
     },
     "policies": {
-      "confidentiality": "Confidentiality",
+      "confidentiality": "Privacy Policy",
       "terms": "Terms of Service",
       "cookies": "Cookie Policy"
     }
@@ -80,16 +80,16 @@
       "active": "Actively",
       "waiting": "Pending",
       "cancel": "Canceled",
-      "profit": "Closed in profit",
-      "loss": "Closed at a loss"
+      "profit": "Closed woth profit",
+      "loss": "Closed by stop"
     },
     "table": {
       "date": "Signal date",
-      "name": "Name",
+      "name": "Cryptocurrency",
       "type": "Order type",
       "status": "Deal status",
       "enter": "Entry price",
-      "exit": "exit price",
+      "exit": "Exit price",
       "stop": "Stop loss",
       "risk": "Risk per trade"
     },
@@ -104,12 +104,12 @@
     "units": {
       "day": {
         "one": "Day",
-        "two": "of the day",
-        "five": "days"
+        "two": "Days",
+        "five": "Days"
       },
       "week": {
-        "one": "A week",
-        "two": "weeks",
+        "one": "Week",
+        "two": "Weeks",
         "five": "Weeks"
       },
       "month": {
@@ -144,19 +144,19 @@
     "lock": {
       "activate": {
         "text": "To display {{section}} you need to activate the tariff",
-        "action": "CHOOSE TARIFF"
+        "action": "SELECT TARIFF"
       },
       "upgrade": {
         "text": "To display {{section}} you need to connect the PRO tariff",
         "action": "CONNECT PRO"
       },
       "prolong": {
-        "text": "To display {{section}} need to extend the tariff",
-        "action": "CHOOSE TARIFF"
+        "text": "To display {{section}} you need to extend the tariff",
+        "action": "SELECT TARIFF"
       },
       "trial": {
         "text": "To display {{section}} you need to activate the tariff",
-        "action": "TRY FOR FREE"
+        "action": "TRY IT FOR FREE"
       }
     }
   }
