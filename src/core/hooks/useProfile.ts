@@ -14,7 +14,7 @@ const useProfile = () => {
   const fetchProfileWithLogout = useCallback(async () => {
     const { payload } = await dispatch(getCurrentUser());
 
-    if (!payload) {
+    if (!payload || payload.access_level === 0) {
       dispatch(resetUser());
 
       if (localStorageGet('email') && localStorageGet('lastEmailSend')) {
