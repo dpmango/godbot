@@ -1,6 +1,6 @@
 import cns from 'classnames';
 
-import './modal.sass';
+// import './modal.sass';
 
 interface IModalProps {
   name: string;

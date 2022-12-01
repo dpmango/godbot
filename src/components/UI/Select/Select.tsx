@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useClickOutside } from '@hooks';
 import { SpriteIcon } from '@ui';
 
-import './select.sass';
+// import './select.sass';
 
 interface ISelectProps {
   value: string;

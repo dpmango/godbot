@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 
 import { api, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
-import { Button } from '@ui';
 import { secondsToStamp, localStorageGet, localStorageSet } from '@utils';
 
 export const AuthorizationValidate: React.FC<{}> = ({}) => {

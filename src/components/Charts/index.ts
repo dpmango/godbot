@@ -7,6 +7,6 @@ export { ForecastLegend } from './Forecast/ForecastLegend';
 export { Investing } from './Investing/Investing';
 export { InvestingChart } from './Investing/InvestingChart';
 
-import './chart.sass';
-import './tabs.sass';
-import './chart.scss';
+// import './chart.sass';
+// import './tabs.sass';
+import './chart-2.sass';

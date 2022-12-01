@@ -5,7 +5,7 @@ import { useAppSelector } from '@core';
 import { LockScreen } from '@ui';
 
 import { InvestingChart } from '@c/Charts';
-import './investing.sass';
+// import './investing.sass';
 
 interface IInvestingProps {}
 

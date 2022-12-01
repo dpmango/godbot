@@ -44,7 +44,7 @@ module.exports = {
     sass: {
       loaderOptions: {
         sourceMap: true,
-        // additionalData: '@import "@styles/utilities";',
+        // additionalData: '@import "@styles/theme"',
       },
     },
   },

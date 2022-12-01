@@ -1,4 +1,3 @@
-export { default as Button } from './Button/Button';
 export { SpriteIcon } from './SpriteIcon';
 export { Select } from './Select/Select';
 export type { ISelectOption } from './Select/Select';

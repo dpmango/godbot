@@ -13,7 +13,7 @@ import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modals';
 import { IPlan, ITarifDto } from '@interface/Tarif';
 
-import './tarifes.sass';
+// import './tarifes.sass';
 
 export const TarifWindow: React.FC<{}> = () => {
   const [data, setData] = useState<ITarifDto[]>([]);

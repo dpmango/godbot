@@ -1,6 +1,6 @@
 import cns from 'classnames';
 
-import './pagination.sass';
+// import './pagination.sass';
 
 export const Pagination: React.FC<{}> = () => {
   return (

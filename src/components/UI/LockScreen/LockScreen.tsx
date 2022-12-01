@@ -5,7 +5,7 @@ import cns from 'classnames';
 
 import { useAppSelector } from '@core';
 import { SpriteIcon } from '@ui';
-import './fader.sass';
+// import './fader.sass';
 
 interface ILockScreenProps {
   section: string;

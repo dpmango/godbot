@@ -1,0 +1,28 @@
+@import theme
+	
+.rate 
+		display: flex
+		align-items: center
+		justify-content: center
+		gap: 0 10px
+		margin: 17px 0 0 0
+
+.rate__pic 
+		cursor: pointer
+		user-select: none
+		flex: 0 0 auto
+		stroke-width: 1px
+		stroke: $link-border
+		fill: none
+		transition-property: fill, stroke
+		transition-duration: 0.2s
+		transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1)
+
+@media (pointer:fine) 
+		.rate__pic:hover 
+				stroke: $blue
+		
+
+.rate__pic--active 
+		stroke: $blue
+		fill: $blue

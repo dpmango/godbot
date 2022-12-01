@@ -1,27 +1,29 @@
-@charset "UTF-8"
+@import theme
+	
+.main-input 
+		flex: 0 0 auto
+		font-weight: normal
+		line-height: normal
+		font-family: $font
+		color: $text
+		text-align: left
+		height: 40px
+		border-radius: 10px
+		-webkit-appearance: none
+		width: 100%
+		display: block
+		border: 1px solid $block-border2
+		background: $block-bg
+		outline: none
 
-.main-input
-  flex: 0 0 auto
-  font-weight: normal
-  line-height: normal
-  font-family: var(--font)
-  color: var(--text)
-  text-align: left
-  height: 40px
-  border-radius: 10px
-  -webkit-appearance: none
-  width: 100%
-  display: block
-  border: 1px solid var(--block-border2)
-  background: var(--block-bg)
-  outline: none
+@media only screen and (max-width: 767px) 
+		.main-input 
+				padding: 0 10px
+				font-size: 12px
+		
 
-@media only screen and (max-width: 767px)
-  .main-input
-    padding: 0 10px
-    font-size: 12px
-
-@media only screen and (min-width: 768px)
-  .main-input
-    padding: 0 20px
-    font-size: 16px
+@media only screen and (min-width: 768px) 
+		.main-input 
+				padding: 0 20px
+				font-size: 16px
+		

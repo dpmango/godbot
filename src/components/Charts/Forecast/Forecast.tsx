@@ -25,6 +25,7 @@ import { IForecastTick } from '@/core/interface/Forecast';
 
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
+import dayjs from 'dayjs';
 
 interface IChartLines {
   id: string;
@@ -168,7 +169,7 @@ export const Forecast: React.FC<{}> = () => {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: window.innerWidth < 576 ? 9 : 12,
           fontFamily: 'GilroyWeb, sans-serif',
-          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1C2326' },
+          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1d2426' },
         },
         grid: {
           vertLines: { visible: false },
@@ -217,7 +218,15 @@ export const Forecast: React.FC<{}> = () => {
 
       setChartLines([...newChartLines]);
 
-      chartInstance.timeScale().fitContent();
+      const lastTick = coinDataMapped[coinDataMapped.length - 1].timestamp;
+
+      const last = dayjs.unix(lastTick);
+      const from = last.subtract(12, 'hour');
+
+      chartInstance.timeScale().setVisibleRange({
+        from: timeToTz((from.unix() * 1000) as UTCTimestamp),
+        to: timeToTz((last.unix() * 1000) as UTCTimestamp),
+      });
 
       chartInstance.subscribeCrosshairMove((param) => {
         const container = containerRef.current;
@@ -324,7 +333,7 @@ export const Forecast: React.FC<{}> = () => {
       chart?.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
-          background: { color: '#1C2326' },
+          background: { color: '#1d2426' },
         },
         grid: {
           horzLines: { color: '#5F636A' },

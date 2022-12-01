@@ -5,7 +5,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
 
-import '@c/Authorization/login.sass';
+// import '@c/Authorization/login.sass';
 
 export const Authorization: React.FC<{}> = () => {
   const { search } = useLocation();
