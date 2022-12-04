@@ -1,0 +1,58 @@
+import { ISignal } from '@core/interface/Signal';
+
+export const placeholderSignals: ISignal[] = [
+  {
+    date: '2022-11-23T13:23:11Z',
+    currency: 'Solana',
+    currency_code: 'SOL',
+    currency_icon:
+      'https://api.devgodbot.ru/media/crypto_currency/A720ECF1-1CBD-4E24-9D9B-97D7FBFC68B7.png',
+    direction: 'LONG',
+    status: 'WAITING',
+    entry_price_range: ['1', '2', '3', '4'],
+    get_exit_range: ['1', '2', '4'],
+    stop_loss: 12900.0,
+    trigger_stop: '1',
+    risk: 1.0,
+  },
+  {
+    date: '2022-11-23T22:37:02Z',
+    currency: 'Lido DAO',
+    currency_code: 'LDO',
+    currency_icon: 'https://api.devgodbot.ru/media/crypto_currency/8000.png',
+    direction: 'LONG',
+    status: 'CANCEL',
+    entry_price_range: ['12.22', '12.2', '12.14'],
+    get_exit_range: ['12.4', '12.42'],
+    stop_loss: 0.0,
+    trigger_stop: '11.87',
+    risk: 4.0,
+  },
+  {
+    date: '2022-11-23T13:23:32Z',
+    currency: 'Polygon',
+    currency_code: 'MATIC',
+    currency_icon: 'https://api.devgodbot.ru/media/crypto_currency/3890.png',
+    direction: 'SHORT',
+    status: 'LOSS',
+    entry_price_range: ['2'],
+    get_exit_range: ['3'],
+    stop_loss: 1.0,
+    trigger_stop: '4h',
+    risk: 2.0,
+  },
+  {
+    date: '2022-11-23T13:23:11Z',
+    currency: 'Solana',
+    currency_code: 'SOL',
+    currency_icon:
+      'https://api.devgodbot.ru/media/crypto_currency/A720ECF1-1CBD-4E24-9D9B-97D7FBFC68B7.png',
+    direction: 'LONG',
+    status: 'WAITING',
+    entry_price_range: ['1', '2'],
+    get_exit_range: ['1', '2', '4'],
+    stop_loss: 12900.0,
+    trigger_stop: '1',
+    risk: 1.0,
+  },
+];

@@ -20,7 +20,7 @@ export const timeDiff = (date: any) => {
   return Math.round((date - now) / 1000);
 };
 
-export const formatDate = (d: Date, mask?: string) => {
+export const formatDate = (d: Date | string, mask?: string) => {
   return dayjs(d).format(mask || 'DD.MM.YY HH:mm');
 };
 

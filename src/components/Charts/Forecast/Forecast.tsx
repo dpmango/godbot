@@ -389,8 +389,10 @@ export const Forecast: React.FC<{}> = () => {
     }
   };
 
+  const viewLocked = !userData?.tariff || !tariffActive;
+
   return (
-    <div className="chart">
+    <div className={cns('chart', viewLocked && 'chart--locked')}>
       <ForecastFilter
         legendActive={legendActive}
         setLegendActive={(x) => setLegendActive(x)}
@@ -404,33 +406,35 @@ export const Forecast: React.FC<{}> = () => {
         handleToggle={handleChangeSeries}
       />
 
-      <div
-        ref={containerRef}
-        className="chart-container"
-        style={{
-          opacity: loading ? '0' : '1',
-        }}>
-        <div className="chart-info" ref={tooltipRef}></div>
-        <div className="chart-watermark">
-          {[0, 1, 2, 3].map((x) => (
-            <>
-              <div className="chart-watermark__col">
-                <Logo />
-              </div>
-              <div className="chart-watermark__col">
-                <Logo />
-                <Logo />
-              </div>
-            </>
-          ))}
+      {!viewLocked ? (
+        <div
+          ref={containerRef}
+          className="chart-container"
+          style={{
+            opacity: loading ? '0' : '1',
+          }}>
+          <div className="chart-info" ref={tooltipRef}></div>
+          <div className="chart-watermark">
+            {[0, 1, 2, 3].map((x) => (
+              <>
+                <div className="chart-watermark__col">
+                  <Logo />
+                </div>
+                <div className="chart-watermark__col">
+                  <Logo />
+                  <Logo />
+                </div>
+              </>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <img style={{ minHeight: 200 }} src="/img/temp/chart.png" width="100%" alt="" />
+      )}
 
       <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
 
-      {(!userData?.tariff || !tariffActive) && (
-        <LockScreen section={t('lock')} textModifier={'big'} />
-      )}
+      {viewLocked && <LockScreen section={t('lock')} textModifier={'big'} />}
 
       {/* {loading && (
         <div className="chart__load">

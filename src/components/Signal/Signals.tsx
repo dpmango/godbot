@@ -2,6 +2,7 @@ import { useEffect, useState, useLayoutEffect, useRef, useMemo } from 'react';
 import xorBy from 'lodash/xorBy';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
 import { getSignals } from '@store';
@@ -10,6 +11,7 @@ import { Pagination, Select } from '@ui';
 import { ISignal } from '@interface/Signal';
 
 import { SignalCard } from '@c/Signal';
+import { placeholderSignals } from './placeholderData';
 
 export const Signals: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +20,8 @@ export const Signals: React.FC<{}> = () => {
   const [filter, setFilter] = useState<string>('');
   const [loaded, setLoaded] = useState<boolean>(false);
   const [prevSignals, setPrevSignals] = useState<ISignal[] | null>(null);
+
+  const viewLocked = !userData?.tariff || !tariffActive;
 
   const { t } = useTranslation('signal');
 
@@ -33,12 +37,16 @@ export const Signals: React.FC<{}> = () => {
   }, []);
 
   const signalsWithFilter = useMemo(() => {
+    if (viewLocked) {
+      return placeholderSignals;
+    }
+
     if (filter && data?.length) {
       return data.filter((elem: ISignal) => elem?.status?.toLowerCase().trim() === filter);
     }
 
     return data;
-  }, [filter, data]);
+  }, [filter, data, viewLocked]);
 
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
@@ -70,7 +78,7 @@ export const Signals: React.FC<{}> = () => {
   }, [data]);
 
   return (
-    <div className="recommend">
+    <div className={cns('recommend', viewLocked && 'recommend--locked')}>
       <div className="recommend__head">
         <div className="recommend__title">{t('title')}</div>
         <Select
@@ -104,11 +112,10 @@ export const Signals: React.FC<{}> = () => {
         </table>
       </div>
 
-      {/* <Pagination /> */}
+      {/* temp */}
+      {viewLocked && <Pagination />}
 
-      {(!userData?.tariff || !tariffActive) && (
-        <LockScreen section={t('lock')} textModifier={'big'} />
-      )}
+      {viewLocked && <LockScreen section={t('lock')} textModifier={'big'} />}
     </div>
   );
 };
