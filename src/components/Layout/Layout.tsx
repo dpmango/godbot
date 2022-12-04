@@ -6,7 +6,7 @@ import cns from 'classnames';
 import { useAppSelector } from '@core';
 
 import { Header } from '@c/Layout/Header';
-import { TarifWindow } from '@c/Modals';
+import { TarifWindow, Activated } from '@c/Modals';
 import { Greeting } from '@/components/Modals/Greeting/Greeting';
 import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
 
@@ -27,6 +27,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {children}
 
         {searchParams.get('tariffs') !== null && <TarifWindow />}
+        {searchParams.get('activated') !== null && <Activated />}
 
         <TeletypeWidget />
       </div>

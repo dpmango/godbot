@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
@@ -8,6 +9,8 @@ import { getCurrentUser, resetUser } from '@store';
 
 const useTariff = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const { t } = useTranslation('tariff');
 
@@ -29,7 +32,9 @@ const useTariff = () => {
       return;
     }
 
-    toast.success(t('trial.activate'));
+    // toast.success(t('trial.activate'));
+    navigate(`${pathname}?activated`);
+
     Cookies.remove('trial');
     await dispatch(getCurrentUser());
   };
