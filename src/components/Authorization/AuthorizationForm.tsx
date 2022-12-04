@@ -13,7 +13,7 @@ interface IFormValues {
   email: string;
 }
 const formInitial: IFormValues = {
-  email: '',
+  email: localStorageGet('email') || '',
 };
 
 export const AuthorizationForm: React.FC<{}> = () => {
@@ -40,7 +40,9 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
   const handleSubmit = useCallback(
     async (values: IFormValues) => {
-      if (loading) return;
+      const errors = handleValidation(values);
+
+      if (loading && Object.keys(errors).length) return;
 
       const lockedState = localStorageGet('locked');
       if (lockedState) {
@@ -86,7 +88,12 @@ export const AuthorizationForm: React.FC<{}> = () => {
         <title>Godbot | Authorization</title>
       </Helmet>
 
-      <Formik initialValues={formInitial} validate={handleValidation} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={formInitial}
+        validateOnChange={false}
+        validate={handleValidation}
+        validateForm={handleValidation}
+        onSubmit={handleSubmit}>
         {({ isValid, dirty, errors, setFieldError }: FormikProps<IFormValues>) => (
           <Form className={cns('login__form', error && '_error')}>
             <div className="login__title">{t('entry.title')}</div>
@@ -104,7 +111,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
                     {...field}
                     {...props}
                     value={field.value}
-                    type="email"
+                    type="text"
                     placeholder={t('email.placeholder') as string}
                     disabled={locked}
                     onChange={(v) => {
