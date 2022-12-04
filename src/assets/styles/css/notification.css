@@ -1,0 +1,73 @@
+@charset "UTF-8";
+.notification {
+		display: flex;
+		align-items: center;
+		gap: 0 20px;
+		position: fixed;
+		z-index: 110;
+		bottom: 20px;
+		right: 20px;
+		background: var(--block-bg);
+		box-shadow: var(--block-shadow);
+		border-radius: 10px;
+		color: var(--text);
+		text-align: left;
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 14px;
+		width: 244px;
+		padding: 18px;
+		border-style: solid;
+		border-width: 2px;
+		border-color: transparent;
+		min-height: 65px;
+}
+.notification--rate {
+		text-align: center;
+		width: 220px;
+}
+.notification--green {
+		border-color: var(--green);
+}
+.notification--red {
+		border-color: var(--red);
+}
+.notification a {
+		color: var(--green);
+		text-decoration: none;
+}
+.notification__text {
+		flex: 1 1 auto;
+}
+.notification__text--center {
+		text-align: center;
+}
+.notification__close {
+		cursor: pointer;
+		user-select: none;
+		flex: 0 0 auto;
+		width: 19px;
+		height: 19px;
+		position: relative;
+		margin: 0 -10px;
+}
+.notification__close-timer {
+		width: 100%;
+		height: 100%;
+		fill: none;
+		stroke: var(--blue);
+		transform: rotate(90deg);
+		stroke-width: 1px;
+		stroke-linecap: round;
+		stroke-dashoffset: calc(60px + 45px); /*Do not use negative values because of Safari. Use "60px + needed value"*/
+		stroke-dasharray: 60px;
+}
+.notification__close-icon {
+		width: 8px;
+		height: 8px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -4px;
+		fill: var(--blue);
+}

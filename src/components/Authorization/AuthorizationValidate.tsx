@@ -86,8 +86,16 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
         setValue(newDigits.join(''));
         setDigits(newDigits);
 
-        // @ts-ignore
-        inputs[clearedStr.length].focus({ cursor: 'all' });
+        if (clearedStr.length !== 6) {
+          // @ts-ignore
+          inputs[clearedStr.length - 1].focus({ cursor: 'all' });
+        } else {
+          // @ts-ignore
+          inputs.forEach((input: any) => {
+            input.blur();
+          });
+        }
+
         return;
       }
 
@@ -164,11 +172,11 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     navigate('/', { replace: true });
   };
 
-  // useEffect(() => {
-  //   if (value.length === 6) {
-  //     handleSubmit(null);
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    if (value.length === 6) {
+      handleSubmit(null);
+    }
+  }, [value]);
 
   const handleResend = async () => {
     if (loading) return;
