@@ -21,7 +21,7 @@ const useProfile = () => {
       dispatch(resetUser());
 
       if (localStorageGet('email') && localStorageGet('lastEmailSend')) {
-        navigate('/auth/validation', { state: { resend: true }, replace: true });
+        // navigate('/auth/validation', { state: { resend: true }, replace: true });
       } else {
         navigate('/auth', { replace: true });
       }

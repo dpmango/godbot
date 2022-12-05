@@ -135,11 +135,8 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
             <div className="login__submit">
               <button
-                className={cns(
-                  'btn login__btn',
-                  (!dirty || !isValid || !!error) && 'btn--disabled'
-                )}
-                disabled={!dirty || !isValid || !!error}>
+                className={cns('btn login__btn', (!isValid || !!error) && 'btn--disabled')}
+                disabled={!isValid || !!error}>
                 {t('entry.action')}
               </button>
             </div>
