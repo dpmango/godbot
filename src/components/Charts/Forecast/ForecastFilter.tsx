@@ -30,8 +30,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   // coins
   const coinOptions = useMemo(() => {
     return [
-      { value: 'btc', label: 'Bitcoin (BTC)' },
-      { value: 'xrp', label: 'Ripple (XRP)', isPro: !isProUser },
+      { value: 'BTC', label: 'Bitcoin (BTC)' },
+      { value: 'XRP', label: 'Ripple (XRP)', isPro: !isProUser },
       // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
       // {
       //   value: 'estimate',
