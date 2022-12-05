@@ -244,6 +244,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
                   onChange={handleChangeDigits}
                   data-index={index}
                   key={index}
+                  inputMode="numeric"
                   type="text"
                   value={digit}
                 />

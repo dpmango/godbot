@@ -39,7 +39,8 @@
     "policies": {
       "confidentiality": "Privacy Policy",
       "terms": "Terms of Service",
-      "cookies": "Cookie Policy"
+      "cookies": "Cookie Policy",
+      "disclaimer": "Disclaimer"
     }
   },
   "charts": {
@@ -104,19 +105,19 @@
     "noGift": "no gift",
     "units": {
       "day": {
-        "one": "Day",
-        "two": "Days",
-        "five": "Days"
+        "one": "day",
+        "two": "days",
+        "five": "days"
       },
       "week": {
-        "one": "Week",
-        "two": "Weeks",
-        "five": "Weeks"
+        "one": "week",
+        "two": "weeks",
+        "five": "weeks"
       },
       "month": {
-        "one": "Month",
-        "two": "Months",
-        "five": "Months"
+        "one": "month",
+        "two": "months",
+        "five": "months"
       }
     },
     "description": {
@@ -178,6 +179,9 @@
         "text": "To display {{section}} you need to activate the tariff",
         "action": "TRY IT FOR FREE"
       }
+    },
+    "modal": {
+      "close": "Close"
     }
   }
 }

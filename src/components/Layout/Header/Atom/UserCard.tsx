@@ -89,8 +89,10 @@ export const UserCard: React.FC<{}> = () => {
           <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme}></div>
         </div>
         <div className="header__user-minis">
-          <a href="#">{t('policies.confidentiality')}</a> • <a href="#">{t('policies.terms')}</a> •
-          <a href="#">{t('policies.cookies')}</a>
+          <Link to="?privacy">{t('policies.confidentiality')}</Link> •{' '}
+          <Link to="?terms">{t('policies.terms')}</Link> •{' '}
+          <Link to="?cookies">{t('policies.cookies')}</Link> •{' '}
+          <Link to="?disclaimer">{t('policies.disclaimer')}</Link>
         </div>
       </div>
     </div>

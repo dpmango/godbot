@@ -39,7 +39,8 @@
     "policies": {
       "confidentiality": "Gizlilik",
       "terms": "Kullanım Şartları",
-      "cookies": "Çerez politikası"
+      "cookies": "Çerez politikası",
+      "disclaimer": "Disclaimer"
     }
   },
   "charts": {
@@ -104,17 +105,17 @@
     "noGift": "hediye yok",
     "units": {
       "day": {
-        "one": "Gün",
-        "two": "Günün",
+        "one": "gün",
+        "two": "günün",
         "five": "günler"
       },
       "week": {
-        "one": "Bir hafta",
+        "one": "bir hafta",
         "two": "haftalar",
-        "five": "Haftalar"
+        "five": "haftalar"
       },
       "month": {
-        "one": "Ay",
+        "one": "ay",
         "two": "aylar",
         "five": "aylar"
       }
@@ -178,6 +179,9 @@
         "text": "Göstermek {{section}} tarifeyi etkinleştirmeniz gerekiyor",
         "action": "ÜCRETSİZ DENEYİN"
       }
+    },
+    "modal": {
+      "close": "Kapat"
     }
   }
 }

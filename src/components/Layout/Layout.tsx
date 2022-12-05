@@ -6,8 +6,14 @@ import cns from 'classnames';
 import { useAppSelector } from '@core';
 
 import { Header } from '@c/Layout/Header';
-import { TarifWindow, Activated } from '@c/Modals';
-import { Greeting } from '@/components/Modals/Greeting/Greeting';
+import {
+  TarifWindow,
+  Activated,
+  DocsPrivacy,
+  DocsTerms,
+  DocsCookies,
+  DocsDisclaimer,
+} from '@c/Modals';
 import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
 
 interface ILayout {
@@ -28,6 +34,10 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
 
         {searchParams.get('tariffs') !== null && <TarifWindow />}
         {searchParams.get('activated') !== null && <Activated />}
+        {searchParams.get('privacy') !== null && <DocsPrivacy />}
+        {searchParams.get('terms') !== null && <DocsTerms />}
+        {searchParams.get('cookies') !== null && <DocsCookies />}
+        {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
 
         <TeletypeWidget />
       </div>

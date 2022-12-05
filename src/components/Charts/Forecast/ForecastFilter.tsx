@@ -31,7 +31,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   const coinOptions = useMemo(() => {
     return [
       { value: 'BTC', label: 'Bitcoin (BTC)' },
-      { value: 'XRP', label: 'Ripple (XRP)', isPro: !isProUser },
+      { value: 'XRP', label: 'Ripple (XRP)', disabled: !isProUser, isPro: !isProUser },
       // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
       // {
       //   value: 'estimate',
@@ -89,8 +89,12 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     <div className="chart__head">
       <div className="chart__head-title">{t('filter.title')}</div>
       <div className="chart__head-filters">
-        <Select value={currentCoin} options={coinOptions} onSelect={handleCoinChange} />
-        <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
+        <Select
+          value={searchParams.get('coin') || ''}
+          options={coinOptions}
+          onSelect={handleCoinChange}
+        />
+        {/* <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} /> */}
       </div>
 
       {lastUpdate && (

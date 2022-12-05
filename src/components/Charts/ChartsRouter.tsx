@@ -52,12 +52,12 @@ export const ChartsRouter: React.FC<{}> = () => {
           <div
             className={cns(
               'tabs__link',
-              activeTab === 'Investing' && 'tabs__link--active',
-              !allowedFunctions.investing && 'tabs__link--disabled'
+              activeTab === 'Investing' && 'tabs__link--active'
+              // !allowedFunctions.investing && 'tabs__link--disabled'
             )}
             onClick={() => setActiveTab('Investing')}>
             {t('tabs.investing')}
-            {!allowedFunctions.investing && <span className="pro-label">PRO</span>}
+            {/* {!allowedFunctions.investing && <span className="pro-label">PRO</span>} */}
           </div>
         </div>
       )}

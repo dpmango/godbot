@@ -32,7 +32,22 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
 
   const currentPlan = useMemo(() => {
     const findByMainPeriod = plans[activePeriodIdx];
-    if (findByMainPeriod) return findByMainPeriod;
+    if (findByMainPeriod) {
+      let basePrice = 99;
+      if (title === 'PRO Trader') {
+        basePrice = 999;
+      }
+
+      return {
+        ...findByMainPeriod,
+        old: findByMainPeriod.period.main_period.number * basePrice,
+        scopedPeriod: {
+          ...findByMainPeriod.period.main_period,
+          number:
+            findByMainPeriod.period.main_period.number + findByMainPeriod.period.add_period.number,
+        },
+      };
+    }
 
     return null;
   }, [activePeriodIdx, plans]);
@@ -59,10 +74,10 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       {currentPlan && (
         <>
           <div className="tarifes__price">
-            {/* <del>$6 930</del> */}
+            {currentPlan.cost !== currentPlan.old && <del>${formatPrice(currentPlan.old, 0)}</del>}
             <strong>${formatPrice(currentPlan.cost, 0)}</strong>{' '}
             <span>
-              /{t('pricePer')} {localizeUnits(currentPlan.period.main_period)}
+              /{t('pricePer')} {localizeUnits(currentPlan.scopedPeriod)}
             </span>
           </div>
           <a className="btn btn--tarifes" onClick={handleActivate}>
