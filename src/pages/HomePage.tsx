@@ -1,46 +1,20 @@
 import Cookies from 'js-cookie';
 import { useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 
-import { api } from '@core';
-import { useAppDispatch, getCurrentUser } from '@store';
+import { useProfile, useTariff } from '@hooks';
 
 import { Layout } from '@c/Layout/Layout';
 import { ChartsRouter } from '@c/Charts';
 import { Signals } from '@c/Signal';
 
 export const HomePage: React.FC<{}> = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  const setTrial = async () => {
-    const { data: trialData, error: trialError } = await api('get_trial/', {});
-
-    if (trialError) {
-      toast.error(trialError.message);
-      return;
-    }
-
-    const { data, error } = await api('activate_tariff/', {
-      method: 'POST',
-      body: { id: trialData.trial_id },
-    });
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    toast.success('Активирована пробная версия');
-    Cookies.remove('trial');
-    await dispatch(getCurrentUser());
-  };
+  const { fetchProfileWithLogout } = useProfile();
+  const { activateTrial } = useTariff();
 
   useEffect(() => {
     if (Cookies.get('trial')) {
-      setTrial();
+      activateTrial();
     }
   }, []);
 
@@ -48,7 +22,7 @@ export const HomePage: React.FC<{}> = () => {
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     timerConfirm.current = setInterval(() => {
-      dispatch(getCurrentUser());
+      fetchProfileWithLogout();
     }, 10 * 1000);
 
     return () => {
@@ -62,8 +36,12 @@ export const HomePage: React.FC<{}> = () => {
         <title>Godbot | Home</title>
       </Helmet>
 
-      <ChartsRouter />
-      <Signals />
+      <div className="content">
+        <div className="container">
+          <ChartsRouter />
+          <Signals />
+        </div>
+      </div>
     </Layout>
   );
 };

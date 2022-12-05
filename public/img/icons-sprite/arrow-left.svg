@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Arrow 4</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Arrow-4">
+            <rect id="Rectangle" fill="#D8D8D8" x="0" y="0" width="14" height="14"></rect>
+            <path d="M13,7.5 C13.2761,7.5 13.5,7.27614 13.5,7 C13.5,6.72386 13.2761,6.5 13,6.5 L13,7.5 Z M0.646446,6.64645 C0.451184,6.84171 0.451184,7.15829 0.646446,7.35355 L3.82843,10.53553 C4.02369,10.7308 4.34027,10.7308 4.53553,10.53553 C4.7308,10.34027 4.7308,10.02369 4.53553,9.82843 L1.70711,7 L4.53553,4.17157 C4.7308,3.976311 4.7308,3.659728 4.53553,3.464466 C4.34027,3.269204 4.02369,3.269204 3.82843,3.464466 L0.646446,6.64645 Z M13,6.5 L1,6.5 L1,7.5 L13,7.5 L13,6.5 Z" id="Shape" fill="#AEAEAE" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

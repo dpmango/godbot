@@ -8,35 +8,54 @@ import {
   IChartApi,
   ISeriesApi,
   UTCTimestamp,
+  SeriesMarkerPosition,
+  SeriesMarkerShape,
+  SeriesMarker,
+  Time,
 } from 'lightweight-charts';
+import xorBy from 'lodash/xorBy';
+import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
+
 import { ThemeContext } from '@/App';
-import { useAppSelector } from '@store';
-import { timeToTz, formatPrice, formatUnixDate } from '@utils';
+import { useAppSelector } from '@core';
+import { timeToTz, formatPrice, formatUnixDate, getRandomInt, formatDate } from '@utils';
+import { LockScreen } from '@ui';
 import { IForecastTick } from '@/core/interface/Forecast';
 
-import { ForecastLegend } from '@c/Charts';
-import { Loader } from '@ui/Loader';
+import { ForecastFilter, ForecastLegend } from '@c/Charts';
+import { Logo } from '@c/Layout/Header';
+import dayjs from 'dayjs';
 
 interface IChartLines {
   id: string;
   instance: ISeriesApi<'Line'>;
 }
 
+interface ISeriesData {
+  time: UTCTimestamp;
+  value: number;
+}
+
 export const Forecast: React.FC<{}> = () => {
   const { data, currentCoin } = useAppSelector((state) => state.forecastState);
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const [loading, setLoading] = useState<boolean>(true);
+  const [legendActive, setLegendActive] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<string>('');
   const chart = useRef<IChartApi | null>(null);
-  const [chartLines, setChartLines] = useState<IChartLines[]>([]);
   const [series, setSeries] = useState<any>([]);
-  const [colors, setColors] = useState<any>([]);
+  const [chartLines, setChartLines] = useState<IChartLines[]>([]);
 
   const containerRef: any = useRef();
   const tooltipRef: any = useRef();
   const ctx = useContext(ThemeContext);
 
-  const initChart = (coinData: IForecastTick[]) => {
-    const color: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+  const { t } = useTranslation('forecast');
 
+  const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+
+  const initOrUpdateChart = (coinData: IForecastTick[]) => {
     const coinDataMapped = coinData
       .map((x) => ({
         ...x,
@@ -44,12 +63,12 @@ export const Forecast: React.FC<{}> = () => {
       }))
       .reverse();
 
-    const series = [
+    const currentSeries = [
       {
         name: 'Real',
         type: 'line',
         lineStyle: {
-          color: color[0],
+          color: colors[0],
           lineWidth: 3 as LineWidth,
         },
         data: coinDataMapped
@@ -65,13 +84,15 @@ export const Forecast: React.FC<{}> = () => {
         name: 'Forecast',
         type: 'line',
         lineStyle: {
-          color: color[1],
+          color: colors[1],
           lineWidth: 3 as LineWidth,
         },
+        showChanges: true,
         data: coinDataMapped
-          .map((x: IForecastTick) => {
+          .map((x: IForecastTick, idx) => {
             return {
               time: x.timestamp,
+              // value: idx >= 180 ? getRandomInt(16000, 17000) : x.forecast,
               value: x.forecast,
             };
           })
@@ -81,7 +102,7 @@ export const Forecast: React.FC<{}> = () => {
         name: 'Upper',
         type: 'line',
         lineStyle: {
-          color: color[2],
+          color: colors[2],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -99,7 +120,7 @@ export const Forecast: React.FC<{}> = () => {
         name: 'Lower',
         type: 'line',
         lineStyle: {
-          color: color[3],
+          color: colors[3],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -115,11 +136,15 @@ export const Forecast: React.FC<{}> = () => {
       },
     ];
 
-    setSeries(series);
-    setColors(color);
+    // watch changes in data
+    // let forecastChanges: ISeriesData[] = [];
+    // if (series.length && currentSeries[1].data) {
+    //   forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
+    // }
 
-    // graph?.setOption(option);
+    setSeries(currentSeries);
 
+    // create or update chart
     if (!chart.current) {
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
@@ -132,11 +157,19 @@ export const Forecast: React.FC<{}> = () => {
         rightPriceScale: {
           visible: false,
         },
+        // watermark: {
+        //   visible: true,
+        //   text: 'GODBOT-PRO',
+        //   fontSize: window.innerWidth < 576 ? 34 : 56,
+        //   fontFamily: 'GilroyWeb, sans-serif',
+        //   // fontStyle: 'font-weight: 700',
+        //   color: '#E2E2E2',
+        // },
         layout: {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: window.innerWidth < 576 ? 9 : 12,
           fontFamily: 'GilroyWeb, sans-serif',
-          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1C2326' },
+          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1d2426' },
         },
         grid: {
           vertLines: { visible: false },
@@ -167,24 +200,33 @@ export const Forecast: React.FC<{}> = () => {
 
       chart.current = chartInstance;
 
-      let newSeries: IChartLines[] = [];
-      series.forEach((series, idx) => {
+      let newChartLines: IChartLines[] = [];
+      currentSeries.forEach((s, idx) => {
         const lineSeries = chartInstance.addLineSeries({
           lastValueVisible: false,
           priceLineVisible: false,
-          ...series.lineStyle,
+          ...s.lineStyle,
         });
-        lineSeries.setData(series.data);
 
-        newSeries.push({
-          id: series.name,
+        lineSeries.setData(s.data);
+
+        newChartLines.push({
+          id: s.name,
           instance: lineSeries,
         });
       });
 
-      setChartLines([...newSeries]);
+      setChartLines([...newChartLines]);
 
-      chartInstance.timeScale().fitContent();
+      const lastTick = coinDataMapped[coinDataMapped.length - 1].timestamp;
+
+      const last = dayjs.unix(lastTick);
+      const from = last.subtract(12, 'hour');
+
+      chartInstance.timeScale().setVisibleRange({
+        from: timeToTz((from.unix() * 1000) as UTCTimestamp),
+        to: timeToTz((last.unix() * 1000) as UTCTimestamp),
+      });
 
       chartInstance.subscribeCrosshairMove((param) => {
         const container = containerRef.current;
@@ -212,21 +254,34 @@ export const Forecast: React.FC<{}> = () => {
 
         const dateStr = formatUnixDate(param.time as UTCTimestamp);
         let pricesHtml = '';
-        newSeries.forEach((ser, idx) => {
+        newChartLines.forEach((ser, idx) => {
           const price = param.seriesPrices.get(ser.instance);
           if (!price) return;
-          const seriesData = series[idx];
+          const seriesData = currentSeries[idx];
 
           pricesHtml += `
             <div class="chart-info__pricedata">
-              <i style="background: ${color[idx]}"></i> 
+              <i style="background: ${colors[idx]}"></i> 
               <p>${seriesData.name}:</p>&nbsp;${formatPrice(price as number)}
             </div>`;
         });
 
+        let markersHtml = '';
+
+        // show markers data
+        if (param.hoveredMarkerId) {
+          if (param.hoveredMarkerId === 'update') {
+            markersHtml += `<div class="chart-info__marker">
+              <i style="background: #f68410"></i> 
+              <span>${t('marker.changes')}</span>
+            </div>`;
+          }
+        }
+
         tooltipRef.current.innerHTML = `<div class="chart-info__inner">
             <div class="chart-info__label">${dateStr}</div>
             <div class="chart-info__prices">${pricesHtml}</div>
+            <div class="chart-info__markers">${markersHtml}</div>
           </div>`;
 
         // set tooltip position
@@ -244,11 +299,28 @@ export const Forecast: React.FC<{}> = () => {
     } else {
       // update data
       chartLines.forEach((lineSeries, idx) => {
-        lineSeries.instance.setData(series[idx].data);
+        lineSeries.instance.setData(currentSeries[idx].data);
+
+        // if (series[idx].showChanges) {
+        //   let markers: SeriesMarker<Time>[] = [];
+        //   forecastChanges.forEach((x) => {
+        //     markers.push({
+        //       id: 'update',
+        //       time: x.time,
+        //       position: 'belowBar' as SeriesMarkerPosition,
+        //       color: '#f68410',
+        //       shape: 'circle' as SeriesMarkerShape,
+        //       text: 'Update',
+        //     });
+        //   });
+
+        //   lineSeries.instance.setMarkers(markers);
+        // }
       });
     }
 
     setLoading(false);
+    setLastUpdate(formatDate(new Date()));
 
     return () => {
       chart?.current?.remove();
@@ -261,7 +333,7 @@ export const Forecast: React.FC<{}> = () => {
       chart?.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
-          background: { color: '#1C2326' },
+          background: { color: '#1d2426' },
         },
         grid: {
           horzLines: { color: '#5F636A' },
@@ -284,7 +356,7 @@ export const Forecast: React.FC<{}> = () => {
   useEffect(() => {
     if (data && currentCoin) {
       const coinData = data?.[currentCoin];
-      if (coinData) initChart(coinData);
+      if (coinData) initOrUpdateChart(coinData);
     }
   }, [currentCoin, data]);
 
@@ -317,24 +389,58 @@ export const Forecast: React.FC<{}> = () => {
     }
   };
 
+  const viewLocked = !userData?.tariff || !tariffActive;
+
   return (
-    <>
-      <ForecastLegend colors={colors} data={series} handleToggle={handleChangeSeries} />
+    <div className={cns('chart', viewLocked && 'chart--locked')}>
+      <ForecastFilter
+        legendActive={legendActive}
+        setLegendActive={(x) => setLegendActive(x)}
+        lastUpdate={lastUpdate}
+      />
 
-      <div
-        ref={containerRef}
-        className="chart-container"
-        style={{
-          opacity: loading ? '0' : '1',
-        }}>
-        <div className="chart-info" ref={tooltipRef}></div>
-      </div>
+      <ForecastLegend
+        active={legendActive}
+        colors={colors}
+        data={series}
+        handleToggle={handleChangeSeries}
+      />
 
-      {loading && (
+      {!viewLocked ? (
+        <div
+          ref={containerRef}
+          className="chart-container"
+          style={{
+            opacity: loading ? '0' : '1',
+          }}>
+          <div className="chart-info" ref={tooltipRef}></div>
+          <div className="chart-watermark">
+            {[0, 1, 2, 3].map((x) => (
+              <>
+                <div className="chart-watermark__col">
+                  <Logo />
+                </div>
+                <div className="chart-watermark__col">
+                  <Logo />
+                  <Logo />
+                </div>
+              </>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <img style={{ minHeight: 200 }} src="/img/temp/chart.png" width="100%" alt="" />
+      )}
+
+      <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
+
+      {viewLocked && <LockScreen section={t('lock')} textModifier={'big'} />}
+
+      {/* {loading && (
         <div className="chart__load">
           <Loader />
         </div>
-      )}
-    </>
+      )} */}
+    </div>
   );
 };

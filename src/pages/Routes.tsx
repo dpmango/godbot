@@ -4,11 +4,12 @@ import Cookies from 'js-cookie';
 import { useLocation } from 'react-router-dom';
 
 import { HomePage } from '@/pages/HomePage';
-import { PaymentPage } from '@/pages/PaymentPage';
 import { Authorization } from '@/pages/Authorization';
 import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
-import { Partnership } from '@/pages/Partnership';
+// import { Partnership } from '@/pages/_Partnership';
+// import { PaymentPage } from '@/pages/_PaymentPage';
+import { NotFound } from '@/pages/NotFound';
 
 const ProtectedRoute = () => {
   const accessToken = Cookies.get('auth');
@@ -36,11 +37,11 @@ const Router = () => (
 
     <Route path="/" element={<ProtectedRoute />}>
       <Route index element={<HomePage />} />
-      <Route path="partnership" element={<Partnership />} />
-      <Route path="payment" element={<PaymentPage />} />
+      {/* <Route path="partnership" element={<Partnership />} />
+      <Route path="payment" element={<PaymentPage />} /> */}
     </Route>
 
-    <Route path="*" element={<Navigate to="/" replace />} />
+    <Route path="*" element={<NotFound />} />
   </Routes>
 );
 

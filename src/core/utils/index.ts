@@ -1,5 +1,13 @@
-export { timeDiff, isValidDate } from './scripts';
-export { formatDate, formatUnixDate, dateToDDMMMM, secondsToStamp, timeToTz } from './datetime';
+export { getRandomInt } from './dev';
+export {
+  timeDiff,
+  formatDate,
+  formatUnixDate,
+  dateToDDMMMM,
+  secondsToStamp,
+  timeToTz,
+  getTimezone,
+} from './datetime';
 export {
   clearString,
   isValidNumber,

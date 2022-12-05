@@ -3,14 +3,19 @@ import { ThemeContext } from '@/App';
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import cns from 'classnames';
 
-import { useAppSelector } from '@store';
+import { useAppSelector } from '@core';
 
 import { Header } from '@c/Layout/Header';
-import { TarifWindow } from '@c/Modals';
-import { Greeting } from '@/components/Modals/Greeting/Greeting';
+import {
+  TarifWindow,
+  Activated,
+  DocsPrivacy,
+  DocsTerms,
+  DocsCookies,
+  DocsDisclaimer,
+} from '@c/Modals';
 import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
 
-import './layout.scss';
 interface ILayout {
   children: React.ReactElement[] | React.ReactElement;
 }
@@ -23,19 +28,16 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
 
   return (
     <>
-      <div className={cns('main', ctx?.theme && '_black-theme')}>
+      <div className={cns('mainwrap', ctx?.theme ? 'themeDark' : 'themeLight')}>
+        <Header />
+        {children}
+
         {searchParams.get('tariffs') !== null && <TarifWindow />}
-
-        <div className="container">
-          <Header />
-          {children}
-        </div>
-
-        <Link
-          to={pathname}
-          className={cns('blur-bg', searchParams.get('tariffs') !== null && 'show')}
-        />
-        {currentModal ? <Greeting /> : ''}
+        {searchParams.get('activated') !== null && <Activated />}
+        {searchParams.get('privacy') !== null && <DocsPrivacy />}
+        {searchParams.get('terms') !== null && <DocsTerms />}
+        {searchParams.get('cookies') !== null && <DocsCookies />}
+        {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
 
         <TeletypeWidget />
       </div>

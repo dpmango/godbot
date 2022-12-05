@@ -7,7 +7,7 @@ export interface IInvesting {
 }
 
 export interface IInvestingGrafDto {
-  time_list_forecast: { [key: string]: Date };
+  time_list_forecast: { [key: string]: string };
   trend_forecast: { [key: string]: number | null };
   price_btc: { [key: string]: number | null };
   up: { [key: string]: number | null };

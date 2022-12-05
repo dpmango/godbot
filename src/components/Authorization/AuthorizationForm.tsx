@@ -1,36 +1,38 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import { toast } from 'react-toastify';
 import { Formik, FormikProps, Form, Field, FieldProps } from 'formik';
 import cns from 'classnames';
+import { useTranslation } from 'react-i18next';
 
-import { Button } from '@ui';
 import { api } from '@core';
 import { validEmail, localStorageSet, localStorageGet } from '@utils';
-import './authorization.scss';
 
 interface IFormValues {
   email: string;
 }
 const formInitial: IFormValues = {
-  email: '',
+  email: localStorageGet('email') || '',
 };
 
 export const AuthorizationForm: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [focused, setFocused] = useState(false);
+  const [locked, setLocked] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { t } = useTranslation('auth');
 
   const handleValidation = (values: IFormValues) => {
     const errors: any = {};
 
     if (!values.email) {
-      errors.email = 'Введите email';
+      errors.email = t('email.validation.empty');
     } else if (!validEmail(values.email)) {
-      errors.email = 'Неверный формат email';
+      errors.email = t('email.validation.mask');
     }
 
     return errors;
@@ -38,7 +40,9 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
   const handleSubmit = useCallback(
     async (values: IFormValues) => {
-      if (loading) return;
+      const errors = handleValidation(values);
+
+      if (loading && Object.keys(errors).length) return;
 
       const lockedState = localStorageGet('locked');
       if (lockedState) {
@@ -46,7 +50,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
         if (secondsPast < 60 * 60) {
           const minutesToUnlock = 60 - Math.round(secondsPast / 60);
-          setError(`Вход заблокирован на ${minutesToUnlock} минут`);
+          setError(t('entry.locked', { minutesToUnlock }) as string);
           return;
         }
       }
@@ -60,7 +64,6 @@ export const AuthorizationForm: React.FC<{}> = () => {
       setLoading(false);
 
       if (error) {
-        // toast.error(`${error.status} ${error.message}`);
         setError(error.message);
         return;
       }
@@ -74,48 +77,76 @@ export const AuthorizationForm: React.FC<{}> = () => {
   useEffect(() => {
     if (location.state?.error) {
       setError(location.state?.error);
+      setLocked(true);
     }
   }, [location]);
 
   return (
-    <div className="authorization__form">
+    <>
       <Helmet>
         <title>Godbot | Authorization</title>
       </Helmet>
 
-      <h2 className="authorization__title">Вход / Регистрация</h2>
-
-      <Formik initialValues={formInitial} validate={handleValidation} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={formInitial}
+        validate={handleValidation}
+        validateForm={handleValidation}
+        onSubmit={handleSubmit}>
         {({ isValid, dirty, errors, setFieldError }: FormikProps<IFormValues>) => (
-          <Form className={cns('authorization__label', error && '_error')}>
-            <p>Введите ваш Email для получения кода авторизации</p>
+          <Form className={cns('login__form', error && '_error')}>
+            <div className="login__title">{t('entry.title')}</div>
+            <div className="login__top-text">{t('entry.instruction')}</div>
 
             <Field type="text" name="email">
               {({ field, form: { setFieldValue }, meta, ...props }: FieldProps) => (
-                <input
-                  {...field}
-                  {...props}
-                  value={field.value}
-                  className={cns('authorization__input', meta.touched && errors.email && '_error')}
-                  placeholder="Введите ваш Email"
-                  type="email"
-                  onChange={(v) => {
-                    setFieldValue(field.name, v.target.value);
-                    setFieldError(field.name, '');
-                    setError('');
-                  }}
-                />
+                <div
+                  className={cns(
+                    'login__input',
+                    !focused && errors.email && 'login__input--invalid',
+                    locked && 'login__input--disabled'
+                  )}>
+                  <input
+                    {...field}
+                    {...props}
+                    value={field.value}
+                    type="text"
+                    placeholder={t('email.placeholder') as string}
+                    disabled={locked}
+                    onChange={(v) => {
+                      setFieldValue(field.name, v.target.value);
+                      setFieldError(field.name, '');
+                      setError('');
+                    }}
+                    onFocus={() => {
+                      setFocused(true);
+                    }}
+                    onBlur={() => {
+                      setFocused(false);
+                    }}
+                  />
+                  <svg width="24" height="24">
+                    <use xlinkHref="/img/login-sprite.svg#email"></use>
+                  </svg>
+                </div>
               )}
             </Field>
 
-            {error && <div className="authorization__text _error _error-main">{error}</div>}
+            {!focused && (error || errors.email) && (
+              <div className="login__input-info login__input-info--invalid">
+                {error || errors.email}
+              </div>
+            )}
 
-            <Button type="submit" loading={loading} block={true} disabled={!dirty || !isValid}>
-              Войти
-            </Button>
+            <div className="login__submit">
+              <button
+                className={cns('btn login__btn', (!isValid || !!error) && 'btn--disabled')}
+                disabled={!isValid || !!error}>
+                {t('entry.action')}
+              </button>
+            </div>
           </Form>
         )}
       </Formik>
-    </div>
+    </>
   );
 };

@@ -1,3 +1,187 @@
 {
-  "foo": "bar"
+  "auth": {
+    "entry": {
+      "title": "Login / Registration",
+      "instruction": "Enter your Email to receive an authorization code",
+      "action": "Login",
+      "locked": "Login blocked for {{minutesToUnlock}} minutes"
+    },
+    "code": {
+      "title": "Verification",
+      "instruction": "You will receive an email with a verification code. Enter it here to confirm your login",
+      "spamcheck": "If you didn't receive an email, check your spam folder",
+      "resend": "Send again",
+      "confirm": "Confirm",
+      "back": "Back"
+    },
+    "email": {
+      "placeholder": "Enter your Email",
+      "validation": {
+        "empty": "Enter email",
+        "mask": "Invalid email"
+      }
+    }
+  },
+  "header": {
+    "menu": {
+      "home": "home",
+      "partner": "affiliate program",
+      "education": "Education Centre"
+    },
+    "user": {
+      "subscription": "Subscription until"
+    },
+    "actions": {
+      "changeTariff": "Change tariff",
+      "connectBot": "Link Telegram bot",
+      "payedChat": "Go to Telegram chat"
+    },
+    "policies": {
+      "confidentiality": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "disclaimer": "Disclaimer"
+    }
+  },
+  "charts": {
+    "tabs": {
+      "trading": "Trading",
+      "investing": "Investment"
+    }
+  },
+  "forecast": {
+    "filter": {
+      "title": "Forecast Graph",
+      "estimate": "Order a miscalculation",
+      "coins": {},
+      "ticks": {
+        "15min": "15 minutes",
+        "1h": "1 hour",
+        "1d": "1 day"
+      }
+    },
+    "legend": {
+      "title": "Graph Options"
+    },
+    "marker": {
+      "changes": "Forecast updated"
+    },
+    "lastUpdate": "Forecast updated",
+    "lock": "neural network graphics"
+  },
+  "investing": {
+    "lock": "forecast"
+  },
+  "signal": {
+    "title": "Trading Recommendations",
+    "select": {
+      "all": "All",
+      "placeholder": "Deal status"
+    },
+    "status": {
+      "active": "Actively",
+      "waiting": "Pending",
+      "cancel": "Canceled",
+      "profit": "Closed woth profit",
+      "loss": "Closed by stop"
+    },
+    "table": {
+      "date": "Signal date",
+      "name": "Cryptocurrency",
+      "type": "Order type",
+      "status": "Deal status",
+      "enter": "Entry price",
+      "exit": "Exit price",
+      "stop": "Stop loss",
+      "risk": "Risk per trade"
+    },
+    "lock": "forecasts"
+  },
+  "tariff": {
+    "title": "Tariffs",
+    "pricePer": "per",
+    "pay": "Pay",
+    "gift": "gift",
+    "noGift": "no gift",
+    "units": {
+      "day": {
+        "one": "day",
+        "two": "days",
+        "five": "days"
+      },
+      "week": {
+        "one": "week",
+        "two": "weeks",
+        "five": "weeks"
+      },
+      "month": {
+        "one": "month",
+        "two": "months",
+        "five": "months"
+      }
+    },
+    "description": {
+      "trader": [
+        "BTC 15 minute forecast chart",
+        "Signals to buy and sell assets from AI",
+        "Partial access to the training course",
+        "Connecting a Telegram bot (coming soon)",
+        "24/7 support service"
+      ],
+      "protrader": [
+        "Forecast charts: BTC, ETH, XRP on all timeframes",
+        "Signals to buy and sell assets from AI",
+        "Full access to the training course",
+        "Connecting a Telegram bot (coming soon)",
+        "24/7 support service",
+        "The ability to order a calculation of the price of 1 of any asset per month",
+        "Forecast charts for other assets: indices, stocks, exchange rates, inflation, etc.",
+        "Access to the private chat of traders"
+      ]
+    }
+  },
+  "activated": {
+    "title": "Congratulations!",
+    "text": "You have activated a trial plan for 7 days. ",
+    "action": "GO!"
+  },
+  "greeting": {
+    "title": "Welcome to your personal account!",
+    "text": "We offer you to get acquainted with the service in a little more detail with the help of our guide.",
+    "action": "GO!",
+    "skip": "SKIP"
+  },
+  "error": {
+    "notfound": {
+      "title": "Page not found",
+      "action": "Go to Main page"
+    }
+  },
+  "ui": {
+    "select": {
+      "defaultPlaceholder": "Select",
+      "empty": "Options not available"
+    },
+    "lock": {
+      "activate": {
+        "text": "To display {{section}} you need to activate the tariff",
+        "action": "SELECT TARIFF"
+      },
+      "upgrade": {
+        "text": "To display {{section}} you need to connect the PRO tariff",
+        "action": "CONNECT PRO"
+      },
+      "prolong": {
+        "text": "To display {{section}} you need to extend the tariff",
+        "action": "SELECT TARIFF"
+      },
+      "trial": {
+        "text": "To display {{section}} you need to activate the tariff",
+        "action": "TRY IT FOR FREE"
+      }
+    },
+    "modal": {
+      "close": "Close"
+    }
+  }
 }

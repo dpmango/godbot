@@ -1,45 +1,45 @@
-import { FC, useState } from 'react';
-import { useAppSelector } from '@store';
-import './greeting.scss';
+import { useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
 
-interface IGreetingProps {}
+import { useAppSelector } from '@core';
+import { Modal } from '@ui';
+import { useClickOutside } from '@hooks';
 
-export const Greeting: FC<IGreetingProps> = () => {
+export const Greeting: React.FC<{}> = () => {
   const { currentModal } = useAppSelector((state) => state.modalState);
+
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { t } = useTranslation('greeting');
+
+  const closeModal = () => {
+    navigate(pathname);
+  };
+
+  const modalRef = useRef(null);
+  useClickOutside(modalRef, closeModal);
 
   return (
     <>
-      <div className="greeting__bg"></div>
-      <div className="greeting__form">
-        {currentModal === 'selebrate' ? (
-          <div>
-            <h3>Поздравляем!</h3>
-            <p>
-              Вы активировали тариф Pro на 7 дней. Вам доступен весь функционал приложения. Желаем
-              успешной торговли
-            </p>
-            <div>
-              <button>НАЧАТЬ</button>
-              {/* <button></button> */}
+      <Helmet>
+        <title>Godbot | Greeting</title>
+      </Helmet>
+
+      <Modal name="greeting">
+        <div className="modal__block" ref={modalRef}>
+          <div className="modal__title">{t('title')}</div>
+          <div className="modal__text">{t('text')}</div>
+          <div className="modal__btns">
+            <div className="btn btn--modal" onClick={closeModal}>
+              {t('action')}
             </div>
+            <div className="btn btn--secondary btn--modal">{t('skip')}</div>
           </div>
-        ) : (
-          ''
-        )}
-        {currentModal === 'greeting' ? (
-          <div>
-            <h3>Благодарим за регистрацию!</h3>
-            <p>Предлагаем ознакомиться с сервисом чуть подробней с помощью нашего руководства</p>
-            <div>
-              <button>НАЧАТЬ</button>
-              <button>ПРОПУСТИТЬ</button>
-              {/* <button></button> */}
-            </div>
-          </div>
-        ) : (
-          ''
-        )}
-      </div>
+        </div>
+      </Modal>
     </>
   );
 };

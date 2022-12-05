@@ -12,15 +12,17 @@ interface ITarifCard extends ITarifDto {
 }
 
 export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, activePeriodIdx }) => {
-  const { t } = useTranslation('tariff');
+  const { t, i18n } = useTranslation('tariff');
 
-  const descriptionList = useMemo(() => {
-    try {
-      return description.split('\r\n');
-    } catch {
-      return [];
+  const descriptionList: string[] = useMemo(() => {
+    if (title === 'Trader') {
+      return t('description.trader', { returnObjects: true });
+    } else if (title === 'PRO Trader') {
+      return t('description.protrader', { returnObjects: true });
     }
-  }, [description]);
+
+    return [];
+  }, [i18n.language]);
 
   const localizeUnits = ({ number, units }: IPeriodObj) => {
     const plural = localizeKeys(number, 'units', units.toLowerCase(), t);
@@ -30,7 +32,22 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
 
   const currentPlan = useMemo(() => {
     const findByMainPeriod = plans[activePeriodIdx];
-    if (findByMainPeriod) return findByMainPeriod;
+    if (findByMainPeriod) {
+      let basePrice = 99;
+      if (title === 'PRO Trader') {
+        basePrice = 999;
+      }
+
+      return {
+        ...findByMainPeriod,
+        old: findByMainPeriod.period.main_period.number * basePrice,
+        scopedPeriod: {
+          ...findByMainPeriod.period.main_period,
+          number:
+            findByMainPeriod.period.main_period.number + findByMainPeriod.period.add_period.number,
+        },
+      };
+    }
 
     return null;
   }, [activePeriodIdx, plans]);
@@ -50,30 +67,28 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
   }, [currentPlan]);
 
   return (
-    <li className="tarif__card">
-      {/* <div className="tarif__service">Скидка 20% до 10.11.2022</div> */}
+    <div className="tarifes__block">
+      {/* <div class="tarifes__gift">В подарок 1 неделя</div> */}
 
-      <div className="tarif__wrapper">
-        <div className="tarif__head">
-          <h5>{title}</h5>
-        </div>
-        {currentPlan && (
-          <p className="tarif__cost">
-            {/* <strong>{formatPrice(plans[activePeriod].cost)}$</strong> */}
-            {formatPrice(currentPlan.cost)}$
+      <div className="tarifes__name">{title}</div>
+      {currentPlan && (
+        <>
+          <div className="tarifes__price">
+            {currentPlan.cost !== currentPlan.old && <del>${formatPrice(currentPlan.old, 0)}</del>}
+            <strong>${formatPrice(currentPlan.cost, 0)}</strong>{' '}
             <span>
-              /{t('pricePer')} {localizeUnits(currentPlan.period.main_period)}
+              /{t('pricePer')} {localizeUnits(currentPlan.scopedPeriod)}
             </span>
-          </p>
-        )}
+          </div>
+          <a className="btn btn--tarifes" onClick={handleActivate}>
+            {t('pay')}
+          </a>
+        </>
+      )}
 
-        <a className="tarif__link" onClick={handleActivate}>
-          {t('pay')}
-        </a>
-        <ul className="tarif__list">
-          {descriptionList && descriptionList.map((x, idx) => <li key={idx}>{x}</li>)}
-        </ul>
-      </div>
-    </li>
+      <ul className="tarifes__text">
+        {descriptionList && descriptionList.map((x, idx) => <li key={idx}>{x}</li>)}
+      </ul>
+    </div>
   );
 };
