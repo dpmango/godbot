@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 :root {
 		--font: Gilroy, -apple-system, "Open Sans", system-ui, "sans-serif";
 		--blue: #4572EE;
@@ -29,6 +28,9 @@
 		--bg-tabs-active: #fff;
 		--tabs-active: var(--red);
 		--bg-violet: #EAE7FF;
+		--tarifes-bg: var(--block-bg);
+		--tarifes-block1: var(--block-bg);
+		--tarifes-block2: var(--block-bg);
 }
 .themeDark {
 		--bg: #141414;
@@ -47,6 +49,9 @@
 		--bg-tabs-active: var(--blue);
 		--tabs-active: var(--white);
 		--bg-violet: #EAE7FF;
+		--tarifes-bg: #000;
+		--tarifes-block1: linear-gradient(180deg, rgba(0, 199, 44, 0.1) 0%, rgba(80, 211, 0, 0) 100%);
+		--tarifes-block2: linear-gradient(180deg, rgba(69, 114, 238, 0.1) 0%, rgba(69, 114, 238, 0) 100%);
 }
 html, body {
 		height: 100%;

@@ -32,15 +32,15 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     return [
       { value: 'btc', label: 'Bitcoin (BTC)' },
       { value: 'xrp', label: 'Ripple (XRP)', isPro: !isProUser },
-      { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
-      {
-        value: 'estimate',
-        label: t('filter.estimate'),
-        isPro: !isProUser,
-        disabled: true,
-        modifier: 'blue',
-        icon: 'plus',
-      },
+      // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
+      // {
+      //   value: 'estimate',
+      //   label: t('filter.estimate'),
+      //   isPro: !isProUser,
+      //   disabled: true,
+      //   modifier: 'blue',
+      //   icon: 'plus',
+      // },
     ];
   }, [isProUser]);
 
@@ -60,8 +60,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   const timeOptions = useMemo(() => {
     return [
       { value: '15min', label: t('filter.ticks.15min') },
-      { value: '1h', label: t('filter.ticks.1h'), isPro: !isProUser, disabled: true },
-      { value: '1d', label: t('filter.ticks.1d'), isPro: !isProUser, disabled: true },
+      // { value: '1h', label: t('filter.ticks.1h'), isPro: !isProUser, disabled: true },
+      // { value: '1d', label: t('filter.ticks.1d'), isPro: !isProUser, disabled: true },
     ];
   }, [isProUser]);
 

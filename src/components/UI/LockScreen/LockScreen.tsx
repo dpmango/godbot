@@ -26,7 +26,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier }) => {
       trial: !userData?.tariff,
       prolong: userData?.tariff && !tariffActive,
       upgrade: !isProUser,
-      activate: true,
+      activate: !userData?.tariff,
     };
   }, [userData?.tariff, tariffActive]);
 

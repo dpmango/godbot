@@ -12,15 +12,17 @@ interface ITarifCard extends ITarifDto {
 }
 
 export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, activePeriodIdx }) => {
-  const { t } = useTranslation('tariff');
+  const { t, i18n } = useTranslation('tariff');
 
-  const descriptionList = useMemo(() => {
-    try {
-      return description.split('\r\n');
-    } catch {
-      return [];
+  const descriptionList: string[] = useMemo(() => {
+    if (title === 'Trader') {
+      return t('description.trader', { returnObjects: true });
+    } else if (title === 'PRO Trader') {
+      return t('description.protrader', { returnObjects: true });
     }
-  }, [description]);
+
+    return [];
+  }, [i18n.language]);
 
   const localizeUnits = ({ number, units }: IPeriodObj) => {
     const plural = localizeKeys(number, 'units', units.toLowerCase(), t);

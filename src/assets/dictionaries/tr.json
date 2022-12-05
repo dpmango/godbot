@@ -117,6 +117,25 @@
         "two": "aylar",
         "five": "aylar"
       }
+    },
+    "description": {
+      "trader": [
+        "BTC 15 dakikalık tahmin tablosu",
+        "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
+        "Eğitim kursuna kısmi erişim",
+        "Bir Telegram botu bağlanıyor (çok yakında)",
+        "7/24 destek hizmeti"
+      ],
+      "protrader": [
+        "Tahmin çizelgeleri: Tüm zaman dilimlerinde BTC, ETH, XRP",
+        "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
+        "Eğitim kursuna tam erişim",
+        "Bir Telegram botu bağlanıyor (çok yakında)",
+        "7/24 destek hizmeti",
+        "Aylık herhangi bir varlığın 1 fiyatının hesaplamasını sipariş edebilme",
+        "Diğer varlıklar için tahmin çizelgeleri: endeksler, hisse senetleri, döviz kurları, enflasyon vb.",
+        "Tüccarların özel sohbetine erişim"
+      ]
     }
   },
   "activated": {
