@@ -25,7 +25,10 @@ const useProfile = () => {
       } else {
         navigate('/auth', { replace: true });
       }
+      return false;
     }
+
+    return true;
   }, []);
 
   const setUserSettings = useCallback(async () => {

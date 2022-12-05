@@ -29,8 +29,8 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      await fetchProfileWithLogout();
-      await setUserSettings();
+      const isUser = await fetchProfileWithLogout();
+      if (isUser) await setUserSettings();
     };
 
     init();

@@ -3,7 +3,8 @@
     "entry": {
       "title": "Login / Registration",
       "instruction": "Enter your Email to receive an authorization code",
-      "action": "Login"
+      "action": "Login",
+      "locked": "Login blocked for {{minutesToUnlock}} minutes"
     },
     "code": {
       "title": "Verification",

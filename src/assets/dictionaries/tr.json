@@ -3,7 +3,8 @@
     "entry": {
       "title": "Giriş Kayıt",
       "instruction": "Bir yetkilendirme kodu almak için E-postanızı girin",
-      "action": "İçeri gel"
+      "action": "İçeri gel",
+      "locked": "Giriş, {{ minutesToUnlock}} dakika süreyle engellendi"
     },
     "code": {
       "title": "Doğrulama",
