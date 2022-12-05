@@ -25,11 +25,13 @@ export const Investing: FC<IInvestingProps> = () => {
               <strong>{investing.currency}</strong> <span>{investing.currency_code}</span>
             </div>
 
-            {isProUser ? (
+            <InvestingChart id={investing.invest_id} />
+
+            {/* {isProUser ? (
               <InvestingChart id={investing.invest_id} />
             ) : (
               <LockScreen section={t('lock') as string} />
-            )}
+            )} */}
           </div>
         ))}
       </div>

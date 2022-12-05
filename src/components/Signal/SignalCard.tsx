@@ -10,7 +10,7 @@ interface ISignalCard {
 }
 
 export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
-  const { t } = useTranslation('signal');
+  const { t, i18n } = useTranslation('signal');
 
   const signalStatus = useMemo(() => {
     let color = '';
@@ -44,7 +44,7 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
       color,
       title,
     };
-  }, [signal.status]);
+  }, [signal.status, i18n.language]);
 
   return (
     <tr>

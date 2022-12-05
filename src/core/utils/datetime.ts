@@ -61,3 +61,7 @@ export const timeToTz = (originalTime: UTCTimestamp) => {
   const zonedDate = zonedTimeToUtc(originalTime, 'Etc/UTC');
   return (zonedDate.getTime() / 1000) as UTCTimestamp;
 };
+
+export const getTimezone = () => {
+  return dayjs.tz.guess();
+};

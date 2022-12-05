@@ -1,15 +1,18 @@
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch } from '@core';
+import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
-import { localStorageGet } from '@utils';
+import { localStorageGet, getTimezone } from '@utils';
 
 const useProfile = () => {
   const { userData } = useAppSelector((state) => state.userState);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { i18n } = useTranslation();
 
   const fetchProfileWithLogout = useCallback(async () => {
     const { payload } = await dispatch(getCurrentUser());
@@ -25,6 +28,15 @@ const useProfile = () => {
     }
   }, []);
 
+  const setUserSettings = useCallback(async () => {
+    const { data, error } = await api('user_settings/', {
+      method: 'POST',
+      body: { timezone: getTimezone(), language: i18n.language },
+    });
+
+    return { data, error };
+  }, []);
+
   const allowedFunctions = useMemo(() => {
     return {
       forecast: !!userData?.allowed_functions?.includes('Forecast'),
@@ -36,6 +48,7 @@ const useProfile = () => {
   return {
     allowedFunctions,
     fetchProfileWithLogout,
+    setUserSettings,
   };
 };
 

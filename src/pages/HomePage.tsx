@@ -1,11 +1,7 @@
 import Cookies from 'js-cookie';
 import { useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 
-import { api, useAppDispatch } from '@core';
-import { getCurrentUser } from '@store';
 import { useProfile, useTariff } from '@hooks';
 
 import { Layout } from '@c/Layout/Layout';
@@ -13,9 +9,6 @@ import { ChartsRouter } from '@c/Charts';
 import { Signals } from '@c/Signal';
 
 export const HomePage: React.FC<{}> = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
   const { fetchProfileWithLogout } = useProfile();
   const { activateTrial } = useTariff();
 

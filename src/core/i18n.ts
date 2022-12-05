@@ -8,9 +8,9 @@ import en from '@assets/dictionaries/en.json';
 import tr from '@assets/dictionaries/tr.json';
 
 const resources = {
-  ru,
-  en,
-  tr,
+  'ru-RU': ru,
+  'en-US': en,
+  'tr-TR': tr,
 };
 
 i18n
@@ -18,8 +18,8 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    supportedLngs: ['ru', 'en', 'tr'],
-    fallbackLng: 'ru',
+    supportedLngs: ['ru-RU', 'en-US', 'tr-TR'],
+    fallbackLng: 'ru-RU',
     defaultNS: '',
     debug: process.env.NODE_ENV !== 'production',
     detection: {

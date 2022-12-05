@@ -15,7 +15,7 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  const { fetchProfileWithLogout } = useProfile();
+  const { fetchProfileWithLogout, setUserSettings } = useProfile();
 
   if (!localStorageGet('theme')) {
     localStorageSet('theme', false);
@@ -28,7 +28,12 @@ function App() {
   };
 
   useEffect(() => {
-    fetchProfileWithLogout();
+    const init = async () => {
+      await fetchProfileWithLogout();
+      await setUserSettings();
+    };
+
+    init();
   }, []);
 
   return (

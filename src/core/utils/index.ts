@@ -6,6 +6,7 @@ export {
   dateToDDMMMM,
   secondsToStamp,
   timeToTz,
+  getTimezone,
 } from './datetime';
 export {
   clearString,

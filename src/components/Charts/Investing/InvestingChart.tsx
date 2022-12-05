@@ -15,6 +15,7 @@ import { ThemeContext } from '@/App';
 import { timeToTz, formatPrice } from '@utils';
 import { IInvestingGrafDto } from '@core/interface/Investor';
 import { api } from '@core';
+import { time } from 'console';
 
 interface IInvestingChartProps {
   id: number;
@@ -35,11 +36,13 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
     if (!data) return;
 
     const investDataMapped = Object.keys(data.time_list_forecast).map((key, idx) => {
-      const timeUnix = dayjs(
-        data.time_list_forecast[key],
-        'YYYY-MM-DD',
-        true
-      ).unix() as UTCTimestamp;
+      const timeValue = data.time_list_forecast[key];
+      let mask = 'YYYY-MM-DD';
+      if (timeValue.length > 10) {
+        mask = 'YYYY-MM-DD HH:mm:ss';
+      }
+
+      const timeUnix = dayjs(timeValue, mask, true).unix() as UTCTimestamp;
 
       return {
         time: timeToTz((timeUnix * 1000) as UTCTimestamp),
@@ -160,5 +163,5 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
     };
   }, []);
 
-  return <div ref={containerRef} />;
+  return <div data-id={id} ref={containerRef} style={{ height: 140 }} />;
 };
