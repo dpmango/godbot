@@ -74,15 +74,15 @@ export const UserCard: React.FC<{}> = () => {
           </a>
         </div>
         <div className="header__user-soc">
-          <Link to={'https://twitter.com/godbot_pro'} target="_blank" title="Twitter">
+          <a href={'https://twitter.com/godbot_pro'} target="_blank" title="Twitter">
             <img src="/img/social/twitter.svg" alt="Twitter" />
-          </Link>
-          <Link to={'https://discord.com/invite/Jnptpsmcmx'} target="_blank" title="Discord">
+          </a>
+          <a href={'https://discord.com/invite/Jnptpsmcmx'} target="_blank" title="Discord">
             <img src="/img/social/discord.svg" alt="Discord" />
-          </Link>
-          <Link to={'https://t.me/godbot_pro'} target="_blank" title="Telegram">
+          </a>
+          <a href={'https://t.me/godbot_pro'} target="_blank" title="Telegram">
             <img src="/img/social/telegram.svg" alt="Telegram" />
-          </Link>
+          </a>
         </div>
         <div className="header__user-theme">
           <SpriteIcon name="sun" width="20" height="20" />
