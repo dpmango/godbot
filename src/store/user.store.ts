@@ -11,6 +11,7 @@ export interface IUserState {
   tariff: string;
   subscription_date: Date;
   allowed_functions: string[];
+  access_level: number;
 }
 
 export interface IUserLogin {

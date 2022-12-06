@@ -18,31 +18,57 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   setLegendActive,
   lastUpdate,
 }) => {
-  const { isProUser, loading } = useAppSelector((state) => state.userState);
+  const { isProUser, userData, loading } = useAppSelector((state) => state.userState);
   const [currentTime, setTimeOption] = useState<string>('15min');
 
-  const { currentCoin } = useAppSelector((state) => state.forecastState);
+  const { currentCoin, data } = useAppSelector((state) => state.forecastState);
   const dispatch = useAppDispatch();
 
   let [searchParams, setSearchParams] = useSearchParams();
-  const { t } = useTranslation('forecast');
+  const { t, i18n } = useTranslation('forecast');
 
   // coins
   const coinOptions = useMemo(() => {
-    return [
-      { value: 'BTC', label: 'Bitcoin (BTC)' },
-      { value: 'XRP', label: 'Ripple (XRP)', disabled: !isProUser, isPro: !isProUser },
-      // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
-      // {
-      //   value: 'estimate',
-      //   label: t('filter.estimate'),
-      //   isPro: !isProUser,
-      //   disabled: true,
-      //   modifier: 'blue',
-      //   icon: 'plus',
-      // },
-    ];
-  }, [isProUser]);
+    const getCoinNameByTicker = (ticker: string) => {
+      switch (ticker) {
+        case 'BTC':
+          return 'Bitcoin (BTC)';
+        case 'XRP':
+          return 'Ripple (XRP)';
+
+        default:
+          return ticker;
+      }
+    };
+
+    if (data.currencies_access_level && userData?.access_level) {
+      return Object.keys(data.currencies_access_level).map((key: string) => {
+        // @ts-ignore
+        const coinAccessLevel = data.currencies_access_level[key] as number;
+        return {
+          value: key,
+          label: getCoinNameByTicker(key),
+          disabled: userData?.access_level < coinAccessLevel,
+          isPro: userData?.access_level < coinAccessLevel,
+        } as ISelectOption;
+      });
+    }
+
+    return [];
+    // return [
+    //   { value: 'BTC', label: 'Bitcoin (BTC)' },
+    //   { value: 'XRP', label: 'Ripple (XRP)', disabled: !isProUser, isPro: !isProUser },
+    //   // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
+    //   // {
+    //   //   value: 'estimate',
+    //   //   label: t('filter.estimate'),
+    //   //   isPro: !isProUser,
+    //   //   disabled: true,
+    //   //   modifier: 'blue',
+    //   //   icon: 'plus',
+    //   // },
+    // ];
+  }, [isProUser, data.currencies_access_level, userData?.access_level]);
 
   const handleCoinChange = useCallback(
     (opt: ISelectOption) => {
@@ -63,7 +89,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       // { value: '1h', label: t('filter.ticks.1h'), isPro: !isProUser, disabled: true },
       // { value: '1d', label: t('filter.ticks.1d'), isPro: !isProUser, disabled: true },
     ];
-  }, [isProUser]);
+  }, [isProUser, i18n.language]);
 
   const handleTimeChange = useCallback(
     (opt: ISelectOption) => {
@@ -89,12 +115,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     <div className="chart__head">
       <div className="chart__head-title">{t('filter.title')}</div>
       <div className="chart__head-filters">
-        <Select
-          value={searchParams.get('coin') || ''}
-          options={coinOptions}
-          onSelect={handleCoinChange}
-        />
-        {/* <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} /> */}
+        <Select value={currentCoin} options={coinOptions} onSelect={handleCoinChange} />
+        <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
       </div>
 
       {lastUpdate && (
