@@ -4,6 +4,7 @@ export interface IInvesting {
   currency_icon: string;
   currency_code: string;
   datetime: string;
+  isPlaceholder?: boolean;
 }
 
 export interface IInvestingGrafDto {

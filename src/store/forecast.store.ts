@@ -17,7 +17,7 @@ interface IChartData {
 
 const initialState: IChartData = {
   loading: 'pending',
-  currentCoin: 'BTC',
+  currentCoin: '',
   data: {},
 };
 

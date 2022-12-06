@@ -17,11 +17,16 @@ export const Investing: FC<IInvestingProps> = () => {
 
   const displayGrid = useMemo(() => {
     if (!isProUser) {
-      return placeholderInvesting;
+      if (graphs?.data) {
+        const fillPlaceholders = placeholderInvesting.slice(graphs?.data?.length, 8);
+        return [...graphs?.data, ...fillPlaceholders];
+      } else {
+        return placeholderInvesting;
+      }
     }
 
     return graphs?.data;
-  }, [graphs?.data]);
+  }, [graphs?.data, isProUser]);
 
   return (
     <div className="investing">
@@ -33,7 +38,7 @@ export const Investing: FC<IInvestingProps> = () => {
               <strong>{investing.currency}</strong> <span>{investing.currency_code}</span>
             </div>
 
-            {isProUser ? (
+            {!investing.isPlaceholder ? (
               <InvestingChart id={investing.invest_id} />
             ) : (
               <LockScreen section={t('lock') as string} />

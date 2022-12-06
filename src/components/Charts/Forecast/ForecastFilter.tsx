@@ -72,11 +72,11 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
   const handleCoinChange = useCallback(
     (opt: ISelectOption) => {
-      const newTimeKey = opt.value as string;
-      dispatch(setStateCoin(newTimeKey));
+      const newCoinKey = opt.value as string;
+      dispatch(setStateCoin(newCoinKey));
 
       let newParams = searchParams;
-      newParams.set('coin', newTimeKey);
+      newParams.set('coin', newCoinKey);
       setSearchParams(newParams);
     },
     [searchParams]
@@ -106,10 +106,12 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   // initial params parser
   useEffect(() => {
     const coinParam = searchParams.get('coin');
-    if (coinParam && timeOptions.some((x) => x.value === coinParam)) {
+    if (coinParam && coinOptions.some((x) => x.value === coinParam)) {
       dispatch(setStateCoin(coinParam));
+    } else if (!coinParam) {
+      dispatch(setStateCoin(''));
     }
-  }, []);
+  }, [coinOptions, searchParams]);
 
   return (
     <div className="chart__head">
