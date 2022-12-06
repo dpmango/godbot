@@ -33,13 +33,16 @@
 		font-weight: normal;
 		font-size: 12px;
 		line-height: 14px;
-		color: var(--grey);
+		color: var(--investing-name);
 		margin: 0 0 16px 0;
 }
 .investing__name img {
 		flex: 0 0 auto;
 		height: 20px;
-		width: auto;
+		width: 20px;
+		object-fit: cover;
+		object-position: center;
+		border-radius: 50%;
 		margin-right: -3px;
 }
 .investing__name strong {

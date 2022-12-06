@@ -31,6 +31,7 @@
 		--tarifes-bg: var(--block-bg);
 		--tarifes-block1: var(--block-bg);
 		--tarifes-block2: var(--block-bg);
+		--investing-name: var(--grey);
 }
 .themeDark {
 		--bg: #141414;
@@ -52,6 +53,7 @@
 		--tarifes-bg: #000;
 		--tarifes-block1: linear-gradient(180deg, rgba(0, 199, 44, 0.1) 0%, rgba(80, 211, 0, 0) 100%);
 		--tarifes-block2: linear-gradient(180deg, rgba(69, 114, 238, 0.1) 0%, rgba(69, 114, 238, 0) 100%);
+		--investing-name: var(--text);
 }
 html, body {
 		height: 100%;
