@@ -23,7 +23,7 @@ export const Signals: React.FC<{}> = () => {
 
   const viewLocked = !userData?.tariff || !tariffActive;
 
-  const { t } = useTranslation('signal');
+  const { t, i18n } = useTranslation('signal');
 
   const selectOptions = useMemo(() => {
     return [
@@ -34,7 +34,7 @@ export const Signals: React.FC<{}> = () => {
       { value: 'profit', label: t('status.profit') },
       { value: 'loss', label: t('status.loss') },
     ];
-  }, []);
+  }, [i18n.language]);
 
   const signalsWithFilter = useMemo(() => {
     if (viewLocked) {
