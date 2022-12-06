@@ -9,7 +9,7 @@ import { timeDiff } from '@utils';
 export interface IUserState {
   name: string;
   tariff: string;
-  subscription_date: Date;
+  expire_date: Date;
   allowed_functions: string[];
   access_level: number;
 }
@@ -65,8 +65,8 @@ export const userState = createSlice({
         ...action.payload,
       };
 
-      if (action.payload?.subscription_date) {
-        const date = dayjs(action.payload?.subscription_date).unix();
+      if (action.payload?.expire_date) {
+        const date = dayjs(action.payload?.expire_date).unix();
 
         state.tariffActive = timeDiff(date * 1000) > 0;
       }
