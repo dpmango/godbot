@@ -109,7 +109,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     if (coinParam && coinOptions.some((x) => x.value === coinParam)) {
       dispatch(setStateCoin(coinParam));
     } else if (!coinParam) {
-      dispatch(setStateCoin(''));
+      dispatch(setStateCoin('BTC'));
     }
   }, [coinOptions, searchParams]);
 
