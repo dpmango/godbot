@@ -39,7 +39,7 @@ interface ISeriesData {
 
 export const Forecast: React.FC<{}> = () => {
   const { data, currentCoin } = useAppSelector((state) => state.forecastState);
-  const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  const { userData } = useAppSelector((state) => state.userState);
   const [loading, setLoading] = useState<boolean>(true);
   const [legendActive, setLegendActive] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
@@ -393,7 +393,7 @@ export const Forecast: React.FC<{}> = () => {
     }
   };
 
-  const viewLocked = !userData?.tariff || !tariffActive;
+  const viewLocked = !userData?.tariff;
 
   return (
     <div className={cns('chart', viewLocked && 'chart--locked')}>

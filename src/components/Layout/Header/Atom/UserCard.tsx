@@ -34,7 +34,7 @@ export const UserCard: React.FC<{}> = () => {
 
           <div className="header__user-email">{userData?.name}</div>
 
-          {userData?.tariff && (
+          {userData?.expire_date && (
             <div className="header__user-time">
               {t('user.subscription')}:{' '}
               <strong
