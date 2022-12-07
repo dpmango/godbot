@@ -30,39 +30,32 @@ export const DocsCookies: React.FC<{}> = () => {
 
       <Modal name="cookies">
         <div className="modal__block modal__block--text" ref={modalRef}>
-          <div className="modal__title">Cookies Policy</div>
           <div className="modal__text">
+            <h1>Cookies Policy</h1>
             <p>
-              This Cookies Policy (<strong>&quot;Cookies Policy&quot;</strong>) describes cookies
-              and other technologies that GodBot,&nbsp;&nbsp;(<strong>&quot;GodBot&quot;</strong>,{' '}
-              <strong>&quot;we&quot;</strong>, <strong>&quot;us&quot;</strong> or{' '}
-              <strong>&quot;our&quot;</strong>) uses on its website (
-              <strong>&quot;Site&quot;</strong>) and the choices that users have. This Cookies
-              Policy is a part of GodBot&rsquo;s Privacy Policy.&nbsp;
+              This Cookies Policy ("<strong>Cookies Policy</strong>") describes cookies and other
+              technologies that GodBot, ("<strong>GodBot</strong>", "<strong>we</strong>", "
+              <strong>us</strong>" or "<strong>our</strong>") uses on its website ("
+              <strong>Site</strong>") and the choices that users have. This Cookies Policy is a part
+              of GodBot’s Privacy Policy. When you first visit the Site, you will be asked to
+              consent to the use of cookies in accordance with this Cookies Policy. Note that if you
+              accept, we will store them on your computer.
             </p>
+            <h2>What is a cookie?</h2>
             <p>
-              When you first visit the Site, you will be asked to consent to the use of cookies in
-              accordance with this Cookies Policy. Note that if you accept, we will store them on
-              your computer.
-            </p>
-            <p>
-              <strong>What is a cookie?</strong>
-            </p>
-            <p>
-              A &apos;cookie&apos; is a piece of information that is sent to your browser by a
-              website you visit. The Site uses first party cookies (those set by a website that is
-              being visited by the user at the time. For example, cookies via www.GodBot.pro) as
-              well as third-party cookies (set by a different domain), as described below.
+              A 'cookie' is a piece of information that is sent to your browser by a website you
+              visit. The Site uses first party cookies (those set by a website that is being visited
+              by the user at the time. For example, cookies via www.GodBot.pro) as well as
+              third-party cookies (set by a different domain), as described below.
             </p>
             <p>
               Cookies can be stored on your computer for various periods of time. They can be in a
-              form of either &quot;session cookies&quot; or &quot;persistent cookies.&quot; A
-              session cookie only lasts as long as the browser session and is automatically deleted
-              when you close your browser. A persistent cookie lasts long after your browser is
-              closed and will remain until it expires (as determined by the third party in charge of
-              placing it) or until you delete the cookie. Persistent cookies are used to help sites
-              recognize and identify your computer when you open your browser and surf the Internet
-              again.
+              form of either "session cookies" or "persistent cookies." A session cookie only lasts
+              as long as the browser session and is automatically deleted when you close your
+              browser. A persistent cookie lasts long after your browser is closed and will remain
+              until it expires (as determined by the third party in charge of placing it) or until
+              you delete the cookie. Persistent cookies are used to help sites recognize and
+              identify your computer when you open your browser and surf the Internet again.
             </p>
             <p>
               The data collected through cookies may lude information about the IP (Internet
@@ -75,9 +68,7 @@ export const DocsCookies: React.FC<{}> = () => {
               improve the functionality of our Site, and advertising (for more information on how we
               use your data, please read our Privacy Policy).
             </p>
-            <p>
-              <strong>How do we use cookies?</strong>
-            </p>
+            <h2>How do we use cookies?</h2>
             <p>
               The following sets out how we use different categories of cookies, as well as
               information on your options for managing your settings for the data collected by these
@@ -85,73 +76,72 @@ export const DocsCookies: React.FC<{}> = () => {
             </p>
             <ul>
               <li>
-                <strong>Necessary cookies:</strong> These cookies are used to provide users with
-                services available through a Site and to use some of its features, such as the
-                ability to log-in and access secure areas, provide pop-up notices, and accept
-                language from sign-up forms. These cookies are essential for using and navigating a
-                Site. Without them, basic functions of our Site would not work. Because these
-                cookies are strictly necessary to deliver our Site&rsquo;s essential services, you
-                cannot refuse them.&nbsp;
+                Necessary cookies: These cookies are used to provide users with services available
+                through a Site and to use some of its features, such as the ability to log-in and
+                access secure areas, provide pop-up notices, and accept language from sign-up forms.
+                These cookies are essential for using and navigating a Site. Without them, basic
+                functions of our Site would not work. Because these cookies are strictly necessary
+                to deliver our Site’s essential services, you cannot refuse them.
               </li>
               <li>
-                <strong>Performance/Analytics cookies:</strong> These cookies are used to recognize
-                and count the number of Site visitors, gather statistics regarding how visitors move
-                around the Site (luding number of page views and the amount time spent on each page)
-                and for conversion tracking and click hotspots. This helps us improve the way our
-                Site works and general user experience. For example, these cookies allow us to
-                ensure that users are able to find what they need easily.&nbsp;
+                Performance/Analytics cookies: These cookies are used to recognize and count the
+                number of Site visitors, gather statistics regarding how visitors move around the
+                Site (luding number of page views and the amount time spent on each page) and for
+                conversion tracking and click hotspots. This helps us improve the way our Site works
+                and general user experience. For example, these cookies allow us to ensure that
+                users are able to find what they need easily.
               </li>
               <li>
-                <strong>Advertising cookies (ad cookies):</strong> These cookies are used to show
-                advertising that is relevant to you.&nbsp;
+                Advertising cookies (ad cookies): These cookies are used to show advertising that is
+                relevant to you.
               </li>
               <li>
-                <strong>Cookies used to integrate third party services:</strong> These cookies are
-                used to integrate third-party functions on the Site, such as videos, maps, or social
-                network plug-ins.&nbsp;
+                Cookies used to integrate third party services: These cookies are used to integrate
+                third-party functions on the Site, such as videos, maps, or social network plug-ins.
               </li>
               <li>
-                <strong>Other third party cookies:</strong> On some parts of the Site, luding, but
-                not limited, to news widgets, we use content provided by other websites (third
-                parties). These third party sites are able to set their own cookies in some cases.
-                Note that we have no control over these third-party cookies. You can turn them off
-                by disabling them on your browser. You can find more information on the most popular
-                web-browser help pages:&nbsp;
+                Other third party cookies: On some parts of the Site, luding, but not limited, to
+                news widgets, we use content provided by other websites (third parties). These third
+                party sites are able to set their own cookies in some cases. Note that we have no
+                control over these third-party cookies. You can turn them off by disabling them on
+                your browser. You can find more information on the most popular web-browser help
+                pages:
                 <ul>
                   <li>
-                    <a href="https://support.google.com/chrome/answer/95647">Google Chrome</a>&nbsp;
+                    <a href="https://support.google.com/chrome/answer/95647" target="_blank">
+                      Google Chrome
+                    </a>
                   </li>
                   <li>
-                    <a href="https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer">
+                    <a
+                      href="https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer"
+                      target="_blank">
                       Mozilla Firefox
                     </a>
-                    &nbsp;
                   </li>
                   <li>
-                    <a href="https://support.microsoft.com/help/4027947/windows-delete-cookies">
+                    <a
+                      href="https://support.microsoft.com/help/4027947/windows-delete-cookies"
+                      target="_blank">
                       Microsoft Edge
                     </a>
-                    &nbsp;
                   </li>
                   <li>
-                    <a href="https://support.apple.com/guide/safari/sfri11471/mac">
+                    <a href="https://support.apple.com/guide/safari/sfri11471/mac" target="_blank">
                       Safari (macOS)
                     </a>
-                    &nbsp;
                   </li>
                   <li>
-                    <a href="https://support.apple.com/HT201265">Safari (iOS)</a>&nbsp;
+                    <a href="https://support.apple.com/HT201265" target="_blank">
+                      Safari (iOS)
+                    </a>
                   </li>
                 </ul>
+                For other browsers, please consult the documentation that your browser manufacturer
+                provides.
               </li>
             </ul>
-            <p>
-              For other browsers, please consult the documentation that your browser manufacturer
-              provides.
-            </p>
-            <p>
-              <strong>Web beacons</strong>
-            </p>
+            <h2>Web beacons</h2>
             <p>
               Web beacons, also called tracking pixels, are tiny graphics with unique identifiers
               that allow us to track usage patterns, count users who have visited a particular page,
@@ -164,26 +154,24 @@ export const DocsCookies: React.FC<{}> = () => {
               information generated relating to our Site is used for various necessary and
               legitimate purposes, including the creation of reports on the use of this site as well
               as the development, testing, and improvement of services. Google will store
-              information of users&rsquo; actions on the GodBot Site and it will be collected by
-              Google services. For more information on Google&rsquo;s use of data for marketing and
-              analytics purposes, please see{' '}
-              <a href="https://www.google.com/policies/technologies/ads">
-                Advertising &ndash; Privacy &amp; Terms
+              information of users’ actions on the GodBot Site and it will be collected by Google
+              services. For more information on Google’s use of data for marketing and analytics
+              purposes, please see{' '}
+              <a href="https://www.google.com/policies/technologies/ads" target="_blank">
+                Advertising – Privacy &amp; Terms
               </a>{' '}
-              and <a href="https://policies.google.com/privacy">Google&rsquo;s Privacy Policy</a>
-              .&nbsp;
+              and{' '}
+              <a href="https://policies.google.com/privacy" target="_blank">
+                Google’s Privacy Policy
+              </a>
+              .
             </p>
-            <p>
-              <strong>Changes</strong>
-            </p>
+            <h2>Changes</h2>
             <p>
               We may change the type of third party service providers that place cookies on our Site
               and amend this Cookies Policy at any time by posting the amended version on our Site.
               Unless additional notice or consent is required by applicable laws, this will serve as
               your official notification of these changes.
-            </p>
-            <p>
-              <br />
             </p>
           </div>
 

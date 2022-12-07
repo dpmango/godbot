@@ -30,19 +30,20 @@ export const DocsTerms: React.FC<{}> = () => {
 
       <Modal name="terms">
         <div className="modal__block modal__block--text" ref={modalRef}>
-          <div className="modal__title">Terms of Use, Policies and Disclaimers</div>
           <div className="modal__text">
+            <h1>Terms of Use, Policies and Disclaimers</h1>
             <p>
               Your affirmative act of using our website located at{' '}
-              <a href="http://www.godbot.pro">www.godbot.pro</a> (and all associated sites linked to
-              it) or services (&quot;GodBot&quot;) signifies that you agree to the following terms
-              and conditions of use (&quot;Terms of Use&quot;). If you do not agree, do not use
-              GodBot. GodBot is the property of GodBot&nbsp;&nbsp;(&quot;us&quot;, &quot;we&quot; or
-              &quot;our&quot;).&nbsp;
+              <a href="www.godbot.pro" target="_blank">
+                www.godbot.pro
+              </a>{' '}
+              (and all associated sites linked to it) or services ("<strong>GodBot</strong>")
+              signifies that you agree to the following terms and conditions of use ("
+              <strong>Terms of Use</strong>"). If you do not agree, do not use GodBot. GodBot is the
+              property of GodBot ("<strong>us</strong>", "<strong>we</strong>" or "
+              <strong>our</strong>").{' '}
             </p>
-            <p>
-              <strong>1. Changes to the terms of use</strong>
-            </p>
+            <h2>1. Changes to the terms of use</h2>
             <p>
               We may change these Terms of Use at any time. If you continue to use GodBot after we
               post changes to these Terms of Use, you are signifying your acceptance of the new
@@ -50,19 +51,13 @@ export const DocsTerms: React.FC<{}> = () => {
               any time. By reloading this page, you will have the most up-to-date version available
               to GodBot users.
             </p>
-            <p>
-              <strong>2. Changes to GodBot</strong>
-            </p>
+            <h2>2. Changes to GodBot</h2>
             <p>
               We may discontinue or change any service or feature on GodBot at any time without
               notice. We do not guarantee backward compatibility of our services and Application
               Programming Interface (API) in this case.
             </p>
-            <p>
-              <strong>
-                3. Ownership of information; License to use GodBot; redistribution of data
-              </strong>
-            </p>
+            <h2>3. Ownership of information; License to use GodBot; redistribution of data</h2>
             <p>
               Unless otherwise noted, all rights, titles, and interests in GodBot, and all
               information made available through GodBot or our services, in all languages, formats,
@@ -74,7 +69,7 @@ export const DocsTerms: React.FC<{}> = () => {
               Any methods of copying the contents of GodBot (both full and partial), as well as
               materials used on the site, are prohibited. You are prohibited from sublicensing,
               disposing, selling, leasing or otherwise distributing GodBot content on a commercial
-              basis without prior written permission. You may not circumvent any of the site&apos;s
+              basis without prior written permission. You may not circumvent any of the site's
               built-in mechanisms to prevent copying or redistribution of GodBot content. For more
               information on commercial use and partnerships with GodBot, please visit the contact
               page. In case of distribution of any materials from the GodBot.pro website, the user
@@ -92,16 +87,12 @@ export const DocsTerms: React.FC<{}> = () => {
                 decompilation, disassembly, or creation of derivative works. works.
               </strong>
             </p>
-            <p>
-              <br />
-            </p>
+            <br />
             <p>
               Commercial use of any of our services is prohibited, except as expressly permitted in
               the previous paragraphs.
             </p>
-            <p>
-              <strong>4. Attribution</strong>
-            </p>
+            <h2>4. Attribution</h2>
             <p>
               GodBot grants all users of GodBot.com, and all other available versions of the site,
               to use snapshots of GodBot charts in analysis, press releases, books, articles, blog
@@ -117,24 +108,21 @@ export const DocsTerms: React.FC<{}> = () => {
             </p>
             <p>
               Use of GodBot charts during video or other promotions where GodBot attribution is not
-              visible, must lude a description of the product used therein.&nbsp;
+              visible, must lude a description of the product used therein.
             </p>
             <p>
-              You can use the &quot;Snapshot&quot; button in the top toolbar of the chart to
-              instantly create a picture file of your current chart. GodBot will automatically take
-              a snapshot with all required attributions and provide a link where you can view your
-              chart, download it or share it. The use of any GodBot products outside the GodBot
-              website, without a proper attribution of GodBot, is not allowed. This extends to any
-              tools (such as widgets) obtained on the GodBot website and utilized on the outside
-              resources, where attribution should remain as was originally designed and intended.
-              Users who disobey this attribution rule herein may be banned permanently, and other
-              legal actions may be taken to ensure compliance. This ludes, but is not limited to,
-              cease-and-desist warnings, court orders, injunctions, fines, damages relief, and so
-              on.
+              You can use the "Snapshot" button in the top toolbar of the chart to instantly create
+              a picture file of your current chart. GodBot will automatically take a snapshot with
+              all required attributions and provide a link where you can view your chart, download
+              it or share it. The use of any GodBot products outside the GodBot website, without a
+              proper attribution of GodBot, is not allowed. This extends to any tools (such as
+              widgets) obtained on the GodBot website and utilized on the outside resources, where
+              attribution should remain as was originally designed and intended. Users who disobey
+              this attribution rule herein may be banned permanently, and other legal actions may be
+              taken to ensure compliance. This ludes, but is not limited to, cease-and-desist
+              warnings, court orders, injunctions, fines, damages relief, and so on.
             </p>
-            <p>
-              <strong>5. Third party sites and advertisers</strong>
-            </p>
+            <h2>5. Third party sites and advertisers</h2>
             <p>
               GodBot may lude links to third party websites. Some of these sites may contain
               materials that are objectionable, unlawful, or inaccurate. You agree that GodBot shall
@@ -151,42 +139,36 @@ export const DocsTerms: React.FC<{}> = () => {
               violation, and any appropriate and available legal action for monetary and other
               damages.
             </p>
-            <p>
-              <strong>6. Disclaimer regarding content</strong>
-            </p>
+            <h2>6. Disclaimer regarding content</h2>
             <p>
               GodBot cannot and does not represent or guarantee that any of the information
               available through our services or on GodBot is accurate, reliable, current, complete
               or appropriate for your needs. Various information available through our services or
               on GodBot may be specially obtained by GodBot from professional businesses or
               organizations, such as exchanges, news providers, market data providers and other
-              content providers. Nevertheless, due to various factors &mdash; luding the inherent
-              possibility of human and mechanical error &mdash; the accuracy, completeness,
-              timeliness, results obtained from use, and correct sequencing of information available
-              through our services and website are not and cannot be guaranteed by GodBot. We make
-              no warranty and assume no obligation or liability for scripts, indicators, ideas and
-              other content of third parties. Your use of any third-party scripts, indicators, ideas
-              and other content is at your sole risk.
+              content providers. Nevertheless, due to various factors — luding the inherent
+              possibility of human and mechanical error — the accuracy, completeness, timeliness,
+              results obtained from use, and correct sequencing of information available through our
+              services and website are not and cannot be guaranteed by GodBot. We make no warranty
+              and assume no obligation or liability for scripts, indicators, ideas and other content
+              of third parties. Your use of any third-party scripts, indicators, ideas and other
+              content is at your sole risk.
             </p>
-            <p>
-              <strong>7. Disclaimer regarding investment decisions and trading</strong>
-            </p>
+            <h2>7. Disclaimer regarding investment decisions and trading</h2>
             <p>
               Decisions to buy, sell, hold or trade in securities, commodities and other investments
               involve risk and are best made based on the advice of qualified financial
               professionals. Any trading in securities or other investments involves a risk of
-              substantial losses. The practice of &quot;Day Trading&quot; involves particularly high
-              risks and can cause you to lose substantial sums of money. Before undertaking any
-              trading program, you should consult a qualified financial professional. Please
-              consider carefully whether such trading is suitable for you in light of your financial
+              substantial losses. The practice of "Day Trading" involves particularly high risks and
+              can cause you to lose substantial sums of money. Before undertaking any trading
+              program, you should consult a qualified financial professional. Please consider
+              carefully whether such trading is suitable for you in light of your financial
               condition and ability to bear financial risks. Under no circumstances shall we be
               liable for any loss or damage you or anyone else urs as a result of any trading or
               investment activity that you or anyone else engages in based on any information or
               material you receive through GodBot or our services.
             </p>
-            <p>
-              <strong>8. Disclaimer regarding hypothetical performance results</strong>
-            </p>
+            <h2>8. Disclaimer regarding hypothetical performance results</h2>
             <p>
               Hypothetical performance results have many inherent limitations, some of which are
               mentioned below. No representation is being made that any account will or is likely to
@@ -206,9 +188,7 @@ export const DocsTerms: React.FC<{}> = () => {
               hypothetical performance results and all of which can adversely affect actual trading
               results.
             </p>
-            <p>
-              <strong>9. Access and security</strong>
-            </p>
+            <h2>9. Access and security</h2>
             <p>
               You accept responsibility for the confidentiality and use of any username and email
               address that use to register for your access to and use of our services. You are
@@ -223,18 +203,18 @@ export const DocsTerms: React.FC<{}> = () => {
               GodBot considers private information on the site (source code of protected or
               invite-only scripts, etc.) to be confidential to you. GodBot protects such private
               information from unauthorized use, access, or disclosure in the same manner that it
-              protects personal data (please refer to our Privacy Policy for more
-              information).&nbsp;
+              protects personal data (please refer to our Privacy Policy for more information).
             </p>
-            <p>
-              <strong>10. Payment and cancellation of service</strong>
-            </p>
+            <h2>10. Payment and cancellation of service</h2>
             <ol>
               <li>
-                By ordering any subscription on <a href="http://www.godbot.pro">www.godbot.pro</a>{' '}
+                By ordering any subscription on{' '}
+                <a href="www.godbot.pro" target="_blank">
+                  www.godbot.pro
+                </a>{' '}
                 (luding a free trial period) you confirm that you have read and accepted our Terms
                 of Use and you authorize GodBot to automatically charge your bank card or PayPal
-                account according to the billing period manually selected by you.&nbsp;
+                account according to the billing period manually selected by you.
               </li>
               <li>Payment for services is carried out in advance.</li>
               <li>
@@ -250,25 +230,21 @@ export const DocsTerms: React.FC<{}> = () => {
                 data and / or its functions, is still available during any ban.
               </li>
             </ol>
-            <p>
-              <strong>11. Feedback to GodBot</strong>
-            </p>
+            <h2>11. Feedback to GodBot</h2>
             <p>
               By submitting ideas, content, suggestions, documents, and/or proposals
-              (&quot;Contributions&quot;) to GodBot through our contact or feedback webpages, you
-              acknowledge and agree that: (a) your Contributions do not contain confidential or
-              proprietary information; (b) GodBot is not under any obligation of confidentiality,
-              expressed or implied, with respect to the Contributions; (c) GodBot shall be entitled
-              to use or disclose (or choose not to use or disclose) such Contributions for any
-              purpose, in any way, in any media worldwide; (d) GodBot may have something similar to
-              the Contributions already under consideration or in development; (e) your
-              Contributions automatically become the property of GodBot, without any obligation of
-              GodBot to you; and (f) you are not entitled to any compensation or reimbursement of
-              any kind from GodBot under any circumstances.&nbsp;
+              ("Contributions") to GodBot through our contact or feedback webpages, you acknowledge
+              and agree that: (a) your Contributions do not contain confidential or proprietary
+              information; (b) GodBot is not under any obligation of confidentiality, expressed or
+              implied, with respect to the Contributions; (c) GodBot shall be entitled to use or
+              disclose (or choose not to use or disclose) such Contributions for any purpose, in any
+              way, in any media worldwide; (d) GodBot may have something similar to the
+              Contributions already under consideration or in development; (e) your Contributions
+              automatically become the property of GodBot, without any obligation of GodBot to you;
+              and (f) you are not entitled to any compensation or reimbursement of any kind from
+              GodBot under any circumstances.
             </p>
-            <p>
-              <strong>12. Disclaimer</strong>
-            </p>
+            <h2>12. Disclaimer</h2>
             <p>
               You agree that you will indemnify and hold harmless GodBot, our subsidiaries,
               affiliates, officers, representatives, employees, partners and licensors for the
@@ -277,29 +253,22 @@ export const DocsTerms: React.FC<{}> = () => {
               make available by using the GodBot Services, connecting to the GodBot Services,
               violating the Terms of Use, or violating any other rules or agreements.
             </p>
-            <p>
-              <strong>13. Email</strong>
-            </p>
+            <h2>13. Email</h2>
             <p>
               By creating an account with GodBot, you agree that GodBot may use your email address
               to send you marketing information, service notices, important informational messages,
               special offers, etc. You can unsubscribe by clicking on the link in one of these
               emails.
             </p>
-            <p>
-              <strong>14. Third party software</strong>
-            </p>
+            <h2>14. Third party software</h2>
             <p>
               Our software, website and/or services may include software components provided by
               third parties, which are used with the permission of the direct licensor and/or
-              copyright holder on the terms of such parties (&quot;Third Party Software&quot;).
-              GodBot expressly disclaims warranty or other liability with respect to Third Party
-              Software. Please note that your use of the Third Party Software is governed by the
-              terms and conditions of use and privacy policies of the providers of the Third Party
-              Software, and not by these Terms of Use or our Privacy Policy.
-            </p>
-            <p>
-              <br />
+              copyright holder on the terms of such parties ("Third Party Software"). GodBot
+              expressly disclaims warranty or other liability with respect to Third Party Software.
+              Please note that your use of the Third Party Software is governed by the terms and
+              conditions of use and privacy policies of the providers of the Third Party Software,
+              and not by these Terms of Use or our Privacy Policy.
             </p>
             <p>GodBot may update these Rules at any time.</p>
           </div>
