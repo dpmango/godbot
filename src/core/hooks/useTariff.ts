@@ -32,10 +32,9 @@ const useTariff = () => {
       return;
     }
 
-    // toast.success(t('trial.activate'));
     navigate(`${pathname}?activated`);
 
-    Cookies.remove('trial');
+    // Cookies.remove('trial');
     await dispatch(getCurrentUser());
   };
 

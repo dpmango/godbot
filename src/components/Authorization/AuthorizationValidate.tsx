@@ -153,7 +153,6 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     setLoading(false);
 
     if (error) {
-      // toast.error(`${error.status} ${error.message}`);
       setError(error.message);
       setValue('');
       setDigits(initialDigits);

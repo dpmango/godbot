@@ -10,13 +10,12 @@ import { Signals } from '@c/Signal';
 
 export const HomePage: React.FC<{}> = () => {
   const { fetchProfileWithLogout } = useProfile();
-  const { activateTrial } = useTariff();
 
-  useEffect(() => {
-    if (Cookies.get('trial')) {
-      activateTrial();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Cookies.get('trial')) {
+  //     activateTrial();
+  //   }
+  // }, []);
 
   // проверка оплаченных тарифов
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);

@@ -14,11 +14,11 @@ export const Authorization: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (search === '?Trial=true') {
-      Cookies.set('trial', 'active');
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (search === '?Trial=true') {
+  //     Cookies.set('trial', 'active');
+  //   }
+  // }, [search]);
 
   useEffect(() => {
     const checkAuth = async () => {
