@@ -101,6 +101,8 @@
     "title": "tarifeler",
     "pricePer": "başına",
     "pay": "Ödemek",
+    "prolong": "RTarifeyi uzat",
+    "upgrade": "Yükseltme tarifesi",
     "gift": "hediye",
     "noGift": "hediye yok",
     "units": {

@@ -2,9 +2,10 @@ import { useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
 
 import { formatPrice, localizeKeys, openExternalLink } from '@utils';
-import { api } from '@core';
+import { api, useAppSelector } from '@core';
 import { ITarifDto, IPeriodObj } from '@interface/Tarif';
 
 interface ITarifCard extends ITarifDto {
@@ -12,6 +13,8 @@ interface ITarifCard extends ITarifDto {
 }
 
 export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, activePeriodIdx }) => {
+  const { userData } = useAppSelector((state) => state.userState);
+
   const { t, i18n } = useTranslation('tariff');
 
   const descriptionList: string[] = useMemo(() => {
@@ -52,6 +55,30 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
     return null;
   }, [activePeriodIdx, plans]);
 
+  const buttonData = useMemo(() => {
+    let translationKey = 'pay';
+    let isDisabled = false;
+
+    if (userData?.tariff === 'Trader') {
+      if (title === 'Trader') {
+        translationKey = 'prolong';
+      } else if (title === 'PRO Trader') {
+        translationKey = 'upgrade';
+      }
+    } else if (userData?.tariff === 'PRO Trader') {
+      if (title === 'Trader') {
+        isDisabled = true;
+      } else if (title === 'PRO Trader') {
+        translationKey = 'prolong';
+      }
+    }
+
+    return {
+      disabled: isDisabled,
+      trans: translationKey,
+    };
+  }, [userData?.tariff, title]);
+
   const handleActivate = useCallback(async () => {
     const { data, error } = await api('activate_tariff/', {
       method: 'POST',
@@ -80,8 +107,10 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
               /{t('pricePer')} {localizeUnits(currentPlan.scopedPeriod)}
             </span>
           </div>
-          <a className="btn btn--tarifes" onClick={handleActivate}>
-            {t('pay')}
+          <a
+            className={cns('btn btn--tarifes', buttonData.disabled && 'btn--disabled')}
+            onClick={handleActivate}>
+            {t(buttonData.trans)}
           </a>
         </>
       )}

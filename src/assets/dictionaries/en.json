@@ -101,6 +101,8 @@
     "title": "Tariffs",
     "pricePer": "per",
     "pay": "Pay",
+    "prolong": "Renew tariff",
+    "upgrade": "Upgrade tariff",
     "gift": "gift",
     "noGift": "no gift",
     "units": {
