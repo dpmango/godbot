@@ -19,12 +19,8 @@ const useProfile = () => {
 
     if (payload && !payload.name) {
       dispatch(resetUser());
+      navigate('/auth', { replace: true });
 
-      if (localStorageGet('email') && localStorageGet('lastEmailSend')) {
-        // navigate('/auth/validation', { state: { resend: true }, replace: true });
-      } else {
-        navigate('/auth', { replace: true });
-      }
       return false;
     }
 
