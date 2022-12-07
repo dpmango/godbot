@@ -4,10 +4,12 @@ import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
-import { api, useAppDispatch } from '@core';
-import { getCurrentUser, resetUser } from '@store';
+import { api, useAppSelector, useAppDispatch } from '@core';
+import { getCurrentUser } from '@store';
 
 const useTariff = () => {
+  const { isProUser, userData } = useAppSelector((state) => state.userState);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -15,6 +17,11 @@ const useTariff = () => {
   const { t } = useTranslation('tariff');
 
   const activateTrial = async () => {
+    if (userData?.tariff === 'Trial' || userData?.expire_date) {
+      toast.error(t('trial.alreadyActivated'));
+      return;
+    }
+
     const { data: trialData, error: trialError } = await api('get_trial/', {});
 
     if (trialError) {

@@ -140,6 +140,9 @@
         "Diğer varlıklar için tahmin çizelgeleri: endeksler, hisse senetleri, döviz kurları, enflasyon vb.",
         "Tüccarların özel sohbetine erişim"
       ]
+    },
+    "trial": {
+      "alreadyActivated": "Deneme sürümünü zaten kullandınız"
     }
   },
   "activated": {

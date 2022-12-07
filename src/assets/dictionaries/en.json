@@ -140,6 +140,9 @@
         "Forecast charts for other assets: indices, stocks, exchange rates, inflation, etc.",
         "Access to the private chat of traders"
       ]
+    },
+    "trial": {
+      "alreadyActivated": "You have already used the trial version"
     }
   },
   "activated": {
