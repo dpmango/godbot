@@ -21,7 +21,6 @@ interface ILayout {
 }
 
 export const Layout: React.FC<ILayout> = ({ children }) => {
-  const { currentModal } = useAppSelector((state) => state.modalState);
   let ctx = useContext(ThemeContext);
   const { pathname } = useLocation();
   let [searchParams, setSearchParams] = useSearchParams();

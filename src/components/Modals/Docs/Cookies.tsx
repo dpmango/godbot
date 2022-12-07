@@ -4,13 +4,10 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
-import { useAppSelector } from '@core';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 
 export const DocsCookies: React.FC<{}> = () => {
-  const { currentModal } = useAppSelector((state) => state.modalState);
-
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('ui', { keyPrefix: 'modal' });

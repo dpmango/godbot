@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
+import { IUserDto } from '@core/interface/User';
 import { localStorageGet, getTimezone } from '@utils';
 
 const useProfile = () => {
@@ -14,17 +15,17 @@ const useProfile = () => {
 
   const { i18n } = useTranslation();
 
-  const fetchProfileWithLogout = useCallback(async () => {
+  const fetchProfileWithLogout = useCallback(async (): Promise<IUserDto | null> => {
     const { payload } = await dispatch(getCurrentUser());
 
     if (payload && !payload.name) {
       dispatch(resetUser());
       navigate('/auth', { replace: true });
 
-      return false;
+      return null;
     }
 
-    return true;
+    return payload;
   }, []);
 
   const setUserSettings = useCallback(async () => {

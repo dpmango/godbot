@@ -154,8 +154,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
 
     if (error) {
       setError(error.message);
-      setValue('');
-      setDigits(initialDigits);
+
       if (error.message.includes('заблокирован')) {
         navigate('/auth', { state: { error: error.message }, replace: true });
         localStorageSet('locked', Date.now());
@@ -164,10 +163,11 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       return;
     }
 
+    setValue('');
+    setDigits(initialDigits);
+
     Cookies.set('auth', Date.now().toString(), { expires: 7 });
-
     await dispatch(getCurrentUser());
-
     navigate('/', { replace: true });
   };
 

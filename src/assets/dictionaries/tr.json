@@ -143,6 +143,9 @@
     },
     "trial": {
       "alreadyActivated": "Deneme sürümünü zaten kullandınız"
+    },
+    "activated": {
+      "success": "{{tariff}} tarife ödendi"
     }
   },
   "activated": {

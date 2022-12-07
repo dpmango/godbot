@@ -143,6 +143,9 @@
     },
     "trial": {
       "alreadyActivated": "You have already used the trial version"
+    },
+    "activated": {
+      "success": "{{tariff}} tariff payed"
     }
   },
   "activated": {
