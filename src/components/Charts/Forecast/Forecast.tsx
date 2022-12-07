@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useContext, useCallback, useLayoutEffect } from 'react';
 import {
   createChart,
-  ColorType,
   LineStyle,
   LineWidth,
   CrosshairMode,
@@ -13,9 +12,9 @@ import {
   SeriesMarker,
   Time,
 } from 'lightweight-charts';
-import xorBy from 'lodash/xorBy';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
+import dayjs from 'dayjs';
 
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@core';
@@ -25,7 +24,6 @@ import { IForecastTick } from '@/core/interface/Forecast';
 
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
-import dayjs from 'dayjs';
 
 interface IChartLines {
   id: string;

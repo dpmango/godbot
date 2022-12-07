@@ -61,7 +61,7 @@ export const UserCard: React.FC<{}> = () => {
         </div>
         <div className="header__user-links">
           <Link to={`${pathname}?tariffs`} className="header__user-link">
-            {t('actions.changeTariff')}
+            {t(userData?.tariff ? 'actions.changeTariff' : 'actions.chooseTariff')}
           </Link>
           <a className="header__user-link header__user-link--disabled" href="#">
             {t('actions.connectBot')}

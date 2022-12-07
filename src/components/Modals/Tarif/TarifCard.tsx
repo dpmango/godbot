@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
+import dayjs from 'dayjs';
 
 import { formatPrice, localizeKeys, openExternalLink } from '@utils';
 import { api, useAppSelector } from '@core';
@@ -35,24 +36,39 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
 
   const currentPlan = useMemo(() => {
     const findByMainPeriod = plans[activePeriodIdx];
-    if (findByMainPeriod) {
-      let basePrice = 99;
-      if (title === 'PRO Trader') {
-        basePrice = 999;
-      }
+    const periodNumber = findByMainPeriod.period.main_period.number;
+    const periodWithDiscout = periodNumber + findByMainPeriod.period.add_period.number;
 
-      return {
-        ...findByMainPeriod,
-        old: findByMainPeriod.period.main_period.number * basePrice,
-        scopedPeriod: {
-          ...findByMainPeriod.period.main_period,
-          number:
-            findByMainPeriod.period.main_period.number + findByMainPeriod.period.add_period.number,
-        },
-      };
+    let basePrice = 99;
+    if (title === 'PRO Trader') {
+      basePrice = 999;
     }
 
-    return null;
+    let discountPercent = 10;
+
+    if (periodNumber === 6) {
+      discountPercent = 25;
+    } else if (periodNumber === 12) {
+      discountPercent = 33;
+    }
+
+    let discountDate = dayjs('20.12', 'DD.MM', true);
+    if (discountDate.isBefore(dayjs(), 'day')) {
+      discountDate = dayjs();
+    }
+
+    return {
+      ...findByMainPeriod,
+      scopedPeriod: {
+        ...findByMainPeriod.period.main_period,
+        number: periodWithDiscout,
+      },
+      oldPrice: periodWithDiscout * basePrice,
+      discount: {
+        percent: discountPercent,
+        date: discountDate.format('DD.MM'),
+      },
+    };
   }, [activePeriodIdx, plans]);
 
   const buttonData = useMemo(() => {
@@ -95,13 +111,15 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
 
   return (
     <div className="tarifes__block">
-      {/* <div class="tarifes__gift">В подарок 1 неделя</div> */}
+      <div className="tarifes__gift">{t('discount', currentPlan?.discount)}</div>
 
       <div className="tarifes__name">{title}</div>
       {currentPlan && (
         <>
           <div className="tarifes__price">
-            {currentPlan.cost !== currentPlan.old && <del>${formatPrice(currentPlan.old, 0)}</del>}
+            {currentPlan.cost !== currentPlan.oldPrice && (
+              <del>${formatPrice(currentPlan.oldPrice, 0)}</del>
+            )}
             <strong>${formatPrice(currentPlan.cost, 0)}</strong>{' '}
             <span>
               /{t('pricePer')} {localizeUnits(currentPlan.scopedPeriod)}

@@ -12,7 +12,6 @@ import { Authorization } from '@/pages/Authorization';
 import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 // import { Partnership } from '@/pages/_Partnership';
-// import { PaymentPage } from '@/pages/_PaymentPage';
 import { NotFound } from '@/pages/NotFound';
 
 const ProtectedRoute = () => {
@@ -65,8 +64,7 @@ const Router = () => (
 
     <Route path="/" element={<ProtectedRoute />}>
       <Route index element={<HomePage />} />
-      {/* <Route path="partnership" element={<Partnership />} />
-      <Route path="payment" element={<PaymentPage />} /> */}
+      {/* <Route path="partnership" element={<Partnership />} />*/}
     </Route>
 
     <Route path="*" element={<NotFound />} />

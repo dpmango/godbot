@@ -33,6 +33,7 @@
     },
     "actions": {
       "changeTariff": "Change tariff",
+      "chooseTariff": "Choose tariff",
       "connectBot": "Link Telegram bot",
       "payedChat": "Go to Telegram chat"
     },
@@ -105,6 +106,7 @@
     "upgrade": "Upgrade tariff",
     "gift": "gift",
     "noGift": "no gift",
+    "discount": "Discount {{percent}}% until {{date}}",
     "units": {
       "day": {
         "one": "day",
@@ -124,7 +126,7 @@
     },
     "description": {
       "trader": [
-        "BTC 15 minute forecast chart",
+        "BTC forecast chart for 1-min TF",
         "Signals to buy and sell assets from AI",
         "Partial access to the training course",
         "Connecting a Telegram bot (coming soon)",

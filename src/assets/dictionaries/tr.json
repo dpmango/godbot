@@ -33,6 +33,7 @@
     },
     "actions": {
       "changeTariff": "Tarifeyi değiştir",
+      "chooseTariff": "Bir plan seçin",
       "connectBot": "Telegram botunu bağla",
       "payedChat": "Telegram sohbetine git"
     },
@@ -105,6 +106,7 @@
     "upgrade": "Yükseltme tarifesi",
     "gift": "hediye",
     "noGift": "hediye yok",
+    "discount": "{{date}} tarihine kadar %{{percent}} indirim",
     "units": {
       "day": {
         "one": "gün",
@@ -124,7 +126,7 @@
     },
     "description": {
       "trader": [
-        "BTC 15 dakikalık tahmin tablosu",
+        "1 dakikalık TF için BTC tahmin tablosu",
         "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
         "Eğitim kursuna kısmi erişim",
         "Bir Telegram botu bağlanıyor (çok yakında)",
