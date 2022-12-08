@@ -7,7 +7,7 @@ import cns from 'classnames';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 
-export const Greeting: React.FC<{}> = () => {
+export const ModalGreeting: React.FC<{}> = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('greeting');

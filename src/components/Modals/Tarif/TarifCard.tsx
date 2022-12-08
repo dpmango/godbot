@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
@@ -98,7 +97,10 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
   const handleActivate = useCallback(async () => {
     const { data, error } = await api('activate_tariff/', {
       method: 'POST',
-      body: { id: currentPlan?.id },
+      body: {
+        id: currentPlan?.id,
+        redirect_url: window.location.origin + '/?success',
+      },
     });
 
     if (error) {

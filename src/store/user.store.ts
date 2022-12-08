@@ -72,19 +72,21 @@ export const userState = createSlice({
     builder.addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUserDto>) => {
       state.loading = 'fulfilled';
 
-      state.userData = {
-        // @ts-ignore
-        allowed_functions: [],
-        ...action.payload,
-      };
+      if (action.payload) {
+        state.userData = {
+          // @ts-ignore
+          allowed_functions: [],
+          ...action.payload,
+        };
 
-      if (action.payload?.expire_date) {
-        const date = dayjs(action.payload?.expire_date).unix();
+        if (action.payload?.expire_date) {
+          const date = dayjs(action.payload?.expire_date).unix();
 
-        state.tariffActive = timeDiff(date * 1000) > 0;
+          state.tariffActive = timeDiff(date * 1000) > 0;
+        }
+
+        state.isProUser = action.payload?.tariff === 'PRO Trader';
       }
-
-      state.isProUser = action.payload?.tariff === 'PRO Trader';
     });
     builder.addCase(getCurrentUser.rejected, (state) => {
       state.loading = 'rejected';

@@ -8,7 +8,7 @@ import { useAppSelector } from '@core';
 import { Header } from '@c/Layout/Header';
 import {
   TarifWindow,
-  Activated,
+  ModalInfo,
   DocsPrivacy,
   DocsTerms,
   DocsCookies,
@@ -32,7 +32,8 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {children}
 
         {searchParams.get('tariffs') !== null && <TarifWindow />}
-        {searchParams.get('activated') !== null && <Activated />}
+        {searchParams.get('activated') !== null && <ModalInfo name="activated" />}
+        {searchParams.get('success') !== null && <ModalInfo name="paymentAwait" />}
         {searchParams.get('privacy') !== null && <DocsPrivacy />}
         {searchParams.get('terms') !== null && <DocsTerms />}
         {searchParams.get('cookies') !== null && <DocsCookies />}

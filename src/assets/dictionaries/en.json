@@ -151,6 +151,7 @@
     }
   },
   "activated": {
+    "pagetitle": "Godbot | Trial",
     "title": "Congratulations!",
     "text": "You have activated a trial plan for 7 days. ",
     "action": "GO!"
@@ -161,10 +162,19 @@
     "action": "GO!",
     "skip": "SKIP"
   },
+  "paymentAwait": {
+    "pagetitle": "Godbot | Payment in progress",
+    "title": "Payment Accepted",
+    "text": "The payment is being processed and soon (usually 1-5 minutes) the tariff will be activated. You can close this window and wait for notification in your account",
+    "action": "Close"
+  },
   "error": {
     "notfound": {
       "title": "Page not found",
       "action": "Go to Main page"
+    },
+    "network": {
+      "connect": "Check your network connection"
     }
   },
   "ui": {

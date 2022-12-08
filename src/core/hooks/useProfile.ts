@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
@@ -13,7 +14,7 @@ const useProfile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation('error');
 
   const fetchProfileWithLogout = useCallback(async (): Promise<IUserDto | null> => {
     const { payload } = await dispatch(getCurrentUser());
@@ -23,6 +24,8 @@ const useProfile = () => {
       navigate('/auth', { replace: true });
 
       return null;
+    } else if (payload === null) {
+      toast.error(t('network.connect'));
     }
 
     return payload;

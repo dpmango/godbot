@@ -35,7 +35,9 @@ const ProtectedRoute = () => {
     timerConfirm.current = setInterval(async () => {
       setIntervalRun((prev) => prev + 1);
       const user = await fetchProfileWithLogout();
-      setUserTariff(user?.tariff || '');
+      if (user?.tariff !== undefined) {
+        setUserTariff(user?.tariff || '');
+      }
     }, 10 * 1000);
 
     return () => {

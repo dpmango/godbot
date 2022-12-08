@@ -6,10 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 
-export const Activated: React.FC<{}> = () => {
+interface IModalInfoProps {
+  name: string;
+}
+
+export const ModalInfo: React.FC<IModalInfoProps> = ({ name }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation('activated');
+  const { t } = useTranslation(name);
 
   const closeModal = () => {
     navigate(pathname);
@@ -21,7 +25,7 @@ export const Activated: React.FC<{}> = () => {
   return (
     <>
       <Helmet>
-        <title>Godbot | Greeting</title>
+        <title>{t('pagetitle')}</title>
       </Helmet>
 
       <Modal name="activated">

@@ -151,6 +151,7 @@
     }
   },
   "activated": {
+    "pagetitle": "Godbot | Deneme oranı",
     "title": "Tebrikler!",
     "text": "7 günlük bir deneme planını etkinleştirdiniz. ",
     "action": "GİT!"
@@ -161,10 +162,19 @@
     "action": "GİT!",
     "skip": "ATLAMAK"
   },
+  "paymentAwait": {
+    "pagetitle": "Godbot | Ödeme devam ediyor",
+    "title": "Ödeme Kabul Edildi",
+    "text": "Ödeme yapılıyor ve yakında (genellikle 1-5 dakika) tarife aktif hale gelecek. Bu pencereyi kapatabilir ve hesabınızda bildirim bekleyebilirsiniz",
+    "action": "Kapat"
+  },
   "error": {
     "notfound": {
       "title": "sayfa bulunamadı",
       "action": "Ana sayfaya git"
+    },
+    "network": {
+      "connect": "İnternet bağlantısını kontrol edin"
     }
   },
   "ui": {

@@ -52,6 +52,7 @@ export const Forecast: React.FC<{}> = () => {
   const { t } = useTranslation('forecast');
 
   const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+  const viewLocked = !userData?.tariff;
 
   const initOrUpdateChart = (coinData: IForecastTick[]) => {
     const coinDataMapped = coinData
@@ -327,14 +328,14 @@ export const Forecast: React.FC<{}> = () => {
     setLastUpdate(formatDate(new Date()));
 
     return () => {
-      chart?.current?.remove();
+      chart.current?.remove();
     };
   };
 
   const changeTheme = () => {
     if (ctx?.theme) {
       // dark theme
-      chart?.current?.applyOptions({
+      chart.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
         },
@@ -344,7 +345,7 @@ export const Forecast: React.FC<{}> = () => {
       });
     } else {
       // white theme
-      chart?.current?.applyOptions({
+      chart.current?.applyOptions({
         layout: {
           textColor: '#262628',
         },
@@ -356,11 +357,14 @@ export const Forecast: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    if (data && currentCoin && userData?.name) {
+    if (data && currentCoin && !viewLocked) {
       const coinData = data?.[currentCoin];
       if (coinData) initOrUpdateChart(coinData);
+    } else if (viewLocked) {
+      chart.current?.remove();
+      chart.current = null;
     }
-  }, [currentCoin, data]);
+  }, [currentCoin, data, viewLocked]);
 
   useEffect(() => {
     changeTheme();
@@ -368,7 +372,7 @@ export const Forecast: React.FC<{}> = () => {
 
   useLayoutEffect(() => {
     const handleResize = () => {
-      chart?.current?.applyOptions({
+      chart.current?.applyOptions({
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
       });
@@ -390,8 +394,6 @@ export const Forecast: React.FC<{}> = () => {
       });
     }
   };
-
-  const viewLocked = !userData?.tariff;
 
   return (
     <div className={cns('chart', viewLocked && 'chart--locked')}>
