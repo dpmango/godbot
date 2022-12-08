@@ -7,6 +7,19 @@ import { api } from '@core';
 import { IUserDto } from '@core/interface/User';
 import { timeDiff } from '@utils';
 
+export interface IUserState {
+  name: string;
+  tariff: string;
+  subscription_date: Date;
+  allowed_functions: string[];
+  tutorial_complete: boolean;
+}
+
+export interface IUserLogin {
+  login: string;
+  password: string;
+}
+
 export interface IUser {
   loading: string;
   tariffActive: boolean;
@@ -19,6 +32,18 @@ export const getCurrentUser = createAsyncThunk('user/getCurrentUser', async () =
 
   return data;
 });
+
+export const setTutorialComplete = createAsyncThunk(
+  'user/getCurrentUser',
+  async (flag: boolean) => {
+    const { data } = await api('tutorial/tutorial_complete/', {
+      method: 'POST',
+      body: { tutorial_complete: flag },
+    });
+
+    return data;
+  }
+);
 
 const initialState: IUser = {
   loading: 'none',

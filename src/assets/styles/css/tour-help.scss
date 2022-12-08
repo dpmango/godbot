@@ -1,0 +1,94 @@
+
+#___reactour svg{
+  opacity: .6;
+}
+
+.tourBtns{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.tour{
+  text-align: center;
+}
+
+.tour h4{
+  font-size: 18px;
+}
+
+.tourNextBtn{
+  background-color: #4572EE;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 12px 23px;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: .25s opacity;
+  text-transform: uppercase;
+  width: 140px;
+}
+
+.tourNextBtn-white{
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #262628;
+}
+
+.tourNextBtn:hover {
+  opacity: 0.7;
+}
+
+.tourStep{
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.tourStepText{
+  display: flex;
+  gap: 10px;
+}
+
+.infoSvg{
+  margin-top: 2px;
+}
+
+.tourStep-btns{
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+}
+
+.tourStep-next{
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .25s opacity;
+}
+
+.tourStep-next:hover{
+  opacity: 0.7;
+}
+
+.tourStep-prev{
+  text-transform: uppercase;
+  float: right;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .25s opacity;
+}
+
+.tourStep-prev:hover{
+  opacity: 0.7;
+}
+
+.reactour__close{
+  color: #fff !important;
+
+  &:hover{
+    opacity: .7;
+  }
+}

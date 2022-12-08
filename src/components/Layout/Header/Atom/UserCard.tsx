@@ -73,20 +73,22 @@ export const UserCard: React.FC<{}> = () => {
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
           </a>
         </div>
-        <div className="header__user-soc">
-          <a href={'https://twitter.com/godbot_pro'} target="_blank" title="Twitter">
-            <img src="/img/social/twitter.svg" alt="Twitter" />
-          </a>
-          <a href={'https://discord.com/invite/Jnptpsmcmx'} target="_blank" title="Discord">
-            <img src="/img/social/discord.svg" alt="Discord" />
-          </a>
-          <a href={'https://t.me/godbot_pro'} target="_blank" title="Telegram">
-            <img src="/img/social/telegram.svg" alt="Telegram" />
-          </a>
-        </div>
-        <div className="header__user-theme">
-          <SpriteIcon name="sun" width="20" height="20" />
-          <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme}></div>
+        <div className="header__user-soc-wrap">
+          <div className="header__user-soc">
+            <a href={'https://twitter.com/godbot_pro'} target="_blank" title="Twitter">
+              <img src="/img/social/twitter.svg" alt="Twitter" />
+            </a>
+            <a href={'https://discord.com/invite/Jnptpsmcmx'} target="_blank" title="Discord">
+              <img src="/img/social/discord.svg" alt="Discord" />
+            </a>
+            <a href={'https://t.me/godbot_pro'} target="_blank" title="Telegram">
+              <img src="/img/social/telegram.svg" alt="Telegram" />
+            </a>
+          </div>
+          <div className="header__user-theme">
+            <SpriteIcon name="sun" width="20" height="20" />
+            <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme}></div>
+          </div>
         </div>
         <div className="header__user-minis">
           <Link to="?privacy">{t('policies.confidentiality')}</Link> •{' '}

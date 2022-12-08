@@ -4,4 +4,5 @@ export interface IUserDto {
   expire_date: Date;
   allowed_functions: string[];
   access_level: number;
+  tutorial_complete: boolean;
 }
