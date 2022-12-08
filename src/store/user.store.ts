@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import dayjs from 'dayjs';
 
 import { api } from '@core';
+import { IUserDto } from '@core/interface/User';
 import { timeDiff } from '@utils';
 
 export interface IUserState {
@@ -23,7 +24,7 @@ export interface IUser {
   loading: string;
   tariffActive: boolean;
   isProUser: boolean;
-  userData: IUserState | null;
+  userData: IUserDto | null;
 }
 
 export const getCurrentUser = createAsyncThunk('user/getCurrentUser', async () => {
@@ -68,7 +69,7 @@ export const userState = createSlice({
     builder.addCase(getCurrentUser.pending, (state) => {
       state.loading = 'pending';
     });
-    builder.addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUserState>) => {
+    builder.addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUserDto>) => {
       state.loading = 'fulfilled';
 
       state.userData = {
@@ -77,8 +78,8 @@ export const userState = createSlice({
         ...action.payload,
       };
 
-      if (action.payload?.subscription_date) {
-        const date = dayjs(action.payload?.subscription_date).unix();
+      if (action.payload?.expire_date) {
+        const date = dayjs(action.payload?.expire_date).unix();
 
         state.tariffActive = timeDiff(date * 1000) > 0;
       }

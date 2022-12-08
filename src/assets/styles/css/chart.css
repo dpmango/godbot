@@ -152,7 +152,6 @@
 				position: absolute;
 				top: 0;
 				right: 0;
-				bottom: 0;
 				border-radius: 10px;
 				background: var(--block-bg);
 				box-shadow: var(--block-shadow);
@@ -180,9 +179,7 @@
 		.chart__settings-checks {
 				flex: 0 0 auto;
 				width: 100%;
-				height: calc(100% - 54px);
 				display: flex;
-				flex-direction: column;
 				flex-wrap: wrap;
 				gap: 21px 0;
 				font-weight: normal;
@@ -191,7 +188,7 @@
 		}
 		.chart__settings-checks label {
 				flex: 0 0 auto;
-				max-width: 100%;
+				width: 50%;
 				position: relative;
 				cursor: pointer;
 				user-select: none;

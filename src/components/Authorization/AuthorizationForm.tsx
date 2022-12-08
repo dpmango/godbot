@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import { toast } from 'react-toastify';
 import { Formik, FormikProps, Form, Field, FieldProps } from 'formik';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +18,7 @@ const formInitial: IFormValues = {
 export const AuthorizationForm: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [focused, setFocused] = useState(false);
   const [locked, setLocked] = useState(false);
 
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
         if (secondsPast < 60 * 60) {
           const minutesToUnlock = 60 - Math.round(secondsPast / 60);
-          setError(`Вход заблокирован на ${minutesToUnlock} минут`);
+          setError(t('entry.locked', { minutesToUnlock }) as string);
           return;
         }
       }
@@ -64,7 +64,6 @@ export const AuthorizationForm: React.FC<{}> = () => {
       setLoading(false);
 
       if (error) {
-        // toast.error(`${error.status} ${error.message}`);
         setError(error.message);
         return;
       }
@@ -90,7 +89,6 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
       <Formik
         initialValues={formInitial}
-        validateOnChange={false}
         validate={handleValidation}
         validateForm={handleValidation}
         onSubmit={handleSubmit}>
@@ -104,7 +102,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
                 <div
                   className={cns(
                     'login__input',
-                    meta.touched && errors.email && 'login__input--invalid',
+                    !focused && errors.email && 'login__input--invalid',
                     locked && 'login__input--disabled'
                   )}>
                   <input
@@ -119,6 +117,12 @@ export const AuthorizationForm: React.FC<{}> = () => {
                       setFieldError(field.name, '');
                       setError('');
                     }}
+                    onFocus={() => {
+                      setFocused(true);
+                    }}
+                    onBlur={() => {
+                      setFocused(false);
+                    }}
                   />
                   <svg width="24" height="24">
                     <use xlinkHref="/img/login-sprite.svg#email"></use>
@@ -127,7 +131,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
               )}
             </Field>
 
-            {(error || errors.email) && (
+            {!focused && (error || errors.email) && (
               <div className="login__input-info login__input-info--invalid">
                 {error || errors.email}
               </div>

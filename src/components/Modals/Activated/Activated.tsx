@@ -2,15 +2,11 @@ import { useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
 
-import { useAppSelector } from '@core';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 
 export const Activated: React.FC<{}> = () => {
-  const { currentModal } = useAppSelector((state) => state.modalState);
-
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('activated');

@@ -3,7 +3,8 @@
     "entry": {
       "title": "Login / Registration",
       "instruction": "Enter your Email to receive an authorization code",
-      "action": "Login"
+      "action": "Login",
+      "locked": "Login blocked for {{minutesToUnlock}} minutes"
     },
     "code": {
       "title": "Verification",
@@ -32,13 +33,15 @@
     },
     "actions": {
       "changeTariff": "Change tariff",
+      "chooseTariff": "Choose tariff",
       "connectBot": "Link Telegram bot",
       "payedChat": "Go to Telegram chat"
     },
     "policies": {
       "confidentiality": "Privacy Policy",
       "terms": "Terms of Service",
-      "cookies": "Cookie Policy"
+      "cookies": "Cookie Policy",
+      "disclaimer": "Disclaimer"
     }
   },
   "charts": {
@@ -99,24 +102,52 @@
     "title": "Tariffs",
     "pricePer": "per",
     "pay": "Pay",
+    "prolong": "Renew tariff",
+    "upgrade": "Upgrade tariff",
     "gift": "gift",
     "noGift": "no gift",
+    "discount": "Discount {{percent}}% until {{date}}",
     "units": {
       "day": {
-        "one": "Day",
-        "two": "Days",
-        "five": "Days"
+        "one": "day",
+        "two": "days",
+        "five": "days"
       },
       "week": {
-        "one": "Week",
-        "two": "Weeks",
-        "five": "Weeks"
+        "one": "week",
+        "two": "weeks",
+        "five": "weeks"
       },
       "month": {
-        "one": "Month",
-        "two": "Months",
-        "five": "Months"
+        "one": "month",
+        "two": "months",
+        "five": "months"
       }
+    },
+    "description": {
+      "trader": [
+        "BTC forecast chart for 1-min TF",
+        "Signals to buy and sell assets from AI",
+        "Partial access to the training course",
+        "Connecting a Telegram bot (coming soon)",
+        "24/7 support service"
+      ],
+      "protrader": [
+        "Forecast charts: BTC, ETH, XRP on all timeframes",
+        "Signals to buy and sell assets from AI",
+        "Full access to the training course",
+        "Connecting a Telegram bot (coming soon)",
+        "24/7 support service",
+        "The ability to order a calculation of the price of 1 of any asset per month",
+        "Forecast charts for other assets: indices, stocks, exchange rates, inflation, etc.",
+        "Access to the private chat of traders"
+      ]
+    },
+    "trial": {
+      "alreadyActivated": "You have already used the trial version"
+    },
+    "activated": {
+      "success": "{{tariff}} tariff payed"
     }
   },
   "activated": {
@@ -158,6 +189,9 @@
         "text": "To display {{section}} you need to activate the tariff",
         "action": "TRY IT FOR FREE"
       }
+    },
+    "modal": {
+      "close": "Close"
     }
   }
 }

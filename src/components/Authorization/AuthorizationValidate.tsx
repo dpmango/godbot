@@ -153,10 +153,8 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     setLoading(false);
 
     if (error) {
-      // toast.error(`${error.status} ${error.message}`);
       setError(error.message);
-      setValue('');
-      setDigits(initialDigits);
+
       if (error.message.includes('заблокирован')) {
         navigate('/auth', { state: { error: error.message }, replace: true });
         localStorageSet('locked', Date.now());
@@ -165,10 +163,11 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       return;
     }
 
+    setValue('');
+    setDigits(initialDigits);
+
     Cookies.set('auth', Date.now().toString(), { expires: 7 });
-
     await dispatch(getCurrentUser());
-
     navigate('/', { replace: true });
   };
 
@@ -244,6 +243,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
                   onChange={handleChangeDigits}
                   data-index={index}
                   key={index}
+                  inputMode="numeric"
                   type="text"
                   value={digit}
                 />

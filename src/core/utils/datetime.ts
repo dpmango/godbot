@@ -6,7 +6,6 @@ import isToday from 'dayjs/plugin/isToday';
 import locale_ru from 'dayjs/locale/ru';
 import { toDate, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { UTCTimestamp, BusinessDay } from 'lightweight-charts';
-import { IUserState } from '@store';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);

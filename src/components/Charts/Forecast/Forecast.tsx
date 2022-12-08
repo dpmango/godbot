@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useContext, useCallback, useLayoutEffect } from 'react';
 import {
   createChart,
-  ColorType,
   LineStyle,
   LineWidth,
   CrosshairMode,
@@ -13,9 +12,9 @@ import {
   SeriesMarker,
   Time,
 } from 'lightweight-charts';
-import xorBy from 'lodash/xorBy';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
+import dayjs from 'dayjs';
 
 import { ThemeContext } from '@/App';
 import { useAppSelector } from '@core';
@@ -25,7 +24,6 @@ import { IForecastTick } from '@/core/interface/Forecast';
 
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
-import dayjs from 'dayjs';
 
 interface IChartLines {
   id: string;
@@ -39,7 +37,7 @@ interface ISeriesData {
 
 export const Forecast: React.FC<{}> = () => {
   const { data, currentCoin } = useAppSelector((state) => state.forecastState);
-  const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  const { userData } = useAppSelector((state) => state.userState);
   const [loading, setLoading] = useState<boolean>(true);
   const [legendActive, setLegendActive] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
@@ -169,7 +167,7 @@ export const Forecast: React.FC<{}> = () => {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: window.innerWidth < 576 ? 9 : 12,
           fontFamily: 'GilroyWeb, sans-serif',
-          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1d2426' },
+          background: { color: 'transparent' },
         },
         grid: {
           vertLines: { visible: false },
@@ -198,13 +196,16 @@ export const Forecast: React.FC<{}> = () => {
         },
       });
 
-      chart.current = chartInstance;
-
       let newChartLines: IChartLines[] = [];
       currentSeries.forEach((s, idx) => {
         const lineSeries = chartInstance.addLineSeries({
           lastValueVisible: false,
           priceLineVisible: false,
+          priceFormat: {
+            type: 'price',
+            precision: 3,
+            minMove: 0.001,
+          },
           ...s.lineStyle,
         });
 
@@ -296,8 +297,11 @@ export const Forecast: React.FC<{}> = () => {
         toolTip.style.left = left + 'px';
         toolTip.style.top = 0 + 'px';
       });
+
+      chart.current = chartInstance;
     } else {
       // update data
+
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
@@ -333,7 +337,6 @@ export const Forecast: React.FC<{}> = () => {
       chart?.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
-          background: { color: '#1d2426' },
         },
         grid: {
           horzLines: { color: '#5F636A' },
@@ -344,7 +347,6 @@ export const Forecast: React.FC<{}> = () => {
       chart?.current?.applyOptions({
         layout: {
           textColor: '#262628',
-          background: { color: 'white' },
         },
         grid: {
           horzLines: { color: '#AFCDEB' },
@@ -354,7 +356,7 @@ export const Forecast: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    if (data && currentCoin) {
+    if (data && currentCoin && userData?.name) {
       const coinData = data?.[currentCoin];
       if (coinData) initOrUpdateChart(coinData);
     }
@@ -389,7 +391,7 @@ export const Forecast: React.FC<{}> = () => {
     }
   };
 
-  const viewLocked = !userData?.tariff || !tariffActive;
+  const viewLocked = !userData?.tariff;
 
   return (
     <div className={cns('chart', viewLocked && 'chart--locked')}>

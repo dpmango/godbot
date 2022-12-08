@@ -21,9 +21,9 @@ export const Signals: React.FC<{}> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [prevSignals, setPrevSignals] = useState<ISignal[] | null>(null);
 
-  const viewLocked = !userData?.tariff || !tariffActive;
+  const viewLocked = !userData?.tariff;
 
-  const { t } = useTranslation('signal');
+  const { t, i18n } = useTranslation('signal');
 
   const selectOptions = useMemo(() => {
     return [
@@ -34,7 +34,7 @@ export const Signals: React.FC<{}> = () => {
       { value: 'profit', label: t('status.profit') },
       { value: 'loss', label: t('status.loss') },
     ];
-  }, []);
+  }, [i18n.language]);
 
   const signalsWithFilter = useMemo(() => {
     if (viewLocked) {

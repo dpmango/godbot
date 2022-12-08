@@ -2,7 +2,7 @@
 .tarifes {
 		width: 100%;
 		margin: 40px auto;
-		background: var(--block-bg);
+		background: var(--tarifes-bg);
 		box-shadow: var(--block-shadow);
 		position: relative;
 		border-radius: 10px;
@@ -113,9 +113,14 @@
 		}
 }
 .tarifes__block {
-		background: var(--block-bg);
 		box-shadow: var(--block-shadow);
 		border-radius: 10px;
+}
+.tarifes__block:nth-child(1) {
+		background: var(--tarifes-block1);
+}
+.tarifes__block:nth-child(2) {
+		background: var(--tarifes-block2);
 }
 @media only screen and (max-width: 767px) {
 		.tarifes__block {

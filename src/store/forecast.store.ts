@@ -10,12 +10,14 @@ export const getChart = createAsyncThunk('chart/chartData', async (url: string) 
 interface IChartData {
   loading: string;
   currentCoin: string;
-  data: { [key: string]: IForecastTick[] };
+  data: {
+    [key: string]: IForecastTick[];
+  };
 }
 
 const initialState: IChartData = {
   loading: 'pending',
-  currentCoin: 'BTC',
+  currentCoin: '',
   data: {},
 };
 

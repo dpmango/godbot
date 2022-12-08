@@ -18,39 +18,65 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   setLegendActive,
   lastUpdate,
 }) => {
-  const { isProUser, loading } = useAppSelector((state) => state.userState);
+  const { isProUser, userData, loading } = useAppSelector((state) => state.userState);
   const [currentTime, setTimeOption] = useState<string>('15min');
 
-  const { currentCoin } = useAppSelector((state) => state.forecastState);
+  const { currentCoin, data } = useAppSelector((state) => state.forecastState);
   const dispatch = useAppDispatch();
 
   let [searchParams, setSearchParams] = useSearchParams();
-  const { t } = useTranslation('forecast');
+  const { t, i18n } = useTranslation('forecast');
 
   // coins
   const coinOptions = useMemo(() => {
-    return [
-      { value: 'btc', label: 'Bitcoin (BTC)' },
-      { value: 'xrp', label: 'Ripple (XRP)', isPro: !isProUser },
-      { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
-      {
-        value: 'estimate',
-        label: t('filter.estimate'),
-        isPro: !isProUser,
-        disabled: true,
-        modifier: 'blue',
-        icon: 'plus',
-      },
-    ];
-  }, [isProUser]);
+    const getCoinNameByTicker = (ticker: string) => {
+      switch (ticker) {
+        case 'BTC':
+          return 'Bitcoin (BTC)';
+        case 'XRP':
+          return 'Ripple (XRP)';
+
+        default:
+          return ticker;
+      }
+    };
+
+    if (data.currencies_access_level && userData?.access_level) {
+      return Object.keys(data.currencies_access_level).map((key: string) => {
+        // @ts-ignore
+        const coinAccessLevel = data.currencies_access_level[key] as number;
+        return {
+          value: key,
+          label: getCoinNameByTicker(key),
+          disabled: userData?.access_level < coinAccessLevel,
+          isPro: userData?.access_level < coinAccessLevel,
+        } as ISelectOption;
+      });
+    }
+
+    return [];
+    // return [
+    //   { value: 'BTC', label: 'Bitcoin (BTC)' },
+    //   { value: 'XRP', label: 'Ripple (XRP)', disabled: !isProUser, isPro: !isProUser },
+    //   // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
+    //   // {
+    //   //   value: 'estimate',
+    //   //   label: t('filter.estimate'),
+    //   //   isPro: !isProUser,
+    //   //   disabled: true,
+    //   //   modifier: 'blue',
+    //   //   icon: 'plus',
+    //   // },
+    // ];
+  }, [isProUser, data.currencies_access_level, userData?.access_level]);
 
   const handleCoinChange = useCallback(
     (opt: ISelectOption) => {
-      const newTimeKey = opt.value as string;
-      dispatch(setStateCoin(newTimeKey));
+      const newCoinKey = opt.value as string;
+      dispatch(setStateCoin(newCoinKey));
 
       let newParams = searchParams;
-      newParams.set('coin', newTimeKey);
+      newParams.set('coin', newCoinKey);
       setSearchParams(newParams);
     },
     [searchParams]
@@ -60,10 +86,10 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   const timeOptions = useMemo(() => {
     return [
       { value: '15min', label: t('filter.ticks.15min') },
-      { value: '1h', label: t('filter.ticks.1h'), isPro: !isProUser, disabled: true },
-      { value: '1d', label: t('filter.ticks.1d'), isPro: !isProUser, disabled: true },
+      // { value: '1h', label: t('filter.ticks.1h'), isPro: !isProUser, disabled: true },
+      // { value: '1d', label: t('filter.ticks.1d'), isPro: !isProUser, disabled: true },
     ];
-  }, [isProUser]);
+  }, [isProUser, i18n.language]);
 
   const handleTimeChange = useCallback(
     (opt: ISelectOption) => {
@@ -80,10 +106,12 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   // initial params parser
   useEffect(() => {
     const coinParam = searchParams.get('coin');
-    if (coinParam && timeOptions.some((x) => x.value === coinParam)) {
+    if (coinParam && coinOptions.some((x) => x.value === coinParam)) {
       dispatch(setStateCoin(coinParam));
+    } else if (!coinParam) {
+      dispatch(setStateCoin('BTC'));
     }
-  }, []);
+  }, [coinOptions, searchParams]);
 
   return (
     <div className="chart__head">

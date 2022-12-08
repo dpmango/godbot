@@ -23,18 +23,18 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier }) => {
 
   const action = useMemo(() => {
     return {
-      trial: !userData?.tariff,
-      prolong: userData?.tariff && !tariffActive,
+      trial: !userData?.expire_date,
+      // prolong: !tariffActive,
+      activate: !tariffActive,
       upgrade: !isProUser,
-      activate: true,
     };
   }, [userData?.tariff, tariffActive]);
 
   const translationKey = useMemo(() => {
     if (action.trial) {
       return 'trial';
-    } else if (action.prolong) {
-      return 'prolong';
+      // } else if (action.prolong) {
+      //   return 'prolong';
     } else if (action.activate) {
       return 'activate';
     } else if (action.upgrade) {

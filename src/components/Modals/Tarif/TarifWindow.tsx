@@ -21,7 +21,7 @@ export const TarifWindow: React.FC<{}> = () => {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation('tariff');
+  const { t, i18n } = useTranslation('tariff');
 
   const closeModal = () => {
     navigate(pathname);
@@ -41,7 +41,7 @@ export const TarifWindow: React.FC<{}> = () => {
       return data[0].plans.map((x: IPlan) => {
         const giftStr =
           x.period.add_period.number !== 0
-            ? `+ ${t('gift')} ${localizeUnits(x.period.add_period)}`
+            ? `+ ${x.period.add_period.number} ${t('gift')}`
             : `- ${t('noGift')}`;
 
         return {
@@ -51,7 +51,7 @@ export const TarifWindow: React.FC<{}> = () => {
     }
 
     return null;
-  }, [data]);
+  }, [data, i18n.language]);
 
   const getTarifs = async () => {
     const { data, error } = await api('get_tariffs/', {});

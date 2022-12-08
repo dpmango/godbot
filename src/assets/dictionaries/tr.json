@@ -3,7 +3,8 @@
     "entry": {
       "title": "Giriş Kayıt",
       "instruction": "Bir yetkilendirme kodu almak için E-postanızı girin",
-      "action": "İçeri gel"
+      "action": "İçeri gel",
+      "locked": "Giriş, {{ minutesToUnlock}} dakika süreyle engellendi"
     },
     "code": {
       "title": "Doğrulama",
@@ -32,13 +33,15 @@
     },
     "actions": {
       "changeTariff": "Tarifeyi değiştir",
+      "chooseTariff": "Bir plan seçin",
       "connectBot": "Telegram botunu bağla",
       "payedChat": "Telegram sohbetine git"
     },
     "policies": {
       "confidentiality": "Gizlilik",
       "terms": "Kullanım Şartları",
-      "cookies": "Çerez politikası"
+      "cookies": "Çerez politikası",
+      "disclaimer": "Disclaimer"
     }
   },
   "charts": {
@@ -99,24 +102,52 @@
     "title": "tarifeler",
     "pricePer": "başına",
     "pay": "Ödemek",
+    "prolong": "RTarifeyi uzat",
+    "upgrade": "Yükseltme tarifesi",
     "gift": "hediye",
     "noGift": "hediye yok",
+    "discount": "{{date}} tarihine kadar %{{percent}} indirim",
     "units": {
       "day": {
-        "one": "Gün",
-        "two": "Günün",
+        "one": "gün",
+        "two": "günün",
         "five": "günler"
       },
       "week": {
-        "one": "Bir hafta",
+        "one": "bir hafta",
         "two": "haftalar",
-        "five": "Haftalar"
+        "five": "haftalar"
       },
       "month": {
-        "one": "Ay",
+        "one": "ay",
         "two": "aylar",
         "five": "aylar"
       }
+    },
+    "description": {
+      "trader": [
+        "1 dakikalık TF için BTC tahmin tablosu",
+        "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
+        "Eğitim kursuna kısmi erişim",
+        "Bir Telegram botu bağlanıyor (çok yakında)",
+        "7/24 destek hizmeti"
+      ],
+      "protrader": [
+        "Tahmin çizelgeleri: Tüm zaman dilimlerinde BTC, ETH, XRP",
+        "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
+        "Eğitim kursuna tam erişim",
+        "Bir Telegram botu bağlanıyor (çok yakında)",
+        "7/24 destek hizmeti",
+        "Aylık herhangi bir varlığın 1 fiyatının hesaplamasını sipariş edebilme",
+        "Diğer varlıklar için tahmin çizelgeleri: endeksler, hisse senetleri, döviz kurları, enflasyon vb.",
+        "Tüccarların özel sohbetine erişim"
+      ]
+    },
+    "trial": {
+      "alreadyActivated": "Deneme sürümünü zaten kullandınız"
+    },
+    "activated": {
+      "success": "{{tariff}} tarife ödendi"
     }
   },
   "activated": {
@@ -158,6 +189,9 @@
         "text": "Göstermek {{section}} tarifeyi etkinleştirmeniz gerekiyor",
         "action": "ÜCRETSİZ DENEYİN"
       }
+    },
+    "modal": {
+      "close": "Kapat"
     }
   }
 }
