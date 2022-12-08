@@ -73,20 +73,22 @@ export const UserCard: React.FC<{}> = () => {
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
           </a>
         </div>
-        <div className="header__user-soc">
-          <Link to={'https://twitter.com'} target="_blank" title="Twitter">
-            <img src="/img/social/twitter.svg" alt="Twitter" />
-          </Link>
-          <Link to={'https://discord.com'} target="_blank" title="Discord">
-            <img src="/img/social/discord.svg" alt="Discord" />
-          </Link>
-          <Link to={'https://tg.me'} target="_blank" title="Telegram">
-            <img src="/img/social/telegram.svg" alt="Telegram" />
-          </Link>
-        </div>
-        <div className="header__user-theme">
-          <SpriteIcon name="sun" width="20" height="20" />
-          <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme}></div>
+        <div className="header__user-soc-wrap">
+          <div className="header__user-soc">
+            <Link to={'https://twitter.com'} target="_blank" title="Twitter">
+              <img src="/img/social/twitter.svg" alt="Twitter" />
+            </Link>
+            <Link to={'https://discord.com'} target="_blank" title="Discord">
+              <img src="/img/social/discord.svg" alt="Discord" />
+            </Link>
+            <Link to={'https://tg.me'} target="_blank" title="Telegram">
+              <img src="/img/social/telegram.svg" alt="Telegram" />
+            </Link>
+          </div>
+          <div className="header__user-theme">
+            <SpriteIcon name="sun" width="20" height="20" />
+            <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme}></div>
+          </div>
         </div>
         <div className="header__user-minis">
           <a href="#">{t('policies.confidentiality')}</a> • <a href="#">{t('policies.terms')}</a> •
