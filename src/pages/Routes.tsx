@@ -60,6 +60,7 @@ const Router = () => (
     <Route path="/auth" element={<Authorization />}>
       <Route index element={<AuthorizationForm />} />
       <Route path="validation" element={<AuthorizationValidate />} />
+      <Route path="*" element={<Navigate to="/auth" />} />
     </Route>
 
     <Route path="/" element={<ProtectedRoute />}>
