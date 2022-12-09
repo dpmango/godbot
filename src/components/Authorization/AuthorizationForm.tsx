@@ -102,7 +102,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
                 <div
                   className={cns(
                     'login__input',
-                    !focused && errors.email && 'login__input--invalid',
+                    !focused && (error || errors.email) && 'login__input--invalid',
                     locked && 'login__input--disabled'
                   )}>
                   <input
