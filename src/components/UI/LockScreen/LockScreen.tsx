@@ -48,22 +48,26 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier }) => {
     activateTrial();
   }, []);
 
+  // проверка по userData - чтобы не было отображения замков при прогрузке сайтов.
+  // В будующем заменить на скелетон или лоадер
   return (
     <div className="fader fader--active">
-      <div className={cns('fader__text', textModifier && `fader__text--${textModifier}`)}>
-        <SpriteIcon name="lock" width="32" height="32" />
-        <div>{t(`${translationKey}.text`, { section })}</div>
+      {userData && (
+        <div className={cns('fader__text', textModifier && `fader__text--${textModifier}`)}>
+          <SpriteIcon name="lock" width="32" height="32" />
+          <div>{t(`${translationKey}.text`, { section })}</div>
 
-        {translationKey === 'trial' ? (
-          <a href="#" className="btn" onClick={handleTrialClick}>
-            {t(`${translationKey}.action`, { section })}
-          </a>
-        ) : (
-          <Link className="btn" to="?tariffs">
-            {t(`${translationKey}.action`, { section })}
-          </Link>
-        )}
-      </div>
+          {translationKey === 'trial' ? (
+            <a href="#" className="btn" onClick={handleTrialClick}>
+              {t(`${translationKey}.action`, { section })}
+            </a>
+          ) : (
+            <Link className="btn" to="?tariffs">
+              {t(`${translationKey}.action`, { section })}
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   );
 };

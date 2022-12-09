@@ -17,7 +17,7 @@
     "email": {
       "placeholder": "Введите ваш Email",
       "validation": {
-        "empty": "Введите email",
+        "empty": "Обязательное поле",
         "mask": "Неверный email"
       }
     }
