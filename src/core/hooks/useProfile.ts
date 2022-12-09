@@ -1,7 +1,7 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast, Id } from 'react-toastify';
 
 import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
@@ -14,7 +14,17 @@ const useProfile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const networkToast = useRef<Id>();
+
   const { t, i18n } = useTranslation('error');
+
+  const allowedFunctions = useMemo(() => {
+    return {
+      forecast: !!userData?.allowed_functions?.includes('Forecast'),
+      investing: !!userData?.allowed_functions?.includes('Investing'),
+      signal: !!userData?.allowed_functions?.includes('Signal'),
+    };
+  }, [userData?.allowed_functions]);
 
   const fetchProfileWithLogout = useCallback(async (): Promise<IUserDto | null> => {
     const { payload } = await dispatch(getCurrentUser());
@@ -25,7 +35,12 @@ const useProfile = () => {
 
       return null;
     } else if (payload === null) {
-      toast.error(t('network.connect'));
+      networkToast.current = toast.error(t('network.connect'), {
+        toastId: 'networkToast',
+        autoClose: false,
+      });
+    } else if (payload) {
+      toast.dismiss(networkToast.current);
     }
 
     return payload;
@@ -38,15 +53,7 @@ const useProfile = () => {
     });
 
     return { data, error };
-  }, []);
-
-  const allowedFunctions = useMemo(() => {
-    return {
-      forecast: !!userData?.allowed_functions?.includes('Forecast'),
-      investing: !!userData?.allowed_functions?.includes('Investing'),
-      signal: !!userData?.allowed_functions?.includes('Signal'),
-    };
-  }, [userData?.allowed_functions]);
+  }, [i18n.language]);
 
   return {
     allowedFunctions,

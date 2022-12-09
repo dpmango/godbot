@@ -6,6 +6,7 @@ import userState from '@store/user.store';
 import forecastState from '@store/forecast.store';
 import signalState from '@store/signals.store';
 import investorState from '@store/investor.store';
+import uiState from '@store/ui.store';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     forecastState,
     signalState,
     investorState,
+    uiState,
   },
 });
 

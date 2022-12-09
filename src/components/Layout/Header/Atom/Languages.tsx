@@ -40,7 +40,7 @@ export const Languages: React.FC<{}> = () => {
     <div className="header__lang" ref={dropdownRef}>
       <div
         className={cns('header__lang-opener', opened && 'header__lang-opener--active')}
-        onClick={() => setOpened(true)}>
+        onClick={() => setOpened(!opened)}>
         <img src={`img/language/${activeLanguage.key}.svg`} alt={activeLanguage?.key} />
         <SpriteIcon name="chevrondown" width="18" height="18" />
       </div>
