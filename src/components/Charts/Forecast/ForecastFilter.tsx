@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
-import { setStateCoin } from '@store';
+import { setStateCoin, setStateTime } from '@store';
 import { Select, SpriteIcon, ISelectOption } from '@ui';
 
 interface IForecastFilterProps {
@@ -19,9 +19,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   lastUpdate,
 }) => {
   const { isProUser, userData, loading } = useAppSelector((state) => state.userState);
-  const [currentTime, setTimeOption] = useState<string>('15min');
 
-  const { currentCoin, data } = useAppSelector((state) => state.forecastState);
+  const { currentCoin, currentTime, data, coins } = useAppSelector((state) => state.forecastState);
   const dispatch = useAppDispatch();
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -41,10 +40,9 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       }
     };
 
-    if (data.currencies_access_level && userData?.access_level) {
-      return Object.keys(data.currencies_access_level).map((key: string) => {
-        // @ts-ignore
-        const coinAccessLevel = data.currencies_access_level[key] as number;
+    if (coins && userData?.access_level) {
+      return Object.keys(coins).map((key: string) => {
+        const coinAccessLevel = coins[key].access_level;
         return {
           value: key,
           label: getCoinNameByTicker(key),
@@ -56,9 +54,6 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
     return [];
     // return [
-    //   { value: 'BTC', label: 'Bitcoin (BTC)' },
-    //   { value: 'XRP', label: 'Ripple (XRP)', disabled: !isProUser, isPro: !isProUser },
-    //   // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
     //   // {
     //   //   value: 'estimate',
     //   //   label: t('filter.estimate'),
@@ -68,7 +63,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     //   //   icon: 'plus',
     //   // },
     // ];
-  }, [isProUser, data.currencies_access_level, userData?.access_level]);
+  }, [isProUser, coins, userData?.access_level]);
 
   const handleCoinChange = useCallback(
     (opt: ISelectOption) => {
@@ -84,17 +79,22 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
   // time
   const timeOptions = useMemo(() => {
-    return [
-      { value: '15min', label: t('filter.ticks.15min') },
-      // { value: '1h', label: t('filter.ticks.1h'), isPro: !isProUser, disabled: true },
-      // { value: '1d', label: t('filter.ticks.1d'), isPro: !isProUser, disabled: true },
-    ];
-  }, [isProUser, i18n.language]);
+    if (coins && currentCoin) {
+      const coinData = coins[currentCoin];
+
+      return coinData.interval_list.map((interval) => ({
+        value: interval,
+        label: t(`filter.ticks.${interval}`),
+      }));
+    }
+
+    return [];
+  }, [coins, currentCoin, i18n.language]);
 
   const handleTimeChange = useCallback(
     (opt: ISelectOption) => {
       const newTimeKey = opt.value as string;
-      setTimeOption(newTimeKey);
+      dispatch(setStateTime(newTimeKey));
 
       let newParams = searchParams;
       newParams.set('time', newTimeKey);
@@ -111,7 +111,14 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     } else if (!coinParam) {
       dispatch(setStateCoin('BTC'));
     }
-  }, [coinOptions, searchParams]);
+
+    const timeParam = searchParams.get('time');
+    if (timeParam && timeOptions.some((x) => x.value === timeParam)) {
+      dispatch(setStateTime(timeParam));
+    } else if (!timeParam) {
+      dispatch(setStateTime('1m'));
+    }
+  }, [coinOptions, timeOptions, searchParams]);
 
   return (
     <div className="chart__head">
@@ -121,11 +128,11 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
       </div>
 
-      {lastUpdate && (
+      {/* {lastUpdate && (
         <div className="chart__head-time">
           {t('lastUpdate')} {lastUpdate}
         </div>
-      )}
+      )} */}
 
       <div
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}

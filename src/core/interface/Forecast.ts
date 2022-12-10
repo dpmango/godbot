@@ -1,9 +1,22 @@
 import { UTCTimestamp } from 'lightweight-charts';
 
-export interface IForecastTick {
-  real: number | null;
-  lower: number;
-  upper: number;
-  forecast: number;
+export interface IGraphTickDto {
+  real_close: number | null;
+  real_high: number | null;
+  real_low: number | null;
+  real_open: number | null;
+  forecast_low: number;
+  forecast_high: number;
+  forecast_trend: number;
   timestamp: UTCTimestamp;
+}
+
+export enum IntervalEnum {
+  ONE_MIN = '1m',
+  FIFTEEN_MIN = '15m',
+}
+
+export interface ICoinDto {
+  access_level: number;
+  interval_list: string[];
 }

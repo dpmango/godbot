@@ -56,7 +56,8 @@
       "estimate": "yanlış hesaplama siparişi ver",
       "coins": {},
       "ticks": {
-        "15min": "15 dakika",
+        "1m": "1 dakika",
+        "15m": "15 dakika",
         "1h": "1 saat",
         "1d": "1 gün"
       }

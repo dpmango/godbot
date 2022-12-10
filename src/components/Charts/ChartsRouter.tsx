@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { useAppDispatch, useAppSelector } from '@core';
-import { useProfile } from '@hooks';
-import { getInvesting, getChart } from '@store';
+import { useAppSelector } from '@core';
 
 import { Forecast, Investing } from '@c/Charts';
 
@@ -13,32 +11,8 @@ export const ChartsRouter: React.FC<{}> = () => {
   const [activeTab, setActiveTab] = useState<string>('Forecast');
 
   const { userData } = useAppSelector((state) => state.userState);
-  const investorData = useAppSelector((state) => state.investorState);
-  const dispatch = useAppDispatch();
-
-  const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
-
-  const { allowedFunctions } = useProfile();
 
   const { t } = useTranslation('charts');
-
-  useEffect(() => {
-    if (allowedFunctions.forecast) {
-      dispatch(getChart('coin=BTC'));
-
-      timerConfirm.current = setInterval(() => {
-        dispatch(getChart('coin=BTC'));
-      }, 15 * 60 * 1000);
-    }
-
-    if (allowedFunctions.investing) {
-      dispatch(getInvesting());
-    }
-
-    return () => {
-      clearInterval(timerConfirm.current as NodeJS.Timeout);
-    };
-  }, [userData?.allowed_functions[0]]);
 
   return (
     <>

@@ -56,7 +56,8 @@
       "estimate": "Order a miscalculation",
       "coins": {},
       "ticks": {
-        "15min": "15 minutes",
+        "1m": "1 minute",
+        "15m": "15 minutes",
         "1h": "1 hour",
         "1d": "1 day"
       }
