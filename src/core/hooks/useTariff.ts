@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 
 import { api, useAppSelector, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
+import { Toast } from '@c/Modals/Toast/Toast';
 
 const useTariff = () => {
   const { isProUser, userData } = useAppSelector((state) => state.userState);
@@ -18,14 +19,14 @@ const useTariff = () => {
 
   const activateTrial = async () => {
     if (userData?.tariff === 'Trial' || userData?.expire_date) {
-      toast.error(t('trial.alreadyActivated'));
+      Toast('error', t('trial.alreadyActivated'));
       return;
     }
 
     const { data: trialData, error: trialError } = await api('get_trial/', {});
 
     if (trialError) {
-      toast.error(trialError.message);
+      Toast('error', trialError.message);
       return;
     }
 
@@ -35,7 +36,7 @@ const useTariff = () => {
     });
 
     if (error) {
-      toast.error(error.message);
+      Toast('error', error.message);
       return;
     }
 

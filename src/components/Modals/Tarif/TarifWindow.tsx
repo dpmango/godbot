@@ -12,6 +12,7 @@ import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modals';
 import { IPlan, ITarifDto } from '@interface/Tarif';
+import { Toast } from '@c/Modals/Toast/Toast';
 
 // import './tarifes.sass';
 
@@ -57,7 +58,7 @@ export const TarifWindow: React.FC<{}> = () => {
     const { data, error } = await api('get_tariffs/', {});
 
     if (error) {
-      toast.error(`${error.status} ${error.message}`);
+      Toast('error', `${error.status} ${error.message}`);
       return;
     }
 
