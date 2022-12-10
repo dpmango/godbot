@@ -2,10 +2,10 @@ import { useEffect, useState, useRef } from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+
 import { useProfile } from '@hooks';
-import { Toast } from '@c/Modals/Toast/Toast';
+import { Toast } from '@ui';
 
 import { HomePage } from '@/pages/HomePage';
 import { Authorization } from '@/pages/Authorization';

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
@@ -11,8 +10,8 @@ import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modals';
+import { Toast } from '@ui';
 import { IPlan, ITarifDto } from '@interface/Tarif';
-import { Toast } from '@c/Modals/Toast/Toast';
 
 // import './tarifes.sass';
 

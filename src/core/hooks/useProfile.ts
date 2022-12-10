@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
 import { IUserDto } from '@core/interface/User';
 import { localStorageGet, getTimezone } from '@utils';
+import { Toast } from '@ui';
 
 const useProfile = () => {
   const { userData } = useAppSelector((state) => state.userState);
@@ -35,7 +36,7 @@ const useProfile = () => {
 
       return null;
     } else if (payload === null) {
-      networkToast.current = toast.error(t('network.connect'), {
+      networkToast.current = Toast('error', t('network.connect'), {
         toastId: 'networkToast',
         autoClose: false,
       });

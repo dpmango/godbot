@@ -2,14 +2,13 @@ import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import { Helmet } from 'react-helmet';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { api, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
 import { secondsToStamp, localStorageGet, localStorageSet } from '@utils';
-import { Toast } from '@c/Modals/Toast/Toast';
+import { Toast } from '@ui';
 
 const enLettersRegex = /^[a-zA-Z]+$/;
 const allowLetters = false;

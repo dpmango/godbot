@@ -1,10 +1,9 @@
 import { useCallback, useMemo } from 'react';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 import dayjs from 'dayjs';
-import { Toast } from '@c/Modals/Toast/Toast';
 
+import { Toast } from '@ui';
 import { formatPrice, localizeKeys, openExternalLink } from '@utils';
 import { api, useAppSelector } from '@core';
 import { ITarifDto, IPeriodObj } from '@interface/Tarif';

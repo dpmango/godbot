@@ -1,14 +1,12 @@
 import { useEffect, useState, useLayoutEffect, useRef, useMemo } from 'react';
 import xorBy from 'lodash/xorBy';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
-import { Toast } from '@c/Modals/Toast/Toast';
 
 import { useAppDispatch, useAppSelector } from '@core';
 import { getSignals } from '@store';
 import { LockScreen } from '@/components/UI/LockScreen/LockScreen';
-import { Pagination, Select } from '@ui';
+import { Pagination, Select, Toast } from '@ui';
 import { ISignal } from '@interface/Signal';
 
 import { SignalCard } from '@c/Signal';

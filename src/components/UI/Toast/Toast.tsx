@@ -1,7 +1,10 @@
-import React from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastOptions } from 'react-toastify';
 
-export const Toast = (type: string, message: string) => {
+export const Toast = (
+  type: 'success' | 'error' | 'info',
+  message: string,
+  params?: ToastOptions
+) => {
   const renderImage = () => {
     if (type === 'success') {
       return <img src="/img/CheckCircle-green.svg" alt="" />;
@@ -12,8 +15,7 @@ export const Toast = (type: string, message: string) => {
     }
   };
 
-  // @ts-ignore
-  toast[type](
+  return toast[type](
     () => {
       return (
         <div className="toast-wrap">
@@ -33,6 +35,7 @@ export const Toast = (type: string, message: string) => {
       autoClose: 5000,
       hideProgressBar: true,
       closeButton: false,
+      ...params,
     }
   );
 };

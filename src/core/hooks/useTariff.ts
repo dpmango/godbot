@@ -1,12 +1,11 @@
 import { useCallback } from 'react';
-import { toast } from 'react-toastify';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
 import { api, useAppSelector, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
-import { Toast } from '@c/Modals/Toast/Toast';
+import { Toast } from '@ui';
 
 const useTariff = () => {
   const { isProUser, userData } = useAppSelector((state) => state.userState);
