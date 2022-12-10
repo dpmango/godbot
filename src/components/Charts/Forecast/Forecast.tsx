@@ -21,15 +21,7 @@ import { ThemeContext } from '@/App';
 import { useProfile, useDebounce } from '@hooks';
 import { getChart, getCoins } from '@store';
 import { useAppSelector, useAppDispatch } from '@core';
-import {
-  timeToTz,
-  formatPrice,
-  formatUnixDate,
-  getRandomInt,
-  formatDate,
-  LOG,
-  PerformanceLog,
-} from '@utils';
+import { timeToTz, formatPrice, formatUnixDate, formatDate, LOG, PerformanceLog } from '@utils';
 import { LockScreen } from '@ui';
 import { IGraphTickDto } from '@/core/interface/Forecast';
 
@@ -82,23 +74,14 @@ export const Forecast: React.FC<{}> = () => {
 
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
-    // форматирование данных
-    const PERF_TIME = performance.now();
-    const coinDataMapped = coinData
-      .map((x) => ({
-        ...x,
-        timestamp: timeToTz(x.timestamp),
-      }))
-      .sort((a, b) => a.timestamp - b.timestamp);
-    PerformanceLog(PERF_TIME, 'coinDataMapped - timeToTz + sort');
-
     // подготовка (маппинг) данных
+    const PERF_TIME_SERIES = performance.now();
     const currentSeries = [
       {
         name: 'Real',
         type: 'candle',
 
-        data: coinDataMapped
+        data: coinData
           .map((x: IGraphTickDto) => {
             return {
               time: x.timestamp,
@@ -118,7 +101,7 @@ export const Forecast: React.FC<{}> = () => {
           lineWidth: 3 as LineWidth,
         },
         showChanges: true,
-        data: coinDataMapped
+        data: coinData
           .map((x: IGraphTickDto, idx) => {
             return {
               time: x.timestamp,
@@ -137,7 +120,7 @@ export const Forecast: React.FC<{}> = () => {
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
         },
-        data: coinDataMapped
+        data: coinData
           .map((x: IGraphTickDto) => {
             return {
               time: x.timestamp,
@@ -155,7 +138,7 @@ export const Forecast: React.FC<{}> = () => {
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
         },
-        data: coinDataMapped
+        data: coinData
           .map((x: IGraphTickDto) => {
             return {
               time: x.timestamp,
@@ -174,6 +157,7 @@ export const Forecast: React.FC<{}> = () => {
 
     // LOG.log({ currentSeries });
     setSeries(currentSeries);
+    PerformanceLog(PERF_TIME_SERIES, 'creating series data');
 
     if (!chart.current) {
       // Создание инстанса графика
@@ -267,7 +251,7 @@ export const Forecast: React.FC<{}> = () => {
       setChartLines([...newChartLines]);
 
       // навигация по графику
-      const lastTick = coinDataMapped[coinDataMapped.length - 1].timestamp;
+      const lastTick = coinData[coinData.length - 1].timestamp;
 
       const last = dayjs.unix(lastTick);
       const from = last.subtract(12, 'hour');
@@ -481,7 +465,9 @@ export const Forecast: React.FC<{}> = () => {
   const requestPagination = useCallback(
     async (range: LogicalRange) => {
       const navDistance = Math.ceil(Math.abs(range.from) / paginatePer);
-      const currentPage = Math.max.apply(0, dataNav.requested);
+      let currentPage = Math.max.apply(0, dataNav.requested);
+      if (currentPage === -Infinity) currentPage = 1;
+
       const requestPage = currentPage + navDistance;
       const requestPower = requestPage - currentPage;
 
@@ -489,13 +475,11 @@ export const Forecast: React.FC<{}> = () => {
 
       if (!dataNav.requested.includes(requestPage)) {
         [...Array(requestPower)].forEach((_, idx) => {
-          let targetPage = requestPage - idx;
-          LOG.log({ targetPage });
           dispatch(
             getChart({
               coin: currentCoin,
               time: currentTime,
-              page: targetPage,
+              page: requestPage - idx,
               per: paginatePer,
             })
           );

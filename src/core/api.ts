@@ -28,7 +28,7 @@ export const api = async (
       },
       body,
       params,
-    } as RequestInit;
+    } as FetchOptions;
 
     if (headers) {
       requestOptions.headers = {
@@ -54,7 +54,7 @@ export const api = async (
 
     const { data, message, ...raw } = await ofetch(requestUrl, requestOptions);
 
-    LOG.log(`👌 fetch ${url}`, data);
+    LOG.log(`👌 fetch ${url} ${JSON.stringify(requestOptions.params)}`, data);
 
     return { data, raw, message, error: null };
   } catch (err: any) {

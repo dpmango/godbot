@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '@core';
-import { buildParams } from '@utils';
+import { buildParams, PerformanceLog, timeToTz } from '@utils';
 import { IGraphTickDto, ICoinDto } from '@/core/interface/Forecast';
 
 export const getCoins = createAsyncThunk('chart/coinData', async () => {
@@ -62,10 +62,12 @@ export const forecastState = createSlice({
   reducers: {
     setStateCoin(state, action: PayloadAction<string>) {
       state.currentCoin = action.payload;
+      state.data = [];
       state.dataNav.requested = [];
     },
     setStateTime(state, action: PayloadAction<string>) {
       state.currentTime = action.payload;
+      state.data = [];
       state.dataNav.requested = [];
     },
   },
@@ -83,10 +85,20 @@ export const forecastState = createSlice({
       if (action.payload.data) {
         const { data, meta } = action.payload;
 
-        state.data = [...data, ...state.data];
+        const PERF_TIME = performance.now();
+        const dataTzFix = data
+          .map((x: IGraphTickDto) => ({
+            ...x,
+            timestamp: timeToTz(x.timestamp),
+          }))
+          .filter((x: IGraphTickDto) => x.timestamp);
 
+        state.data = [...dataTzFix, ...state.data].sort((a, b) => a.timestamp - b.timestamp);
+        PerformanceLog(PERF_TIME, 'coinDataMapped - timeToTz + sort');
+
+        const requestedPages = [...state.dataNav.requested, +meta.page];
         state.dataNav = {
-          requested: [...state.dataNav.requested, +meta.page],
+          requested: requestedPages.filter((x, idx) => requestedPages.indexOf(x) === idx),
         };
       }
     });
