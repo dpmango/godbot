@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '@core';
 import { setTutorialComplete } from '@store/user.store';
 import { useTranslation } from 'react-i18next';
 
+import './tutorial.scss';
+
 const svgInfo = (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -19,7 +21,7 @@ const svgInfo = (
   </svg>
 );
 
-export const TourHelp: FC<any> = () => {
+export const Tutorial: FC<any> = () => {
   const { t } = useTranslation('tutorial');
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.userState);

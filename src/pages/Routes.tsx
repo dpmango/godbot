@@ -47,7 +47,7 @@ const ProtectedRoute = () => {
   useEffect(() => {
     // вызывается только если тариф поменялся при последующих запросах
     if (userTariff && intervalRun > 1) {
-      Toast('success', t('activated.success'));
+      Toast('success', t('activated.success'), { autoClose: false });
     }
   }, [userTariff]);
 

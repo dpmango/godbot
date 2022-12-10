@@ -13,7 +13,7 @@ import {
   DocsTerms,
   DocsCookies,
   DocsDisclaimer,
-} from '@c/Modals';
+} from '@c/Modal';
 import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
 
 interface ILayout {

@@ -9,7 +9,7 @@ import { localizeKeys } from '@utils';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
-import { TarifCard } from '@c/Modals';
+import { TarifCard } from '@c/Modal';
 import { Toast } from '@ui';
 import { IPlan, ITarifDto } from '@interface/Tarif';
 

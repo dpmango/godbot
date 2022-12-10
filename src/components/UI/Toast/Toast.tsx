@@ -1,4 +1,5 @@
 import { toast, ToastOptions } from 'react-toastify';
+import './toast.css';
 
 export const Toast = (
   type: 'success' | 'error' | 'info',
