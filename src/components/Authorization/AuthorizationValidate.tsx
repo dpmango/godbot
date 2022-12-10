@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { api, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
 import { secondsToStamp, localStorageGet, localStorageSet } from '@utils';
+import { Toast } from '@c/Modals/Toast/Toast';
 
 const enLettersRegex = /^[a-zA-Z]+$/;
 const allowLetters = false;
@@ -190,7 +191,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     setLoading(false);
 
     if (error) {
-      toast.error(`${error.status} ${error.message}`);
+      Toast('error', `${error.status} ${error.message}`);
       return;
     }
 

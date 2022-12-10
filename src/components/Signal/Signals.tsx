@@ -3,6 +3,7 @@ import xorBy from 'lodash/xorBy';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
+import { Toast } from '@c/Modals/Toast/Toast';
 
 import { useAppDispatch, useAppSelector } from '@core';
 import { getSignals } from '@store';
@@ -67,7 +68,7 @@ export const Signals: React.FC<{}> = () => {
     const newSignals = xorBy(prevSignals, data, 'date');
 
     if (loaded && data?.length && newSignals.length) {
-      toast.info(`Добавлено ${newSignals.length} новых сигналов`);
+      Toast('info', `Добавлено ${newSignals.length} новых сигналов`);
     }
 
     if (data?.length) {
