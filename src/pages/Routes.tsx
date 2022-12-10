@@ -4,8 +4,8 @@ import Cookies from 'js-cookie';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-
 import { useProfile } from '@hooks';
+import { Toast } from '@c/Modals/Toast/Toast';
 
 import { HomePage } from '@/pages/HomePage';
 import { Authorization } from '@/pages/Authorization';
@@ -28,7 +28,6 @@ const ProtectedRoute = () => {
   if (!accessToken) {
     return <Navigate to="/auth" state={{ from: location }} replace />;
   }
-
   // проверка оплаченных тарифов и логаут сессии
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
@@ -48,9 +47,7 @@ const ProtectedRoute = () => {
   useEffect(() => {
     // вызывается только если тариф поменялся при последующих запросах
     if (userTariff && intervalRun > 1) {
-      toast.success(t('activated.success', { tariff: userTariff }), {
-        autoClose: false,
-      });
+      Toast('success', t('activated.success'));
     }
   }, [userTariff]);
 
@@ -64,7 +61,6 @@ const Router = () => (
       <Route path="validation" element={<AuthorizationValidate />} />
       <Route path="*" element={<Navigate to="/auth" />} />
     </Route>
-
     <Route path="/" element={<ProtectedRoute />}>
       <Route index element={<HomePage />} />
       {/* <Route path="partnership" element={<Partnership />} />*/}

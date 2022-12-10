@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 import dayjs from 'dayjs';
+import { Toast } from '@c/Modals/Toast/Toast';
 
 import { formatPrice, localizeKeys, openExternalLink } from '@utils';
 import { api, useAppSelector } from '@core';
@@ -104,7 +105,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
     });
 
     if (error) {
-      toast.error(error.message);
+      Toast('error', error.message);
       return;
     }
 
