@@ -79,17 +79,19 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
   // time
   const timeOptions = useMemo(() => {
-    if (coins && currentCoin) {
+    if (coins && currentCoin && userData?.access_level) {
       const coinData = coins[currentCoin];
 
       return coinData.interval_list.map((interval) => ({
-        value: interval,
-        label: t(`filter.ticks.${interval}`),
+        value: interval.label,
+        label: t(`filter.ticks.${interval.label}`),
+        disabled: userData?.access_level < interval.access_level,
+        isPro: userData?.access_level < interval.access_level,
       }));
     }
 
     return [];
-  }, [coins, currentCoin, i18n.language]);
+  }, [coins, currentCoin, userData?.access_level, i18n.language]);
 
   const handleTimeChange = useCallback(
     (opt: ISelectOption) => {
@@ -116,7 +118,10 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     if (timeParam && timeOptions.some((x) => x.value === timeParam)) {
       dispatch(setStateTime(timeParam));
     } else if (!timeParam) {
-      dispatch(setStateTime('1m'));
+      const firstAvailOption = timeOptions.find((x) => !x.disabled);
+      if (firstAvailOption) {
+        dispatch(setStateTime(firstAvailOption.value));
+      }
     }
   }, [coinOptions, timeOptions, searchParams]);
 

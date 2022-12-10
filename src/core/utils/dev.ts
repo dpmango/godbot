@@ -22,3 +22,9 @@ export const LOG = {
     console.error(...args);
   },
 };
+
+export const PerformanceLog = (DEV_perf: number, name: string) => {
+  const DEV_perf_end = performance.now();
+
+  LOG.log(`PERF :: ${name} :: ${(DEV_perf_end - DEV_perf).toFixed(2)} ms`);
+};

@@ -1,4 +1,4 @@
-export { getRandomInt, LOG } from './dev';
+export { getRandomInt, LOG, PerformanceLog } from './dev';
 export {
   timeDiff,
   formatDate,

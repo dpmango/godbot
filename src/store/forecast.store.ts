@@ -17,13 +17,18 @@ interface IGraphRequest {
 
 export const getChart = createAsyncThunk(
   'chart/chartData',
-  async ({ coin, time, page, per }: IGraphRequest) => {
+  async ({ coin, time, page = 1, per }: IGraphRequest) => {
     let paginationParams = buildParams({ page: page, paginated_by: per });
 
+    // prevent double requests
     const { data } = await api(`get_graph/${coin}/${time}/`, {
       params: paginationParams,
     });
-    return data;
+
+    return {
+      data,
+      meta: paginationParams,
+    };
   }
 );
 
@@ -35,6 +40,9 @@ interface IChartData {
     [key: string]: ICoinDto;
   } | null;
   data: IGraphTickDto[];
+  dataNav: {
+    requested: number[];
+  };
 }
 
 const initialState: IChartData = {
@@ -43,6 +51,9 @@ const initialState: IChartData = {
   currentTime: '',
   coins: null,
   data: [],
+  dataNav: {
+    requested: [],
+  },
 };
 
 export const forecastState = createSlice({
@@ -51,9 +62,11 @@ export const forecastState = createSlice({
   reducers: {
     setStateCoin(state, action: PayloadAction<string>) {
       state.currentCoin = action.payload;
+      state.dataNav.requested = [];
     },
     setStateTime(state, action: PayloadAction<string>) {
       state.currentTime = action.payload;
+      state.dataNav.requested = [];
     },
   },
   extraReducers: (builder) => {
@@ -67,7 +80,15 @@ export const forecastState = createSlice({
     });
     builder.addCase(getChart.fulfilled, (state, action) => {
       state.loading = 'fulfilled';
-      state.data = [...action.payload];
+      if (action.payload.data) {
+        const { data, meta } = action.payload;
+
+        state.data = [...data, ...state.data];
+
+        state.dataNav = {
+          requested: [...state.dataNav.requested, +meta.page],
+        };
+      }
     });
   },
 });

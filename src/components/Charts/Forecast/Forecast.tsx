@@ -7,6 +7,7 @@ import {
   IChartApi,
   ISeriesApi,
   UTCTimestamp,
+  LogicalRange,
   SeriesMarkerPosition,
   SeriesMarkerShape,
   SeriesMarker,
@@ -17,10 +18,18 @@ import cns from 'classnames';
 import dayjs from 'dayjs';
 
 import { ThemeContext } from '@/App';
-import { useProfile } from '@hooks';
+import { useProfile, useDebounce } from '@hooks';
 import { getChart, getCoins } from '@store';
 import { useAppSelector, useAppDispatch } from '@core';
-import { timeToTz, formatPrice, formatUnixDate, getRandomInt, formatDate, LOG } from '@utils';
+import {
+  timeToTz,
+  formatPrice,
+  formatUnixDate,
+  getRandomInt,
+  formatDate,
+  LOG,
+  PerformanceLog,
+} from '@utils';
 import { LockScreen } from '@ui';
 import { IGraphTickDto } from '@/core/interface/Forecast';
 
@@ -45,9 +54,17 @@ export const Forecast: React.FC<{}> = () => {
   const chart = useRef<IChartApi | null>(null);
   const [series, setSeries] = useState<any>([]);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
+  const [scrollRange, setScrollRange] = useState<LogicalRange>();
+  const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
 
   // стор
-  const { data, currentCoin, currentTime } = useAppSelector((state) => state.forecastState);
+  const {
+    data,
+    dataNav,
+    currentCoin,
+    currentTime,
+    loading: storeLoading,
+  } = useAppSelector((state) => state.forecastState);
   const { userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
@@ -60,17 +77,20 @@ export const Forecast: React.FC<{}> = () => {
   const { t } = useTranslation('forecast');
 
   const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+  const paginatePer = 200;
   const viewLocked = !userData?.tariff;
 
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
     // форматирование данных
+    const PERF_TIME = performance.now();
     const coinDataMapped = coinData
       .map((x) => ({
         ...x,
         timestamp: timeToTz(x.timestamp),
       }))
-      .reverse();
+      .sort((a, b) => a.timestamp - b.timestamp);
+    PerformanceLog(PERF_TIME, 'coinDataMapped - timeToTz + sort');
 
     // подготовка (маппинг) данных
     const currentSeries = [
@@ -152,6 +172,7 @@ export const Forecast: React.FC<{}> = () => {
     //   forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
     // }
 
+    // LOG.log({ currentSeries });
     setSeries(currentSeries);
 
     if (!chart.current) {
@@ -193,7 +214,7 @@ export const Forecast: React.FC<{}> = () => {
           },
         },
         timeScale: {
-          fixLeftEdge: true,
+          // fixLeftEdge: true,
           fixRightEdge: true,
           borderVisible: false,
           timeVisible: true,
@@ -254,6 +275,18 @@ export const Forecast: React.FC<{}> = () => {
       chartInstance.timeScale().setVisibleRange({
         from: timeToTz((from.unix() * 1000) as UTCTimestamp),
         to: timeToTz((last.unix() * 1000) as UTCTimestamp),
+      });
+
+      // chartInstance.timeScale().subscribeVisibleTimeRangeChange((newRange) => {
+      //   if (newRange !== null) {
+      //     // console.log({ newRange });
+      //   }
+      // });
+
+      chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
+        if (!range) return;
+
+        setScrollRange(range);
       });
 
       // тултипы
@@ -428,7 +461,7 @@ export const Forecast: React.FC<{}> = () => {
 
     const requestChart = async () => {
       if (currentCoin && currentTime) {
-        dispatch(getChart({ coin: currentCoin, time: currentTime, per: 200 }));
+        dispatch(getChart({ coin: currentCoin, time: currentTime, page: 1, per: paginatePer }));
       }
     };
 
@@ -443,6 +476,40 @@ export const Forecast: React.FC<{}> = () => {
       clearInterval(timerConfirm.current as NodeJS.Timeout);
     };
   }, [allowedFunctions.forecast, currentCoin, currentTime]);
+
+  // пагинация
+  const requestPagination = useCallback(
+    async (range: LogicalRange) => {
+      const navDistance = Math.ceil(Math.abs(range.from) / paginatePer);
+      const currentPage = Math.max.apply(0, dataNav.requested);
+      const requestPage = currentPage + navDistance;
+      const requestPower = requestPage - currentPage;
+
+      LOG.log({ currentPage }, { requestPage }, { requestPower }, { dataNav: dataNav.requested });
+
+      if (!dataNav.requested.includes(requestPage)) {
+        [...Array(requestPower)].forEach((_, idx) => {
+          let targetPage = requestPage - idx;
+          LOG.log({ targetPage });
+          dispatch(
+            getChart({
+              coin: currentCoin,
+              time: currentTime,
+              page: targetPage,
+              per: paginatePer,
+            })
+          );
+        });
+      }
+    },
+    [currentTime, currentCoin, dataNav]
+  );
+
+  useEffect(() => {
+    if (debouncedRange && debouncedRange.from < 0 && storeLoading !== 'pending') {
+      requestPagination(debouncedRange);
+    }
+  }, [debouncedRange]);
 
   // обновление данных
   useEffect(() => {

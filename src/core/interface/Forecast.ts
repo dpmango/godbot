@@ -11,12 +11,12 @@ export interface IGraphTickDto {
   timestamp: UTCTimestamp;
 }
 
-export enum IntervalEnum {
-  ONE_MIN = '1m',
-  FIFTEEN_MIN = '15m',
+export interface IIntervalDto {
+  access_level: number;
+  label: string;
 }
 
 export interface ICoinDto {
   access_level: number;
-  interval_list: string[];
+  interval_list: IIntervalDto[];
 }

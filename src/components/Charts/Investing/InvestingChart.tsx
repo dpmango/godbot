@@ -89,7 +89,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
           fixLeftEdge: true,
           fixRightEdge: true,
           borderVisible: false,
-          timeVisible: true,
+          timeVisible: false,
           secondsVisible: false,
         },
         localization: {
