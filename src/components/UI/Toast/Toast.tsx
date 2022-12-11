@@ -33,7 +33,7 @@ export const Toast = (
       );
     },
     {
-      autoClose: 2225000,
+      autoClose: 5000,
       hideProgressBar: true,
       closeButton: false,
       position: 'bottom-right',
