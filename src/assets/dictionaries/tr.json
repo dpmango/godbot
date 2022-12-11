@@ -97,6 +97,13 @@
       "stop": "Kaybı durdurmak",
       "risk": "İşlem başına risk"
     },
+    "notify": {
+      "new": {
+        "one": "{{count}} yeni sinyal eklendi",
+        "two": "{{count}} yeni sinyal eklendi",
+        "five": "{{count}} yeni sinyal eklendi"
+      }
+    },
     "lock": "tahminler"
   },
   "tariff": {
