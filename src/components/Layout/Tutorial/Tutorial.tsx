@@ -34,7 +34,7 @@ export const Tutorial: FC<any> = () => {
   return (
     <div>
       <Tour
-        isOpen={userData && userData.tariff && !userData.tutorial_complete}
+        isOpen={(userData && userData.tariff && !userData.tutorial_complete) || false}
         showButtons={false}
         showNumber={false}
         showNavigation={false}
