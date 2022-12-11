@@ -475,14 +475,17 @@ export const Forecast: React.FC<{}> = () => {
 
       if (!dataNav.requested.includes(requestPage)) {
         [...Array(requestPower)].forEach((_, idx) => {
-          dispatch(
-            getChart({
-              coin: currentCoin,
-              time: currentTime,
-              page: requestPage - idx,
-              per: paginatePer,
-            })
-          );
+          const targetPage = requestPage - idx;
+          if (targetPage <= dataNav.max) {
+            dispatch(
+              getChart({
+                coin: currentCoin,
+                time: currentTime,
+                page: requestPage - idx,
+                per: paginatePer,
+              })
+            );
+          }
         });
       }
     },

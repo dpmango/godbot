@@ -117,7 +117,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     const timeParam = searchParams.get('time');
     if (timeParam && timeOptions.some((x) => x.value === timeParam)) {
       dispatch(setStateTime(timeParam));
-    } else if (!timeParam) {
+    } else {
       const firstAvailOption = timeOptions.find((x) => !x.disabled);
       if (firstAvailOption) {
         dispatch(setStateTime(firstAvailOption.value));

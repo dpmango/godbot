@@ -21,12 +21,13 @@ export const getChart = createAsyncThunk(
     let paginationParams = buildParams({ page: page, paginated_by: per });
 
     // prevent double requests
-    const { data } = await api(`get_graph/${coin}/${time}/`, {
+    const { data, metadata } = await api(`get_graph/${coin}/${time}/`, {
       params: paginationParams,
     });
 
     return {
       data,
+      metadata,
       meta: paginationParams,
     };
   }
@@ -41,6 +42,7 @@ interface IChartData {
   } | null;
   data: IGraphTickDto[];
   dataNav: {
+    max: number;
     requested: number[];
   };
 }
@@ -52,6 +54,7 @@ const initialState: IChartData = {
   coins: null,
   data: [],
   dataNav: {
+    max: 100,
     requested: [],
   },
 };
@@ -62,6 +65,7 @@ export const forecastState = createSlice({
   reducers: {
     setStateCoin(state, action: PayloadAction<string>) {
       state.currentCoin = action.payload;
+      state.currentTime = '';
       state.data = [];
       state.dataNav.requested = [];
     },
@@ -83,7 +87,7 @@ export const forecastState = createSlice({
     builder.addCase(getChart.fulfilled, (state, action) => {
       state.loading = 'fulfilled';
       if (action.payload.data) {
-        const { data, meta } = action.payload;
+        const { data, meta, metadata } = action.payload;
 
         const PERF_TIME = performance.now();
         const dataTzFix = data
@@ -98,6 +102,7 @@ export const forecastState = createSlice({
 
         const requestedPages = [...state.dataNav.requested, +meta.page];
         state.dataNav = {
+          max: metadata?.pages_count,
           requested: requestedPages.filter((x, idx) => requestedPages.indexOf(x) === idx),
         };
       }

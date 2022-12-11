@@ -52,11 +52,11 @@ export const api = async (
       requestUrl = url;
     }
 
-    const { data, message, ...raw } = await ofetch(requestUrl, requestOptions);
+    const { data, message, metadata, ...raw } = await ofetch(requestUrl, requestOptions);
 
     LOG.log(`👌 fetch ${url} ${JSON.stringify(requestOptions.params)}`, data);
 
-    return { data, raw, message, error: null };
+    return { data, metadata, raw, message, error: null };
   } catch (err: any) {
     let errMessage = err?.data?.message || '';
 
@@ -75,6 +75,6 @@ export const api = async (
 
     LOG.log('❌ Request Error', error);
 
-    return { data: null, message: null, error };
+    return { data: null, metadata: null, message: null, error };
   }
 };
