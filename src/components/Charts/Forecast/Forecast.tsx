@@ -453,7 +453,7 @@ export const Forecast: React.FC<{}> = () => {
       dispatch(getCoins());
       requestChart();
 
-      timerConfirm.current = setInterval(() => requestChart, updateIntervalMin * 60 * 1000);
+      timerConfirm.current = setInterval(requestChart, updateIntervalMin * 60 * 1000);
     }
 
     return () => {
