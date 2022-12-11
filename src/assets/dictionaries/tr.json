@@ -207,49 +207,49 @@
   },
   "tutorial": {
     "btns": {
-      "start": "Начать",
-      "skip": "Пропустить",
-      "next": "Далее",
-      "prev": "Назад",
-      "finish": "Завершить"
+      "start": "Başlamak",
+      "skip": "Atlamak",
+      "next": "Daha öte",
+      "prev": "Geri",
+      "finish": "Tamamlamak"
     },
     "steps": {
       "step": {
-        "title": "Приветствуем в личном кабинете!",
-        "text": "Предлагаем ознакомиться с сервисом чуть подробней с помощью нашего руководства"
+        "title": "Kişisel hesabınıza hoş geldiniz!",
+        "text": "Rehberimiz yardımıyla hizmeti biraz daha detaylı tanımanızı öneriyoruz."
       },
       "step1": {
-        "text": "Во вкладке “Трейдинг” предоставляется информация от ИИ в режиме реального времени."
+        "text": "Ticaret sekmesi, yapay zekadan gerçek zamanlı bilgi sağlar."
       },
       "step2": {
-        "text": "Мы производим просчеты нескольких активов. В этой вкладке вы можете выбрать желаемый."
+        "text": "Çeşitli varlıkların yanlış hesaplamalarını yapıyoruz. "
       },
       "step3": {
-        "text": "Каждый актив высчитывается на нескольких таймфреймах. Вы можете выбирать наиболее удобный таймфрейм для торговли."
+        "text": "Her varlık birkaç zaman diliminde hesaplanır. "
       },
       "step4": {
-        "text": "Вы видите всего 4 линии: прогноз, факт и верхняя и нижняя границы канала. Факт двигается по линии прогноза или около нее в ≈80% случаев. В 99% случаев цена находится внутри канала. Прогноз пересчитывается автоматически при существенных колебаниях цены актива или при появлении новых вводных данных по рынку."
+        "text": "Yalnızca 4 satır görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. "
       },
       "step5": {
-        "text": "В легенде вы можете включать или отключать каждую линию на графике."
+        "text": "Göstergede, grafikteki her satırı etkinleştirebilir veya devre dışı bırakabilirsiniz."
       },
       "step6": {
-        "text": "Вкладка «Инвестирование» разработана для возможности принимать решение о долгосрочных инвестициях в активы Вы можете заказывать просчет интересующих активов."
+        "text": "\"Yatırım\" sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmek için tasarlanmıştır.İlgilendirilen varlıkların hesaplanmasını sipariş edebilirsiniz."
       },
       "step7": {
-        "text": "В карточке Вы видите тикер актива и прогноз. Фактическая цена не подтягивается и прогноз не обновляется вплоть до его завершения."
+        "text": "Kartta varlık şeridini ve tahmini görürsünüz. "
       },
       "step8": {
-        "text": "На тарифе PRO Trader вы можете заказать просчет 1 актива в месяц. Последующие просчеты за доплату."
+        "text": "PRO Trader tarifesinde aylık 1 varlık hesaplama talimatı verebilirsiniz. "
       },
       "step9": {
-        "text": "В блоке рекомендаций по торговле Вы будете видеть четкие цены на вход и выход из позиции, а также рекомендуемый риск по каждой сделке."
+        "text": "Alım satım önerileri bloğunda, bir pozisyona girmek ve çıkmak için net fiyatların yanı sıra her işlem için önerilen riski göreceksiniz."
       },
       "step10": {
-        "text": "В карточке профиля отображается ваш тариф и дата его завершения."
+        "text": "Profil kartı, oranınızı ve bitiş tarihini gösterir."
       },
       "step11": {
-        "text": "Также можете менять стиль сайта и подписаться на наши социальные сети."
+        "text": "Ayrıca sitenin stilini değiştirebilir ve sosyal ağlarımıza abone olabilirsiniz."
       }
     }
   }
