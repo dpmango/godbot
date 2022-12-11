@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { ofetch, FetchError, FetchOptions } from 'ofetch';
+import { LOG } from '@utils';
 
 interface IRequestOptions {
   method?: string;
@@ -27,7 +28,7 @@ export const api = async (
       },
       body,
       params,
-    } as RequestInit;
+    } as FetchOptions;
 
     if (headers) {
       requestOptions.headers = {
@@ -51,11 +52,11 @@ export const api = async (
       requestUrl = url;
     }
 
-    const { data, message, ...raw } = await ofetch(requestUrl, requestOptions);
+    const { data, message, metadata, ...raw } = await ofetch(requestUrl, requestOptions);
 
-    console.log(`👌 fetch ${url}`, data);
+    LOG.log(`👌 fetch ${url} ${JSON.stringify(requestOptions.params)}`, data);
 
-    return { data, raw, message, error: null };
+    return { data, metadata, raw, message, error: null };
   } catch (err: any) {
     let errMessage = err?.data?.message || '';
 
@@ -72,8 +73,8 @@ export const api = async (
 
     let error: IError = { status: err?.status || 500, message: errMessage, raw: err };
 
-    console.log('❌ Request Error', error);
+    LOG.log('❌ Request Error', error);
 
-    return { data: null, message: null, error };
+    return { data: null, metadata: null, message: null, error };
   }
 };

@@ -17,7 +17,7 @@
     "email": {
       "placeholder": "Enter your Email",
       "validation": {
-        "empty": "Enter email",
+        "empty": "Required field",
         "mask": "Invalid email"
       }
     }
@@ -33,6 +33,7 @@
     },
     "actions": {
       "changeTariff": "Change tariff",
+      "chooseTariff": "Choose tariff",
       "connectBot": "Link Telegram bot",
       "payedChat": "Go to Telegram chat"
     },
@@ -55,7 +56,8 @@
       "estimate": "Order a miscalculation",
       "coins": {},
       "ticks": {
-        "15min": "15 minutes",
+        "1m": "1 minute",
+        "15m": "15 minutes",
         "1h": "1 hour",
         "1d": "1 day"
       }
@@ -101,8 +103,11 @@
     "title": "Tariffs",
     "pricePer": "per",
     "pay": "Pay",
+    "prolong": "Renew tariff",
+    "upgrade": "Upgrade tariff",
     "gift": "gift",
     "noGift": "no gift",
+    "discount": "Discount {{percent}}% until {{date}}",
     "units": {
       "day": {
         "one": "day",
@@ -122,7 +127,7 @@
     },
     "description": {
       "trader": [
-        "BTC 15 minute forecast chart",
+        "BTC forecast chart for 1-min TF",
         "Signals to buy and sell assets from AI",
         "Partial access to the training course",
         "Connecting a Telegram bot (coming soon)",
@@ -138,9 +143,16 @@
         "Forecast charts for other assets: indices, stocks, exchange rates, inflation, etc.",
         "Access to the private chat of traders"
       ]
+    },
+    "trial": {
+      "alreadyActivated": "You have already used the trial version"
+    },
+    "activated": {
+      "success": "{{tariff}} tariff payed"
     }
   },
   "activated": {
+    "pagetitle": "Godbot | Trial",
     "title": "Congratulations!",
     "text": "You have activated a trial plan for 7 days. ",
     "action": "GO!"
@@ -151,10 +163,19 @@
     "action": "GO!",
     "skip": "SKIP"
   },
+  "paymentAwait": {
+    "pagetitle": "Godbot | Payment in progress",
+    "title": "Payment Accepted",
+    "text": "The payment is being processed and soon (usually 1-5 minutes) the tariff will be activated. You can close this window and wait for notification in your account",
+    "action": "Close"
+  },
   "error": {
     "notfound": {
       "title": "Page not found",
       "action": "Go to Main page"
+    },
+    "network": {
+      "connect": "Check your network connection"
     }
   },
   "ui": {
@@ -182,6 +203,54 @@
     },
     "modal": {
       "close": "Close"
+    }
+  },
+  "tutorial": {
+    "btns": {
+      "start": "To begin",
+      "skip": "Skip",
+      "next": "Further",
+      "prev": "Back",
+      "finish": "To complete"
+    },
+    "steps": {
+      "step": {
+        "title": "Welcome to your personal account!",
+        "text": "We offer you to get acquainted with the service in a little more detail with the help of our guide."
+      },
+      "step1": {
+        "text": "The Trading tab provides real-time information from the AI."
+      },
+      "step2": {
+        "text": "We make miscalculations of several assets. "
+      },
+      "step3": {
+        "text": "Each asset is calculated on several timeframes. "
+      },
+      "step4": {
+        "text": "You see only 4 lines: forecast, fact, and the upper and lower boundaries of the channel. "
+      },
+      "step5": {
+        "text": "In the legend, you can enable or disable each line on the chart."
+      },
+      "step6": {
+        "text": "The \"Investment\" tab is designed to be able to make a decision on long-term investments in assets. You can order a calculation of assets of interest."
+      },
+      "step7": {
+        "text": "In the card you see the asset ticker and the forecast. "
+      },
+      "step8": {
+        "text": "On the PRO Trader tariff, you can order the calculation of 1 asset per month. "
+      },
+      "step9": {
+        "text": "In the block of recommendations for trading, you will see clear prices for entering and exiting a position, as well as the recommended risk for each transaction."
+      },
+      "step10": {
+        "text": "The profile card shows your rate and the end date."
+      },
+      "step11": {
+        "text": "You can also change the style of the site and subscribe to our social networks."
+      }
     }
   }
 }

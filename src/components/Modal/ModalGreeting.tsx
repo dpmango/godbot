@@ -4,16 +4,13 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
-import { useAppSelector } from '@core';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 
-export const Activated: React.FC<{}> = () => {
-  const { currentModal } = useAppSelector((state) => state.modalState);
-
+export const ModalGreeting: React.FC<{}> = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation('activated');
+  const { t } = useTranslation('greeting');
 
   const closeModal = () => {
     navigate(pathname);
@@ -28,7 +25,7 @@ export const Activated: React.FC<{}> = () => {
         <title>Godbot | Greeting</title>
       </Helmet>
 
-      <Modal name="activated">
+      <Modal name="greeting">
         <div className="modal__block" ref={modalRef}>
           <div className="modal__title">{t('title')}</div>
           <div className="modal__text">{t('text')}</div>
@@ -36,6 +33,7 @@ export const Activated: React.FC<{}> = () => {
             <div className="btn btn--modal" onClick={closeModal}>
               {t('action')}
             </div>
+            <div className="btn btn--secondary btn--modal">{t('skip')}</div>
           </div>
         </div>
       </Modal>

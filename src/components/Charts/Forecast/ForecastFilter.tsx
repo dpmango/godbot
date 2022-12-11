@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
-import { setStateCoin } from '@store';
+import { setStateCoin, setStateTime } from '@store';
 import { Select, SpriteIcon, ISelectOption } from '@ui';
 
 interface IForecastFilterProps {
@@ -18,39 +18,60 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   setLegendActive,
   lastUpdate,
 }) => {
-  const { isProUser, loading } = useAppSelector((state) => state.userState);
-  const [currentTime, setTimeOption] = useState<string>('15min');
+  const { isProUser, userData, loading } = useAppSelector((state) => state.userState);
 
-  const { currentCoin } = useAppSelector((state) => state.forecastState);
+  const { currentCoin, currentTime, data, coins } = useAppSelector((state) => state.forecastState);
   const dispatch = useAppDispatch();
 
   let [searchParams, setSearchParams] = useSearchParams();
-  const { t } = useTranslation('forecast');
+  const { t, i18n } = useTranslation('forecast');
 
   // coins
   const coinOptions = useMemo(() => {
-    return [
-      { value: 'BTC', label: 'Bitcoin (BTC)' },
-      { value: 'XRP', label: 'Ripple (XRP)', disabled: !isProUser, isPro: !isProUser },
-      // { value: 'matic', label: 'Polygon (MATIC)', isPro: !isProUser, disabled: true },
-      // {
-      //   value: 'estimate',
-      //   label: t('filter.estimate'),
-      //   isPro: !isProUser,
-      //   disabled: true,
-      //   modifier: 'blue',
-      //   icon: 'plus',
-      // },
-    ];
-  }, [isProUser]);
+    const getCoinNameByTicker = (ticker: string) => {
+      switch (ticker) {
+        case 'BTC':
+          return 'Bitcoin (BTC)';
+        case 'XRP':
+          return 'Ripple (XRP)';
+
+        default:
+          return ticker;
+      }
+    };
+
+    if (coins && userData?.access_level) {
+      return Object.keys(coins).map((key: string) => {
+        const coinAccessLevel = coins[key].access_level;
+        return {
+          value: key,
+          label: getCoinNameByTicker(key),
+          disabled: userData?.access_level < coinAccessLevel,
+          isPro: userData?.access_level < coinAccessLevel,
+        } as ISelectOption;
+      });
+    }
+
+    return [];
+    // return [
+    //   // {
+    //   //   value: 'estimate',
+    //   //   label: t('filter.estimate'),
+    //   //   isPro: !isProUser,
+    //   //   disabled: true,
+    //   //   modifier: 'blue',
+    //   //   icon: 'plus',
+    //   // },
+    // ];
+  }, [isProUser, coins, userData?.access_level]);
 
   const handleCoinChange = useCallback(
     (opt: ISelectOption) => {
-      const newTimeKey = opt.value as string;
-      dispatch(setStateCoin(newTimeKey));
+      const newCoinKey = opt.value as string;
+      dispatch(setStateCoin(newCoinKey));
 
       let newParams = searchParams;
-      newParams.set('coin', newTimeKey);
+      newParams.set('coin', newCoinKey);
       setSearchParams(newParams);
     },
     [searchParams]
@@ -58,17 +79,24 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
   // time
   const timeOptions = useMemo(() => {
-    return [
-      { value: '15min', label: t('filter.ticks.15min') },
-      // { value: '1h', label: t('filter.ticks.1h'), isPro: !isProUser, disabled: true },
-      // { value: '1d', label: t('filter.ticks.1d'), isPro: !isProUser, disabled: true },
-    ];
-  }, [isProUser]);
+    if (coins && currentCoin && userData?.access_level) {
+      const coinData = coins[currentCoin];
+
+      return coinData.interval_list.map((interval) => ({
+        value: interval.label,
+        label: t(`filter.ticks.${interval.label}`),
+        disabled: userData?.access_level < interval.access_level,
+        isPro: userData?.access_level < interval.access_level,
+      }));
+    }
+
+    return [];
+  }, [coins, currentCoin, userData?.access_level, i18n.language]);
 
   const handleTimeChange = useCallback(
     (opt: ISelectOption) => {
       const newTimeKey = opt.value as string;
-      setTimeOption(newTimeKey);
+      dispatch(setStateTime(newTimeKey));
 
       let newParams = searchParams;
       newParams.set('time', newTimeKey);
@@ -80,28 +108,36 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   // initial params parser
   useEffect(() => {
     const coinParam = searchParams.get('coin');
-    if (coinParam && timeOptions.some((x) => x.value === coinParam)) {
+    if (coinParam && coinOptions.some((x) => x.value === coinParam)) {
       dispatch(setStateCoin(coinParam));
+    } else if (!coinParam) {
+      dispatch(setStateCoin('BTC'));
     }
-  }, []);
+
+    const timeParam = searchParams.get('time');
+    if (timeParam && timeOptions.some((x) => x.value === timeParam)) {
+      dispatch(setStateTime(timeParam));
+    } else {
+      const firstAvailOption = timeOptions.find((x) => !x.disabled);
+      if (firstAvailOption) {
+        dispatch(setStateTime(firstAvailOption.value));
+      }
+    }
+  }, [coinOptions, timeOptions, searchParams]);
 
   return (
     <div className="chart__head">
       <div className="chart__head-title">{t('filter.title')}</div>
       <div className="chart__head-filters">
-        <Select
-          value={searchParams.get('coin') || ''}
-          options={coinOptions}
-          onSelect={handleCoinChange}
-        />
-        {/* <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} /> */}
+        <Select value={currentCoin} options={coinOptions} onSelect={handleCoinChange} />
+        <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
       </div>
 
-      {lastUpdate && (
+      {/* {lastUpdate && (
         <div className="chart__head-time">
           {t('lastUpdate')} {lastUpdate}
         </div>
-      )}
+      )} */}
 
       <div
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}

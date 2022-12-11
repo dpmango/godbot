@@ -5,7 +5,3 @@ export const openExternalLink = (url: string) => {
     window.open(url);
   }
 };
-
-export const isDevelopmentSite = () => {
-  return window.location.hostname.includes('devgodbot.ru');
-};

@@ -1,4 +1,4 @@
-export { getRandomInt } from './dev';
+export { getRandomInt, LOG, PerformanceLog } from './dev';
 export {
   timeDiff,
   formatDate,
@@ -19,4 +19,5 @@ export {
 export { localStorageSet, localStorageGet } from './localstorage';
 export { formatPrice } from './price';
 export { Plurize, localizeKeys } from './localize';
-export { openExternalLink, isDevelopmentSite } from './url';
+export { openExternalLink } from './url';
+export { buildParams } from './api';

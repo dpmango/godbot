@@ -1,13 +1,15 @@
 import { useCallback } from 'react';
-import { toast } from 'react-toastify';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
-import { api, useAppDispatch } from '@core';
-import { getCurrentUser, resetUser } from '@store';
+import { api, useAppSelector, useAppDispatch } from '@core';
+import { getCurrentUser } from '@store';
+import { Toast } from '@ui';
 
 const useTariff = () => {
+  const { isProUser, userData } = useAppSelector((state) => state.userState);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -15,10 +17,15 @@ const useTariff = () => {
   const { t } = useTranslation('tariff');
 
   const activateTrial = async () => {
+    if (userData?.tariff === 'Trial' || userData?.expire_date) {
+      Toast('error', t('trial.alreadyActivated'));
+      return;
+    }
+
     const { data: trialData, error: trialError } = await api('get_trial/', {});
 
     if (trialError) {
-      toast.error(trialError.message);
+      Toast('error', trialError.message);
       return;
     }
 
@@ -28,14 +35,13 @@ const useTariff = () => {
     });
 
     if (error) {
-      toast.error(error.message);
+      Toast('error', error.message);
       return;
     }
 
-    // toast.success(t('trial.activate'));
     navigate(`${pathname}?activated`);
 
-    Cookies.remove('trial');
+    // Cookies.remove('trial');
     await dispatch(getCurrentUser());
   };
 

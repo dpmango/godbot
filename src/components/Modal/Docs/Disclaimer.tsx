@@ -4,13 +4,10 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
-import { useAppSelector } from '@core';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 
 export const DocsDisclaimer: React.FC<{}> = () => {
-  const { currentModal } = useAppSelector((state) => state.modalState);
-
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('ui', { keyPrefix: 'modal' });
@@ -30,11 +27,9 @@ export const DocsDisclaimer: React.FC<{}> = () => {
 
       <Modal name="disclaimer">
         <div className="modal__block modal__block--text" ref={modalRef}>
-          <div className="modal__title">Disclaimer</div>
           <div className="modal__text">
-            <p>
-              <strong>No Investment Advice Provided</strong>
-            </p>
+            <h1>Disclaimer</h1>
+            <h2>No Investment Advice Provided</h2>
             <p>
               Trading leveraged products carries a high degree of risk and you could lose more than
               your initial deposit. Any opinions, chats, messages, news, research, analyses, prices,
@@ -45,13 +40,12 @@ export const DocsDisclaimer: React.FC<{}> = () => {
               market data, recommendations or any other content is subject to change at any time
               without notice. GodBot will not accept liability for any loss or damage, including
               without limitation any loss of profit, which may arise directly or indirectly from use
-              of or reliance on such information.&nbsp;
+              of or reliance on such information.
             </p>
             <p>
               We do not recommend the use of technical analysis as a sole means of trading
               decisions. We do not recommend making hurried trading decisions. You should always
-              understand that PAST PERFORMANCE IS NOT NECESSARILY INDICATIVE OF FUTURE
-              RESULTS.&nbsp;
+              understand that PAST PERFORMANCE IS NOT NECESSARILY INDICATIVE OF FUTURE RESULTS.
             </p>
           </div>
 

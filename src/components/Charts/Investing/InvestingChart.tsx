@@ -35,7 +35,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
 
     if (!data) return;
 
-    const investDataMapped = Object.keys(data.time_list_forecast).map((key, idx) => {
+    const investDataMapped = Object.keys(data.time_list_forecast).map((key) => {
       const timeValue = data.time_list_forecast[key];
       let mask = 'YYYY-MM-DD';
       if (timeValue.length > 10) {
@@ -46,7 +46,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
 
       return {
         time: timeToTz((timeUnix * 1000) as UTCTimestamp),
-        value: data['trend_forecast'][idx] || 0,
+        value: data['trend_forecast'][key] || 0,
       };
     });
 
@@ -76,7 +76,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: 8,
           fontFamily: 'GilroyWeb, sans-serif',
-          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#232425' },
+          background: { color: 'transparent' },
         },
         grid: {
           vertLines: { color: !ctx?.theme ? '#AFCDEB' : '#5F636A', style: LineStyle.Dashed },
@@ -89,7 +89,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
           fixLeftEdge: true,
           fixRightEdge: true,
           borderVisible: false,
-          timeVisible: true,
+          timeVisible: false,
           secondsVisible: false,
         },
         localization: {
@@ -101,6 +101,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
         },
       });
 
+      chart.current = chartInstance;
       const lineSeries = chartInstance.addLineSeries({
         lastValueVisible: false,
         priceLineVisible: false,
@@ -123,9 +124,9 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
       chart?.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
-          background: { color: '#232425' },
         },
         grid: {
+          vertLines: { color: '#5F636A' },
           horzLines: { color: '#5F636A' },
         },
       });
@@ -134,9 +135,9 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
       chart?.current?.applyOptions({
         layout: {
           textColor: '#262628',
-          background: { color: 'white' },
         },
         grid: {
+          vertLines: { color: '#AFCDEB' },
           horzLines: { color: '#AFCDEB' },
         },
       });

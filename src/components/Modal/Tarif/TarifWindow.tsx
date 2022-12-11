@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
@@ -10,7 +9,8 @@ import { localizeKeys } from '@utils';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
-import { TarifCard } from '@c/Modals';
+import { TarifCard } from '@c/Modal';
+import { Toast } from '@ui';
 import { IPlan, ITarifDto } from '@interface/Tarif';
 
 // import './tarifes.sass';
@@ -21,7 +21,7 @@ export const TarifWindow: React.FC<{}> = () => {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation('tariff');
+  const { t, i18n } = useTranslation('tariff');
 
   const closeModal = () => {
     navigate(pathname);
@@ -51,13 +51,13 @@ export const TarifWindow: React.FC<{}> = () => {
     }
 
     return null;
-  }, [data]);
+  }, [data, i18n.language]);
 
   const getTarifs = async () => {
     const { data, error } = await api('get_tariffs/', {});
 
     if (error) {
-      toast.error(`${error.status} ${error.message}`);
+      Toast('error', `${error.status} ${error.message}`);
       return;
     }
 

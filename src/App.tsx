@@ -39,7 +39,9 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
       <Router />
-      <ToastContainer />
+      <ToastContainer
+      // hideProgressBar={true}
+      />
       {process.env.REACT_APP_YM_ID && (
         <YMInitializer
           accounts={[+process.env.REACT_APP_YM_ID]}

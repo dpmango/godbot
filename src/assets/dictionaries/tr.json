@@ -17,7 +17,7 @@
     "email": {
       "placeholder": "E-postanızı giriniz",
       "validation": {
-        "empty": "E-posta girin",
+        "empty": "Gerekli alan",
         "mask": "Geçersiz e-posta"
       }
     }
@@ -33,6 +33,7 @@
     },
     "actions": {
       "changeTariff": "Tarifeyi değiştir",
+      "chooseTariff": "Bir plan seçin",
       "connectBot": "Telegram botunu bağla",
       "payedChat": "Telegram sohbetine git"
     },
@@ -55,7 +56,8 @@
       "estimate": "yanlış hesaplama siparişi ver",
       "coins": {},
       "ticks": {
-        "15min": "15 dakika",
+        "1m": "1 dakika",
+        "15m": "15 dakika",
         "1h": "1 saat",
         "1d": "1 gün"
       }
@@ -101,8 +103,11 @@
     "title": "tarifeler",
     "pricePer": "başına",
     "pay": "Ödemek",
+    "prolong": "RTarifeyi uzat",
+    "upgrade": "Yükseltme tarifesi",
     "gift": "hediye",
     "noGift": "hediye yok",
+    "discount": "{{date}} tarihine kadar %{{percent}} indirim",
     "units": {
       "day": {
         "one": "gün",
@@ -122,7 +127,7 @@
     },
     "description": {
       "trader": [
-        "BTC 15 dakikalık tahmin tablosu",
+        "1 dakikalık TF için BTC tahmin tablosu",
         "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
         "Eğitim kursuna kısmi erişim",
         "Bir Telegram botu bağlanıyor (çok yakında)",
@@ -138,9 +143,16 @@
         "Diğer varlıklar için tahmin çizelgeleri: endeksler, hisse senetleri, döviz kurları, enflasyon vb.",
         "Tüccarların özel sohbetine erişim"
       ]
+    },
+    "trial": {
+      "alreadyActivated": "Deneme sürümünü zaten kullandınız"
+    },
+    "activated": {
+      "success": "{{tariff}} tarife ödendi"
     }
   },
   "activated": {
+    "pagetitle": "Godbot | Deneme oranı",
     "title": "Tebrikler!",
     "text": "7 günlük bir deneme planını etkinleştirdiniz. ",
     "action": "GİT!"
@@ -151,10 +163,19 @@
     "action": "GİT!",
     "skip": "ATLAMAK"
   },
+  "paymentAwait": {
+    "pagetitle": "Godbot | Ödeme devam ediyor",
+    "title": "Ödeme Kabul Edildi",
+    "text": "Ödeme yapılıyor ve yakında (genellikle 1-5 dakika) tarife aktif hale gelecek. Bu pencereyi kapatabilir ve hesabınızda bildirim bekleyebilirsiniz",
+    "action": "Kapat"
+  },
   "error": {
     "notfound": {
       "title": "sayfa bulunamadı",
       "action": "Ana sayfaya git"
+    },
+    "network": {
+      "connect": "İnternet bağlantısını kontrol edin"
     }
   },
   "ui": {
@@ -182,6 +203,54 @@
     },
     "modal": {
       "close": "Kapat"
+    }
+  },
+  "tutorial": {
+    "btns": {
+      "start": "Başlamak",
+      "skip": "Atlamak",
+      "next": "Daha öte",
+      "prev": "Geri",
+      "finish": "Tamamlamak"
+    },
+    "steps": {
+      "step": {
+        "title": "Kişisel hesabınıza hoş geldiniz!",
+        "text": "Rehberimiz yardımıyla hizmeti biraz daha detaylı tanımanızı öneriyoruz."
+      },
+      "step1": {
+        "text": "Ticaret sekmesi, yapay zekadan gerçek zamanlı bilgi sağlar."
+      },
+      "step2": {
+        "text": "Çeşitli varlıkların yanlış hesaplamalarını yapıyoruz. "
+      },
+      "step3": {
+        "text": "Her varlık birkaç zaman diliminde hesaplanır. "
+      },
+      "step4": {
+        "text": "Yalnızca 4 satır görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. "
+      },
+      "step5": {
+        "text": "Göstergede, grafikteki her satırı etkinleştirebilir veya devre dışı bırakabilirsiniz."
+      },
+      "step6": {
+        "text": "\"Yatırım\" sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmek için tasarlanmıştır.İlgilendirilen varlıkların hesaplanmasını sipariş edebilirsiniz."
+      },
+      "step7": {
+        "text": "Kartta varlık şeridini ve tahmini görürsünüz. "
+      },
+      "step8": {
+        "text": "PRO Trader tarifesinde aylık 1 varlık hesaplama talimatı verebilirsiniz. "
+      },
+      "step9": {
+        "text": "Alım satım önerileri bloğunda, bir pozisyona girmek ve çıkmak için net fiyatların yanı sıra her işlem için önerilen riski göreceksiniz."
+      },
+      "step10": {
+        "text": "Profil kartı, oranınızı ve bitiş tarihini gösterir."
+      },
+      "step11": {
+        "text": "Ayrıca sitenin stilini değiştirebilir ve sosyal ağlarımıza abone olabilirsiniz."
+      }
     }
   }
 }

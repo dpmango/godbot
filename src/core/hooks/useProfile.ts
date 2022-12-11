@@ -1,10 +1,13 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast, Id } from 'react-toastify';
 
 import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
+import { IUserDto } from '@core/interface/User';
 import { localStorageGet, getTimezone } from '@utils';
+import { Toast } from '@ui';
 
 const useProfile = () => {
   const { userData } = useAppSelector((state) => state.userState);
@@ -12,23 +15,36 @@ const useProfile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { i18n } = useTranslation();
+  const networkToast = useRef<Id>();
 
-  const fetchProfileWithLogout = useCallback(async () => {
+  const { t, i18n } = useTranslation('error');
+
+  const allowedFunctions = useMemo(() => {
+    return {
+      forecast: !!userData?.allowed_functions?.includes('Forecast'),
+      investing: !!userData?.allowed_functions?.includes('Investing'),
+      signal: !!userData?.allowed_functions?.includes('Signal'),
+    };
+  }, [userData?.allowed_functions]);
+
+  const fetchProfileWithLogout = useCallback(async (): Promise<IUserDto | null> => {
     const { payload } = await dispatch(getCurrentUser());
 
     if (payload && !payload.name) {
       dispatch(resetUser());
+      navigate('/auth', { replace: true });
 
-      if (localStorageGet('email') && localStorageGet('lastEmailSend')) {
-        // navigate('/auth/validation', { state: { resend: true }, replace: true });
-      } else {
-        navigate('/auth', { replace: true });
-      }
-      return false;
+      return null;
+    } else if (payload === null) {
+      networkToast.current = Toast('error', t('network.connect'), {
+        toastId: 'networkToast',
+        autoClose: false,
+      });
+    } else if (payload) {
+      toast.dismiss(networkToast.current);
     }
 
-    return true;
+    return payload;
   }, []);
 
   const setUserSettings = useCallback(async () => {
@@ -38,15 +54,7 @@ const useProfile = () => {
     });
 
     return { data, error };
-  }, []);
-
-  const allowedFunctions = useMemo(() => {
-    return {
-      forecast: !!userData?.allowed_functions?.includes('Forecast'),
-      investing: !!userData?.allowed_functions?.includes('Investing'),
-      signal: !!userData?.allowed_functions?.includes('Signal'),
-    };
-  }, [userData?.allowed_functions]);
+  }, [i18n.language]);
 
   return {
     allowedFunctions,

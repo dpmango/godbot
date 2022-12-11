@@ -1,13 +1,12 @@
 import { useEffect, useState, useLayoutEffect, useRef, useMemo } from 'react';
 import xorBy from 'lodash/xorBy';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
 import { getSignals } from '@store';
 import { LockScreen } from '@/components/UI/LockScreen/LockScreen';
-import { Pagination, Select } from '@ui';
+import { Pagination, Select, Toast } from '@ui';
 import { ISignal } from '@interface/Signal';
 
 import { SignalCard } from '@c/Signal';
@@ -21,9 +20,9 @@ export const Signals: React.FC<{}> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [prevSignals, setPrevSignals] = useState<ISignal[] | null>(null);
 
-  const viewLocked = !userData?.tariff || !tariffActive;
+  const viewLocked = !userData?.tariff;
 
-  const { t } = useTranslation('signal');
+  const { t, i18n } = useTranslation('signal');
 
   const selectOptions = useMemo(() => {
     return [
@@ -34,7 +33,7 @@ export const Signals: React.FC<{}> = () => {
       { value: 'profit', label: t('status.profit') },
       { value: 'loss', label: t('status.loss') },
     ];
-  }, []);
+  }, [i18n.language]);
 
   const signalsWithFilter = useMemo(() => {
     if (viewLocked) {
@@ -67,7 +66,7 @@ export const Signals: React.FC<{}> = () => {
     const newSignals = xorBy(prevSignals, data, 'date');
 
     if (loaded && data?.length && newSignals.length) {
-      toast.info(`Добавлено ${newSignals.length} новых сигналов`);
+      Toast('info', `Добавлено ${newSignals.length} новых сигналов`);
     }
 
     if (data?.length) {

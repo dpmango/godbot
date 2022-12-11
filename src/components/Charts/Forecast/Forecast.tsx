@@ -1,35 +1,36 @@
 import { useEffect, useRef, useState, useContext, useCallback, useLayoutEffect } from 'react';
 import {
   createChart,
-  ColorType,
   LineStyle,
   LineWidth,
   CrosshairMode,
   IChartApi,
   ISeriesApi,
   UTCTimestamp,
+  LogicalRange,
   SeriesMarkerPosition,
   SeriesMarkerShape,
   SeriesMarker,
   Time,
 } from 'lightweight-charts';
-import xorBy from 'lodash/xorBy';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
+import dayjs from 'dayjs';
 
 import { ThemeContext } from '@/App';
-import { useAppSelector } from '@core';
-import { timeToTz, formatPrice, formatUnixDate, getRandomInt, formatDate } from '@utils';
+import { useProfile, useDebounce } from '@hooks';
+import { getChart, getCoins } from '@store';
+import { useAppSelector, useAppDispatch } from '@core';
+import { timeToTz, formatPrice, formatUnixDate, formatDate, LOG, PerformanceLog } from '@utils';
 import { LockScreen } from '@ui';
-import { IForecastTick } from '@/core/interface/Forecast';
+import { IGraphTickDto } from '@/core/interface/Forecast';
 
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
-import dayjs from 'dayjs';
 
 interface IChartLines {
   id: string;
-  instance: ISeriesApi<'Line'>;
+  instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
 
 interface ISeriesData {
@@ -38,47 +39,59 @@ interface ISeriesData {
 }
 
 export const Forecast: React.FC<{}> = () => {
-  const { data, currentCoin } = useAppSelector((state) => state.forecastState);
-  const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  // внутренние стейты
   const [loading, setLoading] = useState<boolean>(true);
   const [legendActive, setLegendActive] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const chart = useRef<IChartApi | null>(null);
   const [series, setSeries] = useState<any>([]);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
+  const [scrollRange, setScrollRange] = useState<LogicalRange>();
+  const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
 
+  // стор
+  const {
+    data,
+    dataNav,
+    currentCoin,
+    currentTime,
+    loading: storeLoading,
+  } = useAppSelector((state) => state.forecastState);
+  const { userData } = useAppSelector((state) => state.userState);
+  const dispatch = useAppDispatch();
+
+  // рефы
   const containerRef: any = useRef();
   const tooltipRef: any = useRef();
   const ctx = useContext(ThemeContext);
 
+  const { allowedFunctions } = useProfile();
   const { t } = useTranslation('forecast');
 
   const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+  const paginatePer = 200;
+  const viewLocked = !userData?.tariff;
 
-  const initOrUpdateChart = (coinData: IForecastTick[]) => {
-    const coinDataMapped = coinData
-      .map((x) => ({
-        ...x,
-        timestamp: timeToTz(x.timestamp),
-      }))
-      .reverse();
-
+  // основная функция отрисовки TW
+  const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
+    // подготовка (маппинг) данных
+    const PERF_TIME_SERIES = performance.now();
     const currentSeries = [
       {
         name: 'Real',
-        type: 'line',
-        lineStyle: {
-          color: colors[0],
-          lineWidth: 3 as LineWidth,
-        },
-        data: coinDataMapped
-          .map((x: IForecastTick) => {
+        type: 'candle',
+
+        data: coinData
+          .map((x: IGraphTickDto) => {
             return {
               time: x.timestamp,
-              value: x.real || 0,
+              open: x.real_open || 0,
+              close: x.real_close || 0,
+              high: x.real_high || 0,
+              low: x.real_low || 0,
             };
           })
-          .filter((x) => x.value),
+          .filter((x) => x.open && x.close && x.low && x.high),
       },
       {
         name: 'Forecast',
@@ -88,12 +101,12 @@ export const Forecast: React.FC<{}> = () => {
           lineWidth: 3 as LineWidth,
         },
         showChanges: true,
-        data: coinDataMapped
-          .map((x: IForecastTick, idx) => {
+        data: coinData
+          .map((x: IGraphTickDto, idx) => {
             return {
               time: x.timestamp,
               // value: idx >= 180 ? getRandomInt(16000, 17000) : x.forecast,
-              value: x.forecast,
+              value: x.forecast_trend,
             };
           })
           .filter((x) => x.value),
@@ -107,11 +120,11 @@ export const Forecast: React.FC<{}> = () => {
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
         },
-        data: coinDataMapped
-          .map((x: IForecastTick) => {
+        data: coinData
+          .map((x: IGraphTickDto) => {
             return {
               time: x.timestamp,
-              value: x.upper,
+              value: x.forecast_high,
             };
           })
           .filter((x) => x.value),
@@ -125,11 +138,11 @@ export const Forecast: React.FC<{}> = () => {
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
         },
-        data: coinDataMapped
-          .map((x: IForecastTick) => {
+        data: coinData
+          .map((x: IGraphTickDto) => {
             return {
               time: x.timestamp,
-              value: x.lower,
+              value: x.forecast_low,
             };
           })
           .filter((x) => x.value),
@@ -142,10 +155,12 @@ export const Forecast: React.FC<{}> = () => {
     //   forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
     // }
 
+    // LOG.log({ currentSeries });
     setSeries(currentSeries);
+    PerformanceLog(PERF_TIME_SERIES, 'creating series data');
 
-    // create or update chart
     if (!chart.current) {
+      // Создание инстанса графика
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
@@ -169,7 +184,7 @@ export const Forecast: React.FC<{}> = () => {
           textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
           fontSize: window.innerWidth < 576 ? 9 : 12,
           fontFamily: 'GilroyWeb, sans-serif',
-          background: { type: ColorType.Solid, color: !ctx?.theme ? 'white' : '#1d2426' },
+          background: { color: 'transparent' },
         },
         grid: {
           vertLines: { visible: false },
@@ -183,42 +198,60 @@ export const Forecast: React.FC<{}> = () => {
           },
         },
         timeScale: {
-          fixLeftEdge: true,
+          // fixLeftEdge: true,
           fixRightEdge: true,
           borderVisible: false,
           timeVisible: true,
           secondsVisible: false,
         },
         localization: {
-          priceFormatter: (price: number) => {
-            // const thousands = Math.round(p / 100).toString();
-            // return `${thousands.slice(0, 2)}.${thousands.slice(2, 3)}к`;
-            return formatPrice(price);
-          },
+          priceFormatter: (price: number) => formatPrice(price),
         },
       });
 
-      chart.current = chartInstance;
+      // отрисовка Series Types
+      // https://tradingview.github.io/lightweight-charts/docs/series-types
 
       let newChartLines: IChartLines[] = [];
+
       currentSeries.forEach((s, idx) => {
-        const lineSeries = chartInstance.addLineSeries({
-          lastValueVisible: false,
-          priceLineVisible: false,
-          ...s.lineStyle,
-        });
+        let lineSeriesInstance;
 
-        lineSeries.setData(s.data);
+        if (s.type === 'line') {
+          lineSeriesInstance = chartInstance.addLineSeries({
+            lastValueVisible: false,
+            priceLineVisible: false,
+            priceFormat: {
+              type: 'price',
+              precision: 3,
+              minMove: 0.001,
+            },
+            ...s.lineStyle,
+          });
+        } else if (s.type === 'candle') {
+          lineSeriesInstance = chartInstance.addCandlestickSeries({
+            upColor: '#26a69a',
+            downColor: '#ef5350',
+            borderVisible: false,
+            wickUpColor: '#26a69a',
+            wickDownColor: '#ef5350',
+          });
+        }
 
-        newChartLines.push({
-          id: s.name,
-          instance: lineSeries,
-        });
+        if (lineSeriesInstance) {
+          lineSeriesInstance.setData(s.data);
+
+          newChartLines.push({
+            id: s.name,
+            instance: lineSeriesInstance,
+          });
+        }
       });
 
       setChartLines([...newChartLines]);
 
-      const lastTick = coinDataMapped[coinDataMapped.length - 1].timestamp;
+      // навигация по графику
+      const lastTick = coinData[coinData.length - 1].timestamp;
 
       const last = dayjs.unix(lastTick);
       const from = last.subtract(12, 'hour');
@@ -228,6 +261,19 @@ export const Forecast: React.FC<{}> = () => {
         to: timeToTz((last.unix() * 1000) as UTCTimestamp),
       });
 
+      // chartInstance.timeScale().subscribeVisibleTimeRangeChange((newRange) => {
+      //   if (newRange !== null) {
+      //     // console.log({ newRange });
+      //   }
+      // });
+
+      chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
+        if (!range) return;
+
+        setScrollRange(range);
+      });
+
+      // тултипы
       chartInstance.subscribeCrosshairMove((param) => {
         const container = containerRef.current;
         const toolTip = tooltipRef.current;
@@ -255,7 +301,11 @@ export const Forecast: React.FC<{}> = () => {
         const dateStr = formatUnixDate(param.time as UTCTimestamp);
         let pricesHtml = '';
         newChartLines.forEach((ser, idx) => {
-          const price = param.seriesPrices.get(ser.instance);
+          let price = param.seriesPrices.get(ser.instance);
+          if (typeof price === 'object') {
+            price = price.close;
+          }
+
           if (!price) return;
           const seriesData = currentSeries[idx];
 
@@ -296,8 +346,10 @@ export const Forecast: React.FC<{}> = () => {
         toolTip.style.left = left + 'px';
         toolTip.style.top = 0 + 'px';
       });
+
+      chart.current = chartInstance;
     } else {
-      // update data
+      // обновление данных
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
@@ -323,17 +375,17 @@ export const Forecast: React.FC<{}> = () => {
     setLastUpdate(formatDate(new Date()));
 
     return () => {
-      chart?.current?.remove();
+      chart.current?.remove();
     };
   };
 
-  const changeTheme = () => {
+  // работа с цветовой темой
+  const changeTheme = useCallback(() => {
     if (ctx?.theme) {
       // dark theme
-      chart?.current?.applyOptions({
+      chart.current?.applyOptions({
         layout: {
           textColor: '#FFFFFF',
-          background: { color: '#1d2426' },
         },
         grid: {
           horzLines: { color: '#5F636A' },
@@ -341,32 +393,25 @@ export const Forecast: React.FC<{}> = () => {
       });
     } else {
       // white theme
-      chart?.current?.applyOptions({
+      chart.current?.applyOptions({
         layout: {
           textColor: '#262628',
-          background: { color: 'white' },
         },
         grid: {
           horzLines: { color: '#AFCDEB' },
         },
       });
     }
-  };
-
-  useEffect(() => {
-    if (data && currentCoin) {
-      const coinData = data?.[currentCoin];
-      if (coinData) initOrUpdateChart(coinData);
-    }
-  }, [currentCoin, data]);
+  }, [ctx?.theme, chart.current]);
 
   useEffect(() => {
     changeTheme();
   }, [ctx?.theme]);
 
+  // ресайз
   useLayoutEffect(() => {
     const handleResize = () => {
-      chart?.current?.applyOptions({
+      chart.current?.applyOptions({
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
       });
@@ -379,6 +424,7 @@ export const Forecast: React.FC<{}> = () => {
     };
   }, []);
 
+  // смена линий графика из легенды
   const handleChangeSeries = (title: string, disabled: boolean) => {
     const targetLine = chartLines.find((x) => x.id === title);
 
@@ -389,7 +435,78 @@ export const Forecast: React.FC<{}> = () => {
     }
   };
 
-  const viewLocked = !userData?.tariff || !tariffActive;
+  // инициализация запросов
+  const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
+  useEffect(() => {
+    let updateIntervalMin = 1;
+    if (currentTime === '15m') {
+      updateIntervalMin = 15;
+    }
+
+    const requestChart = async () => {
+      if (currentCoin && currentTime) {
+        dispatch(getChart({ coin: currentCoin, time: currentTime, page: 1, per: paginatePer }));
+      }
+    };
+
+    if (allowedFunctions.forecast) {
+      dispatch(getCoins());
+      requestChart();
+
+      timerConfirm.current = setInterval(() => requestChart, updateIntervalMin * 60 * 1000);
+    }
+
+    return () => {
+      clearInterval(timerConfirm.current as NodeJS.Timeout);
+    };
+  }, [allowedFunctions.forecast, currentCoin, currentTime]);
+
+  // пагинация
+  const requestPagination = useCallback(
+    async (range: LogicalRange) => {
+      const navDistance = Math.ceil(Math.abs(range.from) / paginatePer);
+      let currentPage = Math.max.apply(0, dataNav.requested);
+      if (currentPage === -Infinity) currentPage = 1;
+
+      const requestPage = currentPage + navDistance;
+      const requestPower = requestPage - currentPage;
+
+      LOG.log({ currentPage }, { requestPage }, { requestPower }, { dataNav: dataNav.requested });
+
+      if (!dataNav.requested.includes(requestPage)) {
+        [...Array(requestPower)].forEach((_, idx) => {
+          const targetPage = requestPage - idx;
+          if (targetPage <= dataNav.max) {
+            dispatch(
+              getChart({
+                coin: currentCoin,
+                time: currentTime,
+                page: requestPage - idx,
+                per: paginatePer,
+              })
+            );
+          }
+        });
+      }
+    },
+    [currentTime, currentCoin, dataNav]
+  );
+
+  useEffect(() => {
+    if (debouncedRange && debouncedRange.from < 0 && storeLoading !== 'pending') {
+      requestPagination(debouncedRange);
+    }
+  }, [debouncedRange]);
+
+  // обновление данных
+  useEffect(() => {
+    if (data && !viewLocked) {
+      if (data.length) initOrUpdateChart(data);
+    } else if (viewLocked) {
+      chart.current?.remove();
+      chart.current = null;
+    }
+  }, [data, viewLocked]);
 
   return (
     <div className={cns('chart', viewLocked && 'chart--locked')}>

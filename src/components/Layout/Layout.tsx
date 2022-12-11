@@ -8,12 +8,12 @@ import { useAppSelector } from '@core';
 import { Header } from '@c/Layout/Header';
 import {
   TarifWindow,
-  Activated,
+  ModalInfo,
   DocsPrivacy,
   DocsTerms,
   DocsCookies,
   DocsDisclaimer,
-} from '@c/Modals';
+} from '@c/Modal';
 import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
 
 interface ILayout {
@@ -21,7 +21,6 @@ interface ILayout {
 }
 
 export const Layout: React.FC<ILayout> = ({ children }) => {
-  const { currentModal } = useAppSelector((state) => state.modalState);
   let ctx = useContext(ThemeContext);
   const { pathname } = useLocation();
   let [searchParams, setSearchParams] = useSearchParams();
@@ -33,7 +32,8 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {children}
 
         {searchParams.get('tariffs') !== null && <TarifWindow />}
-        {searchParams.get('activated') !== null && <Activated />}
+        {searchParams.get('activated') !== null && <ModalInfo name="activated" />}
+        {searchParams.get('success') !== null && <ModalInfo name="paymentAwait" />}
         {searchParams.get('privacy') !== null && <DocsPrivacy />}
         {searchParams.get('terms') !== null && <DocsTerms />}
         {searchParams.get('cookies') !== null && <DocsCookies />}

@@ -2,13 +2,13 @@ import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import { Helmet } from 'react-helmet';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { api, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
 import { secondsToStamp, localStorageGet, localStorageSet } from '@utils';
+import { Toast } from '@ui';
 
 const enLettersRegex = /^[a-zA-Z]+$/;
 const allowLetters = false;
@@ -153,10 +153,8 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     setLoading(false);
 
     if (error) {
-      // toast.error(`${error.status} ${error.message}`);
       setError(error.message);
-      setValue('');
-      setDigits(initialDigits);
+
       if (error.message.includes('заблокирован')) {
         navigate('/auth', { state: { error: error.message }, replace: true });
         localStorageSet('locked', Date.now());
@@ -165,10 +163,11 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       return;
     }
 
+    setValue('');
+    setDigits(initialDigits);
+
     Cookies.set('auth', Date.now().toString(), { expires: 7 });
-
     await dispatch(getCurrentUser());
-
     navigate('/', { replace: true });
   };
 
@@ -191,7 +190,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     setLoading(false);
 
     if (error) {
-      toast.error(`${error.status} ${error.message}`);
+      Toast('error', `${error.status} ${error.message}`);
       return;
     }
 
