@@ -1,5 +1,5 @@
 import { toast, ToastOptions } from 'react-toastify';
-import './toast.css';
+import './toast.scss';
 
 export const Toast = (
   type: 'success' | 'error' | 'info',
@@ -33,9 +33,10 @@ export const Toast = (
       );
     },
     {
-      autoClose: 5000,
+      autoClose: 2225000,
       hideProgressBar: true,
       closeButton: false,
+      position: 'bottom-right',
       ...params,
     }
   );

@@ -6,10 +6,11 @@ import { Layout } from '@c/Layout/Layout';
 import { ChartsRouter } from '@c/Charts';
 import { Signals } from '@c/Signal';
 import { Tutorial } from '@c/Layout/Tutorial/Tutorial';
+import { Toast } from '@ui';
 
 export const HomePage: React.FC<{}> = () => {
   let { search } = useLocation();
-
+  Toast('error', 'asdasdasdas');
   return (
     <Layout>
       <Helmet>
