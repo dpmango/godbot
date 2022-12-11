@@ -18,6 +18,6 @@ export {
 } from './validation';
 export { localStorageSet, localStorageGet } from './localstorage';
 export { formatPrice } from './price';
-export { Plurize, localizeKeys } from './localize';
+export { Plurize, getPluralKey, localizeKeys } from './localize';
 export { openExternalLink } from './url';
 export { buildParams } from './api';

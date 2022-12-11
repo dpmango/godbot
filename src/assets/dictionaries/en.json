@@ -97,6 +97,13 @@
       "stop": "Stop loss",
       "risk": "Risk per trade"
     },
+    "notify": {
+      "new": {
+        "one": "Added {{count}} new signal",
+        "two": "{{count}} new signals added",
+        "five": "{{count}} new signals added"
+      }
+    },
     "lock": "forecasts"
   },
   "tariff": {

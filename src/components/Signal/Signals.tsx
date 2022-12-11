@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '@core';
 import { getSignals } from '@store';
 import { LockScreen } from '@/components/UI/LockScreen/LockScreen';
 import { Pagination, Select, Toast } from '@ui';
+import { getPluralKey } from '@utils';
 import { ISignal } from '@interface/Signal';
 
 import { SignalCard } from '@c/Signal';
@@ -66,7 +67,9 @@ export const Signals: React.FC<{}> = () => {
     const newSignals = xorBy(prevSignals, data, 'date');
 
     if (loaded && data?.length && newSignals.length) {
-      Toast('info', `Добавлено ${newSignals.length} новых сигналов`);
+      const count = newSignals.length;
+      const transKey = getPluralKey(count);
+      Toast('info', t(`notify.new.${transKey}`, { count }));
     }
 
     if (data?.length) {
