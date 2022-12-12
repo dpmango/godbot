@@ -166,7 +166,7 @@
   },
   "greeting": {
     "title": "Welcome to your personal account!",
-    "text": "We offer you to get acquainted with the service in a little more detail with the help of our guide.",
+    "text": "We offer you to get acquainted with the service in details with the help of our guide.",
     "action": "GO!",
     "skip": "SKIP"
   },
