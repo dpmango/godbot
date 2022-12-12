@@ -97,7 +97,9 @@ export const forecastState = createSlice({
           }))
           .filter((x: IGraphTickDto) => x.timestamp);
 
-        state.data = [...dataTzFix, ...state.data].sort((a, b) => a.timestamp - b.timestamp);
+        state.data = [
+          ...new Map([...dataTzFix, ...state.data].map((x) => [x['timestamp'], x])).values(),
+        ].sort((a, b) => a.timestamp - b.timestamp);
         PerformanceLog(PERF_TIME, 'coinDataMapped - timeToTz + sort');
 
         const requestedPages = [...state.dataNav.requested, +meta.page];

@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useProfile } from '@hooks';
@@ -13,6 +12,12 @@ import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 // import { Partnership } from '@/pages/_Partnership';
 import { NotFound } from '@/pages/NotFound';
+
+declare global {
+  interface Window {
+    gtag?: (key: string, trackingId: string, config: { page_path: string }) => void;
+  }
+}
 
 const ProtectedRoute = () => {
   const { fetchProfileWithLogout } = useProfile();
@@ -54,20 +59,31 @@ const ProtectedRoute = () => {
   return <Outlet />;
 };
 
-const Router = () => (
-  <Routes>
-    <Route path="/auth" element={<Authorization />}>
-      <Route index element={<AuthorizationForm />} />
-      <Route path="validation" element={<AuthorizationValidate />} />
-      <Route path="*" element={<Navigate to="/auth" />} />
-    </Route>
-    <Route path="/" element={<ProtectedRoute />}>
-      <Route index element={<HomePage />} />
-      {/* <Route path="partnership" element={<Partnership />} />*/}
-    </Route>
+const Router = () => {
+  let location = useLocation();
 
-    <Route path="*" element={<NotFound />} />
-  </Routes>
-);
+  useEffect(() => {
+    window;
+    if (!window.gtag || !process.env.REACT_APP_GTM_ID) return;
+
+    window.gtag('config', process.env.REACT_APP_GTM_ID, { page_path: location.pathname });
+  }, [location]);
+
+  return (
+    <Routes>
+      <Route path="/auth" element={<Authorization />}>
+        <Route index element={<AuthorizationForm />} />
+        <Route path="validation" element={<AuthorizationValidate />} />
+        <Route path="*" element={<Navigate to="/auth" />} />
+      </Route>
+      <Route path="/" element={<ProtectedRoute />}>
+        <Route index element={<HomePage />} />
+        {/* <Route path="partnership" element={<Partnership />} />*/}
+      </Route>
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 export default Router;
