@@ -1,9 +1,9 @@
 {
   "auth": {
     "entry": {
-      "title": "Login / Registration",
+      "title": "Create Account / Log in",
       "instruction": "Enter your Email to receive an authorization code",
-      "action": "Login",
+      "action": "Log in",
       "locked": "Login blocked for {{minutesToUnlock}} minutes"
     },
     "code": {
@@ -32,8 +32,8 @@
       "subscription": "Subscription until"
     },
     "actions": {
-      "changeTariff": "Change tariff",
-      "chooseTariff": "Choose tariff",
+      "changeTariff": "Plan settings",
+      "chooseTariff": "Choose your plan",
       "connectBot": "Link Telegram bot",
       "payedChat": "Go to Telegram chat"
     },
@@ -81,10 +81,10 @@
       "placeholder": "Deal status"
     },
     "status": {
-      "active": "Actively",
+      "active": "Active",
       "waiting": "Pending",
       "cancel": "Canceled",
-      "profit": "Closed woth profit",
+      "profit": "Closed with profit",
       "loss": "Closed by stop"
     },
     "table": {
@@ -107,11 +107,11 @@
     "lock": "forecasts"
   },
   "tariff": {
-    "title": "Tariffs",
+    "title": "Plan",
     "pricePer": "per",
     "pay": "Pay",
-    "prolong": "Renew tariff",
-    "upgrade": "Upgrade tariff",
+    "prolong": "Renew plan",
+    "upgrade": "Upgrade your plan",
     "gift": "gift",
     "noGift": "no gift",
     "discount": "Discount {{percent}}% until {{date}}",
@@ -144,18 +144,18 @@
         "Forecast charts: BTC, ETH, XRP on all timeframes",
         "Signals to buy and sell assets from AI",
         "Full access to the training course",
-        "Connecting a Telegram bot (coming soon)",
+        "Connect a Telegram bot (coming soon)",
         "24/7 support service",
         "The ability to order a calculation of the price of 1 of any asset per month",
         "Forecast charts for other assets: indices, stocks, exchange rates, inflation, etc.",
-        "Access to the private chat of traders"
+        "Access to the private traders' chat"
       ]
     },
     "trial": {
       "alreadyActivated": "You have already used the trial version"
     },
     "activated": {
-      "success": "{{tariff}} tariff payed"
+      "success": "{{tariff}} Plan activated"
     }
   },
   "activated": {
@@ -173,7 +173,7 @@
   "paymentAwait": {
     "pagetitle": "Godbot | Payment in progress",
     "title": "Payment Accepted",
-    "text": "The payment is being processed and soon (usually 1-5 minutes) the tariff will be activated. You can close this window and wait for notification in your account",
+    "text": "The payment is being processed and soon (approx. 1-5 minutes) the plan will be activated. You can close this window and wait for notification",
     "action": "Close"
   },
   "error": {
@@ -192,20 +192,20 @@
     },
     "lock": {
       "activate": {
-        "text": "To display {{section}} you need to activate the tariff",
-        "action": "SELECT TARIFF"
+        "text": "To display {{section}} you need to activate the plan",
+        "action": "SELECT PLAN"
       },
       "upgrade": {
-        "text": "To display {{section}} you need to connect the PRO tariff",
-        "action": "CONNECT PRO"
+        "text": "To display {{section}} you need to purchase the PRO Plan",
+        "action": "ACTIVATE PRO"
       },
       "prolong": {
-        "text": "To display {{section}} you need to extend the tariff",
-        "action": "SELECT TARIFF"
+        "text": "To display {{section}} you need to extend your plan",
+        "action": "SELECT PLAN"
       },
       "trial": {
-        "text": "To display {{section}} you need to activate the tariff",
-        "action": "TRY IT FOR FREE"
+        "text": "To display {{section}} you need to activate the plan",
+        "action": "TRY FOR FREE"
       }
     },
     "modal": {
