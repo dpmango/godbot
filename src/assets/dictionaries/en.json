@@ -216,9 +216,10 @@
     "btns": {
       "start": "To begin",
       "skip": "Skip",
-      "next": "Further",
-      "prev": "Back",
-      "finish": "To complete"
+      "next": "Next",
+      "prev": "Previous",
+      "return": "Return",
+      "finish": "Finish"
     },
     "steps": {
       "step": {
@@ -235,28 +236,28 @@
         "text": "Each asset is calculated on several timeframes. "
       },
       "step4": {
-        "text": "You see only 4 lines: forecast, fact, and the upper and lower boundaries of the channel. "
+        "text": "You can see only 4 charts: Forecast price, Current price, Upper and Lower bands of the trading range."
       },
       "step5": {
-        "text": "In the legend, you can enable or disable each line on the chart."
+        "text": "By opening the legend and clicking on the selected icon, you can hide the chart and then turn it back on."
       },
       "step6": {
-        "text": "The \"Investment\" tab is designed to be able to make a decision on long-term investments in assets. You can order a calculation of assets of interest."
+        "text": "The \"Investment\" tab is intended to make long-term investment decisions. Here you can order the calculation of the price movement for the assets you are interested in."
       },
       "step7": {
-        "text": "In the card you see the asset ticker and the forecast. "
+        "text": "You can see the asset ticker and AI forcast price in mini-chart windows."
       },
       "step8": {
-        "text": "On the PRO Trader tariff, you can order the calculation of 1 asset per month. "
+        "text": "With PRO Trader Plan, you can order the calculation of 1 asset per month. "
       },
       "step9": {
-        "text": "In the block of recommendations for trading, you will see clear prices for entering and exiting a position, as well as the recommended risk for each transaction."
+        "text": "In Trading Recomendations block you will see the prices of assets recommended for opening/closing a position, as well as the degree of risk for each transaction."
       },
       "step10": {
-        "text": "The profile card shows your rate and the end date."
+        "text": "In your profile you can see your Plan and the Date of its expiry."
       },
       "step11": {
-        "text": "You can also change the style of the site and subscribe to our social networks."
+        "text": "You can also change the style of the site and subscribe to our social networks. page / chanell"
       }
     }
   }
