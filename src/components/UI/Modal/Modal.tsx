@@ -1,4 +1,6 @@
+import { useScrollLock } from '@/core/hooks';
 import cns from 'classnames';
+import { useEffect } from 'react';
 
 // import './modal.sass';
 
@@ -8,6 +10,16 @@ interface IModalProps {
 }
 
 export const Modal: React.FC<IModalProps> = ({ name, children }) => {
+  const { lockScroll, unlockScroll } = useScrollLock();
+
+  useEffect(() => {
+    lockScroll();
+
+    return () => {
+      unlockScroll();
+    };
+  }, []);
+
   return (
     <div className={cns('modal modal--active', `modal--${name}`)}>
       <div className="fader fader--active fader--modal"></div>
