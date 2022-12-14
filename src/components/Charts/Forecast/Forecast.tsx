@@ -456,9 +456,7 @@ export const Forecast: React.FC<{}> = () => {
     };
 
     if (allowedFunctions.forecast) {
-      dispatch(getCoins());
       requestChart();
-
       timerConfirm.current = setInterval(requestChart, updateIntervalMin * 60 * 1000);
     }
 
@@ -466,6 +464,12 @@ export const Forecast: React.FC<{}> = () => {
       clearInterval(timerConfirm.current as NodeJS.Timeout);
     };
   }, [allowedFunctions.forecast, currentCoin, currentTime]);
+
+  useEffect(() => {
+    if (allowedFunctions.forecast) {
+      dispatch(getCoins());
+    }
+  }, [allowedFunctions.forecast]);
 
   // пагинация
   const requestPagination = useCallback(
@@ -499,7 +503,8 @@ export const Forecast: React.FC<{}> = () => {
   );
 
   useEffect(() => {
-    if (debouncedRange && debouncedRange.from < 0 && storeLoading !== 'pending') {
+    console.log({ debouncedRange });
+    if (debouncedRange && debouncedRange.from < 0) {
       requestPagination(debouncedRange);
     }
   }, [debouncedRange]);

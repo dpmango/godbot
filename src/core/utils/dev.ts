@@ -10,7 +10,7 @@ export const LOG = {
     const isDev =
       process.env.NODE_ENV === 'development' || window.location.search.includes('console');
 
-    if (isDev) console.log(...args);
+    // if (isDev) console.log(...args);
   },
   info: (...args: any) => {
     console.info(...args);
