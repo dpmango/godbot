@@ -8,6 +8,9 @@ import '@styles/index.sass';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 
+// eslint-disable-next-line no-console
+console.info('v 0.1.1');
+
 root.render(
   <BrowserRouter>
     <Provider store={store}>

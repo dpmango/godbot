@@ -230,6 +230,7 @@ export const Forecast: React.FC<{}> = () => {
           });
         } else if (s.type === 'candle') {
           lineSeriesInstance = chartInstance.addCandlestickSeries({
+            lastValueVisible: false,
             upColor: '#26a69a',
             downColor: '#ef5350',
             borderVisible: false,
