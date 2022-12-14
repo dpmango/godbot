@@ -161,6 +161,7 @@ export const Forecast: React.FC<{}> = () => {
 
     if (!chart.current) {
       // Создание инстанса графика
+      console.log('instance creating');
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
@@ -357,6 +358,7 @@ export const Forecast: React.FC<{}> = () => {
       chart.current = chartInstance;
     } else {
       // обновление данных
+      console.log('instance update');
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
@@ -382,7 +384,7 @@ export const Forecast: React.FC<{}> = () => {
     setLastUpdate(formatDate(new Date()));
 
     return () => {
-      LOG.log('chart removed in hook cb');
+      console.log('chart removed in hook cb');
       chart.current?.remove();
     };
   };
@@ -453,7 +455,7 @@ export const Forecast: React.FC<{}> = () => {
 
     const requestChart = async () => {
       if (currentCoin && currentTime) {
-        dispatch(getChart({ coin: currentCoin, time: currentTime, page: 1, per: paginatePer }));
+        dispatch(getChart({ page: 1, per: paginatePer }));
       }
     };
 
@@ -491,8 +493,6 @@ export const Forecast: React.FC<{}> = () => {
           if (targetPage <= dataNav.max) {
             dispatch(
               getChart({
-                coin: currentCoin,
-                time: currentTime,
                 page: requestPage - idx,
                 per: paginatePer,
               })
@@ -501,7 +501,7 @@ export const Forecast: React.FC<{}> = () => {
         });
       }
     },
-    [currentTime, currentCoin, dataNav]
+    [dataNav]
   );
 
   useEffect(() => {
