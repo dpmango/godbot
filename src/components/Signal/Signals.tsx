@@ -48,6 +48,24 @@ export const Signals: React.FC<{}> = () => {
     return data;
   }, [filter, data, viewLocked]);
 
+  const winrate = useMemo(() => {
+    if (data?.length) {
+      const closedTrades = data?.filter((elem: ISignal) =>
+        ['profit', 'loss'].includes(elem?.status?.toLowerCase().trim())
+      );
+
+      const profitTrades = data?.filter(
+        (elem: ISignal) => elem?.status?.toLowerCase().trim() === 'profit'
+      );
+
+      if (profitTrades.length) {
+        return Math.round((profitTrades.length / closedTrades.length) * 100);
+      }
+    }
+
+    return null;
+  }, [data]);
+
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     if (userData?.allowed_functions.includes('Signal') && tariffActive) {
@@ -83,6 +101,12 @@ export const Signals: React.FC<{}> = () => {
     <div className={cns('recommend', viewLocked && 'recommend--locked')}>
       <div className="recommend__head">
         <div className="recommend__title">{t('title')}</div>
+        {winrate && (
+          <div className="recommend__title-winrate">
+            Winrate - <strong>{winrate}</strong>%
+          </div>
+        )}
+
         <Select
           value={filter}
           placeholder={t('select.placeholder')}
