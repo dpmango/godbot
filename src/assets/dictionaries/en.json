@@ -26,7 +26,8 @@
     "menu": {
       "home": "home",
       "partner": "affiliate program",
-      "education": "Education Centre"
+      "education": "Education Centre",
+      "help": "Help Center"
     },
     "user": {
       "subscription": "Subscription until"
@@ -35,7 +36,8 @@
       "changeTariff": "Plan settings",
       "chooseTariff": "Choose your plan",
       "connectBot": "Link Telegram bot",
-      "payedChat": "Go to Telegram chat"
+      "payedChat": "Go to Telegram chat",
+      "tutorial": "Site tutorial"
     },
     "policies": {
       "confidentiality": "Privacy Policy",
@@ -210,6 +212,10 @@
     },
     "modal": {
       "close": "Close"
+    },
+    "loader": {
+      "title": "We are loading page",
+      "description": "Pleasе, wait a bit"
     }
   },
   "tutorial": {

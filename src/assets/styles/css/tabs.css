@@ -29,8 +29,8 @@
 .tabs__link--active {
 		background-color: var(--block-bg);
 		cursor: default;
-		z-index: 4;				clip-path: polygon(-30px -30px, calc(100% + 30px) -30px, calc(100% + 30px) 100%, -30px 100%);
-
+		z-index: 4;
+		clip-path: polygon(-30px -30px, calc(100% + 30px) -30px, calc(100% + 30px) 100%, -30px 100%);
 }
 .tabs__link--disabled {
 		cursor: default;
@@ -86,11 +86,5 @@
 		}
 		.tabs__link--active:before, .tabs__link--active:after {
 				opacity: 1;
-		}
-		.tabs__link .pro-label {
-				position: absolute;
-				top: 6px;
-				left: 50%;
-				transform: translate3d(-50%, 0, 0);
 		}
 }

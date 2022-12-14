@@ -9,16 +9,20 @@ export const Menu: React.FC<{}> = () => {
   return (
     <>
       <Link className="header__links-link header__links-link--active" to="/">
-        <SpriteIcon name="home" width="18" height="18" />
+        <SpriteIcon name="home" width="16" height="16" />
         {t('menu.home')}
       </Link>
       <Link className="header__links-link header__links-link--disabled" to="/">
-        <SpriteIcon name="group" width="18" height="18" />
+        <SpriteIcon name="link" width="16" height="16" />
         {t('menu.partner')}
       </Link>
       <Link className="header__links-link header__links-link--disabled" to="/">
-        <SpriteIcon name="crown" width="18" height="18" />
+        <SpriteIcon name="hat" width="16" height="16" />
         {t('menu.education')}
+      </Link>
+      <Link className="header__links-link header__links-link--disabled" to="/">
+        <SpriteIcon name="info-square" width="16" height="16" />
+        {t('menu.help')}
       </Link>
     </>
   );

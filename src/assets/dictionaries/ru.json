@@ -26,7 +26,8 @@
     "menu": {
       "home": "Главная",
       "partner": "Партнерская программа",
-      "education": "Образовательный центр"
+      "education": "Образовательный центр",
+      "help": "Справочный центр"
     },
     "user": {
       "subscription": "Подписка до"
@@ -35,7 +36,8 @@
       "changeTariff": "Сменить тариф",
       "chooseTariff": "Выбрать тариф",
       "connectBot": "Привязать Telegram-бота",
-      "payedChat": "Перейти в Telegram-чат"
+      "payedChat": "Перейти в Telegram-чат",
+      "tutorial": "Туториал по сайту"
     },
     "policies": {
       "confidentiality": "Конфиденциальность",
@@ -210,6 +212,10 @@
     },
     "modal": {
       "close": "Закрыть"
+    },
+    "loader": {
+      "title": "Страница загружается",
+      "description": "Пожалуйста подождите"
     }
   },
   "tutorial": {
@@ -218,6 +224,7 @@
       "skip": "Пропустить",
       "next": "Далее",
       "prev": "Назад",
+      "return": "Обратно",
       "finish": "Завершить"
     },
     "steps": {

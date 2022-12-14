@@ -74,7 +74,7 @@
 		}
 }
 .select__opener--active {
-		border-color: transparent!important;
+		border-color: transparent !important;
 		background-color: transparent;
 		z-index: 91;
 		transition-property: border, background;
@@ -130,7 +130,9 @@
 				padding: 3px 4px;
 		}
 		.select__dropdown-link .pro-label {
-				display: none;
+				font: inherit;
+				height: auto;
+				padding: 0 3px;
 		}
 }
 @media only screen and (min-width: 768px) {

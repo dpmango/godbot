@@ -1,0 +1,98 @@
+@charset "UTF-8";
+.faq__empty {
+		position: relative;
+}
+@media only screen and (max-width: 767px) {
+		.faq__empty {
+				font-size: 12px;
+				line-height: 1.3;
+				padding: 7px 0 0 40px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.faq__empty {
+				font-size: 16px;
+				line-height: 1.4;
+				padding: 9px 0 0 60px;
+		}
+}
+@media only screen and (max-width: 1023px) {
+		.faq__empty {
+				margin: 26px 0 0 0;
+		}
+}
+@media only screen and (min-width: 1024px) {
+		.faq__empty {
+				margin: 12px 0 0 0;
+		}
+}
+.faq__empty-title {
+		font-weight: 600;
+		line-height: 1.2;
+}
+@media only screen and (max-width: 767px) {
+		.faq__empty-title {
+				font-size: 14px;
+				margin-bottom: 15px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.faq__empty-title {
+				font-size: 18px;
+				margin-bottom: 15px;
+		}
+}
+.faq__empty-close {
+		cursor: pointer;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: var(--blue);
+}
+@media only screen and (max-width: 767px) {
+		.faq__empty-close {
+				width: 30px;
+				height: 30px;
+				border-radius: 8px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.faq__empty-close {
+				width: 40px;
+				height: 40px;
+				border-radius: 10px;
+		}
+}
+@media (pointer:fine) {
+		.faq__empty-close:hover {
+				transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+				opacity: 0.7;
+		}
+}
+.faq__empty-close:before, .faq__empty-close:after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 20px;
+		height: 1.5px;
+		background: var(--white);
+		border-radius: 0.75px;
+		transition: background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+@media only screen and (max-width: 767px) {
+		.faq__empty-close:before, .faq__empty-close:after {
+				width: 15px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.faq__empty-close:before, .faq__empty-close:after {
+				width: 20px;
+		}
+}
+.faq__empty-close:before {
+		transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+}
+.faq__empty-close:after {
+		transform: translate3d(-50%, -50%, 0) rotate(45deg);
+}

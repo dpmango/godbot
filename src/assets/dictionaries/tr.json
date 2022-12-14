@@ -26,7 +26,8 @@
     "menu": {
       "home": "Ev",
       "partner": "Ortaklık Programı",
-      "education": "Eğitim Merkezi"
+      "education": "Eğitim Merkezi",
+      "help": "Yardım Merkezi"
     },
     "user": {
       "subscription": "Abone ol"
@@ -35,7 +36,8 @@
       "changeTariff": "Tarifeyi değiştir",
       "chooseTariff": "Bir plan seç",
       "connectBot": "Telegram botunu bağla",
-      "payedChat": "Telegram sohbetine git"
+      "payedChat": "Telegram sohbetine git",
+      "tutorial": "Site eğitimi"
     },
     "policies": {
       "confidentiality": "Gizlilik İlkesi",
@@ -171,9 +173,9 @@
     "skip": "ATLA"
   },
   "paymentAwait": {
-    "pagetitle": "Godbot | Ödeme devam ediyor",
-    "title": "Ödeme Kabul Edildi",
-    "text": "Ödeme yapılıyor ve yakında (genellikle 1-5 dakika) tarife aktif hale gelecek. Bu pencereyi kapatabilir ve hesabınızda bildirim bekleyebilirsiniz",
+    "pagetitle": "Godbot | Ödeme işleniyor",
+    "title": "Ödeme kabul edildi",
+    "text": "Ödeme işleniyor ve yakında (genellikle 1-5 dakika) tarife aktif hale gelecek. Bu pencereyi kapatabilir ve hesabınızda bildirim bekleyebilirsiniz",
     "action": "Kapat"
   },
   "error": {
@@ -210,15 +212,20 @@
     },
     "modal": {
       "close": "Kapat"
+    },
+    "loader": {
+      "title": "Sayfayı yüklüyoruz",
+      "description": "Lütfen biraz bekleyin"
     }
   },
   "tutorial": {
     "btns": {
-      "start": "Başlamak",
-      "skip": "Atlamak",
+      "start": "Başla",
+      "skip": "Atla",
       "next": "Daha öte",
       "prev": "Geri",
-      "finish": "Tamamlamak"
+      "return": "Aksine",
+      "finish": "Tamam"
     },
     "steps": {
       "step": {
@@ -226,37 +233,37 @@
         "text": "Rehberimiz yardımıyla hizmeti biraz daha detaylı tanımanızı öneriyoruz."
       },
       "step1": {
-        "text": "Ticaret sekmesi, yapay zekadan gerçek zamanlı bilgi sağlar."
+        "text": "Alım Satım sekmesi, yapay zekadan gerçek zamanlı bilgi sağlar."
       },
       "step2": {
-        "text": "Çeşitli varlıkların yanlış hesaplamalarını yapıyoruz. "
+        "text": "Çeşitli varlıkların birkaç süreli hesaplamalarını yapıyoruz."
       },
       "step3": {
-        "text": "Her varlık birkaç zaman diliminde hesaplanır. "
+        "text": "Her varlık birkaç alım satım süresinde hesaplanır. Burada istediğiniz süreyi seçebilirsiniz"
       },
       "step4": {
-        "text": "Yalnızca 4 satır görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. "
+        "text": "Yalnızca 4 çizgi görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. Olgu, tahmin çizgisinden veya yakında vakaların % 80'inde hareket eder. Fiyat, vakaların % 99'unda kanal içindedir. Tahmin, varlık fiyatının önemli dalgalanmalar veya yeni borsa bilgi halinde otomatik olarak yeniden yapılır."
       },
       "step5": {
-        "text": "Göstergede, grafikteki her satırı etkinleştirebilir veya devre dışı bırakabilirsiniz."
+        "text": "Göstergede, grafikteki her çizgi etkinleştirebilir veya devre dışı bırakabilirsiniz."
       },
       "step6": {
-        "text": "\"Yatırım\" sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmek için tasarlanmıştır.İlgilendirilen varlıkların hesaplanmasını sipariş edebilirsiniz."
+        "text": "Yatırım sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmeniz için tasarlanmıştır. İlgilendirilen varlıkların hesaplanmasını yaptırabilirsiniz."
       },
       "step7": {
-        "text": "Kartta varlık şeridini ve tahmini görürsünüz. "
+        "text": "Göstergede varlık şirketin borsa kodunu ve tahminini görürsünüz. Tahmin tamamlanıncaya kadar güncellenmez ve ilgili fiyat yukarı çekilmez."
       },
       "step8": {
-        "text": "PRO Trader tarifesinde aylık 1 varlık hesaplama talimatı verebilirsiniz. "
+        "text": "PRO Trader tarifesinde 1 varlığın aylık hesaplamasını yaptırabilirsiniz. "
       },
       "step9": {
-        "text": "Alım satım önerileri bloğunda, bir pozisyona girmek ve çıkmak için net fiyatların yanı sıra her işlem için önerilen riski göreceksiniz."
+        "text": "Alım satım tavsiyeleri bloğunda, net giriş ve çıkış fiyatların yanı sıra her işlem için tercih edilen riski göreceksiniz."
       },
       "step10": {
-        "text": "Profil kartı, oranınızı ve bitiş tarihini gösterir."
+        "text": "Profil kartı, tarifenizi ve sona ermesinin tarihini gösterir."
       },
       "step11": {
-        "text": "Ayrıca sitenin stilini değiştirebilir ve sosyal ağlarımıza abone olabilirsiniz."
+        "text": "Ayrıca, sitenin stilini değiştirebilir ve sosyal ağlarımıza abone olabilirsiniz."
       }
     }
   }

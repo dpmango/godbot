@@ -45,6 +45,27 @@
 		font-size: 16px;
 		line-height: 20px;
 		margin: 0;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 6px 20px;
+}
+.recommend__title-winrate {
+		flex: 0 0 auto;
+		text-align: center;
+		color: var(--white);
+		background: var(--green);
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 22px;
+		letter-spacing: normal;
+		text-transform: none;
+		padding: 0 8px;
+		height: 22px;
+		border-radius: 11px;
+}
+.recommend__title-winrate strong {
+		font-weight: 600;
 }
 .recommend__table {
 		overflow: auto;

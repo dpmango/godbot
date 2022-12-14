@@ -1,9 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useState, useMemo } from 'react';
 // @ts-ignore
 import Tour from 'reactour';
+import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { useAppDispatch, useAppSelector } from '@core';
 import { setTutorialComplete } from '@store/user.store';
-import { useTranslation } from 'react-i18next';
 
 import './tutorial.scss';
 
@@ -22,19 +24,35 @@ const svgInfo = (
 );
 
 export const Tutorial: FC<any> = () => {
-  const { t } = useTranslation('tutorial');
-  const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.userState);
   const [step, setStep] = useState();
 
+  let [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
+
+  const { t } = useTranslation('tutorial');
+
   const onRequestClose = () => {
+    setSearchParams({});
     dispatch(setTutorialComplete(true));
   };
+
+  const showTutorial = useMemo(() => {
+    if (searchParams.get('tutorial') !== null) {
+      return true;
+    }
+
+    if (userData) {
+      return userData.tariff && !userData.tutorial_complete;
+    }
+
+    return false;
+  }, [userData, searchParams]);
 
   return (
     <div>
       <Tour
-        isOpen={(userData && userData.tariff && !userData.tutorial_complete) || false}
+        isOpen={showTutorial}
         showButtons={false}
         showNumber={false}
         showNavigation={false}

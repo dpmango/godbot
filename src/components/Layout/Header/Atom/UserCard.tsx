@@ -61,39 +61,42 @@ export const UserCard: React.FC<{}> = () => {
         </div>
         <div className="header__user-links">
           <Link to={`${pathname}?tariffs`} className="header__user-link">
+            <SpriteIcon name="refresh" width="16" height="16" />
             {t(userData?.tariff ? 'actions.changeTariff' : 'actions.chooseTariff')}
           </Link>
-          <a className="header__user-link header__user-link--disabled" href="#">
+          {/* <a className="header__user-link header__user-link--disabled" href="#">
             {t('actions.connectBot')}
-          </a>
+          </a> */}
           <a
             className={cns('header__user-link', !isProUser && 'header__user-link--disabled')}
             href={isProUser ? 'https://t.me/+fQvg8JT7oUVhZDZi' : ''}
             target="_blank">
+            <SpriteIcon name="telegram" width="16" height="16" />
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
           </a>
+          <Link to={'/?tutorial'} className={cns('header__user-link')}>
+            <SpriteIcon name="info-circle" width="16" height="16" />
+            {t('actions.tutorial')}
+          </Link>
         </div>
-        <div className="header__user-soc-wrap">
-          <div className="header__user-soc">
-            <a href={'https://twitter.com/godbot_pro'} target="_blank" title="Twitter">
-              <img src="/img/social/twitter.svg" alt="Twitter" />
-            </a>
-            <a href={'https://discord.com/invite/Jnptpsmcmx'} target="_blank" title="Discord">
-              <img src="/img/social/discord.svg" alt="Discord" />
-            </a>
-            <a href={'https://t.me/godbot_pro'} target="_blank" title="Telegram">
-              <img src="/img/social/telegram.svg" alt="Telegram" />
-            </a>
-          </div>
-          <div className="header__user-theme">
-            <SpriteIcon name="sun" width="20" height="20" />
-            <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme}></div>
-          </div>
+
+        <div className="header__user-soc">
+          <a href={'https://twitter.com/godbot_pro'} target="_blank" title="Twitter">
+            <img src="/img/social/twitter.svg" alt="Twitter" />
+          </a>
+          <a href={'https://discord.com/invite/Jnptpsmcmx'} target="_blank" title="Discord">
+            <img src="/img/social/discord.svg" alt="Discord" />
+          </a>
+          <a href={'https://t.me/godbot_pro'} target="_blank" title="Telegram">
+            <img src="/img/social/telegram.svg" alt="Telegram" />
+          </a>
         </div>
+
+        <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme} />
         <div className="header__user-minis">
-          <Link to="?privacy">{t('policies.confidentiality')}</Link> •{' '}
-          <Link to="?terms">{t('policies.terms')}</Link> •{' '}
-          <Link to="?cookies">{t('policies.cookies')}</Link> •{' '}
+          <Link to="?privacy">{t('policies.confidentiality')}</Link>
+          <Link to="?terms">{t('policies.terms')}</Link>
+          <Link to="?cookies">{t('policies.cookies')}</Link>
           <Link to="?disclaimer">{t('policies.disclaimer')}</Link>
         </div>
       </div>

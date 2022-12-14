@@ -1,0 +1,201 @@
+@charset "UTF-8";
+.question {
+		background: var(--block-bg);
+		box-shadow: var(--block-shadow2);
+		border-radius: 10px;
+		color: var(--text);
+}
+.question__title {
+		cursor: pointer;
+		user-select: none;
+		position: relative;
+		margin: 0;
+		font-weight: 600;
+		line-height: 1.2;
+}
+.question__title svg {
+		position: absolute;
+		fill: var(--text);
+		transform: rotate(0deg);
+		transition: transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.question__title--active svg {
+		transform: rotate(-180deg);
+}
+@media (pointer:fine) {
+		.question__title:hover {
+				color: var(--blue);
+				transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+		}
+		.question__title:hover svg {
+				fill: var(--blue);
+				transition-property: transform, color;
+		}
+}
+@media only screen and (max-width: 767px) {
+		.question__title {
+				padding: 10px 40px 10px 10px;
+				font-size: 14px;
+		}
+		.question__title svg {
+				width: 18px;
+				height: 18px;
+				top: 9px;
+				right: 11px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.question__title {
+				font-size: 18px;
+				padding: 29px 115px 29px 30px;
+		}
+		.question__title svg {
+				width: 30px;
+				height: 30px;
+				top: 25px;
+				right: 15px;
+		}
+}
+.question__inner {
+		display: none;
+}
+.question__inner--active {
+		display: block;
+}
+@media only screen and (max-width: 767px) {
+		.question__inner {
+				font-size: 12px;
+				line-height: 1.3;
+				padding: 5px 30px 20px 10px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.question__inner {
+				font-size: 16px;
+				line-height: 1.4;
+				padding: 0 115px 47px 30px;
+		}
+}
+.question__inner > *:first-child {
+		margin-top: 0 !important;
+}
+.question__inner > *:last-child {
+		margin-bottom: 0 !important;
+}
+.question__inner h1, .question__inner .h1, .question__inner h2, .question__inner .h2, .question__inner h3, .question__inner .h3, .question__inner h4, .question__inner .h4, .question__inner h5, .question__inner .h5, .question__inner h6, .question__inner .h6 {
+		font: inherit;
+		font-weight: bold;
+		margin: 20px 0 10px 0;
+		display: block;
+}
+@media only screen and (max-width: 767px) {
+		.question__inner h1, .question__inner .h1 {
+				font-size: 16px;
+		}
+		.question__inner h2, .question__inner .h2 {
+				font-size: 15px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.question__inner h1, .question__inner .h1 {
+				font-size: 14px;
+		}
+		.question__inner h2, .question__inner .h2 {
+				font-size: 13px;
+		}
+}
+.question__inner a:not(.btn) {
+		text-decoration: none;
+		color: var(--blue);
+		font-weight: 500;
+}
+.question__inner p, .question__inner ol, .question__inner ul {
+		margin: 10px 0;
+}
+.question__inner li {
+		margin: 10px 0;
+		padding: 0 0 0 1.25em;
+		position: relative;
+}
+.question__inner ul > li:before {
+		content: '';
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		transform: translate3d(0, -50%, 0);
+		display: block;
+		position: absolute;
+		top: 0.7em;
+		left: 0;
+		background: var(--text);
+}
+.question__inner ul ul > li:before {
+		background: none;
+		border: 1px solid var(--text);
+		width: 6px;
+		height: 6px;
+		margin: -3px 0;
+}
+.question__inner ul ul > li {
+		margin: 5px 0;
+}
+.question__inner ol {
+		counter-reset: li;
+}
+.question__inner ol > li:before {
+		counter-increment: li;
+		content: counters(li, ".") ". ";
+		position: relative;
+		display: inline-block;
+		vertical-align: top;
+		min-width: 1.25em;
+		margin: 0 0 0 -1.25em;
+		padding: 0 0.25em 0 0;
+}
+.question__inner ol ol > li {
+		padding-left: 2em;
+}
+.question__inner ol ol > li:before {
+		margin-left: -2em;
+		min-width: 2em;
+}
+.question__media {
+		position: relative;
+		display: block;
+}
+@media only screen and (max-width: 767px) {
+		.question__media {
+				margin: 12px 0;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.question__media {
+				margin: 30px 0;
+		}
+}
+.question__media img {
+		width: 100%;
+		height: auto;
+		border-radius: 10px;
+}
+.question__play {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate3d(-50%, -50%, 0);
+		border-radius: 50%;
+		background: rgba(22, 22, 22, 0.4) url("../img/play.svg") no-repeat 65% 55%;
+		background-size: auto 75%;
+}
+@media only screen and (max-width: 767px) {
+		.question__play {
+				width: 78px;
+				height: 78px;
+		}
+}
+@media only screen and (min-width: 768px) {
+		.question__play {
+				width: 122px;
+				height: 122px;
+		}
+}
