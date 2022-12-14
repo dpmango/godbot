@@ -100,12 +100,14 @@ export const Signals: React.FC<{}> = () => {
   return (
     <div className={cns('recommend', viewLocked && 'recommend--locked')}>
       <div className="recommend__head">
-        <div className="recommend__title">{t('title')}</div>
-        {winrate && (
-          <div className="recommend__title-winrate">
-            Winrate - <strong>{winrate}</strong>%
-          </div>
-        )}
+        <div className="recommend__title">
+          <div>{t('title')}</div>
+          {winrate && (
+            <div className="recommend__title-winrate">
+              Winrate - <strong>{winrate}</strong>%
+            </div>
+          )}
+        </div>
 
         <Select
           value={filter}
