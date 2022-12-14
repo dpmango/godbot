@@ -223,8 +223,8 @@ export const Forecast: React.FC<{}> = () => {
             priceLineVisible: false,
             priceFormat: {
               type: 'price',
-              precision: 3,
-              minMove: 0.001,
+              precision: 4,
+              minMove: 0.0001,
             },
             ...s.lineStyle,
           });
@@ -235,6 +235,11 @@ export const Forecast: React.FC<{}> = () => {
             borderVisible: false,
             wickUpColor: '#26a69a',
             wickDownColor: '#ef5350',
+            priceFormat: {
+              type: 'price',
+              precision: 4,
+              minMove: 0.0001,
+            },
           });
         }
 
