@@ -231,6 +231,7 @@ export const Forecast: React.FC<{}> = () => {
         } else if (s.type === 'candle') {
           lineSeriesInstance = chartInstance.addCandlestickSeries({
             lastValueVisible: false,
+            priceLineVisible: false,
             upColor: '#26a69a',
             downColor: '#ef5350',
             borderVisible: false,
@@ -381,6 +382,7 @@ export const Forecast: React.FC<{}> = () => {
     setLastUpdate(formatDate(new Date()));
 
     return () => {
+      LOG.log('chart removed in hook cb');
       chart.current?.remove();
     };
   };
@@ -503,7 +505,6 @@ export const Forecast: React.FC<{}> = () => {
   );
 
   useEffect(() => {
-    console.log({ debouncedRange });
     if (debouncedRange && debouncedRange.from < 0) {
       requestPagination(debouncedRange);
     }
