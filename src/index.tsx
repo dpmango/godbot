@@ -17,7 +17,12 @@ console.info('v 0.1.1');
 if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
-    integrations: [new BrowserTracing()],
+    integrations: [
+      new BrowserTracing(),
+      new Sentry.Integrations.Breadcrumbs({
+        console: false,
+      }),
+    ],
     tracesSampleRate: 1.0,
     beforeSend: (event) => {
       if (process.env.NODE_ENV === 'development') return null;
