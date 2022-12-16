@@ -201,10 +201,10 @@
 				font-size: 12px;
 		}
 }
-.header__links-link--active {
+.header__links-link.active {
 		color: var(--blue);
 }
-.header__links-link--active svg {
+.header__links-link.active svg {
 		fill: var(--blue);
 }
 .header__links-link--disabled {

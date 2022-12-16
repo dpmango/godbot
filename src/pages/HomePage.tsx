@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
 import cns from 'classnames';
 
 import { useAppSelector } from '@core';

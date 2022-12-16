@@ -325,7 +325,7 @@ export const Tutorial: FC<any> = () => {
             highlightedSelectors: ['.header__user-dropdown'],
           },
           {
-            selector: '.header__user-soc-wrap',
+            selector: '.header__user-soc',
             content: ({ goTo, close }: { goTo: any; close: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">

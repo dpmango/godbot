@@ -7,6 +7,7 @@ import { useProfile } from '@hooks';
 import { Toast } from '@ui';
 
 import { HomePage } from '@/pages/HomePage';
+import { FaqPage } from '@/pages/FaqPage';
 import { Authorization } from '@/pages/Authorization';
 import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
@@ -79,6 +80,9 @@ const Router = () => {
       <Route path="/" element={<ProtectedRoute />}>
         <Route index element={<HomePage />} />
         {/* <Route path="partnership" element={<Partnership />} />*/}
+      </Route>
+      <Route path="/faq" element={<ProtectedRoute />}>
+        <Route index element={<FaqPage />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
