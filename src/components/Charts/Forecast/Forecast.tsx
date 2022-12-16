@@ -163,7 +163,6 @@ export const Forecast: React.FC<{}> = () => {
 
     if (!chart.current) {
       // Создание инстанса графика
-      console.log('instance creating');
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
@@ -271,12 +270,6 @@ export const Forecast: React.FC<{}> = () => {
         to: timeToTz((last.unix() * 1000) as UTCTimestamp),
       });
 
-      // chartInstance.timeScale().subscribeVisibleTimeRangeChange((newRange) => {
-      //   if (newRange !== null) {
-      //     // console.log({ newRange });
-      //   }
-      // });
-
       chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
         if (!range) return;
 
@@ -360,7 +353,6 @@ export const Forecast: React.FC<{}> = () => {
       chart.current = chartInstance;
     } else {
       // обновление данных
-      console.log('instance update');
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
@@ -386,7 +378,6 @@ export const Forecast: React.FC<{}> = () => {
     setLastUpdate(formatDate(new Date()));
 
     return () => {
-      console.log('chart removed in hook cb');
       chart.current?.remove();
     };
   };
@@ -437,7 +428,7 @@ export const Forecast: React.FC<{}> = () => {
   }, []);
 
   // смена линий графика из легенды
-  const handleChangeSeries = (title: string, disabled: boolean) => {
+  const handleSeriesVisibility = (title: string, disabled: boolean) => {
     const targetLine = chartLines.find((x) => x.id === title);
 
     if (targetLine) {
@@ -534,7 +525,7 @@ export const Forecast: React.FC<{}> = () => {
         active={legendActive}
         colors={colors}
         data={series}
-        handleToggle={handleChangeSeries}
+        handleToggle={handleSeriesVisibility}
       />
 
       {!viewLocked ? (

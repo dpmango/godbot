@@ -21,16 +21,16 @@ export const ForecastLegend: React.FC<{
 
   const { t } = useTranslation('forecast');
 
-  const handleClick = (title: string) => {
+  const handleClickToggle = (title: string) => {
     let newState = null;
 
-    setButtons(
-      buttons.map((elem) => {
-        if (elem.title === title) {
-          elem.active = !elem.active;
-          newState = !elem.active;
+    setButtons((btns) =>
+      btns.map((x) => {
+        if (x.title === title) {
+          x.active = !x.active;
+          newState = !x.active;
         }
-        return elem;
+        return x;
       })
     );
 
@@ -38,9 +38,11 @@ export const ForecastLegend: React.FC<{
   };
 
   useEffect(() => {
-    if (data.length) {
-      setButtons(data.map((elem) => Object.assign({}, { title: elem.name, active: true })));
+    if (data.length && !buttons.length) {
+      const initialBtns = data.map((elem) => ({ title: elem.name, active: true }));
+      setButtons([...initialBtns]);
     }
+    // TODO - any need in update (series are constant)
   }, [data]);
 
   return (
@@ -50,9 +52,13 @@ export const ForecastLegend: React.FC<{
         {buttons.map((elem, index) => (
           <label
             key={elem.title}
-            onClick={() => handleClick(elem.title)}
+            onClick={() => handleClickToggle(elem.title)}
             className={cns('chart__legend-item', elem.active && 'chart__legend-item--active')}>
-            <input type="checkbox" checked={elem.active} onChange={() => handleClick(elem.title)} />
+            <input
+              type="checkbox"
+              checked={elem.active}
+              onChange={() => handleClickToggle(elem.title)}
+            />
             <span className="checkbox"></span>
             <span className="chart__settings-line" style={{ borderColor: colors[index] }}></span>
             {elem.title}
