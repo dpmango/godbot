@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '@core';
 import { buildParams, PerformanceLog, timeToTz } from '@utils';
 import { IGraphTickDto, ICoinDto } from '@/core/interface/Forecast';
+import { RootState } from '@core';
 
 export const getCoins = createAsyncThunk('chart/coinData', async () => {
   const { data } = await api('get_currencies/', {});
@@ -9,19 +10,20 @@ export const getCoins = createAsyncThunk('chart/coinData', async () => {
 });
 
 interface IGraphRequest {
-  coin: string;
-  time: string;
   page?: number;
   per?: number;
 }
 
 export const getChart = createAsyncThunk(
   'chart/chartData',
-  async ({ coin, time, page = 1, per }: IGraphRequest) => {
+  async ({ page = 1, per }: IGraphRequest, { getState }) => {
     let paginationParams = buildParams({ page: page, paginated_by: per });
+    const {
+      forecastState: { currentCoin, currentTime },
+    } = getState() as RootState;
 
     // prevent double requests
-    const { data, metadata } = await api(`get_graph/${coin}/${time}/`, {
+    const { data, metadata } = await api(`get_graph/${currentCoin}/${currentTime}/`, {
       params: paginationParams,
     });
 
@@ -33,7 +35,7 @@ export const getChart = createAsyncThunk(
   }
 );
 
-interface IChartData {
+interface IForecastState {
   loading: string;
   currentCoin: string;
   currentTime: string;
@@ -47,7 +49,7 @@ interface IChartData {
   };
 }
 
-const initialState: IChartData = {
+const initialState: IForecastState = {
   loading: 'pending',
   currentCoin: '',
   currentTime: '',
@@ -88,6 +90,10 @@ export const forecastState = createSlice({
       state.loading = 'fulfilled';
       if (action.payload.data) {
         const { data, meta, metadata } = action.payload;
+
+        if (metadata.currency !== state.currentCoin || metadata.interval !== state.currentTime) {
+          return;
+        }
 
         const PERF_TIME = performance.now();
         const dataTzFix = data

@@ -161,6 +161,7 @@ export const Forecast: React.FC<{}> = () => {
 
     if (!chart.current) {
       // Создание инстанса графика
+      console.log('instance creating');
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
@@ -223,18 +224,25 @@ export const Forecast: React.FC<{}> = () => {
             priceLineVisible: false,
             priceFormat: {
               type: 'price',
-              precision: 3,
-              minMove: 0.001,
+              precision: 4,
+              minMove: 0.0001,
             },
             ...s.lineStyle,
           });
         } else if (s.type === 'candle') {
           lineSeriesInstance = chartInstance.addCandlestickSeries({
+            lastValueVisible: false,
+            priceLineVisible: false,
             upColor: '#26a69a',
             downColor: '#ef5350',
             borderVisible: false,
             wickUpColor: '#26a69a',
             wickDownColor: '#ef5350',
+            priceFormat: {
+              type: 'price',
+              precision: 4,
+              minMove: 0.0001,
+            },
           });
         }
 
@@ -350,6 +358,7 @@ export const Forecast: React.FC<{}> = () => {
       chart.current = chartInstance;
     } else {
       // обновление данных
+      console.log('instance update');
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
@@ -375,6 +384,7 @@ export const Forecast: React.FC<{}> = () => {
     setLastUpdate(formatDate(new Date()));
 
     return () => {
+      console.log('chart removed in hook cb');
       chart.current?.remove();
     };
   };
@@ -445,14 +455,12 @@ export const Forecast: React.FC<{}> = () => {
 
     const requestChart = async () => {
       if (currentCoin && currentTime) {
-        dispatch(getChart({ coin: currentCoin, time: currentTime, page: 1, per: paginatePer }));
+        dispatch(getChart({ page: 1, per: paginatePer }));
       }
     };
 
     if (allowedFunctions.forecast) {
-      dispatch(getCoins());
       requestChart();
-
       timerConfirm.current = setInterval(requestChart, updateIntervalMin * 60 * 1000);
     }
 
@@ -460,6 +468,12 @@ export const Forecast: React.FC<{}> = () => {
       clearInterval(timerConfirm.current as NodeJS.Timeout);
     };
   }, [allowedFunctions.forecast, currentCoin, currentTime]);
+
+  useEffect(() => {
+    if (allowedFunctions.forecast) {
+      dispatch(getCoins());
+    }
+  }, [allowedFunctions.forecast]);
 
   // пагинация
   const requestPagination = useCallback(
@@ -479,8 +493,6 @@ export const Forecast: React.FC<{}> = () => {
           if (targetPage <= dataNav.max) {
             dispatch(
               getChart({
-                coin: currentCoin,
-                time: currentTime,
                 page: requestPage - idx,
                 per: paginatePer,
               })
@@ -489,11 +501,11 @@ export const Forecast: React.FC<{}> = () => {
         });
       }
     },
-    [currentTime, currentCoin, dataNav]
+    [dataNav]
   );
 
   useEffect(() => {
-    if (debouncedRange && debouncedRange.from < 0 && storeLoading !== 'pending') {
+    if (debouncedRange && debouncedRange.from < 0) {
       requestPagination(debouncedRange);
     }
   }, [debouncedRange]);

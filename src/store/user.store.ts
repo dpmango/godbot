@@ -7,19 +7,6 @@ import { api } from '@core';
 import { IUserDto } from '@core/interface/User';
 import { timeDiff } from '@utils';
 
-export interface IUserState {
-  name: string;
-  tariff: string;
-  subscription_date: Date;
-  allowed_functions: string[];
-  tutorial_complete: boolean;
-}
-
-export interface IUserLogin {
-  login: string;
-  password: string;
-}
-
 export interface IUser {
   loading: string;
   tariffActive: boolean;

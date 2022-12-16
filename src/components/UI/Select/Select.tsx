@@ -67,7 +67,7 @@ export const Select: React.FC<ISelectProps> = ({
                 option.modifier && `select__dropdown-link--${option.modifier}`
               )}>
               {option.label}
-              {option.isPro && <span className="pro-label">PRO</span>}
+              {option.isPro && <span className="pro-label pro-label--small">PRO</span>}
               {option.icon && <SpriteIcon name={option.icon} width="12" height="12" />}
             </div>
           ))

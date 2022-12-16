@@ -17,6 +17,8 @@ export interface IIntervalDto {
 }
 
 export interface ICoinDto {
+  code: string;
+  title: string;
   access_level: number;
   interval_list: IIntervalDto[];
 }

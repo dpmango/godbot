@@ -1,59 +1,61 @@
 {
   "auth": {
     "entry": {
-      "title": "Giriş Kayıt",
+      "title": "Giriş / Kayıt",
       "instruction": "Bir yetkilendirme kodu almak için E-postanızı girin",
-      "action": "İçeri gel",
-      "locked": "Giriş, {{ minutesToUnlock}} dakika süreyle engellendi"
+      "action": "Giriş Yap",
+      "locked": "Giriş, {{ minutesToUnlock}} dakikalı süreyle engellendi"
     },
     "code": {
       "title": "Doğrulama",
-      "instruction": "Doğrulama kodu içeren bir e-posta alacaksınız. ",
-      "spamcheck": "Bir e-posta almadıysanız, spam'inizi kontrol edin",
+      "instruction": "Doğrulama kodu içeren bir e-posta alacaksınız.",
+      "spamcheck": "E-posta olmadıysa, Spam klasörünü kontrol edin",
       "resend": "Tekrar gönderin",
-      "confirm": "Onaylamak",
+      "confirm": "Onayla",
       "back": "Geri"
     },
     "email": {
-      "placeholder": "E-postanızı giriniz",
+      "placeholder": "E-postanızı girin",
       "validation": {
-        "empty": "Gerekli alan",
+        "empty": "E-posta girin",
         "mask": "Geçersiz e-posta"
       }
     }
   },
   "header": {
     "menu": {
-      "home": "ev",
+      "home": "Ev",
       "partner": "Ortaklık Programı",
-      "education": "Eğitim Merkezi"
+      "education": "Eğitim Merkezi",
+      "help": "Yardım Merkezi"
     },
     "user": {
-      "subscription": "Abone olmak"
+      "subscription": "Abone ol"
     },
     "actions": {
       "changeTariff": "Tarifeyi değiştir",
-      "chooseTariff": "Bir plan seçin",
+      "chooseTariff": "Bir plan seç",
       "connectBot": "Telegram botunu bağla",
-      "payedChat": "Telegram sohbetine git"
+      "payedChat": "Telegram sohbetine git",
+      "tutorial": "Site eğitimi"
     },
     "policies": {
-      "confidentiality": "Gizlilik",
+      "confidentiality": "Gizlilik İlkesi",
       "terms": "Kullanım Şartları",
-      "cookies": "Çerez politikası",
-      "disclaimer": "Disclaimer"
+      "cookies": "Çerez Politikası",
+      "disclaimer": "Sorumluluk reddi"
     }
   },
   "charts": {
     "tabs": {
-      "trading": "ticaret",
-      "investing": "Yatırım"
+      "trading": "Alım Satım",
+      "investing": "Yatırımlar"
     }
   },
   "forecast": {
     "filter": {
       "title": "Tahmin Grafiği",
-      "estimate": "yanlış hesaplama siparişi ver",
+      "estimate": "Hesaplama sipariş et",
       "coins": {},
       "ticks": {
         "1m": "1 dakika",
@@ -69,32 +71,32 @@
       "changes": "Tahmin güncellendi"
     },
     "lastUpdate": "Tahmin güncellendi",
-    "lock": "sinir ağı grafikleri"
+    "lock": "Sinir ağı grafikleri"
   },
   "investing": {
-    "lock": "tahmin etmek"
+    "lock": "Tahmin"
   },
   "signal": {
-    "title": "Alım Satım Önerileri",
+    "title": "Alım Satım Tavsiyeleri",
     "select": {
-      "all": "Herşey",
-      "placeholder": "Anlaşma durumu"
+      "all": "Tüm",
+      "placeholder": "İşlem durumu"
     },
     "status": {
-      "active": "aktif olarak",
-      "waiting": "Askıda olması",
+      "active": "Aktif",
+      "waiting": "Bekleniyor",
       "cancel": "İptal edildi",
-      "profit": "Kârda kapandı",
-      "loss": "kayıpla kapandı"
+      "profit": "Gelirli tamamlandı",
+      "loss": "Kayıplı tamamlandı"
     },
     "table": {
-      "date": "Sinyal tarihi",
+      "date": "Sinyal Tarihi",
       "name": "İsim",
-      "type": "Sipariş türü",
-      "status": "Anlaşma durumu",
-      "enter": "Giriş ücreti",
-      "exit": "çıkış fiyatı",
-      "stop": "Kaybı durdurmak",
+      "type": "Emir Tipi",
+      "status": "İşlem Durumu",
+      "enter": "Giriş Fiyatı",
+      "exit": "Çıkış Fiyatı",
+      "stop": "Stop Loss",
       "risk": "İşlem başına risk"
     },
     "notify": {
@@ -104,82 +106,82 @@
         "five": "{{count}} yeni sinyal eklendi"
       }
     },
-    "lock": "tahminler"
+    "lock": "Tahminler"
   },
   "tariff": {
-    "title": "tarifeler",
-    "pricePer": "başına",
-    "pay": "Ödemek",
-    "prolong": "RTarifeyi uzat",
-    "upgrade": "Yükseltme tarifesi",
-    "gift": "hediye",
-    "noGift": "hediye yok",
-    "discount": "{{date}} tarihine kadar %{{percent}} indirim",
+    "title": "Tarifeler",
+    "pricePer": "için",
+    "pay": "Öde",
+    "prolong": "Tarife Yenile",
+    "upgrade": "Tarife Geliştir",
+    "gift": "Hediye olarak",
+    "noGift": "Hediye yok",
+    "discount": "{{date}} tarihine kadar %{{percent}} indirimli",
     "units": {
       "day": {
         "one": "gün",
-        "two": "günün",
-        "five": "günler"
+        "two": "gün",
+        "five": "gün"
       },
       "week": {
-        "one": "bir hafta",
-        "two": "haftalar",
-        "five": "haftalar"
+        "one": "hafta",
+        "two": "hafta",
+        "five": "hafta"
       },
       "month": {
         "one": "ay",
-        "two": "aylar",
-        "five": "aylar"
+        "two": "ay",
+        "five": "ay"
       }
     },
     "description": {
       "trader": [
-        "1 dakikalık TF için BTC tahmin tablosu",
-        "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
-        "Eğitim kursuna kısmi erişim",
-        "Bir Telegram botu bağlanıyor (çok yakında)",
-        "7/24 destek hizmeti"
+        "BTC için 1 dakikalık tahmin grafiği",
+        "Yapay zekânın size gönderdiği varlık alım satımı sinyalleri",
+        "Tanıtım kursuna kısmen bir erişim",
+        "Telegram botu (yakında)",
+        "24 saat/7 gün hizmet veren Destek Bölümü"
       ],
       "protrader": [
-        "Tahmin çizelgeleri: Tüm zaman dilimlerinde BTC, ETH, XRP",
-        "Yapay zekadan varlık alıp satmaya yönelik sinyaller",
-        "Eğitim kursuna tam erişim",
-        "Bir Telegram botu bağlanıyor (çok yakında)",
-        "7/24 destek hizmeti",
-        "Aylık herhangi bir varlığın 1 fiyatının hesaplamasını sipariş edebilme",
-        "Diğer varlıklar için tahmin çizelgeleri: endeksler, hisse senetleri, döviz kurları, enflasyon vb.",
-        "Tüccarların özel sohbetine erişim"
+        "Tüm alım satım süreleri için BTC, ETH, XRP tahmin grafikleri",
+        "Yapay zekânın size gönderdiği varlık alım satımı sinyalleri",
+        "Tanıtım kursuna tam bir erişim",
+        "Telegram botu (yakında)",
+        "24 saat/7 gün hizmet veren Destek Bölümü",
+        "Ayda bir kez herhangi bir varlığın fiyatını hesaplama imkânı",
+        "Göstergeler, hisseler, döviz kurları, enflasyon oranı gibi diğer varlıkların tahmin grafikleri",
+        "Borsacıların özel sohbetine erişim"
       ]
     },
     "trial": {
       "alreadyActivated": "Deneme sürümünü zaten kullandınız"
     },
     "activated": {
-      "success": "{{tariff}} tarife ödendi"
+      "success": "{{tariff}} tarifesi ödendi"
     }
   },
   "activated": {
     "pagetitle": "Godbot | Deneme oranı",
     "title": "Tebrikler!",
-    "text": "7 günlük bir deneme planını etkinleştirdiniz. ",
-    "action": "GİT!"
+    "text": "3 günlük bir deneme planını etkinleştirdiniz. ",
+    "action": "BAŞLAYALIM!"
   },
   "greeting": {
-    "title": "Kişisel hesabınıza hoş geldiniz!",
+    "title": "Hesabınıza hoş geldiniz!",
     "text": "Rehberimiz yardımıyla hizmeti biraz daha detaylı tanımanızı öneriyoruz.",
-    "action": "GİT!",
-    "skip": "ATLAMAK"
+    "action": "BAŞLAYALIM!",
+    "skip": "ATLA"
   },
   "paymentAwait": {
-    "pagetitle": "Godbot | Ödeme devam ediyor",
-    "title": "Ödeme Kabul Edildi",
-    "text": "Ödeme yapılıyor ve yakında (genellikle 1-5 dakika) tarife aktif hale gelecek. Bu pencereyi kapatabilir ve hesabınızda bildirim bekleyebilirsiniz",
+    "pagetitle": "Godbot | Ödeme işleniyor",
+    "title": "Ödeme kabul edildi",
+    "text": "Ödeme işleniyor ve yakında (genellikle 1-5 dakika) tarife aktif hale gelecek. Bu pencereyi kapatabilir ve hesabınızda bildirim bekleyebilirsiniz",
     "action": "Kapat"
   },
   "error": {
     "notfound": {
-      "title": "sayfa bulunamadı",
-      "action": "Ana sayfaya git"
+      "title": "Sayfa bulunamadı",
+      "action": "Ana sayfaya geç"
     },
     "network": {
       "connect": "İnternet bağlantısını kontrol edin"
@@ -187,38 +189,43 @@
   },
   "ui": {
     "select": {
-      "defaultPlaceholder": "Seçme",
+      "defaultPlaceholder": "Seç",
       "empty": "Seçenekler mevcut değil"
     },
     "lock": {
       "activate": {
-        "text": "Göstermek {{section}} tarifeyi etkinleştirmeniz gerekiyor",
+        "text": "{{section}} bölümünün gösterilmesi için tarifeyi etkinleştirmeniz gerekiyor",
         "action": "TARİFE SEÇ"
       },
       "upgrade": {
-        "text": "Göstermek {{section}} PRO tarifesini bağlamanız gerekiyor",
-        "action": "PRO'YA BAĞLAN"
+        "text": "{{section}} bölümünün gösterilmesi için PRO tarifesini bağlamanız gerekiyor",
+        "action": "PRO BAĞLA"
       },
       "prolong": {
-        "text": "Göstermek {{section}} tarifeyi uzatmak lazım",
+        "text": "{{section}} bölümünün gösterilmesi için tarifeyi yenilemeniz gerekiyor",
         "action": "TARİFE SEÇ"
       },
       "trial": {
-        "text": "Göstermek {{section}} tarifeyi etkinleştirmeniz gerekiyor",
+        "text": "{{section}} bölümünün gösterilmesi için tarifeyi etkinleştirmeniz gerekiyor",
         "action": "ÜCRETSİZ DENEYİN"
       }
     },
     "modal": {
       "close": "Kapat"
+    },
+    "loader": {
+      "title": "Sayfayı yüklüyoruz",
+      "description": "Lütfen biraz bekleyin"
     }
   },
   "tutorial": {
     "btns": {
-      "start": "Başlamak",
-      "skip": "Atlamak",
+      "start": "Başla",
+      "skip": "Atla",
       "next": "Daha öte",
       "prev": "Geri",
-      "finish": "Tamamlamak"
+      "return": "Aksine",
+      "finish": "Tamam"
     },
     "steps": {
       "step": {
@@ -226,37 +233,37 @@
         "text": "Rehberimiz yardımıyla hizmeti biraz daha detaylı tanımanızı öneriyoruz."
       },
       "step1": {
-        "text": "Ticaret sekmesi, yapay zekadan gerçek zamanlı bilgi sağlar."
+        "text": "Alım Satım sekmesi, yapay zekadan gerçek zamanlı bilgi sağlar."
       },
       "step2": {
-        "text": "Çeşitli varlıkların yanlış hesaplamalarını yapıyoruz. "
+        "text": "Çeşitli varlıkların birkaç süreli hesaplamalarını yapıyoruz."
       },
       "step3": {
-        "text": "Her varlık birkaç zaman diliminde hesaplanır. "
+        "text": "Her varlık birkaç alım satım süresinde hesaplanır. Burada istediğiniz süreyi seçebilirsiniz"
       },
       "step4": {
-        "text": "Yalnızca 4 satır görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. "
+        "text": "Yalnızca 4 çizgi görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. Olgu, tahmin çizgisinden veya yakında vakaların % 80'inde hareket eder. Fiyat, vakaların % 99'unda kanal içindedir. Tahmin, varlık fiyatının önemli dalgalanmalar veya yeni borsa bilgi halinde otomatik olarak yeniden yapılır."
       },
       "step5": {
-        "text": "Göstergede, grafikteki her satırı etkinleştirebilir veya devre dışı bırakabilirsiniz."
+        "text": "Göstergede, grafikteki her çizgi etkinleştirebilir veya devre dışı bırakabilirsiniz."
       },
       "step6": {
-        "text": "\"Yatırım\" sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmek için tasarlanmıştır.İlgilendirilen varlıkların hesaplanmasını sipariş edebilirsiniz."
+        "text": "Yatırım sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmeniz için tasarlanmıştır. İlgilendirilen varlıkların hesaplanmasını yaptırabilirsiniz."
       },
       "step7": {
-        "text": "Kartta varlık şeridini ve tahmini görürsünüz. "
+        "text": "Göstergede varlık şirketin borsa kodunu ve tahminini görürsünüz. Tahmin tamamlanıncaya kadar güncellenmez ve ilgili fiyat yukarı çekilmez."
       },
       "step8": {
-        "text": "PRO Trader tarifesinde aylık 1 varlık hesaplama talimatı verebilirsiniz. "
+        "text": "PRO Trader tarifesinde 1 varlığın aylık hesaplamasını yaptırabilirsiniz. "
       },
       "step9": {
-        "text": "Alım satım önerileri bloğunda, bir pozisyona girmek ve çıkmak için net fiyatların yanı sıra her işlem için önerilen riski göreceksiniz."
+        "text": "Alım satım tavsiyeleri bloğunda, net giriş ve çıkış fiyatların yanı sıra her işlem için tercih edilen riski göreceksiniz."
       },
       "step10": {
-        "text": "Profil kartı, oranınızı ve bitiş tarihini gösterir."
+        "text": "Profil kartı, tarifenizi ve sona ermesinin tarihini gösterir."
       },
       "step11": {
-        "text": "Ayrıca sitenin stilini değiştirebilir ve sosyal ağlarımıza abone olabilirsiniz."
+        "text": "Ayrıca, sitenin stilini değiştirebilir ve sosyal ağlarımıza abone olabilirsiniz."
       }
     }
   }
