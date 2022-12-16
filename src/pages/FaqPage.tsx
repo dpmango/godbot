@@ -1,10 +1,53 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import { Layout } from '@c/Layout/Layout';
 import cns from 'classnames';
 
+interface IFaq {
+  title: string;
+  descr: any;
+  open?: boolean;
+}
+
 export const FaqPage: React.FC<{}> = () => {
+  const { t } = useTranslation('faq');
+  const [accordion, setAccordion] = useState<IFaq[]>(t('accordion', { returnObjects: true }));
+  const accordionStore: [] = t('accordion', { returnObjects: true });
+  const [search, setSearch] = useState<string>('');
+
+  const handleCLick = (index: number) => () => {
+    const accordionChange = JSON.parse(JSON.stringify(accordion));
+    accordionChange.map((e: IFaq, indexNew: number) => {
+      if (accordion[index].open) {
+        e.open = false;
+      } else {
+        e.open = indexNew === index;
+      }
+    });
+    setAccordion(accordionChange);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
+
+  const handleSearch = () => {
+    const searchNew: IFaq[] = [];
+    accordionStore.map((e: IFaq) => {
+      if (e.title.toLowerCase().includes(search)) {
+        searchNew.push(e);
+      }
+    });
+    setAccordion(searchNew);
+  };
+
+  const handleSearchClose = () => () => {
+    setSearch('');
+    setAccordion(accordionStore);
+  };
+
   return (
     <Layout>
       <Helmet>
@@ -14,10 +57,10 @@ export const FaqPage: React.FC<{}> = () => {
         <div className="mainwrap themeLight">
           <div className="content">
             <div className="container">
-              <form className="search">
+              <div className="search">
                 <div className="search__text">
-                  <div className="search__title">Часто задаваемые вопросы</div>
-                  Здесь размещены все ответы на вопросы, которые могут у вас возникнуть
+                  <div className="search__title">{t('title')}</div>
+                  {t('titleHelp')}
                 </div>
                 <div className="search__form">
                   <div className="search__input-wrap">
@@ -25,14 +68,20 @@ export const FaqPage: React.FC<{}> = () => {
                       className="search__input"
                       type="text"
                       placeholder="Введите вопрос для поиска"
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        handleSearchChange(e.target.value)
+                      }
+                      value={search}
                     />
                     <svg width="20" height="20">
                       <use xlinkHref="img/icons-sprite.svg#search"></use>
                     </svg>
                   </div>
-                  <button className="btn btn--search">НАЙТИ</button>
+                  <button className="btn btn--search" onClick={handleSearch}>
+                    {t('search')}
+                  </button>
                 </div>
-              </form>
+              </div>
               <div className="faq">
                 <div className="faq__menu">
                   <div className="swiper swiper--faq">
@@ -82,228 +131,47 @@ export const FaqPage: React.FC<{}> = () => {
                 </div>
                 <div className="faq__body">
                   <div className="faq__grid">
-                    <div className="question">
-                      <div className="question__title">
-                        Что такое открытый и закрытый ключи?
-                        <svg width="18" height="18">
-                          <use xlinkHref="img/icons-sprite.svg#chevrondown"></use>
-                        </svg>
-                      </div>
-                      <div className="question__inner">
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <img src="img/temp/3.png" alt="" />
+                    <>
+                      {accordion.map((e: IFaq, index: number) => {
+                        return (
+                          <div className="question" key={index}>
+                            <div
+                              className={`question__title ${e.open && 'question__title--active'}`}
+                              onClick={handleCLick(index)}>
+                              {e.title}
+                              <svg width="18" height="18">
+                                <use xlinkHref="img/icons-sprite.svg#chevrondown"></use>
+                              </svg>
+                            </div>
+                            <div
+                              className={`question__inner ${e.open && 'question__inner--active'}`}>
+                              <p>{e.descr.text1}</p>
+                              <div className="question__media">
+                                <img src="img/temp/3.png" alt="" />
+                              </div>
+                              <p>{e.descr.text1}</p>
+                              <div className="question__media">
+                                <a href="#">
+                                  <img src="img/temp/4.png" alt="" />
+                                  <span className="question__play"></span>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                      {!accordion.length && (
+                        <div className="faq__body faq__body--empty">
+                          <div className="faq__empty">
+                            <div className="faq__empty-title">{t('notFound.title')}</div>
+                            {t('notFound.try')}
+                            <br />
+                            {t('notFound.can')}
+                            <div className="faq__empty-close" onClick={handleSearchClose()} />
+                          </div>
                         </div>
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <a href="#">
-                            <img src="img/temp/4.png" alt="" />
-                            <span className="question__play"></span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="question">
-                      <div className="question__title">
-                        Как работают криптовалюты?
-                        <svg width="18" height="18">
-                          <use xlinkHref="img/icons-sprite.svg#chevrondown"></use>
-                        </svg>
-                      </div>
-                      <div className="question__inner">
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <img src="img/temp/3.png" alt="" />
-                        </div>
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <a href="#">
-                            <img src="img/temp/4.png" alt="" />
-                            <span className="question__play"></span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="question">
-                      <div className="question__title">
-                        В чем причины популярности криптовалют?
-                        <svg width="18" height="18">
-                          <use xlinkHref="img/icons-sprite.svg#chevrondown"></use>
-                        </svg>
-                      </div>
-                      <div className="question__inner">
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <img src="img/temp/3.png" alt="" />
-                        </div>
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <a href="#">
-                            <img src="img/temp/4.png" alt="" />
-                            <span className="question__play"></span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="question">
-                      <div className="question__title">
-                        Что такое криптовалютные кошельки?
-                        <svg width="18" height="18">
-                          <use xlinkHref="img/icons-sprite.svg#chevrondown"></use>
-                        </svg>
-                      </div>
-                      <div className="question__inner">
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <img src="img/temp/3.png" alt="" />
-                        </div>
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <a href="#">
-                            <img src="img/temp/4.png" alt="" />
-                            <span className="question__play"></span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="question">
-                      <div className="question__title">
-                        Как работают криптовалюты?
-                        <svg width="18" height="18">
-                          <use xlinkHref="img/icons-sprite.svg#chevrondown"></use>
-                        </svg>
-                      </div>
-                      <div className="question__inner">
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <img src="img/temp/3.png" alt="" />
-                        </div>
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <a href="#">
-                            <img src="img/temp/4.png" alt="" />
-                            <span className="question__play"></span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="question">
-                      <div className="question__title">
-                        В чем причины популярности криптовалют?
-                        <svg width="18" height="18">
-                          <use xlinkHref="img/icons-sprite.svg#chevrondown"></use>
-                        </svg>
-                      </div>
-                      <div className="question__inner">
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <img src="img/temp/3.png" alt="" />
-                        </div>
-                        <p>
-                          Заинтересованность в покупке криптовалюты впоследствии приведет вас к
-                          часто задаваемым вопросам о криптовалюте, связанным с криптокошельками.
-                          Криптокошельки — это в основном платформы для безопасного хранения
-                          цифровых активов по сравнению с биржами. Пользователи могут держать
-                          кошелек через учетную запись биржи или депозитный кошелек и даже из-за
-                          пределов биржи. На самом деле, криптовалютные кошельки помогают хранить
-                          закрытые ключи от вашей криптовалюты в блокчейне.
-                        </p>
-                        <div className="question__media">
-                          <a href="#">
-                            <img src="img/temp/4.png" alt="" />
-                            <span className="question__play"></span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                      )}
+                    </>
                   </div>
                 </div>
               </div>
