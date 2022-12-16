@@ -12,6 +12,9 @@ import { Tutorial } from '@c/Layout/Tutorial/Tutorial';
 
 export const HomePage: React.FC<{}> = () => {
   const { userData } = useAppSelector((state) => state.userState);
+  const { data, currentCoin, currentTime } = useAppSelector((state) => state.forecastState);
+
+  const loading = !userData || !currentCoin || !currentTime || !data.length;
 
   return (
     <Layout>
@@ -21,16 +24,11 @@ export const HomePage: React.FC<{}> = () => {
 
       <Tutorial />
 
-      <div className={cns('content', !userData && 'content--loading')}>
+      <div className={cns('content', loading && 'content--loading')}>
         <div className="container">
-          {userData ? (
-            <>
-              <ChartsRouter />
-              <Signals />
-            </>
-          ) : (
-            <Loader />
-          )}
+          <Loader theme="page" active={loading} />
+          <ChartsRouter />
+          <Signals />
         </div>
       </div>
     </Layout>
