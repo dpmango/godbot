@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 interface IButton {
@@ -21,21 +21,25 @@ export const ForecastLegend: React.FC<{
 
   const { t } = useTranslation('forecast');
 
-  const handleClickToggle = (title: string) => {
-    let newState = null;
+  const handleClickToggle = useCallback(
+    (title: string) => {
+      const btn = buttons.find((x) => x.title === title);
 
-    setButtons((btns) =>
-      btns.map((x) => {
-        if (x.title === title) {
-          x.active = !x.active;
-          newState = !x.active;
-        }
-        return x;
-      })
-    );
+      setButtons((btns) =>
+        btns.map((x) =>
+          x.title === title
+            ? {
+                ...x,
+                active: !x.active,
+              }
+            : x
+        )
+      );
 
-    handleToggle(title, !!newState);
-  };
+      handleToggle(title, Boolean(!btn?.active));
+    },
+    [buttons]
+  );
 
   useEffect(() => {
     if (data.length && !buttons.length) {
@@ -52,7 +56,6 @@ export const ForecastLegend: React.FC<{
         {buttons.map((elem, index) => (
           <label
             key={elem.title}
-            onClick={() => handleClickToggle(elem.title)}
             className={cns('chart__legend-item', elem.active && 'chart__legend-item--active')}>
             <input
               type="checkbox"

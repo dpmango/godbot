@@ -428,12 +428,12 @@ export const Forecast: React.FC<{}> = () => {
   }, []);
 
   // смена линий графика из легенды
-  const handleSeriesVisibility = (title: string, disabled: boolean) => {
+  const handleSeriesVisibility = (title: string, visbility: boolean) => {
     const targetLine = chartLines.find((x) => x.id === title);
 
     if (targetLine) {
       targetLine.instance.applyOptions({
-        visible: !disabled,
+        visible: visbility,
       });
     }
   };
