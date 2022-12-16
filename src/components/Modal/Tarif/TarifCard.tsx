@@ -72,7 +72,6 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
 
   const buttonData = useMemo(() => {
     let translationKey = 'pay';
-    let isDisabled = false;
 
     if (userData?.tariff === 'Trader') {
       if (title === 'Trader') {
@@ -82,14 +81,13 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       }
     } else if (userData?.tariff === 'PRO Trader') {
       if (title === 'Trader') {
-        isDisabled = true;
+        // isDisabled = true;
       } else if (title === 'PRO Trader') {
         translationKey = 'prolong';
       }
     }
 
     return {
-      disabled: isDisabled,
       trans: translationKey,
     };
   }, [userData?.tariff, title]);
@@ -128,7 +126,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
             </span>
           </div>
           <a
-            className={cns('btn btn--tarifes', buttonData.disabled && 'btn--disabled')}
+            className={cns('btn btn--tarifes', !currentPlan.available && 'btn--disabled')}
             onClick={handleActivate}>
             {t(buttonData.trans)}
           </a>
