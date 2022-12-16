@@ -28,24 +28,12 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
   // coins
   const coinOptions = useMemo(() => {
-    const getCoinNameByTicker = (ticker: string) => {
-      switch (ticker) {
-        case 'BTC':
-          return 'Bitcoin (BTC)';
-        case 'XRP':
-          return 'Ripple (XRP)';
-
-        default:
-          return ticker;
-      }
-    };
-
     if (coins && userData?.access_level) {
       return Object.keys(coins).map((key: string) => {
         const coinAccessLevel = coins[key].access_level;
         return {
           value: key,
-          label: getCoinNameByTicker(key),
+          label: `${coins[key].title} (${coins[key].code})`,
           disabled: userData?.access_level < coinAccessLevel,
           isPro: userData?.access_level < coinAccessLevel,
         } as ISelectOption;

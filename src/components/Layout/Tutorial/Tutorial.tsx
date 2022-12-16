@@ -335,7 +335,7 @@ export const Tutorial: FC<any> = () => {
                 </div>
                 <div className="tourStep-btns">
                   <div className="tourStep-prev" onClick={() => goTo(10)}>
-                    {t('btns.return')}
+                    {t('btns.prev')}
                   </div>
                   <div className="tourStep-next" onClick={() => close()}>
                     {t('btns.finish')}
