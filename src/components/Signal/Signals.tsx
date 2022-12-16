@@ -21,7 +21,7 @@ export const Signals: React.FC<{}> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [prevSignals, setPrevSignals] = useState<ISignal[] | null>(null);
 
-  const viewLocked = !userData?.tariff;
+  const viewLocked = !tariffActive;
 
   const { t, i18n } = useTranslation('signal');
 

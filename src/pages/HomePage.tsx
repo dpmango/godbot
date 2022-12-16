@@ -25,12 +25,18 @@ export const HomePage: React.FC<{}> = () => {
   const loading = useMemo(() => {
     if (loaderShown) return false;
 
-    if (!userData || !currentCoin || !currentTime) return true;
-    if (allowedFunctions.forecast && !data.length) return true;
-    if (allowedFunctions.investing && !signalData?.length) return true;
+    if (!userData) {
+      return true;
+    }
+    if (allowedFunctions.forecast && !data.length) {
+      return true;
+    }
+    if (allowedFunctions.investing && !signalData?.length) {
+      return true;
+    }
 
     return false;
-  }, [loaderShown, userData, currentCoin, currentTime, allowedFunctions, data, signalData]);
+  }, [loaderShown, userData, allowedFunctions, data, signalData]);
 
   useEffect(() => {
     if (!search || search.includes('coin') || search.includes('time')) {

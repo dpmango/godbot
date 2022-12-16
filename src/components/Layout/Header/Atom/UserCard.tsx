@@ -62,7 +62,7 @@ export const UserCard: React.FC<{}> = () => {
         <div className="header__user-links">
           <Link to={`${pathname}?tariffs`} className="header__user-link">
             <SpriteIcon name="refresh" width="16" height="16" />
-            {t(userData?.tariff ? 'actions.changeTariff' : 'actions.chooseTariff')}
+            {t(tariffActive ? 'actions.changeTariff' : 'actions.chooseTariff')}
           </Link>
           {/* <a className="header__user-link header__user-link--disabled" href="#">
             {t('actions.connectBot')}

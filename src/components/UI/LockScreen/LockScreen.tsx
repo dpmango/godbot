@@ -24,7 +24,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier }) => {
   const action = useMemo(() => {
     return {
       trial: !userData?.expire_date,
-      // prolong: !tariffActive,
+      prolong: !tariffActive && ['Trader', 'PRO Trader'].includes(userData?.tariff || ''),
       activate: !tariffActive,
       upgrade: !isProUser,
     };
@@ -33,8 +33,8 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier }) => {
   const translationKey = useMemo(() => {
     if (action.trial) {
       return 'trial';
-      // } else if (action.prolong) {
-      //   return 'prolong';
+    } else if (action.prolong) {
+      return 'prolong';
     } else if (action.activate) {
       return 'activate';
     } else if (action.upgrade) {

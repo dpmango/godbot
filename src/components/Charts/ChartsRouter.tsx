@@ -10,13 +10,13 @@ import { Forecast, Investing } from '@c/Charts';
 export const ChartsRouter: React.FC<{}> = () => {
   const [activeTab, setActiveTab] = useState<string>('Forecast');
 
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
 
   const { t } = useTranslation('charts');
 
   return (
     <>
-      {userData?.tariff && (
+      {tariffActive && (
         <div className="tabs">
           <div
             className={cns('tabs__link', activeTab === 'Forecast' && 'tabs__link--active')}
