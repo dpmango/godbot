@@ -229,6 +229,16 @@
     },
     "steps": {
       "step": {
+        "title": "Welcome to your personal account!",
+        "text": "We offer you to get acquainted with the service in a little more detail with the help of our guide."
+      },
+      "step1": {
+        "text": "The Trading tab provides real-time information from the AI."
+      },
+      "step2": {
+        "text": "We make miscalculations of several assets. "
+      },
+      "step3": {
         "text": "Each asset is calculated on several timeframes. "
       },
       "step4": {
