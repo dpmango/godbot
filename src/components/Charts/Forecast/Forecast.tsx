@@ -14,6 +14,7 @@ import {
   Time,
 } from 'lightweight-charts';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import cns from 'classnames';
 import dayjs from 'dayjs';
 
@@ -66,6 +67,7 @@ export const Forecast: React.FC<{}> = () => {
   const ctx = useContext(ThemeContext);
 
   const { allowedFunctions } = useProfile();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation('forecast');
 
   const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
