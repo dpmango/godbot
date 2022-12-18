@@ -10,12 +10,12 @@ export const getSignals = createAsyncThunk('recomendation/recomendationData', as
 });
 
 interface ISignalState {
-  loading: string;
+  loading: boolean | null;
   data: ISignal[] | null;
 }
 
 const initialState: ISignalState = {
-  loading: 'pending',
+  loading: null,
   data: null,
 };
 
@@ -25,10 +25,10 @@ export const signalState = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getSignals.pending, (state) => {
-      state.loading = 'pending';
+      state.loading = true;
     });
     builder.addCase(getSignals.fulfilled, (state, action) => {
-      state.loading = 'fulfilled';
+      state.loading = false;
 
       state.data = action.payload.sort(
         (a: ISignal, b: ISignal) => dayjs(b.date).unix() - dayjs(a.date).unix()

@@ -14,12 +14,12 @@ export interface IInvestorObj {
 }
 
 export interface IInvestorData {
-  loading: string;
+  loading: boolean | null;
   graphs: IInvestorObj;
 }
 
 const initialState: IInvestorData = {
-  loading: 'pending',
+  loading: null,
   graphs: {},
 };
 
@@ -29,10 +29,10 @@ export const investorState = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getInvesting.pending, (state) => {
-      state.loading = 'pending';
+      state.loading = true;
     });
     builder.addCase(getInvesting.fulfilled, (state, action) => {
-      state.loading = 'fulfilled';
+      state.loading = false;
       state.graphs = action.payload;
     });
   },

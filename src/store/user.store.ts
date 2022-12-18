@@ -8,7 +8,7 @@ import { IUserDto } from '@core/interface/User';
 import { timeDiff } from '@utils';
 
 export interface IUser {
-  loading: string;
+  loading: boolean | null;
   tariffActive: boolean;
   isProUser: boolean;
   userData: IUserDto | null;
@@ -33,7 +33,7 @@ export const setTutorialComplete = createAsyncThunk(
 );
 
 const initialState: IUser = {
-  loading: 'none',
+  loading: null,
   tariffActive: false,
   isProUser: false,
   userData: null,
@@ -46,7 +46,7 @@ export const userState = createSlice({
     resetUser(state, action: PayloadAction) {
       Cookies.remove('auth');
 
-      state.loading = 'none';
+      state.loading = false;
       state.tariffActive = false;
       state.isProUser = false;
       state.userData = null;
@@ -54,10 +54,10 @@ export const userState = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getCurrentUser.pending, (state) => {
-      state.loading = 'pending';
+      state.loading = true;
     });
     builder.addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUserDto>) => {
-      state.loading = 'fulfilled';
+      state.loading = false;
 
       if (action.payload) {
         state.userData = {
@@ -74,9 +74,6 @@ export const userState = createSlice({
 
         state.isProUser = action.payload?.tariff === 'PRO Trader';
       }
-    });
-    builder.addCase(getCurrentUser.rejected, (state) => {
-      state.loading = 'rejected';
     });
   },
 });

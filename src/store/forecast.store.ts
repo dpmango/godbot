@@ -36,7 +36,7 @@ export const getChart = createAsyncThunk(
 );
 
 interface IForecastState {
-  loading: string;
+  loading: boolean | null;
   currentCoin: string;
   currentTime: string;
   coins: {
@@ -50,7 +50,7 @@ interface IForecastState {
 }
 
 const initialState: IForecastState = {
-  loading: 'pending',
+  loading: null,
   currentCoin: '',
   currentTime: '',
   coins: null,
@@ -84,10 +84,10 @@ export const forecastState = createSlice({
       }
     });
     builder.addCase(getChart.pending, (state) => {
-      state.loading = 'pending';
+      state.loading = true;
     });
     builder.addCase(getChart.fulfilled, (state, action) => {
-      state.loading = 'fulfilled';
+      state.loading = false;
       if (action.payload.data) {
         const { data, meta, metadata } = action.payload;
 

@@ -2,6 +2,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast, Id } from 'react-toastify';
+import * as Sentry from '@sentry/browser';
 
 import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
@@ -47,6 +48,10 @@ const useProfile = () => {
     } else if (payload) {
       networkErrorCount.current = 0;
       toast.dismiss(networkToast.current);
+    }
+
+    if (payload?.name) {
+      Sentry.setUser({ email: payload.name });
     }
 
     return payload;

@@ -33,6 +33,7 @@ import { Logo } from '@c/Layout/Header';
 
 export interface IChartLines {
   id: string;
+  name: string;
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
 
@@ -77,7 +78,8 @@ export const Forecast: React.FC<{}> = () => {
     const PERF_TIME_SERIES = performance.now();
     const currentSeries = [
       {
-        name: 'RealCandle',
+        id: 'RealCandle',
+        displayName: 'Real (candle)',
         type: 'candle',
         candleStyle: {
           color: colors[0],
@@ -96,7 +98,8 @@ export const Forecast: React.FC<{}> = () => {
           .filter((x) => x.open && x.close && x.low && x.high),
       },
       {
-        name: 'RealLine',
+        id: 'RealLine',
+        displayName: 'Real (line)',
         type: 'line',
         lineStyle: {
           color: colors[0],
@@ -113,7 +116,7 @@ export const Forecast: React.FC<{}> = () => {
           .filter((x) => x.value),
       },
       {
-        name: 'Forecast',
+        id: 'Forecast',
         type: 'line',
         lineStyle: {
           color: colors[2],
@@ -131,7 +134,7 @@ export const Forecast: React.FC<{}> = () => {
           .filter((x) => x.value),
       },
       {
-        name: 'Upper',
+        id: 'Upper',
         type: 'line',
         lineStyle: {
           color: colors[3],
@@ -149,7 +152,7 @@ export const Forecast: React.FC<{}> = () => {
           .filter((x) => x.value),
       },
       {
-        name: 'Lower',
+        id: 'Lower',
         type: 'line',
         lineStyle: {
           color: colors[4],
@@ -267,7 +270,8 @@ export const Forecast: React.FC<{}> = () => {
           lineSeriesInstance.setData(s.data);
 
           newChartLines.push({
-            id: s.name,
+            id: s.id,
+            name: s.displayName || s.id,
             instance: lineSeriesInstance,
           });
         }
@@ -328,10 +332,10 @@ export const Forecast: React.FC<{}> = () => {
           if (!price) return;
           const seriesData = currentSeries[idx];
 
-          let displayName = seriesData.name;
-          if (seriesData.name === 'RealCandle') {
+          let displayName = seriesData.id;
+          if (seriesData.id === 'RealCandle') {
             return false;
-          } else if (seriesData.name === 'RealLine') {
+          } else if (seriesData.id === 'RealLine') {
             displayName = 'Real';
           }
 

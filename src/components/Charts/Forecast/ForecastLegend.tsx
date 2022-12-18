@@ -46,7 +46,7 @@ export const ForecastLegend: React.FC<{
               />
               <span className="checkbox"></span>
               <span className="chart__settings-line" style={{ borderColor: color }}></span>
-              {chartLine.id}
+              {chartLine.name}
             </label>
           );
         })}
