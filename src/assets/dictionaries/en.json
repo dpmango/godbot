@@ -134,14 +134,14 @@
     },
     "description": {
       "trader": [
-        "BTC forecast chart for 1-min TF",
+        "BTC forecast chart for 15-min TF",
         "Signals to buy and sell assets from AI",
         "Partial access to the training course",
         "Connecting a Telegram bot (coming soon)",
         "24/7 support service"
       ],
       "protrader": [
-        "Forecast charts: BTC, ETH, XRP on all timeframes",
+        "Forecast charts: 5 assets on all timeframes",
         "Signals to buy and sell assets from AI",
         "Full access to the training course",
         "Linking a Telegram bot (coming soon)",

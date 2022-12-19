@@ -136,14 +136,14 @@
     },
     "description": {
       "trader": [
-        "BTC için 1 dakikalık tahmin grafiği",
+        "BTC için 15 dakikalık tahmin grafiği",
         "Yapay zekânın size gönderdiği varlık alım satımı sinyalleri",
         "Tanıtım kursuna kısmen bir erişim",
         "Telegram botu (yakında)",
         "24 saat/7 gün hizmet veren Destek Bölümü"
       ],
       "protrader": [
-        "Tüm alım satım süreleri için BTC, ETH, XRP tahmin grafikleri",
+        "Tahmin çizelgeleri: Tüm zaman dilimlerinde 5 varlık",
         "Yapay zekânın size gönderdiği varlık alım satımı sinyalleri",
         "Tanıtım kursuna tam bir erişim",
         "Telegram botu (yakında)",
