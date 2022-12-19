@@ -12,6 +12,7 @@ import { ISignal } from '@interface/Signal';
 
 import { SignalCard } from '@c/Signal';
 import { placeholderSignals } from './placeholderData';
+import audioNotify from '@assets/audio/notify.mp3';
 
 export const Signals: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
@@ -87,7 +88,11 @@ export const Signals: React.FC<{}> = () => {
     if (loaded && data?.length && newSignals.length) {
       const count = newSignals.length;
       const transKey = getPluralKey(count);
+
       Toast('info', t(`notify.new.${transKey}`, { count }));
+
+      const notify = new Audio(audioNotify);
+      notify.play();
     }
 
     if (data?.length) {
