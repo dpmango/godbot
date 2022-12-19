@@ -24,10 +24,9 @@
   },
   "header": {
     "menu": {
-      "home": "Home",
-      "partner": "Affiliate program",
-      "education": "Education Centre",
-      "help": "Help Center"
+      "home": "home",
+      "partner": "affiliate program",
+      "education": "Education Centre"
     },
     "user": {
       "subscription": "Subscription until"
@@ -36,8 +35,7 @@
       "changeTariff": "Plan settings",
       "chooseTariff": "Choose your plan",
       "connectBot": "Link Telegram bot",
-      "payedChat": "Go to Telegram chat",
-      "tutorial": "Site tutorial"
+      "payedChat": "Go to Telegram chat"
     },
     "policies": {
       "confidentiality": "Privacy Policy",
@@ -55,7 +53,7 @@
   "forecast": {
     "filter": {
       "title": "Forecast Graph",
-      "estimate": "Order a miscalculation",
+      "estimate": "Order a calculation",
       "coins": {},
       "ticks": {
         "1m": "1 minute",
@@ -146,7 +144,7 @@
         "Forecast charts: BTC, ETH, XRP on all timeframes",
         "Signals to buy and sell assets from AI",
         "Full access to the training course",
-        "Connect a Telegram bot (coming soon)",
+        "Linking a Telegram bot (coming soon)",
         "24/7 support service",
         "The ability to order a calculation of the price of 1 of any asset per month",
         "Forecast charts for other assets: indices, stocks, exchange rates, inflation, etc.",
@@ -163,12 +161,12 @@
   "activated": {
     "pagetitle": "Godbot | Trial",
     "title": "Congratulations!",
-    "text": "You have activated a trial plan for 3 days. ",
+    "text": "You have activated a trial plan for 7 days. ",
     "action": "GO!"
   },
   "greeting": {
     "title": "Welcome to your personal account!",
-    "text": "We offer you to get acquainted with the service in details with the help of our guide.",
+    "text": "Learn the service in details with the help of our guide.",
     "action": "GO!",
     "skip": "SKIP"
   },
@@ -190,7 +188,7 @@
   "ui": {
     "select": {
       "defaultPlaceholder": "Select",
-      "empty": "Options not available"
+      "empty": "Options are not available"
     },
     "lock": {
       "activate": {
@@ -212,58 +210,53 @@
     },
     "modal": {
       "close": "Close"
-    },
-    "loader": {
-      "title": "We are loading page",
-      "description": "Pleasе, wait a bit"
     }
   },
   "tutorial": {
     "btns": {
-      "start": "To begin",
+      "start": "Get started",
       "skip": "Skip",
       "next": "Next",
-      "prev": "Previous",
-      "return": "Return",
+      "prev": "Back",
       "finish": "Finish"
     },
     "steps": {
       "step": {
-        "title": "Welcome to your personal account!",
-        "text": "We offer you to get acquainted with the service in a little more detail with the help of our guide."
+        "title": "Welcome to your account!",
+        "text": "Our guide will help you get started with Godbot interface."
       },
       "step1": {
         "text": "The Trading tab provides real-time information from the AI."
       },
       "step2": {
-        "text": "We make miscalculations of several assets. "
+        "text": "We make calculations of several assets. You can select the preferable one in this Tab."
       },
       "step3": {
-        "text": "Each asset is calculated on several timeframes. "
+        "text": "Each asset is calculated on multiple time frames. Choose the most suitable one for trading."
       },
       "step4": {
-        "text": "You can see only 4 charts: Forecast price, Current price, Upper and Lower bands of the trading range."
+        "text": "You can see only 4 lines: forecast price, current price, and the upper and lower limits of price movements. Current price is moving along or near the forecast line in about 80% of cases. In 99% of cases the price is inside the channel. The forecast is recalculated automatically in case of significant fluctuations in the asset price or when new market input data is updated."
       },
       "step5": {
-        "text": "By opening the legend and clicking on the selected icon, you can hide the chart and then turn it back on."
+        "text": "Using the legend, you can enable or disable each line on the chart."
       },
       "step6": {
-        "text": "The \"Investment\" tab is intended to make long-term investment decisions. Here you can order the calculation of the price movement for the assets you are interested in."
+        "text": "The \"Investment\" tab is designed to be able to make a decision on long-term investments in assets. You can order a calculation of assets that interest you."
       },
       "step7": {
-        "text": "You can see the asset ticker and AI forcast price in mini-chart windows."
+        "text": "In the card you can see a forecast chart of a specific asset. The current price is not pulled up and the forecast will not be updated until it is complete."
       },
       "step8": {
-        "text": "With PRO Trader Plan, you can order the calculation of 1 asset per month. "
+        "text": "PRO Plan allows you to request the calculation of 1 asset per month. Additional calculations you can get for the extra charge. "
       },
       "step9": {
-        "text": "In Trading Recomendations block you will see the prices of assets recommended for opening/closing a position, as well as the degree of risk for each transaction."
+        "text": "In the section of trading price recommendations, you will see prices for entering and exiting a position, as well as the risks for each transaction."
       },
       "step10": {
-        "text": "In your profile you can see your Plan and the Date of its expiry."
+        "text": "The profile card shows your plan and its expiration date."
       },
       "step11": {
-        "text": "You can also change the style of the site and subscribe to our social networks. page / chanell"
+        "text": "You can also change the theme of the website and subscribe to our pages in soical media."
       }
     }
   }
