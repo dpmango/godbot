@@ -11,6 +11,7 @@
     "test": "craco test",
     "lint:js:fix": "eslint './src/**/*.{ts,tsx}' --fix",
     "server": "node server/server.js",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -31,7 +32,6 @@
     "lottie-react": "^2.3.1",
     "ofetch": "^1.0.0",
     "react": "^18.2.0",
-    "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-i18next": "^12.1.1",
@@ -65,6 +65,7 @@
     "node-sass": "^8.0.0",
     "prettier": "^2.8.1",
     "react-scripts": "5.0.1",
+    "source-map-explorer": "^2.5.3",
     "typescript": "^4.9.3"
   },
   "browserslist": {

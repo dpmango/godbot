@@ -111,7 +111,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         dispatch(setStateTime(firstAvailOption.value));
       }
     }
-  }, [coinOptions, timeOptions, searchParams]);
+  }, [coinOptions, timeOptions, searchParams.get('coin'), searchParams.get('time')]);
 
   return (
     <div className="chart__head">

@@ -4,12 +4,19 @@ import Lottie from 'lottie-react';
 import cns from 'classnames';
 
 import loadingDotsAnimation from '@assets/animations/loading-dots.json';
+import st from './Loader.module.scss';
 
-export const Loader: FC<{}> = ({}) => {
+interface ILoaderProps {
+  theme?: string;
+  active?: boolean;
+}
+
+export const Loader: FC<ILoaderProps> = ({ theme = 'inline', active = true }) => {
   const { t } = useTranslation('ui', { keyPrefix: 'loader' });
 
   return (
-    <div className="loading-block">
+    <div
+      className={cns('loading-block', st.loader, theme && st[`_${theme}`], active && st._active)}>
       <div className="loading-block__pic">
         <Lottie
           style={{ width: 70, height: 70 }}

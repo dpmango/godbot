@@ -12,8 +12,11 @@ import {
   SeriesMarkerShape,
   SeriesMarker,
   Time,
+  DeepPartial,
+  PriceFormat,
 } from 'lightweight-charts';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import cns from 'classnames';
 import dayjs from 'dayjs';
 
@@ -28,14 +31,10 @@ import { IGraphTickDto } from '@/core/interface/Forecast';
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
 
-interface IChartLines {
+export interface IChartLines {
   id: string;
+  name: string;
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
-}
-
-interface ISeriesData {
-  time: UTCTimestamp;
-  value: number;
 }
 
 export const Forecast: React.FC<{}> = () => {
@@ -57,7 +56,7 @@ export const Forecast: React.FC<{}> = () => {
     currentTime,
     loading: storeLoading,
   } = useAppSelector((state) => state.forecastState);
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
   // рефы
@@ -66,11 +65,12 @@ export const Forecast: React.FC<{}> = () => {
   const ctx = useContext(ThemeContext);
 
   const { allowedFunctions } = useProfile();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation('forecast');
 
-  const colors: string[] = ['#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+  const colors: string[] = ['#0F701E', '#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
   const paginatePer = 200;
-  const viewLocked = !userData?.tariff;
+  const viewLocked = !tariffActive;
 
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
@@ -78,9 +78,13 @@ export const Forecast: React.FC<{}> = () => {
     const PERF_TIME_SERIES = performance.now();
     const currentSeries = [
       {
-        name: 'Real',
+        id: 'RealCandle',
+        displayName: 'Real (candle)',
         type: 'candle',
-
+        candleStyle: {
+          color: colors[0],
+          visible: false,
+        },
         data: coinData
           .map((x: IGraphTickDto) => {
             return {
@@ -94,10 +98,28 @@ export const Forecast: React.FC<{}> = () => {
           .filter((x) => x.open && x.close && x.low && x.high),
       },
       {
-        name: 'Forecast',
+        id: 'RealLine',
+        displayName: 'Real (line)',
         type: 'line',
         lineStyle: {
-          color: colors[1],
+          color: colors[0],
+          lineWidth: 3 as LineWidth,
+          visible: true,
+        },
+        data: coinData
+          .map((x: IGraphTickDto) => {
+            return {
+              time: x.timestamp,
+              value: x.real_open || 0,
+            };
+          })
+          .filter((x) => x.value),
+      },
+      {
+        id: 'Forecast',
+        type: 'line',
+        lineStyle: {
+          color: colors[2],
           lineWidth: 3 as LineWidth,
         },
         showChanges: true,
@@ -112,10 +134,10 @@ export const Forecast: React.FC<{}> = () => {
           .filter((x) => x.value),
       },
       {
-        name: 'Upper',
+        id: 'Upper',
         type: 'line',
         lineStyle: {
-          color: colors[2],
+          color: colors[3],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -130,10 +152,10 @@ export const Forecast: React.FC<{}> = () => {
           .filter((x) => x.value),
       },
       {
-        name: 'Lower',
+        id: 'Lower',
         type: 'line',
         lineStyle: {
-          color: colors[3],
+          color: colors[4],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -161,7 +183,6 @@ export const Forecast: React.FC<{}> = () => {
 
     if (!chart.current) {
       // Создание инстанса графика
-      console.log('instance creating');
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
@@ -218,31 +239,30 @@ export const Forecast: React.FC<{}> = () => {
       currentSeries.forEach((s, idx) => {
         let lineSeriesInstance;
 
+        const sharedSeriesOptions = {
+          lastValueVisible: false,
+          priceLineVisible: false,
+          priceFormat: {
+            type: 'price',
+            precision: 4,
+            minMove: 0.0001,
+          } as DeepPartial<PriceFormat>,
+        };
+
         if (s.type === 'line') {
           lineSeriesInstance = chartInstance.addLineSeries({
-            lastValueVisible: false,
-            priceLineVisible: false,
-            priceFormat: {
-              type: 'price',
-              precision: 4,
-              minMove: 0.0001,
-            },
+            ...sharedSeriesOptions,
             ...s.lineStyle,
           });
         } else if (s.type === 'candle') {
           lineSeriesInstance = chartInstance.addCandlestickSeries({
-            lastValueVisible: false,
-            priceLineVisible: false,
+            ...sharedSeriesOptions,
             upColor: '#26a69a',
             downColor: '#ef5350',
             borderVisible: false,
             wickUpColor: '#26a69a',
             wickDownColor: '#ef5350',
-            priceFormat: {
-              type: 'price',
-              precision: 4,
-              minMove: 0.0001,
-            },
+            ...s.candleStyle,
           });
         }
 
@@ -250,7 +270,8 @@ export const Forecast: React.FC<{}> = () => {
           lineSeriesInstance.setData(s.data);
 
           newChartLines.push({
-            id: s.name,
+            id: s.id,
+            name: s.displayName || s.id,
             instance: lineSeriesInstance,
           });
         }
@@ -268,12 +289,6 @@ export const Forecast: React.FC<{}> = () => {
         from: timeToTz((from.unix() * 1000) as UTCTimestamp),
         to: timeToTz((last.unix() * 1000) as UTCTimestamp),
       });
-
-      // chartInstance.timeScale().subscribeVisibleTimeRangeChange((newRange) => {
-      //   if (newRange !== null) {
-      //     // console.log({ newRange });
-      //   }
-      // });
 
       chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
         if (!range) return;
@@ -317,10 +332,17 @@ export const Forecast: React.FC<{}> = () => {
           if (!price) return;
           const seriesData = currentSeries[idx];
 
+          let displayName = seriesData.id;
+          if (seriesData.id === 'RealCandle') {
+            return false;
+          } else if (seriesData.id === 'RealLine') {
+            displayName = 'Real';
+          }
+
           pricesHtml += `
             <div class="chart-info__pricedata">
               <i style="background: ${colors[idx]}"></i> 
-              <p>${seriesData.name}:</p>&nbsp;${formatPrice(price as number)}
+              <p>${displayName}:</p>&nbsp;${formatPrice(price as number)}
             </div>`;
         });
 
@@ -358,7 +380,6 @@ export const Forecast: React.FC<{}> = () => {
       chart.current = chartInstance;
     } else {
       // обновление данных
-      console.log('instance update');
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData(currentSeries[idx].data);
 
@@ -384,7 +405,6 @@ export const Forecast: React.FC<{}> = () => {
     setLastUpdate(formatDate(new Date()));
 
     return () => {
-      console.log('chart removed in hook cb');
       chart.current?.remove();
     };
   };
@@ -433,17 +453,6 @@ export const Forecast: React.FC<{}> = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  // смена линий графика из легенды
-  const handleChangeSeries = (title: string, disabled: boolean) => {
-    const targetLine = chartLines.find((x) => x.id === title);
-
-    if (targetLine) {
-      targetLine.instance.applyOptions({
-        visible: !disabled,
-      });
-    }
-  };
 
   // инициализация запросов
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
@@ -528,12 +537,7 @@ export const Forecast: React.FC<{}> = () => {
         lastUpdate={lastUpdate}
       />
 
-      <ForecastLegend
-        active={legendActive}
-        colors={colors}
-        data={series}
-        handleToggle={handleChangeSeries}
-      />
+      <ForecastLegend active={legendActive} chartLines={chartLines} />
 
       {!viewLocked ? (
         <div

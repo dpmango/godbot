@@ -1,7 +1,8 @@
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast, Id } from 'react-toastify';
+import * as Sentry from '@sentry/browser';
 
 import { useAppSelector, useAppDispatch, api } from '@core';
 import { getCurrentUser, resetUser } from '@store';
@@ -11,6 +12,7 @@ import { Toast } from '@ui';
 
 const useProfile = () => {
   const { userData } = useAppSelector((state) => state.userState);
+  const networkErrorCount = useRef(0);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -36,16 +38,24 @@ const useProfile = () => {
 
       return null;
     } else if (payload === null) {
-      networkToast.current = Toast('error', t('network.connect'), {
-        toastId: 'networkToast',
-        autoClose: false,
-      });
+      networkErrorCount.current = networkErrorCount.current + 1;
+      if (networkErrorCount.current >= 5) {
+        networkToast.current = Toast('error', t('network.connect'), {
+          toastId: 'networkToast',
+          autoClose: false,
+        });
+      }
     } else if (payload) {
+      networkErrorCount.current = 0;
       toast.dismiss(networkToast.current);
     }
 
+    if (payload?.name) {
+      Sentry.setUser({ email: payload.name });
+    }
+
     return payload;
-  }, []);
+  }, [networkErrorCount]);
 
   const setUserSettings = useCallback(async () => {
     const { data, error } = await api('user_settings/', {

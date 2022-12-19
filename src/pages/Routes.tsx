@@ -30,14 +30,11 @@ const ProtectedRoute = () => {
 
   const { t } = useTranslation('tariff');
 
-  // закрытые роутов
-  if (!accessToken) {
-    return <Navigate to="/auth" state={{ from: location }} replace />;
-  }
   // проверка оплаченных тарифов и логаут сессии
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     timerConfirm.current = setInterval(async () => {
+      if (!accessToken) return;
       setIntervalRun((prev) => prev + 1);
       const user = await fetchProfileWithLogout();
       if (user?.tariff !== undefined) {
@@ -52,10 +49,15 @@ const ProtectedRoute = () => {
 
   useEffect(() => {
     // вызывается только если тариф поменялся при последующих запросах
-    if (userTariff && intervalRun > 1) {
+    if (accessToken && userTariff && intervalRun > 1) {
       Toast('success', t('activated.success', { tariff: userTariff }), { autoClose: false });
     }
   }, [userTariff]);
+
+  // закрытые роутов
+  if (!accessToken) {
+    return <Navigate to="/auth" state={{ from: location }} replace />;
+  }
 
   return <Outlet />;
 };

@@ -1,63 +1,55 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
-interface IButton {
-  title: string;
-  active: boolean;
-}
 
-interface ISeries {
-  name: string;
-  type: string;
-}
+import { IChartLines } from './Forecast';
 
 export const ForecastLegend: React.FC<{
-  colors: string[];
-  data: ISeries[];
+  chartLines: IChartLines[];
   active: boolean;
-  handleToggle: (title: string, active: boolean) => void;
-}> = ({ colors, data, active, handleToggle }) => {
-  const [buttons, setButtons] = useState<IButton[]>([]);
-
+}> = ({ chartLines, active }) => {
+  const [renderer, setRenderer] = useState<number>(0);
   const { t } = useTranslation('forecast');
 
-  const handleClick = (title: string) => {
-    let newState = null;
+  const handleVisibilityToggle = useCallback(
+    (id: string) => {
+      const targetLine = chartLines.find((x) => x.id === id);
 
-    setButtons(
-      buttons.map((elem) => {
-        if (elem.title === title) {
-          elem.active = !elem.active;
-          newState = !elem.active;
-        }
-        return elem;
-      })
-    );
+      if (targetLine) {
+        const { visible } = targetLine.instance.options();
+        targetLine.instance.applyOptions({
+          visible: !visible,
+        });
+      }
 
-    handleToggle(title, !!newState);
-  };
-
-  useEffect(() => {
-    if (data.length) {
-      setButtons(data.map((elem) => Object.assign({}, { title: elem.name, active: true })));
-    }
-  }, [data]);
+      setRenderer((prev) => prev + 1);
+    },
+    [chartLines]
+  );
 
   return (
     <div className={cns('chart__settings-dropdown', active && 'chart__settings-dropdown--active')}>
       <div className="chart__settings-title">{t('legend.title')}</div>
       <div className="chart__settings-checks">
-        {buttons.map((elem, index) => (
-          <label
-            key={elem.title}
-            onClick={() => handleClick(elem.title)}
-            className={cns('chart__legend-item', elem.active && 'chart__legend-item--active')}>
-            <input type="checkbox" checked={elem.active} onChange={() => handleClick(elem.title)} />
-            <span className="checkbox"></span>
-            <span className="chart__settings-line" style={{ borderColor: colors[index] }}></span>
-            {elem.title}
-          </label>
-        ))}
+        {chartLines.map((chartLine, index) => {
+          // @ts-ignore
+          const { visible, color } = chartLine.instance.options();
+
+          return (
+            <label
+              key={chartLine.id}
+              className={cns('chart__legend-item', visible && 'chart__legend-item--active')}>
+              <input
+                type="checkbox"
+                checked={visible}
+                onChange={() => handleVisibilityToggle(chartLine.id)}
+              />
+              <span className="checkbox"></span>
+              <span className="chart__settings-line" style={{ borderColor: color }}></span>
+              {chartLine.name}
+            </label>
+          );
+        })}
       </div>
     </div>
   );
