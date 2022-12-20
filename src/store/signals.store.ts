@@ -50,12 +50,7 @@ export const signalState = createSlice({
       state.loading = false;
 
       if (action.payload) {
-        state.data = action.payload.data
-          ? action.payload.data.sort(
-              (a: ISignal, b: ISignal) => dayjs(b.date).unix() - dayjs(a.date).unix()
-            )
-          : [];
-
+        state.data = action.payload.data || [];
         state.metadata = action.payload.metadata || null;
       }
     });

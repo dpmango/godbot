@@ -3,13 +3,11 @@ import xorBy from 'lodash/xorBy';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
-import { useAppDispatch, useAppSelector } from '@core';
+import { useAppDispatch, useAppSelector, api } from '@core';
 import { getSignals } from '@store';
-import { LockScreen } from '@/components/UI/LockScreen/LockScreen';
-import { Pagination, Select, Toast } from '@ui';
+import { Loader, Pagination, Select, Toast, LockScreen } from '@ui';
 import { useProfile } from '@hooks';
 import { getPluralKey } from '@utils';
-import { ISignal } from '@interface/Signal';
 
 import { SignalCard } from '@c/Signal';
 import { placeholderSignals } from './placeholderData';
@@ -20,14 +18,14 @@ export const Signals: React.FC<{}> = () => {
   const { data, metadata } = useAppSelector((state) => state.signalState);
   const { tariffActive } = useAppSelector((state) => state.userState);
   const [filter, setFilter] = useState<string>('');
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [prevSignals, setPrevSignals] = useState<ISignal[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { allowedFunctions } = useProfile();
   const { t, i18n } = useTranslation('signal');
 
   const viewLocked = !tariffActive;
 
+  // отображение
   const selectOptions = useMemo(() => {
     return [
       { value: '', label: t('select.all') },
@@ -40,28 +38,34 @@ export const Signals: React.FC<{}> = () => {
   }, [i18n.language]);
 
   const displaySignals = useMemo(() => {
-    if (viewLocked) {
-      return placeholderSignals;
-    }
-
+    if (viewLocked) return placeholderSignals;
     return data;
   }, [data, viewLocked]);
 
+  // запросы и условия по обновлению
   const requestSignals = useCallback(
-    (page?: number) => {
+    async ({ page, loader = true }: { page?: number; loader?: boolean }) => {
       // получить по целевой странице либо текущая с метаданных
-      dispatch(getSignals({ status: filter, page: page || metadata?.current_page }));
+      if (loader) setLoading(true);
+
+      await dispatch(getSignals({ status: filter, page: page || metadata?.current_page }));
+
+      if (loader) setLoading(false);
     },
     [filter, metadata?.current_page]
   );
 
+  useEffect(() => {
+    requestSignals({});
+  }, [filter]);
+
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
     if (allowedFunctions.signal) {
-      requestSignals();
+      requestSignals({});
 
       timerConfirm.current = setInterval(() => {
-        requestSignals();
+        requestSignals({ loader: false });
       }, 1 * 60 * 1000);
     }
 
@@ -70,25 +74,34 @@ export const Signals: React.FC<{}> = () => {
     };
   }, [allowedFunctions.signal, requestSignals]);
 
+  // получение обновлений + уведомления
+  const timerUpdates: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
-    requestSignals();
-  }, [filter]);
+    const requestUpdates = async () => {
+      const { data } = await api('get_new_signals/', {});
 
-  useEffect(() => {
-    // const newSignals = xorBy(prevSignals, data, 'date');
-    // if (loaded && data?.length && newSignals.length) {
-    //   const count = newSignals.length;
-    //   const transKey = getPluralKey(count);
-    //   Toast('info', t(`notify.new.${transKey}`, { count }));
-    //   const notify = new Audio(audioNotify);
-    //   notify.play();
-    // }
-    // if (data?.length) {
-    //   setLoaded(true);
-    // }
-    // setPrevSignals(data);
-  }, [data]);
+      if (data) {
+        // TODO переделать API на массив, сейчас возвращается по 1 сигналу
+        const count = 1;
+        const transKey = getPluralKey(count);
+        Toast('info', t(`notify.new.${transKey}`, { count }));
+        const notify = new Audio(audioNotify);
+        notify.play();
+      }
+    };
 
+    if (allowedFunctions.signal) {
+      timerUpdates.current = setInterval(() => {
+        requestUpdates();
+      }, 1 * 60 * 1000);
+    }
+
+    return () => {
+      clearInterval(timerUpdates.current as NodeJS.Timeout);
+    };
+  }, [allowedFunctions.signal]);
+
+  // условия || viewLocked для отображения плейсхолдера под блюром
   return (
     <div className={cns('recommend', viewLocked && 'recommend--locked')}>
       <div className="recommend__head">
@@ -136,14 +149,16 @@ export const Signals: React.FC<{}> = () => {
         </div>
       )}
 
-      {metadata && (
+      {(metadata || viewLocked) && (
         <Pagination
-          page={metadata?.current_page}
-          count={metadata?.total}
-          limit={metadata?.paginated_by}
-          onChange={requestSignals}
+          page={metadata?.current_page || 1}
+          count={metadata?.total || 100}
+          limit={metadata?.paginated_by || 10}
+          onChange={(p) => requestSignals({ page: p })}
         />
       )}
+
+      <Loader theme="overlay" active={loading} />
 
       {viewLocked && <LockScreen section={t('lock')} textModifier={'big'} />}
     </div>

@@ -59,7 +59,7 @@ export const HomePage: React.FC<{}> = () => {
 
       <div className={cns('content', loading && 'content--loading')}>
         <div className="container">
-          <Loader theme="page" active={loading} />
+          <Loader theme="page" active={loading} threshold={1} />
           <ChartsRouter />
           <Signals />
         </div>
