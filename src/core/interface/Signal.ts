@@ -11,3 +11,12 @@ export interface ISignal {
   trigger_stop: string;
   risk: number;
 }
+
+export interface ISignalMetaDto {
+  current_page: number;
+  pages_count: number;
+  paginated_by: number;
+  status: string | null;
+  total: number;
+  winrate: string;
+}
