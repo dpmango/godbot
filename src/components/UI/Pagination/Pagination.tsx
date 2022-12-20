@@ -96,13 +96,13 @@ export const Pagination: React.FC<IPaginationProps> = ({ page, count, limit, onC
     if (prevAvailable) {
       onChange(page - 1);
     }
-  }, [page]);
+  }, [page, prevAvailable]);
 
   const handleNext = useCallback(() => {
     if (nextAvailable) {
       onChange(page + 1);
     }
-  }, [page]);
+  }, [page, nextAvailable]);
 
   return (
     <div className="pagination">
