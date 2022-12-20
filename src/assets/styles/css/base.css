@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-@function HexToRGB($hex) {
-  @return red($hex), green($hex), blue($hex);
-}
-
 :root {
   --font: Gilroy, -apple-system, 'Open Sans', system-ui, 'sans-serif';
   --blue: #4572ee;
@@ -20,7 +16,7 @@
 }
 .themeLight {
   --bg: #f8f9fb;
-  --bg-rgb: #{HexToRGB(#f8f9fb)};
+  --bg-rgb: rgb(248, 249, 251);
   --block-bg: #fff;
   --block-bg2: #fff;
   --block-border2: #ccc5ff;
@@ -52,7 +48,7 @@
 }
 .themeDark {
   --bg: #141414;
-  --bg-rgb: #{HexToRGB(#141414)};
+  --bg-rgb: rgb(20, 20, 20);
   --block-bg: #1d2426;
   --block-bg2: #141414;
   --block-border2: #4572ee;

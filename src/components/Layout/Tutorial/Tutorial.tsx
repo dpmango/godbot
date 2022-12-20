@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '@core';
+import { isModalOpened } from '@utils';
 import { setTutorialComplete } from '@store/user.store';
 
 import './tutorial.scss';
@@ -38,6 +39,8 @@ export const Tutorial: FC<any> = () => {
   };
 
   const showTutorial = useMemo(() => {
+    if (isModalOpened(searchParams)) return false;
+
     if (searchParams.get('tutorial') !== null) {
       return true;
     }
