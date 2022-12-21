@@ -107,9 +107,9 @@ export const Signals: React.FC<{}> = () => {
       <div className="recommend__head">
         <div className="recommend__title">
           <div>{t('title')}</div>
-          {metadata?.winrate && (
+          {metadata?.winrate && metadata?.winrate !== '0%' && (
             <div className="recommend__title-winrate">
-              Winrate - <strong>{metadata?.winrate}</strong>
+              Winrate: <strong>{metadata?.winrate}</strong>
             </div>
           )}
         </div>
