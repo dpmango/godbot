@@ -48,7 +48,7 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
 
   return (
     <tr>
-      <td className="recommend__table-light recommend__table-nowrap recommend__hide-mobile">
+      <td className="recommend__table-date recommend__table-light recommend__table-nowrap recommend__hide-mobile">
         {formatDate(signal.date)}
       </td>
       <td className="recommend__table-min">
@@ -56,27 +56,31 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
       </td>
       <td>
         {signal.currency}
-        <div className="recommend__table-light recommend__table-grey">{signal.currency_code}</div>
+        <div className="recommend__table-type recommend__table-light recommend__table-grey">
+          {signal.currency_code}
+        </div>
       </td>
       <td
         className={cns(
-          'recommend__table-center',
+          'recommend__table-status recommend__table-center',
           signal.direction === 'SHORT' ? 'recommend__table-red' : 'recommend__table-green'
         )}>
         {signal.direction}
       </td>
-      <td className={cns('recommend__table-center', signalStatus.color)}>{signalStatus.title}</td>
+      <td className={cns('recommend__table-price recommend__table-center', signalStatus.color)}>
+        {signalStatus.title}
+      </td>
       <td className="recommend__table-center recommend__table-nowrap">
         {signal.entry_price_range.map((item, idx) => (
           <div key={idx}>${item}</div>
         ))}
       </td>
-      <td className="recommend__table-center recommend__table-nowrap">
+      <td className="recommend__table-price recommend__table-center recommend__table-nowrap">
         {signal.get_exit_range.map((item, idx) => (
           <div key={idx}>${item}</div>
         ))}
       </td>
-      <td className="recommend__table-center recommend__table-nowrap">
+      <td className="recommend__table-stop recommend__table-center recommend__table-nowrap">
         <div>
           {signal.stop_loss ? (
             <>
@@ -88,7 +92,7 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
           )}
         </div>
       </td>
-      <td className="recommend__table-center">{signal.risk}%</td>
+      <td className="recommend__table-risk recommend__table-center">{signal.risk}%</td>
     </tr>
   );
 };

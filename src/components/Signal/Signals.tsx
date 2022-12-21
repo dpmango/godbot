@@ -129,14 +129,20 @@ export const Signals: React.FC<{}> = () => {
           <table>
             <thead>
               <tr>
-                <th className="recommend__hide-mobile">{t('table.date')}</th>
+                <th className="recommend__table-date recommend__hide-mobile">{t('table.date')}</th>
                 <th colSpan={2}>{t('table.name')}</th>
-                <th className="recommend__table-center">{t('table.type')}</th>
-                <th className="recommend__table-center">{t('table.status')}</th>
-                <th className="recommend__table-center">{t('table.enter')}</th>
-                <th className="recommend__table-center">{t('table.exit')}</th>
-                <th className="recommend__table-center">{t('table.stop')}</th>
-                <th className="recommend__table-center">{t('table.risk')}</th>
+                <th className="recommend__table-type recommend__table-center">{t('table.type')}</th>
+                <th className="recommend__table-status recommend__table-center">
+                  {t('table.status')}
+                </th>
+                <th className="recommend__table-price recommend__table-center">
+                  {t('table.enter')}
+                </th>
+                <th className="recommend__table-price recommend__table-center">
+                  {t('table.exit')}
+                </th>
+                <th className="recommend__table-stop recommend__table-center">{t('table.stop')}</th>
+                <th className="recommend__table-risk recommend__table-center">{t('table.risk')}</th>
               </tr>
             </thead>
 
