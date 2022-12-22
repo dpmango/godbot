@@ -1,9 +1,7 @@
 import { FC, useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import Lottie from 'lottie-react';
 import cns from 'classnames';
 
-import loadingDotsAnimation from '@assets/animations/loading-dots.json';
 import st from './Loader.module.scss';
 
 interface ILoaderProps {
@@ -41,12 +39,13 @@ export const Loader: FC<ILoaderProps> = ({ theme = 'inline', active, threshold =
         loadingState && st._active
       )}>
       <div className="loading-block__pic">
-        <Lottie
-          style={{ width: 70, height: 70 }}
-          animationData={loadingDotsAnimation}
-          loop={true}
-          autoPlay={true}
-        />
+        <div className="loader">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
       {theme === 'page' && (
         <>

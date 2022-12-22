@@ -212,6 +212,10 @@
     },
     "modal": {
       "close": "Close"
+    },
+    "loader": {
+      "title": "We are loading page",
+      "description": "Pleasе, wait a bit"
     }
   },
   "tutorial": {
