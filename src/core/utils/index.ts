@@ -1,4 +1,6 @@
 export { getRandomInt, LOG, PerformanceLog } from './dev';
+export { languageList, getLanguageByKey } from './lang';
+export type { ILangSelect } from './lang';
 export {
   timeDiff,
   formatDate,

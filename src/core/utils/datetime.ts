@@ -4,14 +4,18 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import isToday from 'dayjs/plugin/isToday';
 import locale_ru from 'dayjs/locale/ru';
+import locale_tr from 'dayjs/locale/tr';
 import { toDate, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { UTCTimestamp, BusinessDay } from 'lightweight-charts';
+import { getLanguageByKey } from '@utils';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isToday);
-dayjs.locale('ru');
+
+const lang = getLanguageByKey(localStorage.getItem('i18nextLng'))?.key || 'ru';
+dayjs.locale(lang);
 
 export const timeDiff = (date: any) => {
   let now: any = new Date();
@@ -59,6 +63,7 @@ export const timeToTz = (originalTime: UTCTimestamp) => {
   // const zonedDate = utcToZonedTime(originalTime, 'Etc/UTC');
   const zonedDate = zonedTimeToUtc(originalTime, 'Etc/UTC');
   return (zonedDate.getTime() / 1000) as UTCTimestamp;
+  // return dayjs(originalTime).tz('Etc/UTC', true).unix() as UTCTimestamp;
 };
 
 export const getTimezone = () => {

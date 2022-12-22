@@ -1,9 +1,11 @@
 import { useState, useMemo, useRef, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
 import cns from 'classnames';
 
 import { SpriteIcon } from '@ui';
+import { languageList, ILangSelect } from '@utils';
 import { useClickOutside, useProfile } from '@hooks';
 
 export const Languages: React.FC<{}> = () => {
@@ -12,23 +14,18 @@ export const Languages: React.FC<{}> = () => {
   const { t, i18n } = useTranslation();
   const { setUserSettings } = useProfile();
 
-  const languages = [
-    { key: 'ru', lang: 'ru-RU' },
-    { key: 'en', lang: 'en-US' },
-    { key: 'tr', lang: 'tr-TR' },
-  ];
-
   const activeLanguage = useMemo(() => {
-    return languages.find((x) => x.lang === i18n.language) || { key: 'ru', lang: 'ru-RU' };
+    return languageList.find((x) => x.lang === i18n.language) || { key: 'ru', lang: 'ru-RU' };
   }, [i18n.language]);
 
   const displayLanguages = useMemo(() => {
-    return languages.filter((x) => x.lang !== i18n.language);
+    return languageList.filter((x) => x.lang !== i18n.language);
   }, [i18n.language]);
 
-  const handleLanguageSelect = (e: MouseEvent, lang: string) => {
+  const handleLanguageSelect = (e: MouseEvent, lang: ILangSelect) => {
     e.preventDefault();
-    i18n.changeLanguage(lang);
+    i18n.changeLanguage(lang.lang);
+    dayjs.locale(lang.key);
     setOpened(false);
     setUserSettings();
   };
@@ -50,7 +47,7 @@ export const Languages: React.FC<{}> = () => {
             key={lang.key}
             className="header__lang-link"
             title={lang.key}
-            onClick={(e) => handleLanguageSelect(e, lang.lang)}>
+            onClick={(e) => handleLanguageSelect(e, lang)}>
             <img src={`img/language/${lang.key}.svg`} alt="En" />
           </a>
         ))}
