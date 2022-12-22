@@ -80,11 +80,9 @@ export const Signals: React.FC<{}> = () => {
     const requestUpdates = async () => {
       const { data } = await api('get_new_signals/', {});
 
-      if (data) {
-        // TODO переделать API на массив, сейчас возвращается по 1 сигналу
-        const count = 1;
-        const transKey = getPluralKey(count);
-        Toast('info', t(`notify.new.${transKey}`, { count }));
+      if (data && data.count) {
+        const transKey = getPluralKey(data.count);
+        Toast('info', t(`notify.new.${transKey}`, { count: data.count }));
         const notify = new Audio(audioNotify);
         notify.play();
       }
