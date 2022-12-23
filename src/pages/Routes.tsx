@@ -13,6 +13,7 @@ import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 // import { Partnership } from '@/pages/_Partnership';
 import { NotFound } from '@/pages/NotFound';
+import { UiPage } from '@/pages/UiPage';
 
 declare global {
   interface Window {
@@ -82,6 +83,7 @@ const Router = () => {
       <Route path="/" element={<ProtectedRoute />}>
         <Route index element={<HomePage />} />
         <Route path="faq" element={<FaqPage />} />
+        <Route path="ui" element={<UiPage />} />
         {/* <Route path="partnership" element={<Partnership />} />*/}
       </Route>
 
