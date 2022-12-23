@@ -20,7 +20,7 @@ i18n
   .init({
     load: 'currentOnly',
     supportedLngs: ['ru-RU', 'en-US', 'tr-TR'],
-    fallbackLng: 'ru-RU',
+    fallbackLng: 'en-US',
     defaultNS: '',
     debug: process.env.NODE_ENV !== 'production',
     detection: {

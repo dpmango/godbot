@@ -15,7 +15,7 @@ export const Languages: React.FC<{}> = () => {
   const { setUserSettings } = useProfile();
 
   const activeLanguage = useMemo(() => {
-    return languageList.find((x) => x.lang === i18n.language) || { key: 'ru', lang: 'ru-RU' };
+    return languageList.find((x) => x.lang === i18n.language) || { key: 'en', lang: 'en-US' };
   }, [i18n.language]);
 
   const displayLanguages = useMemo(() => {

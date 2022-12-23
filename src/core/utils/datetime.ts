@@ -14,7 +14,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isToday);
 
-const lang = getLanguageByKey(localStorage.getItem('i18nextLng'))?.key || 'ru';
+const lang = getLanguageByKey(localStorage.getItem('i18nextLng'))?.key || 'en';
 dayjs.locale(lang);
 
 export const timeDiff = (date: any) => {
