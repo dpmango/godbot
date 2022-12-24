@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import dayjs from 'dayjs';
 
 import { api } from '@core';
-import { IUserDto } from '@core/interface/User';
+import { IUserDto, IPartnerDto } from '@core/interface/User';
 import { timeDiff } from '@utils';
 
 export interface IUser {
@@ -12,6 +12,7 @@ export interface IUser {
   tariffActive: boolean;
   isProUser: boolean;
   userData: IUserDto | null;
+  partner: IPartnerDto | null;
 }
 
 export const getCurrentUser = createAsyncThunk('user/getCurrentUser', async () => {
@@ -32,11 +33,18 @@ export const setTutorialComplete = createAsyncThunk(
   }
 );
 
+export const getPartnership = createAsyncThunk('user/getPartnership', async () => {
+  const { data } = await api('get_partnership/', {});
+
+  return data;
+});
+
 const initialState: IUser = {
   loading: null,
   tariffActive: false,
   isProUser: false,
   userData: null,
+  partner: null,
 };
 
 export const userState = createSlice({
@@ -73,6 +81,14 @@ export const userState = createSlice({
         }
 
         state.isProUser = action.payload?.tariff === 'PRO Trader';
+      }
+    });
+
+    builder.addCase(getPartnership.fulfilled, (state, action: PayloadAction<IPartnerDto>) => {
+      state.loading = false;
+
+      if (action.payload) {
+        state.partner = action.payload;
       }
     });
   },

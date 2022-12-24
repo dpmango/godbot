@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { useSearchParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { YMInitializer } from 'react-yandex-metrika';
 
@@ -15,6 +16,8 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
+  let [searchParams, setSearchParams] = useSearchParams();
+
   const { fetchProfileWithLogout, setUserSettings } = useProfile();
 
   if (!localStorageGet('theme')) {
@@ -29,6 +32,9 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
+      const refferer = searchParams.get('referrer_id');
+      if (refferer) localStorageSet('refferer', refferer);
+
       const isUser = await fetchProfileWithLogout();
       if (isUser) await setUserSettings();
     };

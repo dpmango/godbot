@@ -265,5 +265,29 @@
         "text": "Ayrıca, sitenin stilini değiştirebilir ve sosyal ağlarımıza abone olabilirsiniz."
       }
     }
+  },
+  "partner": {
+    "balance": {
+      "account": "Benim puanım:",
+      "withdraw": "PARA ÇEKME"
+    },
+    "list": {
+      "title": "ortaklarım",
+      "table": {
+        "id": "İD",
+        "date": "Kayıt Tarihi",
+        "email": "E-posta",
+        "earnings": "Kâr"
+      }
+    },
+    "copy": {
+      "title": "Yönlendirme bağlantısı",
+      "action": "KOPYALA",
+      "copied": "Bağlantı başarıyla kopyalandı"
+    },
+    "instruction": {
+      "info": "Yönlendirme bağlantınızı kullanarak her hizmet satın alımında,",
+      "percent": "<strong>{{percent}}%</strong> kişisel hesabınıza"
+    }
   }
 }

@@ -57,9 +57,20 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
       setLoading(true);
       localStorageSet('email', values.email);
+
+      let requestObj: any = values;
+
+      const refferer = localStorageGet('refferer');
+      if (refferer) {
+        requestObj = {
+          ...values,
+          referrer_id: refferer,
+        };
+      }
+
       const { data, error } = await api('auth/login/', {
         method: 'POST',
-        body: values,
+        body: requestObj,
       });
       setLoading(false);
 

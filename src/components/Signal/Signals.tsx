@@ -83,8 +83,10 @@ export const Signals: React.FC<{}> = () => {
       if (data && data.count) {
         const transKey = getPluralKey(data.count);
         Toast('info', t(`notify.new.${transKey}`, { count: data.count }));
-        const notify = new Audio(audioNotify);
-        notify.play();
+        try {
+          const notify = new Audio(audioNotify);
+          notify.play();
+        } catch {}
       }
     };
 

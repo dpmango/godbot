@@ -6,3 +6,17 @@ export interface IUserDto {
   access_level: number;
   tutorial_complete: boolean;
 }
+
+export interface IReferalDto {
+  date: string;
+  'Дата регистрации': string; // убрать
+  id: number;
+  email: string;
+  earnings: number;
+}
+
+export interface IPartnerDto {
+  id: number;
+  balance: number;
+  referals: IReferalDto[];
+}

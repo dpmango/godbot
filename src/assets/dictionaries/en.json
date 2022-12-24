@@ -265,5 +265,29 @@
         "text": "You can also change the theme of the website and subscribe to our pages in soical media."
       }
     }
+  },
+  "partner": {
+    "balance": {
+      "account": "My balance:",
+      "withdraw": "WITHDRAWAL"
+    },
+    "list": {
+      "title": "My partners",
+      "table": {
+        "id": "ID",
+        "date": "Registration Date",
+        "email": "Email",
+        "earnings": "Profit"
+      }
+    },
+    "copy": {
+      "title": "Referral link",
+      "action": "COPY",
+      "copied": "Link successfully copied"
+    },
+    "instruction": {
+      "info": "With each purchase of services using your referral link, you receive",
+      "percent": "<strong>{{percent}}%</strong> to your personal account"
+    }
   }
 }

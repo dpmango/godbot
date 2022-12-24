@@ -12,7 +12,7 @@ export const Menu: React.FC<{}> = () => {
         <SpriteIcon name="home" width="16" height="16" />
         {t('menu.home')}
       </NavLink>
-      <Link className="header__links-link header__links-link--disabled" to="/">
+      <Link className="header__links-link" to="/partner">
         <SpriteIcon name="link" width="16" height="16" />
         {t('menu.partner')}
       </Link>

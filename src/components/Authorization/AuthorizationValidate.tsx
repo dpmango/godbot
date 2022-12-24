@@ -154,6 +154,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
 
     if (error) {
       setError(error.message);
+      resetForm(false);
 
       if (error.message.includes('заблокирован')) {
         navigate('/auth', { state: { error: error.message }, replace: true });
@@ -163,8 +164,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       return;
     }
 
-    setValue('');
-    setDigits(initialDigits);
+    resetForm();
 
     Cookies.set('auth', Date.now().toString(), { expires: 7 });
     await dispatch(getCurrentUser());
@@ -198,10 +198,11 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     setCountdownConfirm(60);
   };
 
-  const resetForm = () => {
-    setError('');
+  const resetForm = (clearError = true) => {
+    if (clearError) setError('');
     setValue('');
     setDigits(initialDigits);
+    inputRefs.current[0].focus();
   };
 
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
