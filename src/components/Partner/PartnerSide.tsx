@@ -44,7 +44,11 @@ export const PartnerSide: React.FC<{}> = () => {
 
       <div className="partnership__block partnership__block--discount">
         <div className="partnership__title">{t('instruction.info')}</div>
-        <Trans t={t} i18nKey="instruction.percent" values={{ percent: 20 }} />
+        <Trans
+          t={t}
+          i18nKey="instruction.percent"
+          values={{ percent: partner?.referral_percent }}
+        />
       </div>
 
       {/* <div className="partnership__block partnership__block--individual">

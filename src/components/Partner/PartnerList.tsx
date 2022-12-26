@@ -24,12 +24,10 @@ export const PartnerList: React.FC<{}> = () => {
               </tr>
             </thead>
             <tbody>
-              {partner?.referals.map((referral) => (
+              {partner?.referrals.map((referral) => (
                 <tr key={referral.id}>
                   <td>{referral.id}</td>
-                  <td className="partnership__table-light">
-                    {formatDate(referral.date || referral['Дата регистрации'])}
-                  </td>
+                  <td className="partnership__table-light">{formatDate(referral.date_joined)}</td>
                   <td className="partnership__table-center">{referral.email}</td>
                   <td className="partnership__table-center partnership__table-price">
                     ${formatPrice(referral.earnings)}

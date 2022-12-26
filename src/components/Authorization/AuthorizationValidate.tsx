@@ -78,7 +78,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       const clearedStr = val.replace(/[^0-9]/g, '').substring(0, 6);
 
       if (clearedStr.length > 1) {
-        const newDigits = initialDigits;
+        const newDigits = [...initialDigits];
         for (var i = 0; i < clearedStr.length; i++) {
           newDigits[i] = clearedStr.charAt(i);
         }

@@ -7,9 +7,8 @@ export interface IUserDto {
   tutorial_complete: boolean;
 }
 
-export interface IReferalDto {
-  date: string;
-  'Дата регистрации': string; // убрать
+export interface IReferralDto {
+  date_joined: string;
   id: number;
   email: string;
   earnings: number;
@@ -18,5 +17,6 @@ export interface IReferalDto {
 export interface IPartnerDto {
   id: number;
   balance: number;
-  referals: IReferalDto[];
+  referral_percent: number;
+  referrals: IReferralDto[];
 }

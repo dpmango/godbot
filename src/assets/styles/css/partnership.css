@@ -38,7 +38,7 @@
 				display: flex;
 				align-items: center;
 				height: 65px;
-				min-width: 152px;
+				/* min-width: 152px; */
 		}
 		.partnership__balance .btn {
 				min-width: 175px;
