@@ -18,15 +18,13 @@ export const Partner: React.FC<{}> = () => {
       dispatch(getPartnership());
     };
 
-    if (allowedFunctions.forecast) {
-      requestPartners();
-      timerConfirm.current = setInterval(requestPartners, 10 * 60 * 1000);
-    }
+    requestPartners();
+    timerConfirm.current = setInterval(requestPartners, 10 * 60 * 1000);
 
     return () => {
       clearInterval(timerConfirm.current as NodeJS.Timeout);
     };
-  }, [allowedFunctions.forecast]);
+  }, []);
 
   return (
     <Layout>
