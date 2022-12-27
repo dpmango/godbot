@@ -24,7 +24,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { t } = useTranslation('auth');
+  const { t, i18n } = useTranslation('auth');
 
   const handleValidation = (values: IFormValues) => {
     const errors: any = {};
@@ -61,10 +61,19 @@ export const AuthorizationForm: React.FC<{}> = () => {
       let requestObj: any = values;
 
       const refferer = localStorageGet('refferer');
+      const i18nextLng = i18n.language;
+
       if (refferer) {
         requestObj = {
           ...values,
           referrer_id: refferer,
+        };
+      }
+
+      if (i18nextLng) {
+        requestObj = {
+          ...requestObj,
+          language: i18nextLng,
         };
       }
 
@@ -82,7 +91,7 @@ export const AuthorizationForm: React.FC<{}> = () => {
       localStorageSet('lastEmailSend', Date.now());
       navigate('/auth/validation');
     },
-    [loading]
+    [loading, i18n.language]
   );
 
   useEffect(() => {

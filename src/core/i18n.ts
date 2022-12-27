@@ -24,7 +24,7 @@ i18n
     defaultNS: '',
     debug: process.env.NODE_ENV !== 'production',
     detection: {
-      order: ['localStorage', 'querystring', 'navigator'],
+      order: ['querystring', 'localStorage', 'navigator'],
       lookupQuerystring: 'lng',
     },
     react: {
