@@ -14,28 +14,32 @@ export const PartnerList: React.FC<{}> = () => {
       <div className="partnership__block partnership__block--partners">
         <div className="partnership__title">{t('title')}</div>
         <div className="partnership__table">
-          <table>
-            <thead>
-              <tr>
-                <th>{t('table.id')}</th>
-                <th>{t('table.date')}</th>
-                <th className="partnership__table-center">{t('table.email')}</th>
-                <th className="partnership__table-center">{t('table.earnings')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {partner?.referrals.map((referral) => (
-                <tr key={referral.id}>
-                  <td>{referral.id}</td>
-                  <td className="partnership__table-light">{formatDate(referral.date_joined)}</td>
-                  <td className="partnership__table-center">{referral.email}</td>
-                  <td className="partnership__table-center partnership__table-price">
-                    ${formatPrice(referral.earnings)}
-                  </td>
+          {partner?.referrals.length ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>{t('table.id')}</th>
+                  <th>{t('table.date')}</th>
+                  <th className="partnership__table-center">{t('table.email')}</th>
+                  <th className="partnership__table-center">{t('table.earnings')}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {partner?.referrals.map((referral) => (
+                  <tr key={referral.id}>
+                    <td>{referral.id}</td>
+                    <td className="partnership__table-light">{formatDate(referral.date_joined)}</td>
+                    <td className="partnership__table-center">{referral.email}</td>
+                    <td className="partnership__table-center partnership__table-price">
+                      ${formatPrice(referral.earnings)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p className="partnership__empty">{t('empty')}</p>
+          )}
         </div>
       </div>
     </div>

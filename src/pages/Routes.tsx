@@ -12,6 +12,7 @@ import { Authorization } from '@/pages/Authorization';
 import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 import { Partner } from '@/pages/Partner';
+import { Education } from '@/pages/Education';
 import { NotFound } from '@/pages/NotFound';
 import { UiPage } from '@/pages/UiPage';
 
@@ -83,6 +84,7 @@ const Router = () => {
       <Route path="/" element={<ProtectedRoute />}>
         <Route index element={<HomePage />} />
         <Route path="partner" element={<Partner />} />
+        <Route path="education" element={<Education />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="ui" element={<UiPage />} />
       </Route>

@@ -278,7 +278,8 @@
         "date": "Kayıt Tarihi",
         "email": "E-posta",
         "earnings": "Kâr"
-      }
+      },
+      "empty": "İlgili ortaklar burada gösterilecek"
     },
     "copy": {
       "title": "Yönlendirme bağlantısı",
