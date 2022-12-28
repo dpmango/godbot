@@ -1,4 +1,4 @@
-export { getRandomInt, LOG, PerformanceLog } from './dev';
+export { getRandomInt, LOG, PerformanceLog, isDevelopmentSite } from './dev';
 export { languageList, getLanguageByKey } from './lang';
 export type { ILangSelect } from './lang';
 export {

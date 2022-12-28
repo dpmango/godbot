@@ -28,3 +28,7 @@ export const PerformanceLog = (DEV_perf: number, name: string) => {
 
   LOG.log(`PERF :: ${name} :: ${(DEV_perf_end - DEV_perf).toFixed(2)} ms`);
 };
+
+export const isDevelopmentSite = () => {
+  return window.location.host.includes('devgodbot.ru');
+};
