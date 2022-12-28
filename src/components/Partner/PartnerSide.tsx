@@ -14,7 +14,7 @@ export const PartnerSide: React.FC<{}> = () => {
 
   const copyLink = useMemo(() => {
     if (!partner?.id) return '';
-    return `https://app.devgodbot.ru/?referrer_id=${partner.id}`;
+    return `${window.location.origin}/?referrer_id=${partner.id}`;
   }, [partner?.id]);
 
   const handleCopy = useCallback(async () => {
