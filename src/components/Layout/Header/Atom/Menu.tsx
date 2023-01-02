@@ -14,19 +14,20 @@ export const Menu: React.FC<{}> = () => {
   }, [i18n.language]);
 
   const availableLinks = useMemo(() => {
-    if (isDevelopmentSite()) {
-      return {
-        partner: true,
-        education: educationEnabledTmp,
-        faq: true,
-      };
-    } else {
-      return {
-        partner: true,
-        education: false,
-        faq: false,
+    let menuList = {
+      partner: true,
+      education: educationEnabledTmp,
+      faq: true,
+    };
+
+    if (!isDevelopmentSite()) {
+      menuList = {
+        ...menuList,
+        ...{ faq: false },
       };
     }
+
+    return menuList;
   }, [educationEnabledTmp]);
 
   return (

@@ -12,7 +12,7 @@ import '@styles/index.sass';
 const root = createRoot(document.getElementById('root') as HTMLElement);
 
 // eslint-disable-next-line no-console
-console.info('v 0.1.4');
+console.info('v 0.1.5');
 
 if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
