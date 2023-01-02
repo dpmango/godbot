@@ -20,7 +20,7 @@ export const Menu: React.FC<{}> = () => {
       faq: true,
     };
 
-    if (!isDevelopmentSite()) {
+    if (!isDevelopmentSite) {
       menuList = {
         ...menuList,
         ...{ faq: false },

@@ -2,7 +2,8 @@ import { useMemo } from 'react';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import { useAppSelector } from '@core';
+import { useAppSelector, useAppDispatch } from '@core';
+import { setVideoModal } from '@store';
 import { LockScreen } from '@ui';
 import { IVideoDto } from '@core/interface/Education';
 
@@ -19,6 +20,7 @@ export const EducationCard: React.FC<IEducationCardProps> = ({
   result,
 }) => {
   const { userData } = useAppSelector((state) => state.userState);
+  const dispatch = useAppDispatch();
 
   const { t } = useTranslation('education', { keyPrefix: 'card' });
 
@@ -32,6 +34,13 @@ export const EducationCard: React.FC<IEducationCardProps> = ({
     return themes.split(';');
   }, [themes]);
 
+  const handleVideoOpen = (e: any) => {
+    e.preventDefault();
+
+    const [_, id] = (link || '').split('?v=');
+    if (id) dispatch(setVideoModal({ opened: true, id: id }));
+  };
+
   const isAllowed = (userData?.access_level || 0) >= access_level;
 
   return (
@@ -40,7 +49,7 @@ export const EducationCard: React.FC<IEducationCardProps> = ({
         className="education__block-preview"
         href={link || '#'}
         target={link ? '_blank' : ''}
-        onClick={(e) => !isAllowed && e.preventDefault()}
+        onClick={(e) => handleVideoOpen(e)}
         rel="noopener">
         <img src={preview_image} alt="" />
         <span className="education__block-play">

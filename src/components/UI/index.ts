@@ -6,3 +6,4 @@ export { LockScreen } from './LockScreen/LockScreen';
 export { Modal } from './Modal/Modal';
 export { Toast } from './Toast/Toast';
 export { Loader } from './Loader/Loader';
+export { DevBadge } from './Dev/DevBadge';

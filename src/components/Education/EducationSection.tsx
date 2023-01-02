@@ -39,6 +39,7 @@ export const EducationSection: React.FC<IEducationDto> = ({
           <SpriteIcon name="chevrondown" width="18" height="18" />
         </div>
       </div>
+
       {visible && (
         <div className="education__grid">
           {videos.map((video, idx) => (
