@@ -6,13 +6,14 @@ import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 
 import { store } from '@core';
+import { VERSION } from '@utils/dev';
 import '@core/i18n';
 import '@styles/index.sass';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 
 // eslint-disable-next-line no-console
-console.info('v 0.1.5');
+console.info(`app version: ${VERSION}`);
 
 if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({

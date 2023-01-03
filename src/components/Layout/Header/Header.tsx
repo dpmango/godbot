@@ -29,7 +29,7 @@ export const Header: React.FC<{}> = () => {
                 top: '80%',
                 background: 'tomato',
                 color: 'white',
-                fontSize: '0.7em',
+                fontSize: 11,
                 borderRadius: 4,
                 opacity: 0.7,
                 padding: '0.2em 0.4em',

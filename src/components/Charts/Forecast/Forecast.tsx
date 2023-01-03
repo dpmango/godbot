@@ -8,10 +8,6 @@ import {
   ISeriesApi,
   UTCTimestamp,
   LogicalRange,
-  SeriesMarkerPosition,
-  SeriesMarkerShape,
-  SeriesMarker,
-  Time,
   DeepPartial,
   PriceFormat,
 } from 'lightweight-charts';
@@ -380,8 +376,9 @@ export const Forecast: React.FC<{}> = () => {
       chart.current = chartInstance;
     } else {
       // обновление данных
+      const PERF_TIME = performance.now();
       chartLines.forEach((lineSeries, idx) => {
-        lineSeries.instance.setData(currentSeries[idx].data);
+        lineSeries.instance.setData([...currentSeries[idx].data]);
 
         // if (series[idx].showChanges) {
         //   let markers: SeriesMarker<Time>[] = [];
@@ -399,6 +396,7 @@ export const Forecast: React.FC<{}> = () => {
         //   lineSeries.instance.setMarkers(markers);
         // }
       });
+      PerformanceLog(PERF_TIME, 'updating chart series');
     }
 
     setLoading(false);
