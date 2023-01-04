@@ -6,6 +6,8 @@
     "**/node_modules": true,
     "**/.nuxt": true,
     "**/.output": true,
+    "yarn.lock": true,
+    "public/img/**": true
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }

@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
-export const DevBadge: React.FC<{}> = () => {
-  const [menu, setMenu] = useState(false);
+import { isDevelopmentSite } from '@utils';
+import { VERSION } from '@utils/dev';
 
-  const { t } = useTranslation('header');
+export const DevBadge: React.FC<{}> = () => {
+  if (!isDevelopmentSite) return null;
 
   return (
     <div
@@ -16,12 +15,13 @@ export const DevBadge: React.FC<{}> = () => {
         top: '80%',
         background: 'tomato',
         color: 'white',
-        fontSize: '0.7em',
+        fontSize: 10,
+        fontWeight: 600,
         borderRadius: 4,
-        opacity: 0.7,
-        padding: '0.2em 0.4em',
+        opacity: 0.85,
+        padding: '0.2em 0.35em',
       }}>
-      DEV
+      DEV {VERSION}
     </div>
   );
 };

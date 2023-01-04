@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { UserCard, Languages, Menu } from '@c/Layout/Header/Atom';
-import { isDevelopmentSite } from '@utils';
+import { DevBadge } from '@ui';
 
 export const Header: React.FC<{}> = () => {
   const [menu, setMenu] = useState(false);
@@ -21,22 +21,7 @@ export const Header: React.FC<{}> = () => {
           <svg width="110" height="25">
             <use xlinkHref="/img/logo-sprite.svg#text"></use>
           </svg>
-          {isDevelopmentSite && (
-            <div
-              style={{
-                position: 'absolute',
-                right: 0,
-                top: '80%',
-                background: 'tomato',
-                color: 'white',
-                fontSize: 11,
-                borderRadius: 4,
-                opacity: 0.7,
-                padding: '0.2em 0.4em',
-              }}>
-              DEV
-            </div>
-          )}
+          <DevBadge />
         </Link>
         <div
           className={cns('header__menu-opener', menu && 'header__menu-opener--active')}

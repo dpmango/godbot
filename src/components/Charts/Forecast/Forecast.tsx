@@ -173,7 +173,7 @@ export const Forecast: React.FC<{}> = () => {
     //   forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
     // }
 
-    // LOG.log({ currentSeries });
+    LOG.log({ currentSeries: currentSeries[1] });
     setSeries(currentSeries);
     PerformanceLog(PERF_TIME_SERIES, 'creating series data');
 
@@ -377,8 +377,13 @@ export const Forecast: React.FC<{}> = () => {
     } else {
       // обновление данных
       const PERF_TIME = performance.now();
+
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData([...currentSeries[idx].data]);
+
+        // currentSeries[idx].data.forEach((tick) => {
+        //   lineSeries.instance.update(tick);
+        // });
 
         // if (series[idx].showChanges) {
         //   let markers: SeriesMarker<Time>[] = [];
@@ -467,6 +472,7 @@ export const Forecast: React.FC<{}> = () => {
     };
 
     if (allowedFunctions.forecast) {
+      console.log('INITIAL CHART REQUEST', currentCoin && currentTime);
       requestChart();
       timerConfirm.current = setInterval(requestChart, updateIntervalMin * 60 * 1000);
     }

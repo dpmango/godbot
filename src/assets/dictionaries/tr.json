@@ -290,5 +290,103 @@
       "info": "Yönlendirme bağlantınızı kullanarak her hizmet satın alımında,",
       "percent": "<strong>{{percent}}%</strong> kişisel hesabınıza"
     }
+  },
+  "faq": {
+    "head": {
+      "title": "Sıkça Sorulan Sorular",
+      "description": "İşte aklınıza gelebilecek tüm soruların cevapları.",
+      "placeholder": "Aramak için bir soru girin",
+      "search": "BULMAK"
+    },
+    "categories": {
+      "start": "Başlarken",
+      "account": "Hesap",
+      "billing": "Faturalandırma",
+      "features": "Özellikleri",
+      "other": "Diğer"
+    },
+    "notFound": {
+      "title": "Hiçbirşey Bulunamadı",
+      "try": "İsteğinizi yeniden formüle etmeye veya tamamlamaya çalışın.",
+      "can": "Sorunuzun cevabını ekranın sol sütununda uygun yardım kategorisinde de bulabilirsiniz."
+    },
+    "accordion": [
+      {
+        "category": "start",
+        "title": "Grafikte mumlar nasıl açılır?",
+        "body": [
+          {
+            "text": "Çizgi ve mumlar arasında geçiş yapmak için ana sayfadaki \"Ticaret\" bölümündeki dişliye tıklamanız gerekir."
+          },
+          {
+            "img": "/img/faq/candle_ru.png"
+          },
+          {
+            "text": "Açılan menüde “Gerçek (Mum)” öğesini seçin."
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "Hangi takası önerirsiniz? ",
+        "body": [
+          {
+            "text": "Faktörlerin bir kombinasyonuna dayanarak, değişimi öneriyoruz <a target='_blank' href='https://partner.bybit.com/b/godbot_faq'>Bybit</a> veya Binance."
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "GodBot tahminleri ile nasıl ticaret yapılır?"
+      },
+      {
+        "category": "account",
+        "title": "Neden GodBot'tan e-posta alamıyorum?",
+        "body": [
+          {
+            "text": "Büyük ihtimalle mektuplarımız Spam klasörüne düşüyor. "
+          }
+        ]
+      },
+      {
+        "category": "account",
+        "title": "Konu nasıl değiştirilir? ",
+        "body": [
+          {
+            "text": "Temayı değiştirmek için kullanıcı menüsüne gidin ve ay veya güneş simgesine tıklayın. "
+          },
+          {
+            "img": "/img/faq/theme_ru.png"
+          }
+        ]
+      },
+      {
+        "category": "billing",
+        "title": "Ödemelerin işlenmesi ne kadar sürer? ",
+        "body": [
+          {
+            "text": "Tarife aktivasyonu 3 ila 5 dakika sürer.  "
+          }
+        ]
+      },
+      {
+        "category": "billing",
+        "title": "Tarife nasıl değiştirilir? ",
+        "body": [
+          {
+            "text": "Tarife değiştirmek için ücretli tarifenin bitimini beklemeniz ve ardından size uygun yeni bir tarife seçip ücretini ödemeniz gerekmektedir.  "
+          }
+        ]
+      },
+      {
+        "category": "billing",
+        "title": "Tarife askıya alınabilir mi? ",
+        "body": [
+          {
+            "text": "Şu anda böyle bir olasılık üzerinde çalışılıyor, ancak şu ana kadar tarifeyi askıya almak imkansız. "
+          }
+        ]
+      }
+    ]
   }
 }

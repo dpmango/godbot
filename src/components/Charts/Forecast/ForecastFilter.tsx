@@ -123,7 +123,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
       {lastUpdate && (
         <div className="chart__head-time">
-          {t('lastUpdate')} {lastUpdate}
+          {/* {t('lastUpdate')} */}
+          {lastUpdate}
         </div>
       )}
 

@@ -6,15 +6,15 @@ import { useTranslation } from 'react-i18next';
 import { useProfile } from '@hooks';
 import { Toast } from '@ui';
 
-import { HomePage } from '@/pages/HomePage';
-import { FaqPage } from '@/pages/FaqPage';
-import { Authorization } from '@/pages/Authorization';
+import { HomePage } from '@/pages/Home.page';
+import { Authorization } from '@/pages/Authorization.page';
 import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
-import { Partner } from '@/pages/Partner';
-import { Education } from '@/pages/Education';
-import { NotFound } from '@/pages/NotFound';
-import { UiPage } from '@/pages/UiPage';
+import { Partner } from '@/pages/Partner.page';
+import { Education } from '@/pages/Education.page';
+import { FaqPage } from '@/pages/Faq.page';
+import { NotFound } from '@/pages/NotFound.page';
+import { UiPage } from '@/pages/Ui.page';
 
 declare global {
   interface Window {

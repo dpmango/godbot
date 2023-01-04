@@ -68,12 +68,12 @@ export const forecastState = createSlice({
     setStateCoin(state, action: PayloadAction<string>) {
       state.currentCoin = action.payload;
       state.currentTime = '';
-      state.data = [];
+      // state.data = [];
       state.dataNav.requested = [];
     },
     setStateTime(state, action: PayloadAction<string>) {
       state.currentTime = action.payload;
-      state.data = [];
+      // state.data = [];
       state.dataNav.requested = [];
     },
   },

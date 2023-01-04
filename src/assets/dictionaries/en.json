@@ -290,5 +290,103 @@
       "info": "With each purchase of services using your referral link, you receive",
       "percent": "<strong>{{percent}}%</strong> to your personal account"
     }
+  },
+  "faq": {
+    "head": {
+      "title": "Frequently asked Questions",
+      "description": "Here are all the answers to questions you may have.",
+      "placeholder": "Enter a question to search",
+      "search": "FIND"
+    },
+    "categories": {
+      "start": "Getting started",
+      "account": "Account",
+      "billing": "Billing",
+      "features": "Features",
+      "other": "Other"
+    },
+    "notFound": {
+      "title": "Nothing found",
+      "try": "Try to reformulate your request or supplement it.",
+      "can": "You can also find the answer to your question in the appropriate help category in the left column of the screen."
+    },
+    "accordion": [
+      {
+        "category": "start",
+        "title": "How to turn on candles on the chart?",
+        "body": [
+          {
+            "text": "To switch between the line and candles, you need to click on the gear in the \"Trading\" section on the home page."
+          },
+          {
+            "img": "/img/faq/candle_ru.png"
+          },
+          {
+            "text": "In the menu that opens, select the “Real (Candle)” item."
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "What exchange do you recommend? ",
+        "body": [
+          {
+            "text": "Based on a combination of factors, we recommend the exchange <a target='_blank' href='https://partner.bybit.com/b/godbot_faq'>Bybit</a> or Binance."
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "How to trade with GodBot forecasts?"
+      },
+      {
+        "category": "account",
+        "title": "Why am I not receiving emails from GodBot?",
+        "body": [
+          {
+            "text": "Most likely our letters end up in the Spam folder. "
+          }
+        ]
+      },
+      {
+        "category": "account",
+        "title": "How to change the subject? ",
+        "body": [
+          {
+            "text": "To change the theme, go to the user menu and click on the moon or sun icon. "
+          },
+          {
+            "img": "/img/faq/theme_ru.png"
+          }
+        ]
+      },
+      {
+        "category": "billing",
+        "title": "How long do payments take to process? ",
+        "body": [
+          {
+            "text": "Tariff activation takes from 3 to 5 minutes.  "
+          }
+        ]
+      },
+      {
+        "category": "billing",
+        "title": "How to change the tariff? ",
+        "body": [
+          {
+            "text": "To change the tariff, you must wait until the end of the paid tariff, then select a new suitable tariff and pay for it.  "
+          }
+        ]
+      },
+      {
+        "category": "billing",
+        "title": "Can the tariff be suspended? ",
+        "body": [
+          {
+            "text": "At the moment, such a possibility is being worked out, but so far it is impossible to suspend the tariff. "
+          }
+        ]
+      }
+    ]
   }
 }
