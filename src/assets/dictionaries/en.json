@@ -313,13 +313,214 @@
     "accordion": [
       {
         "category": "start",
+        "title": "What do the lines in GodBot forecast mean? ",
+        "body": [
+          {
+            "text": "The red line is the projected price."
+          },
+          {
+            "text": "The green dotted line is the upper predicted border of the price range channel."
+          },
+          {
+            "text": "The blue dotted line is the lower predicted border of the price range channel."
+          },
+          {
+            "text": "The green line is the actual price of the asset received from the exchange."
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "How to trade with GodBot forecasts?",
+        "body": [
+          {
+            "text": "On the chart, you see a channel (dashed lines) and a forecast (red line). "
+          },
+          {
+            "image": "/img/faq/forecast_1_ru.png"
+          },
+          {
+            "text": "<strong>Important!</strong>"
+          },
+          {
+            "text": "1. We recommend entering a trade at the very beginning of the forecast. "
+          },
+          {
+            "text": "2. Don't expect every prediction to be tradeable. "
+          },
+          {
+            "text": "3. First of all, pay attention to the dotted lines (channel), within which the asset will move throughout the entire forecast period. "
+          },
+          {
+            "text": "4. Pay attention to the levels!"
+          },
+          {
+            "text": "<strong>Trading Strategies: </strong>"
+          },
+          {
+            "text": "We have developed 2 main strategies: "
+          },
+          {
+            "text": "Enter a position when the price reaches the upper or lower boundaries of the channel."
+          },
+          {
+            "text": "Under this strategy, transactions will be rarer than in the second strategy, but transactions will be of higher quality and much less risky."
+          },
+          {
+            "text": "Enter at the market price at the beginning of the forecast, placing take-profit and stop-loss along the channel borders."
+          },
+          {
+            "text": "In this case, your trades will occur frequently, but the risk in each trade will be higher. "
+          },
+          {
+            "text": "<strong>An example of trading using the first strategy: </strong>"
+          },
+          {
+            "text": "We place buy and sell limit orders according to the levels predicted by the GodBot neural network. "
+          },
+          {
+            "image": "/img/faq/forecast_1_1.png"
+          },
+          {
+            "text": "AI predicts growth, in connection with which you can place limit orders at $16,550 and $16,520, stop loss under $16,500, and take profits at $16,600, $16,750, $16,850, $16,950. "
+          },
+          {
+            "image": "/img/faq/forecast_1_2.png"
+          },
+          {
+            "text": "We place buy orders at the lower border of the channel at the levels: $16,800, $16,700, $16,600. "
+          },
+          {
+            "image": "/img/faq/forecast_1_3.png"
+          },
+          {
+            "text": "In the case of a forecast of pumps or dumps in the forecast, you can buy at market prices, but exit gradually, every couple of percent of the price movement. "
+          },
+          {
+            "image": "/img/faq/forecast_1_4.png"
+          },
+          {
+            "text": "<strong>An example of trading using the second strategy: </strong>"
+          },
+          {
+            "text": "On the screen below, you see a bullish forecast of medium strength, since the upper border of the channel goes up, and the lower one is at the same level.  "
+          },
+          {
+            "image": "/img/faq/forecast_2_1.png"
+          },
+          {
+            "text": "Another example, similar case.  "
+          },
+          {
+            "image": "/img/faq/forecast_2_2.png"
+          },
+          {
+            "text": "In this case, it is recommended to skip the forecast, because the upper and lower boundaries of the channel are equidistant from the current price.  "
+          },
+          {
+            "image": "/img/faq/forecast_2_3.png"
+          },
+          {
+            "text": "In the case of a forecast of pumps or dumps in the forecast, you can also buy at market prices, but exit gradually, every couple of percent of the price movement. "
+          },
+          {
+            "image": "/img/faq/forecast_2_4.png"
+          },
+          {
+            "text": "If the lower and upper boundaries of the channel go up at a large angle, then the forecast is very bullish and it is recommended to enter LONG.  "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "How often are forecasts updated? ",
+        "body": [
+          {
+            "text": "As a rule, the forecasts are updated upon completion of the previous forecast or by the decision of the neural network, when new input data on the market appears: the release of important news, a sharp amplitude change in the price, or so on. <br/>As a rule, AI calculates the forecast for 50-70 steps ahead, that is, with a time frame of 1 min, the forecast will be for 50-70 minutes. "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "What do the columns in the “Trading recommendations” block mean?",
+        "body": [
+          {
+            "text": "In the trading recommendations block you can find: "
+          },
+          {
+            "list": [
+              "Winrate is the payout ratio for trades added to trading recommendations.",
+              "Signal date is the date and time of its appearance on the site.",
+              "Name is the name, ticker and icon of the coin the AI ​​recommends entering.",
+              "The order type is the trading direction. ",
+              "Deal status is the status the deal is in.  <br/>- “Pending” – the forecast has been added to the site, but has not yet reached the target values ​​for the price. <br/>- “Active” means that we have already entered the trade and if the price has already moved away from the recommended one, then it is impossible to enter.<br/>- “Closed in profit” or “Closed by stop” – means that the transaction was closed in profit or loss.<br/>- “Canceled” means that the trade did not approach the target price for a long time, as a result of which the AI ​​decided not to enter the asset. "
+            ]
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "How to trade on recommendations? ",
+        "body": [
+          {
+            "text": "Suppose we see a recommendation:"
+          },
+          {
+            "image": "/img/faq/signals_ru.png"
+          },
+          {
+            "list": [
+              "12/29/22 00:32 is the date and time when the forecast was added to the site.",
+              "Bitcoin (BTC) is the ticker of the asset.",
+              "LONG is the direction of trade.",
+              "Active - the status of the transaction. ",
+              "$16530 and $16231 are entry prices. ",
+              "The next column is take-profit prices. ",
+              "Stop Loss – set the automatic sale of the entire position at this price. ",
+              "The risk per trade is the percentage of the deposit that you can lose when the stop loss is reached. <br/>1. Calculate the average position entry price: (16530 16231)/2=16380<br/>2. Divide the average entry price by the stop loss: (16380/15890)-1=3%<br/>3. Divide the risk per trade by the risk resulting from the trade in the previous paragraph: 0.3%/3%=0.1 <br/>4. We multiply the resulting coefficient by the size of our deposit: 0.1*10000=1000<br/>5. In total, we got that we need to use $1000 to enter the trade safely. "
+            ]
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "What time do I see on the site? ",
+        "body": [
+          {
+            "text": "On the site you see the time according to your time zone.  "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "What is Risk Per Trade? ",
+        "body": [
+          {
+            "text": "Risk per trade is the percentage of your deposit that can be lost when the stop loss price is reached. "
+          },
+          {
+            "text": "For example, if the risk per trade is 1%, then when the stop loss is reached, your deposit should decrease by no more than 1%. "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "Trade futures or spot?",
+        "body": [
+          {
+            "text": "We recommend that you weigh all the risks and make your own decision about futures trading.  <br/>As part of money management, we trade mostly in the spot market."
+          }
+        ]
+      },
+      {
+        "category": "start",
         "title": "How to turn on candles on the chart?",
         "body": [
           {
             "text": "To switch between the line and candles, you need to click on the gear in the \"Trading\" section on the home page."
           },
           {
-            "img": "/img/faq/candle_ru.png"
+            "image": "/img/faq/candle_ru.png"
           },
           {
             "text": "In the menu that opens, select the “Real (Candle)” item."
@@ -334,10 +535,6 @@
             "text": "Based on a combination of factors, we recommend the exchange <a target='_blank' href='https://partner.bybit.com/b/godbot_faq'>Bybit</a> or Binance."
           }
         ]
-      },
-      {
-        "category": "start",
-        "title": "How to trade with GodBot forecasts?"
       },
       {
         "category": "account",
@@ -356,7 +553,7 @@
             "text": "To change the theme, go to the user menu and click on the moon or sun icon. "
           },
           {
-            "img": "/img/faq/theme_ru.png"
+            "image": "/img/faq/theme_ru.png"
           }
         ]
       },

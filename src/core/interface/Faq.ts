@@ -1,5 +1,5 @@
 export interface IFaqCard {
   category: string;
   title: string;
-  body: { [key: string]: string }[];
+  body: { [key in 'text' | 'list' | 'image']: string | string[] }[];
 }

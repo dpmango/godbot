@@ -20,13 +20,6 @@ export const Menu: React.FC<{}> = () => {
       faq: true,
     };
 
-    if (!isDevelopmentSite) {
-      menuList = {
-        ...menuList,
-        ...{ faq: false },
-      };
-    }
-
     return menuList;
   }, [educationEnabledTmp]);
 

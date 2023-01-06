@@ -313,13 +313,214 @@
     "accordion": [
       {
         "category": "start",
+        "title": "GodBot tahminindeki çizgiler ne anlama geliyor? ",
+        "body": [
+          {
+            "text": "Kırmızı çizgi öngörülen fiyattır."
+          },
+          {
+            "text": "Yeşil noktalı çizgi, fiyat aralığı kanalının tahmin edilen üst sınırıdır."
+          },
+          {
+            "text": "Mavi noktalı çizgi, fiyat aralığı kanalının tahmin edilen alt sınırıdır."
+          },
+          {
+            "text": "Yeşil çizgi, borsadan alınan varlığın gerçek fiyatıdır."
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "GodBot tahminleri ile nasıl ticaret yapılır?",
+        "body": [
+          {
+            "text": "Grafikte bir kanal (kesikli çizgiler) ve bir tahmin (kırmızı çizgi) görürsünüz. "
+          },
+          {
+            "image": "/img/faq/forecast_1_ru.png"
+          },
+          {
+            "text": "<strong>Önemli!</strong>"
+          },
+          {
+            "text": "1. Tahminin en başında bir işleme girmenizi öneririz. "
+          },
+          {
+            "text": "2. Her tahminin takas edilebilir olmasını beklemeyin. "
+          },
+          {
+            "text": "3. Her şeyden önce, varlığın tüm tahmin süresi boyunca içinde hareket edeceği noktalı çizgilere (kanal) dikkat edin. "
+          },
+          {
+            "text": "4. Seviyelere dikkat edin!"
+          },
+          {
+            "text": "<strong>Ticaret Stratejileri: </strong>"
+          },
+          {
+            "text": "2 ana strateji geliştirdik: "
+          },
+          {
+            "text": "Fiyat kanalın üst veya alt sınırlarına ulaştığında bir pozisyon girin."
+          },
+          {
+            "text": "Bu strateji kapsamında, işlemler ikinci stratejiye göre daha nadir olacak, ancak işlemler daha kaliteli ve çok daha az riskli olacaktır."
+          },
+          {
+            "text": "Tahminin başlangıcındaki piyasa fiyatından girin, kârı al ve zararı durdur kanal sınırları boyunca yerleştirin."
+          },
+          {
+            "text": "Bu durumda, işlemleriniz sık sık gerçekleşecektir ancak her işlemde risk daha yüksek olacaktır. "
+          },
+          {
+            "text": "<strong>İlk stratejiyi kullanarak işlem yapmaya bir örnek: </strong>"
+          },
+          {
+            "text": "GodBot sinir ağının öngördüğü seviyelere göre alış ve satış limit emirleri veriyoruz. "
+          },
+          {
+            "image": "/img/faq/forecast_1_1.png"
+          },
+          {
+            "text": "AI, 16.550$ ve 16.520 da limit emirleri verebileceğiniz, 16.500 ın altında zararı durdurabileceğiniz ve 16.600$, 16.750$, 16.850$, 16.950 da kar alabileceğiniz büyümeyi öngörüyor. "
+          },
+          {
+            "image": "/img/faq/forecast_1_2.png"
+          },
+          {
+            "text": "Kanalın alt sınırında şu seviyelerde alım emirleri veriyoruz: 16.800$, 16.700$, 16.600$. "
+          },
+          {
+            "image": "/img/faq/forecast_1_3.png"
+          },
+          {
+            "text": "Tahminde bir artış veya düşüş tahmini olması durumunda, piyasa fiyatlarından satın alabilir, ancak fiyat hareketinin her yüzde birkaçında kademeli olarak çıkabilirsiniz. "
+          },
+          {
+            "image": "/img/faq/forecast_1_4.png"
+          },
+          {
+            "text": "<strong>İkinci stratejiyi kullanarak işlem yapmaya bir örnek: </strong>"
+          },
+          {
+            "text": "Aşağıdaki ekranda, kanalın üst sınırı yükseldiği ve alt sınır aynı seviyede olduğu için orta güçte bir yükseliş tahmini görüyorsunuz.  "
+          },
+          {
+            "image": "/img/faq/forecast_2_1.png"
+          },
+          {
+            "text": "Başka bir örnek, benzer bir durum.  "
+          },
+          {
+            "image": "/img/faq/forecast_2_2.png"
+          },
+          {
+            "text": "Bu durumda, kanalın üst ve alt sınırları mevcut fiyattan eşit uzaklıkta olduğu için tahminin atlanması önerilir.  "
+          },
+          {
+            "image": "/img/faq/forecast_2_3.png"
+          },
+          {
+            "text": "Tahminde bir artış veya düşüş tahmini olması durumunda, piyasa fiyatlarından da satın alabilirsiniz, ancak fiyat hareketinin her yüzde birkaçında kademeli olarak çıkış yapabilirsiniz. "
+          },
+          {
+            "image": "/img/faq/forecast_2_4.png"
+          },
+          {
+            "text": "Kanalın alt ve üst sınırları geniş bir açıyla yukarı çıkıyorsa, tahmin çok olumludur ve LONG'a girilmesi tavsiye edilir.  "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "Tahminler ne sıklıkla güncellenir? ",
+        "body": [
+          {
+            "text": "Kural olarak, tahminler, önceki tahminin tamamlanmasının ardından veya sinir ağının kararıyla, piyasada yeni girdi verileri göründüğünde güncellenir: önemli haberlerin yayınlanması, fiyatta keskin bir genlik değişikliği vb. <br/>Kural olarak, AI tahmini 50-70 adım ileri için hesaplar, yani 1 dakikalık bir zaman dilimi ile tahmin 50-70 dakika olacaktır. "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "\"Ticaret tavsiyeleri\" bloğundaki sütunlar ne anlama geliyor?",
+        "body": [
+          {
+            "text": "Alım satım önerileri bloğunda şunları bulabilirsiniz: "
+          },
+          {
+            "list": [
+              "Kazanma oranı, alım satım tavsiyelerine eklenen alım satımlar için ödeme oranıdır.",
+              "Sinyal tarihi, sitede göründüğü tarih ve saattir.",
+              "Ad, AI'nın girilmesini önerdiği koinin adı, kodu ve simgesidir.",
+              "Emir tipi ticaret yönüdür. ",
+              "Anlaşma durumu, anlaşmanın içinde bulunduğu durumdur.  <br/>- \"Beklemede\" - tahmin siteye eklendi, ancak fiyat için hedef değerlere henüz ulaşmadı. <br/>- \"Aktif\", işleme zaten girdiğimiz anlamına gelir ve fiyat zaten tavsiye edilenden uzaklaştıysa, girmek imkansızdır.<br/>- \"Kârda kapandı\" veya \"Stop by stop\" – işlemin kâr veya zararda kapatıldığı anlamına gelir.<br/>- \"İptal edildi\", işlemin uzun süre hedef fiyata yaklaşmadığı ve bunun sonucunda AI'nın varlığa girmemeye karar verdiği anlamına gelir. "
+            ]
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "Tavsiyelere göre nasıl ticaret yapılır? ",
+        "body": [
+          {
+            "text": "Bir öneri gördüğümüzü varsayalım:"
+          },
+          {
+            "image": "/img/faq/signals_ru.png"
+          },
+          {
+            "list": [
+              "29/12/22 00:32 hava tahmininin siteye eklendiği tarih ve saattir.",
+              "Bitcoin (BTC), varlığın senedidir.",
+              "UZUN ticaretin yönüdür.",
+              "Etkin - anlaşmanın durumu. ",
+              "16530$ ve 16231$ giriş fiyatlarıdır. ",
+              "Bir sonraki sütun, kar alma fiyatlarıdır. ",
+              "Kaybı Durdur - tüm pozisyonun otomatik satışını bu fiyattan ayarlayın. ",
+              "İşlem başına risk, stoploss'a ulaşıldığında kaybedebileceğiniz depozitonun yüzdesidir. <br/>1. Ortalama pozisyon giriş fiyatını hesaplayın: (16530 16231)/2=16380<br/>2. Ortalama giriş fiyatını zarar durdurmaya bölün: (16380/15890)-1=%3<br/>3. İşlem başına riski önceki paragrafta belirtilen işlemden kaynaklanan riske bölün: %0,3/%3=0,1 <br/>4. Ortaya çıkan katsayıyı mevduatımızın büyüklüğü ile çarpıyoruz: 0.1*10000=1000<br/>5. Toplamda, ticarete güvenli bir şekilde girmek için 1000$ kullanmamız gerektiğini anladık. "
+            ]
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "Sitede saat kaçı görüyorum? ",
+        "body": [
+          {
+            "text": "Sitede saat diliminize göre saati görürsünüz.  "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "İşlem Başına Risk Nedir? ",
+        "body": [
+          {
+            "text": "Alım satım başına risk, zararı durdurma fiyatına ulaşıldığında kaybedilebilecek depozitonuz yüzdesidir. "
+          },
+          {
+            "text": "Örneğin, işlem başına risk %1 ise, zararı durdur noktasına ulaşıldığında depozitonuz %1'den fazla düşmemelidir. "
+          }
+        ]
+      },
+      {
+        "category": "start",
+        "title": "Vadeli işlem mi yoksa spot mu?",
+        "body": [
+          {
+            "text": "Vadeli işlemlerle ilgili tüm riskleri tartmanızı ve kendi kararınızı vermenizi öneririz.  <br/>Para yönetimi kapsamında ağırlıklı olarak spot piyasada işlem yapıyoruz."
+          }
+        ]
+      },
+      {
+        "category": "start",
         "title": "Grafikte mumlar nasıl açılır?",
         "body": [
           {
             "text": "Çizgi ve mumlar arasında geçiş yapmak için ana sayfadaki \"Ticaret\" bölümündeki dişliye tıklamanız gerekir."
           },
           {
-            "img": "/img/faq/candle_ru.png"
+            "image": "/img/faq/candle_ru.png"
           },
           {
             "text": "Açılan menüde “Gerçek (Mum)” öğesini seçin."
@@ -334,10 +535,6 @@
             "text": "Faktörlerin bir kombinasyonuna dayanarak, değişimi öneriyoruz <a target='_blank' href='https://partner.bybit.com/b/godbot_faq'>Bybit</a> veya Binance."
           }
         ]
-      },
-      {
-        "category": "start",
-        "title": "GodBot tahminleri ile nasıl ticaret yapılır?"
       },
       {
         "category": "account",
@@ -356,7 +553,7 @@
             "text": "Temayı değiştirmek için kullanıcı menüsüne gidin ve ay veya güneş simgesine tıklayın. "
           },
           {
-            "img": "/img/faq/theme_ru.png"
+            "image": "/img/faq/theme_ru.png"
           }
         ]
       },

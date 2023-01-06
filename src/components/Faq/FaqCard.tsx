@@ -29,18 +29,28 @@ export const FaqCard: React.FC<IFaqCardProps> = ({ title, body, category }) => {
           body.map((obj, idx) => {
             const key = Object.keys(obj)[0];
             const isText = key === 'text';
-            const isImage = key === 'img';
+            const isList = key === 'list';
+            const isImage = key === 'image';
 
             return (
               <React.Fragment key={idx}>
                 {isText && (
                   <p>
-                    <Trans t={t}>{obj[key]}</Trans>
+                    <Trans t={t}>{obj[key] as string}</Trans>
                   </p>
+                )}
+                {isList && (
+                  <ul>
+                    {(obj[key] as string[]).map((li, idx) => (
+                      <li>
+                        <Trans t={t}>{li}</Trans>
+                      </li>
+                    ))}
+                  </ul>
                 )}
                 {isImage && (
                   <div className="question__media">
-                    <img src={obj[key]} alt="" />
+                    <img src={obj[key] as string} alt="" />
                   </div>
                 )}
               </React.Fragment>

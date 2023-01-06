@@ -11,7 +11,7 @@ import { prepareSmartSearchRegexp, clearMorphologyInSearchTerm } from '@utils';
 export const FaqPage: React.FC<{}> = () => {
   const { t, i18n } = useTranslation('faq');
   const [search, setSearch] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>('start');
 
   const handleSearchClose = () => {
     setSearch('');
@@ -33,12 +33,16 @@ export const FaqPage: React.FC<{}> = () => {
       );
 
       list = list.filter((x) => {
-        const titleMatch = new RegExp(searchRegex, 'i').test(x.title.toLowerCase());
+        const regExpObject = new RegExp(searchRegex, 'i');
+        const titleMatch = regExpObject.test(x.title.toLowerCase());
 
         const descriptionMatch = x.body?.some((obj) => {
           const key = Object.keys(obj)[0];
+
           if (key === 'text') {
-            return new RegExp(searchRegex, 'i').test(obj[key].toLowerCase());
+            return regExpObject.test((obj[key] as string).toLowerCase());
+          } else if (key === 'list') {
+            return (obj[key] as string[]).some((y) => regExpObject.test(y.toLowerCase()));
           } else {
             return false;
           }
