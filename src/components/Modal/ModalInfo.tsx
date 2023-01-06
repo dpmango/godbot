@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
+import { Socials } from '@c/Layout/Header';
 
 interface IModalInfoProps {
   name: string;
@@ -32,6 +33,8 @@ export const ModalInfo: React.FC<IModalInfoProps> = ({ name }) => {
         <div className="modal__block" ref={modalRef}>
           <div className="modal__title">{t('title')}</div>
           <div className="modal__text">{t('text')}</div>
+          {name === 'activated' && <Socials className="center" />}
+
           <div className="modal__btns">
             <div className="btn btn--modal" onClick={closeModal}>
               {t('action')}

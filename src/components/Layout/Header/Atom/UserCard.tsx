@@ -9,7 +9,7 @@ import { formatDate } from '@utils';
 import { SpriteIcon } from '@ui';
 import { ThemeContext } from '@/App';
 
-import { Menu } from '@c/Layout/Header';
+import { Menu, Socials } from '@c/Layout/Header';
 
 export const UserCard: React.FC<{}> = () => {
   const [userOpened, setUserOpened] = useState(false);
@@ -80,17 +80,7 @@ export const UserCard: React.FC<{}> = () => {
           </Link>
         </div>
 
-        <div className="header__user-soc">
-          <a href={'https://twitter.com/godbot_pro'} target="_blank" title="Twitter">
-            <img src="/img/social/twitter.svg" alt="Twitter" />
-          </a>
-          <a href={'https://discord.com/invite/Jnptpsmcmx'} target="_blank" title="Discord">
-            <img src="/img/social/discord.svg" alt="Discord" />
-          </a>
-          <a href={'https://t.me/godbot_pro'} target="_blank" title="Telegram">
-            <img src="/img/social/telegram.svg" alt="Telegram" />
-          </a>
-        </div>
+        <Socials />
 
         <div className="header__user-theme-trigger" onClick={ctx?.handleChangeTheme} />
         <div className="header__user-minis">

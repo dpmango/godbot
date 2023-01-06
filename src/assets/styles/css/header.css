@@ -540,6 +540,9 @@
 		padding: 17px 20px;
 		margin: 12px 0 0 0;
 }
+.header__user-soc.center{
+	justify-content: center;
+}
 .header__user-soc > * {
 		flex: 0 0 auto;
 		width: 30px;
