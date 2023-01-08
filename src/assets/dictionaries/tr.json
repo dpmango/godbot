@@ -163,14 +163,8 @@
   "activated": {
     "pagetitle": "Godbot | Deneme oranı",
     "title": "Tebrikler!",
-    "text": "3 günlük bir deneme planını etkinleştirdiniz. ",
+    "text": "3 günlük bir deneme planını etkinleştirdiniz.<br/><br/>Sosyal ağlarda bizi takip edin",
     "action": "BAŞLAYALIM!"
-  },
-  "greeting": {
-    "title": "Hesabınıza hoş geldiniz!",
-    "text": "Rehberimiz yardımıyla hizmeti biraz daha detaylı tanımanızı öneriyoruz.",
-    "action": "BAŞLAYALIM!",
-    "skip": "ATLA"
   },
   "paymentAwait": {
     "pagetitle": "Godbot | Ödeme işleniyor",

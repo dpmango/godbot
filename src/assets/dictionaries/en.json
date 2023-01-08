@@ -163,14 +163,8 @@
   "activated": {
     "pagetitle": "Godbot | Trial",
     "title": "Congratulations!",
-    "text": "You have activated a trial plan for 3 days. ",
+    "text": "You have activated a trial plan for 3 days. <br/><br/>Follow us on social networks",
     "action": "GO!"
-  },
-  "greeting": {
-    "title": "Welcome to your personal account!",
-    "text": "Learn the service in details with the help of our guide.",
-    "action": "GO!",
-    "skip": "SKIP"
   },
   "paymentAwait": {
     "pagetitle": "Godbot | Payment in progress",

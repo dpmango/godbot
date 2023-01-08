@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
@@ -32,7 +32,9 @@ export const ModalInfo: React.FC<IModalInfoProps> = ({ name }) => {
       <Modal name="activated">
         <div className="modal__block" ref={modalRef}>
           <div className="modal__title">{t('title')}</div>
-          <div className="modal__text">{t('text')}</div>
+          <div className="modal__text">
+            <Trans t={t} i18nKey={'text'} />
+          </div>
           {name === 'activated' && <Socials className="center" />}
 
           <div className="modal__btns">
