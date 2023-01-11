@@ -52,7 +52,8 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
     }
 
     let discountDate = dayjs('20.12', 'DD.MM', true);
-    if (discountDate.isBefore(dayjs(), 'day')) {
+
+    if (discountDate.isBefore(dayjs())) {
       discountDate = dayjs();
     }
 
@@ -65,7 +66,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       oldPrice: periodWithDiscout * basePrice,
       discount: {
         percent: discountPercent,
-        date: discountDate.format('DD.MM'),
+        // date: discountDate.format('DD.MM'),
       },
     };
   }, [activePeriodIdx, plans]);
@@ -111,7 +112,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
 
   return (
     <div className="tarifes__block">
-      <div className="tarifes__gift">{t('discount', currentPlan?.discount)}</div>
+      {/* <div className="tarifes__gift">{t('discount', currentPlan?.discount)}</div> */}
 
       <div className="tarifes__name">{title}</div>
       {currentPlan && (
