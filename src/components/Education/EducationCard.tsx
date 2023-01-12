@@ -31,7 +31,7 @@ export const EducationCard: React.FC<IEducationCardProps> = ({
 
   const themesList = useMemo(() => {
     if (!themes) return null;
-    return themes.split(';');
+    return themes.split(';').map((x) => x.trim());
   }, [themes]);
 
   const handleVideoOpen = (e: any) => {

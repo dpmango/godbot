@@ -38,7 +38,9 @@ export const PartnerList: React.FC<{}> = () => {
               </tbody>
             </table>
           ) : (
-            <p className="partnership__empty">{t('empty')}</p>
+            <div className="partnership__empty-text">
+              <strong>😔</strong> {t('empty')}
+            </div>
           )}
         </div>
       </div>
