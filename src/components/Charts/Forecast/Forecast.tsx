@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import cns from 'classnames';
 import dayjs from 'dayjs';
+import { utcToZonedTime } from 'date-fns-tz';
 
 import { ThemeContext } from '@/App';
 import { useProfile, useDebounce } from '@hooks';
@@ -278,8 +279,13 @@ export const Forecast: React.FC<{}> = () => {
       // навигация по графику
       const lastTick = coinData[coinData.length - 1].timestamp;
 
-      const last = dayjs.unix(lastTick);
-      const from = last.subtract(12, 'hour');
+      let timeDisplay = 12;
+      if (currentTime === '1m') {
+        timeDisplay = 3;
+      }
+
+      const last = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
+      const from = last.subtract(timeDisplay, 'hour');
 
       chartInstance.timeScale().setVisibleRange({
         from: timeToTz((from.unix() * 1000) as UTCTimestamp),
@@ -472,7 +478,6 @@ export const Forecast: React.FC<{}> = () => {
     };
 
     if (allowedFunctions.forecast) {
-      console.log('INITIAL CHART REQUEST', currentCoin && currentTime);
       requestChart();
       timerConfirm.current = setInterval(requestChart, updateIntervalMin * 60 * 1000);
     }
