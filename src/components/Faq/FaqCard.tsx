@@ -34,11 +34,7 @@ export const FaqCard: React.FC<IFaqCardProps> = ({ title, body, category }) => {
 
             return (
               <React.Fragment key={idx}>
-                {isText && (
-                  <p>
-                    <Trans t={t}>{obj[key] as string}</Trans>
-                  </p>
-                )}
+                {isText && <p dangerouslySetInnerHTML={{ __html: obj[key] as string }} />}
                 {isList && (
                   <ul>
                     {(obj[key] as string[]).map((li, idx) => (

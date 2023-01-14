@@ -520,7 +520,7 @@
         "title": "Какую биржу вы порекомендуете? ",
         "body": [
           {
-            "text": "По совокупности факторов мы рекомендуем биржу <a target='_blank' href='https://partner.bybit.com/b/godbot_faq'>Bybit</a> или Binance."
+            "text": "По совокупности факторов мы рекомендуем биржу <a target='_blank' href=https://partner.bybit.com/b/godbot_faq>Bybit</a> или Binance."
           }
         ]
       },
