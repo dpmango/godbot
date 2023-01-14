@@ -44,10 +44,11 @@ export const Pagination: React.FC<IPaginationProps> = ({ page, count, limit, onC
         end: Math.round(currentPage + delta / 2),
       };
 
-      if (range.start - 1 === 1 || range.end + 1 === pageCount) {
-        range.start += 1;
-        range.end += 1;
-      }
+      // if (range.start - 1 === 1 || range.end + 1 === pageCount) {
+      //   range.start += 1;
+      //   range.end += 1;
+      // }
+
       let pages =
         currentPage > delta
           ? getRange(Math.min(range.start, pageCount - delta), Math.min(range.end, pageCount))
@@ -114,8 +115,12 @@ export const Pagination: React.FC<IPaginationProps> = ({ page, count, limit, onC
 
       {items.map((item, idx) => (
         <div
-          className={cns('pagination__link', item === page && 'pagination__link--active')}
-          onClick={() => onChange(item)}
+          className={cns(
+            'pagination__link',
+            item === page && 'pagination__link--active',
+            typeof item === 'string' && 'disabled'
+          )}
+          onClick={() => typeof item === 'number' && onChange(item)}
           key={idx}>
           {typeof item === 'number' && <>{item}</>}
           {typeof item === 'string' && <>...</>}

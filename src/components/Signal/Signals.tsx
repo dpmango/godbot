@@ -48,7 +48,7 @@ export const Signals: React.FC<{}> = () => {
       // получить по целевой странице либо текущая с метаданных
       if (loader) setLoading(true);
 
-      await dispatch(getSignals({ status: filter, page: page || metadata?.current_page }));
+      await dispatch(getSignals({ status: filter, per: 10, page: page || metadata?.current_page }));
 
       if (loader) setLoading(false);
     },
@@ -72,7 +72,7 @@ export const Signals: React.FC<{}> = () => {
     return () => {
       clearInterval(timerConfirm.current as NodeJS.Timeout);
     };
-  }, [allowedFunctions.signal, requestSignals]);
+  }, [allowedFunctions.signal]);
 
   // получение обновлений + уведомления
   const timerUpdates: { current: NodeJS.Timeout | null } = useRef(null);
