@@ -121,7 +121,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
       </div>
 
-      {lastUpdate && (
+      {false && lastUpdate && (
         <div className="chart__head-time">
           {/* {t('lastUpdate')} */}
           {lastUpdate}
