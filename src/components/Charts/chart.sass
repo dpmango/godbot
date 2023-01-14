@@ -114,3 +114,34 @@
       .header__logo
         svg
           fill: white !important
+
+.chart-pulse
+  display: none
+  position: absolute
+  z-index: 2
+  width: 8px
+  height: 8px
+  border-radius: 50%
+  background: #0F701E
+  span
+    position: absolute
+    left: -8px
+    top: -8px
+    height: 24px
+    width: 24px
+    border: 3px solid #0F701E
+    border-radius: 50%
+    animation: pulsate 5s ease-out infinite
+    transform-origin: center center
+    opacity: 0
+
+@keyframes pulsate
+  0%
+    transform: scale(0.1)
+    opacity: 0
+  10% 
+    opacity: 1
+  20%, 100%
+    transform: scale(1.2)
+    opacity: 0
+  

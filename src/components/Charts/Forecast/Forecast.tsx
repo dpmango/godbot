@@ -40,7 +40,7 @@ export const Forecast: React.FC<{}> = () => {
   const [legendActive, setLegendActive] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const chart = useRef<IChartApi | null>(null);
-  const [series, setSeries] = useState<any>([]);
+  const [dataSeries, setSeries] = useState<any>([]);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
   const [scrollRange, setScrollRange] = useState<LogicalRange>();
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
@@ -59,6 +59,7 @@ export const Forecast: React.FC<{}> = () => {
   // рефы
   const containerRef: any = useRef();
   const tooltipRef: any = useRef();
+  const pulseRef: any = useRef();
   const ctx = useContext(ThemeContext);
 
   const { allowedFunctions } = useProfile();
@@ -68,6 +69,12 @@ export const Forecast: React.FC<{}> = () => {
   const colors: string[] = ['#0F701E', '#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
   const paginatePer = 200;
   const viewLocked = !tariffActive;
+
+  // data: {
+  //   time: UTCTimestamp;
+  //   value: number;
+  // }[],
+  // series: ISeriesApi<'Line'>
 
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
@@ -174,8 +181,7 @@ export const Forecast: React.FC<{}> = () => {
     //   forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
     // }
 
-    LOG.log({ currentSeries: currentSeries[1] });
-    setSeries(currentSeries);
+    setSeries([...currentSeries]);
     PerformanceLog(PERF_TIME_SERIES, 'creating series data');
 
     if (!chart.current) {
@@ -418,6 +424,28 @@ export const Forecast: React.FC<{}> = () => {
     };
   };
 
+  // пульсирующая точка
+  useEffect(() => {
+    if (pulseRef.current && chart.current && dataSeries.length && chartLines.length) {
+      const data = dataSeries[1].data;
+      const series = chartLines[1].instance;
+      // @ts-ignore
+      const { value, time } = data[data.length - 1];
+      const y = series.priceToCoordinate(value);
+      const x = chart.current?.timeScale().timeToCoordinate(time);
+
+      if (y && x) {
+        pulseRef.current.style.display = 'block';
+        pulseRef.current.style.top = y - 4 + 'px';
+        pulseRef.current.style.left = x + 54 - 4 + 'px';
+      }
+    } else {
+      if (pulseRef.current) {
+        pulseRef.current.style.display = 'none';
+      }
+    }
+  }, [dataSeries, chartLines, scrollRange]);
+
   // работа с цветовой темой
   const changeTheme = useCallback(() => {
     if (ctx?.theme) {
@@ -555,7 +583,10 @@ export const Forecast: React.FC<{}> = () => {
           style={{
             opacity: loading ? '0' : '1',
           }}>
-          <div className="chart-info" ref={tooltipRef}></div>
+          <div className="chart-info" ref={tooltipRef} />
+          <div className="chart-pulse" ref={pulseRef}>
+            <span></span>
+          </div>
           <div className="chart-watermark">
             {[0, 1, 2, 3].map((x) => (
               <>
