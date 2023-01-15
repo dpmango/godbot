@@ -496,7 +496,7 @@ export const Forecast: React.FC<{}> = () => {
   useEffect(() => {
     let updateIntervalMin = 1;
     if (currentTime === '15m') {
-      updateIntervalMin = 15;
+      updateIntervalMin = 10;
     }
 
     const requestChart = async () => {
