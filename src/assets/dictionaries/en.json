@@ -331,7 +331,7 @@
             "text": "On the chart, you see a channel (dashed lines) and a forecast (red line). "
           },
           {
-            "image": "/img/faq/forecast_1_ru.png"
+            "image": "/img/faq/forecast_1_en.png"
           },
           {
             "text": "<strong>Important!</strong>"
@@ -373,25 +373,25 @@
             "text": "We place buy and sell limit orders according to the levels predicted by the GodBot neural network. "
           },
           {
-            "image": "/img/faq/forecast_1_1.png"
+            "image": "/img/faq/forecast_1_1_en.png"
           },
           {
             "text": "AI predicts growth, in connection with which you can place limit orders at $16,550 and $16,520, stop loss under $16,500, and take profits at $16,600, $16,750, $16,850, $16,950. "
           },
           {
-            "image": "/img/faq/forecast_1_2.png"
+            "image": "/img/faq/forecast_1_2_en.png"
           },
           {
             "text": "We place buy orders at the lower border of the channel at the levels: $16,800, $16,700, $16,600. "
           },
           {
-            "image": "/img/faq/forecast_1_3.png"
+            "image": "/img/faq/forecast_1_3_en.png"
           },
           {
             "text": "In the case of a forecast of pumps or dumps in the forecast, you can buy at market prices, but exit gradually, every couple of percent of the price movement. "
           },
           {
-            "image": "/img/faq/forecast_1_4.png"
+            "image": "/img/faq/forecast_1_4_en.png"
           },
           {
             "text": "<strong>An example of trading using the second strategy: </strong>"
@@ -400,25 +400,25 @@
             "text": "On the screen below, you see a bullish forecast of medium strength, since the upper border of the channel goes up, and the lower one is at the same level.  "
           },
           {
-            "image": "/img/faq/forecast_2_1.png"
+            "image": "/img/faq/forecast_1_1_en.png"
           },
           {
             "text": "Another example, similar case.  "
           },
           {
-            "image": "/img/faq/forecast_2_2.png"
+            "image": "/img/faq/forecast_1_2_en.png"
           },
           {
             "text": "In this case, it is recommended to skip the forecast, because the upper and lower boundaries of the channel are equidistant from the current price.  "
           },
           {
-            "image": "/img/faq/forecast_2_3.png"
+            "image": "/img/faq/forecast_1_3_en.png"
           },
           {
             "text": "In the case of a forecast of pumps or dumps in the forecast, you can also buy at market prices, but exit gradually, every couple of percent of the price movement. "
           },
           {
-            "image": "/img/faq/forecast_2_4.png"
+            "image": "/img/faq/forecast_1_4_en.png"
           },
           {
             "text": "If the lower and upper boundaries of the channel go up at a large angle, then the forecast is very bullish and it is recommended to enter LONG.  "
@@ -460,7 +460,7 @@
             "text": "Suppose we see a recommendation:"
           },
           {
-            "image": "/img/faq/signals_ru.png"
+            "image": "/img/faq/signals_en.png"
           },
           {
             "list": [
@@ -514,7 +514,7 @@
             "text": "To switch between the line and candles, you need to click on the gear in the \"Trading\" section on the home page."
           },
           {
-            "image": "/img/faq/candle_ru.png"
+            "image": "/img/faq/candle_en.png"
           },
           {
             "text": "In the menu that opens, select the “Real (Candle)” item."
@@ -547,7 +547,7 @@
             "text": "To change the theme, go to the user menu and click on the moon or sun icon. "
           },
           {
-            "image": "/img/faq/theme_ru.png"
+            "image": "/img/faq/theme_en.png"
           }
         ]
       },

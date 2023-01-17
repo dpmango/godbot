@@ -331,7 +331,7 @@
             "text": "Grafikte bir kanal (kesikli çizgiler) ve bir tahmin (kırmızı çizgi) görürsünüz. "
           },
           {
-            "image": "/img/faq/forecast_1_ru.png"
+            "image": "/img/faq/forecast_1_tr.png"
           },
           {
             "text": "<strong>Önemli!</strong>"
@@ -373,25 +373,25 @@
             "text": "GodBot sinir ağının öngördüğü seviyelere göre alış ve satış limit emirleri veriyoruz. "
           },
           {
-            "image": "/img/faq/forecast_1_1.png"
+            "image": "/img/faq/forecast_1_1_tr.png"
           },
           {
             "text": "AI, 16.550$ ve 16.520 da limit emirleri verebileceğiniz, 16.500 ın altında zararı durdurabileceğiniz ve 16.600$, 16.750$, 16.850$, 16.950 da kar alabileceğiniz büyümeyi öngörüyor. "
           },
           {
-            "image": "/img/faq/forecast_1_2.png"
+            "image": "/img/faq/forecast_1_2_tr.png"
           },
           {
             "text": "Kanalın alt sınırında şu seviyelerde alım emirleri veriyoruz: 16.800$, 16.700$, 16.600$. "
           },
           {
-            "image": "/img/faq/forecast_1_3.png"
+            "image": "/img/faq/forecast_1_3_tr.png"
           },
           {
             "text": "Tahminde bir artış veya düşüş tahmini olması durumunda, piyasa fiyatlarından satın alabilir, ancak fiyat hareketinin her yüzde birkaçında kademeli olarak çıkabilirsiniz. "
           },
           {
-            "image": "/img/faq/forecast_1_4.png"
+            "image": "/img/faq/forecast_1_4_tr.png"
           },
           {
             "text": "<strong>İkinci stratejiyi kullanarak işlem yapmaya bir örnek: </strong>"
@@ -400,25 +400,25 @@
             "text": "Aşağıdaki ekranda, kanalın üst sınırı yükseldiği ve alt sınır aynı seviyede olduğu için orta güçte bir yükseliş tahmini görüyorsunuz.  "
           },
           {
-            "image": "/img/faq/forecast_2_1.png"
+            "image": "/img/faq/forecast_1_1_tr.png"
           },
           {
             "text": "Başka bir örnek, benzer bir durum.  "
           },
           {
-            "image": "/img/faq/forecast_2_2.png"
+            "image": "/img/faq/forecast_1_2_tr.png"
           },
           {
             "text": "Bu durumda, kanalın üst ve alt sınırları mevcut fiyattan eşit uzaklıkta olduğu için tahminin atlanması önerilir.  "
           },
           {
-            "image": "/img/faq/forecast_2_3.png"
+            "image": "/img/faq/forecast_1_3_tr.png"
           },
           {
             "text": "Tahminde bir artış veya düşüş tahmini olması durumunda, piyasa fiyatlarından da satın alabilirsiniz, ancak fiyat hareketinin her yüzde birkaçında kademeli olarak çıkış yapabilirsiniz. "
           },
           {
-            "image": "/img/faq/forecast_2_4.png"
+            "image": "/img/faq/forecast_1_4_tr.png"
           },
           {
             "text": "Kanalın alt ve üst sınırları geniş bir açıyla yukarı çıkıyorsa, tahmin çok olumludur ve LONG'a girilmesi tavsiye edilir.  "
@@ -460,7 +460,7 @@
             "text": "Bir öneri gördüğümüzü varsayalım:"
           },
           {
-            "image": "/img/faq/signals_ru.png"
+            "image": "/img/faq/signals_tr.png"
           },
           {
             "list": [
@@ -514,7 +514,7 @@
             "text": "Çizgi ve mumlar arasında geçiş yapmak için ana sayfadaki \"Ticaret\" bölümündeki dişliye tıklamanız gerekir."
           },
           {
-            "image": "/img/faq/candle_ru.png"
+            "image": "/img/faq/candle_tr.png"
           },
           {
             "text": "Açılan menüde “Gerçek (Mum)” öğesini seçin."
@@ -547,7 +547,7 @@
             "text": "Temayı değiştirmek için kullanıcı menüsüne gidin ve ay veya güneş simgesine tıklayın. "
           },
           {
-            "image": "/img/faq/theme_ru.png"
+            "image": "/img/faq/theme_tr.png"
           }
         ]
       },
