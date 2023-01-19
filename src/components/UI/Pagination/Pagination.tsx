@@ -80,7 +80,7 @@ export const Pagination: React.FC<IPaginationProps> = ({ page, count, limit, onC
   }, [count, limit]);
 
   const items = useMemo(() => {
-    const pages = [3, 5];
+    const pages = [5, 7];
 
     return paginationBuilder(page, countWithLimit, pages[0], pages[1]);
   }, [page, countWithLimit]);
