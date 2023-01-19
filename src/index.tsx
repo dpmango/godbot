@@ -20,9 +20,9 @@ if (process.env.REACT_APP_SENTRY_DSN) {
     dsn: process.env.REACT_APP_SENTRY_DSN,
     integrations: [
       new BrowserTracing(),
-      new Sentry.Integrations.Breadcrumbs({
-        console: false,
-      }),
+      // new Sentry.Integrations.Breadcrumbs({
+      //   console: false,
+      // }),
     ],
     tracesSampleRate: 1.0,
     beforeSend: (event) => {

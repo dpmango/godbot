@@ -1,6 +1,6 @@
 {
   "name": "godbot-app",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "private": true,
   "engines": {
     "node": ">=16.11.0"

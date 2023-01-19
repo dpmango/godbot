@@ -70,6 +70,12 @@
     "marker": {
       "changes": "Tahmin güncellendi"
     },
+    "guide": {
+      "title": "Ticaret Rehberi",
+      "modal": {
+        "title": "Ticaret Rehberi"
+      }
+    },
     "lastUpdate": "Tahmin güncellendi",
     "lock": "Sinir ağı grafikleri"
   },

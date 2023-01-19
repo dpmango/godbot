@@ -7,7 +7,16 @@ export const openExternalLink = (url: string) => {
 };
 
 export const isModalOpened = (searchParams: URLSearchParams) => {
-  const list = ['tariffs', 'activated', 'success', 'privacy', 'terms', 'cookies', 'disclaimer'];
+  const list = [
+    'tariffs',
+    'activated',
+    'success',
+    'privacy',
+    'terms',
+    'cookies',
+    'disclaimer',
+    'guide',
+  ];
 
   return list.some((name) => searchParams.get(name) !== null);
 };

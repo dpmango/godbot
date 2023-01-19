@@ -70,6 +70,12 @@
     "marker": {
       "changes": "Прогноз обновлен"
     },
+    "guide": {
+      "title": "Trading Guide",
+      "modal": {
+        "title": "Trading Guide"
+      }
+    },
     "lastUpdate": "Прогноз обновлен",
     "lock": "графика нейронной сети"
   },

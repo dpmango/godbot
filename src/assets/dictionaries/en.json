@@ -70,6 +70,12 @@
     "marker": {
       "changes": "Forecast updated"
     },
+    "guide": {
+      "title": "Руководство по торговле",
+      "modal": {
+        "title": "Руководство по торговле"
+      }
+    },
     "lastUpdate": "Forecast updated",
     "lock": "neural network graphics"
   },

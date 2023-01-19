@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
@@ -127,6 +127,11 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           {lastUpdate}
         </div>
       )}
+
+      <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
+        <img src="/img/play.png" alt="play" />
+        <span>{t('guide.title')}</span>
+      </Link>
 
       <div
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}

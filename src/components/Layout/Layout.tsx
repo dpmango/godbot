@@ -14,7 +14,8 @@ import {
   DocsCookies,
   DocsDisclaimer,
 } from '@c/Modal';
-import { TeletypeWidget } from '@/components/Layout/Vendor/Teletype';
+import { ForecastGuide } from '@c/Charts';
+import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
 
 interface ILayout {
   children: React.ReactElement[] | React.ReactElement;
@@ -38,6 +39,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('terms') !== null && <DocsTerms />}
         {searchParams.get('cookies') !== null && <DocsCookies />}
         {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
+        {searchParams.get('guide') !== null && <ForecastGuide />}
 
         <TeletypeWidget />
       </div>
