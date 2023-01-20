@@ -10,6 +10,10 @@ import {
   LogicalRange,
   DeepPartial,
   PriceFormat,
+  SeriesMarker,
+  SeriesMarkerPosition,
+  SeriesMarkerShape,
+  Time,
 } from 'lightweight-charts';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -31,6 +35,7 @@ import { Logo } from '@c/Layout/Header';
 export interface IChartLines {
   id: string;
   name: string;
+  showChanges: boolean;
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
 
@@ -175,6 +180,20 @@ export const Forecast: React.FC<{}> = () => {
       },
     ];
 
+    // точки обновленний прогноза
+    const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
+    let updateMarkers: SeriesMarker<Time>[] = [];
+    updateDates.forEach((x) => {
+      updateMarkers.push({
+        id: `update-${x}`,
+        time: x,
+        position: 'belowBar' as SeriesMarkerPosition,
+        color: '#f68410',
+        shape: 'circle' as SeriesMarkerShape,
+        text: 'U',
+      });
+    });
+
     // watch changes in data
     // let forecastChanges: ISeriesData[] = [];
     // if (series.length && currentSeries[1].data) {
@@ -272,9 +291,15 @@ export const Forecast: React.FC<{}> = () => {
         if (lineSeriesInstance) {
           lineSeriesInstance.setData(s.data);
 
+          if (s.showChanges) {
+            if (updateMarkers.length) {
+              lineSeriesInstance.setMarkers(updateMarkers);
+            }
+          }
           newChartLines.push({
             id: s.id,
             name: s.displayName || s.id,
+            showChanges: s.showChanges || false,
             instance: lineSeriesInstance,
           });
         }
@@ -389,30 +414,22 @@ export const Forecast: React.FC<{}> = () => {
     } else {
       // обновление данных
       const PERF_TIME = performance.now();
-
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData([...currentSeries[idx].data]);
 
         // currentSeries[idx].data.forEach((tick) => {
         //   lineSeries.instance.update(tick);
         // });
-
-        // if (series[idx].showChanges) {
-        //   let markers: SeriesMarker<Time>[] = [];
-        //   forecastChanges.forEach((x) => {
-        //     markers.push({
-        //       id: 'update',
-        //       time: x.time,
-        //       position: 'belowBar' as SeriesMarkerPosition,
-        //       color: '#f68410',
-        //       shape: 'circle' as SeriesMarkerShape,
-        //       text: 'Update',
-        //     });
-        //   });
-
-        //   lineSeries.instance.setMarkers(markers);
-        // }
       });
+
+      if (updateMarkers.length) {
+        chartLines.forEach((lineSeries, idx) => {
+          if (lineSeries.showChanges) {
+            lineSeries.instance.setMarkers(updateMarkers);
+          }
+        });
+      }
+
       PerformanceLog(PERF_TIME, 'updating chart series');
     }
 

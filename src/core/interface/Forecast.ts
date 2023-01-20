@@ -8,6 +8,7 @@ export interface IGraphTickDto {
   forecast_low: number;
   forecast_high: number;
   forecast_trend: number;
+  is_forecast_start: boolean;
   timestamp: UTCTimestamp;
 }
 
