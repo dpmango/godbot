@@ -190,7 +190,7 @@ export const Forecast: React.FC<{}> = () => {
         position: 'belowBar' as SeriesMarkerPosition,
         color: '#f68410',
         shape: 'circle' as SeriesMarkerShape,
-        text: 'U',
+        text: '',
       });
     });
 

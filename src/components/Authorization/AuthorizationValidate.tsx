@@ -156,7 +156,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       setError(error.message);
       resetForm(false);
 
-      if (error.message.includes('заблокирован')) {
+      if (error.message.includes('60')) {
         navigate('/auth', { state: { error: error.message }, replace: true });
         localStorageSet('locked', Date.now());
       }
