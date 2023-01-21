@@ -13,6 +13,7 @@ import {
   SeriesMarker,
   SeriesMarkerPosition,
   SeriesMarkerShape,
+  MouseEventParams,
   Time,
 } from 'lightweight-charts';
 import { useTranslation } from 'react-i18next';
@@ -48,6 +49,7 @@ export const Forecast: React.FC<{}> = () => {
   const [dataSeries, setSeries] = useState<any>([]);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
   const [scrollRange, setScrollRange] = useState<LogicalRange>();
+  const [crosshair, setCrosshair] = useState<MouseEventParams | null>(null);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
 
   // стор
@@ -325,8 +327,6 @@ export const Forecast: React.FC<{}> = () => {
 
       chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
         if (!range) return;
-
-        setScrollRange(range);
       });
 
       // тултипы
@@ -346,11 +346,12 @@ export const Forecast: React.FC<{}> = () => {
           param.point.y < 0 ||
           param.point.y > container.clientHeight
         ) {
-          // toolTip.style.display = 'none';
+          toolTip.style.display = 'none';
           return;
         }
 
         tooltipRef.current.style.display = 'flex';
+        setCrosshair(param);
 
         // build tooltip html
 
@@ -463,7 +464,7 @@ export const Forecast: React.FC<{}> = () => {
         pulseRef.current.style.display = 'none';
       }
     }
-  }, [dataSeries, chartLines, scrollRange]);
+  }, [dataSeries, chartLines, scrollRange, crosshair]);
 
   // работа с цветовой темой
   const changeTheme = useCallback(() => {
