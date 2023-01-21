@@ -12,16 +12,16 @@ export const PartnerSide: React.FC<{}> = () => {
 
   const { t } = useTranslation('partner');
 
-  const copyLink = useMemo(() => {
+  const referralLink = useMemo(() => {
     if (!partner?.id) return '';
-    return `${window.location.origin}/?referrer_id=${partner.id}`;
+    return `http://godbot.pro/?referrer_id=${partner.id}`;
   }, [partner?.id]);
 
   const handleCopy = useCallback(async () => {
-    await copyToClipboard(copyLink, inputRef?.current).then(() => {
+    await copyToClipboard(referralLink, inputRef?.current).then(() => {
       Toast('success', t('copy.copied'));
     });
-  }, [copyLink, inputRef]);
+  }, [referralLink, inputRef]);
 
   return (
     <div className="partnership__side partnership__side--right">
@@ -31,7 +31,7 @@ export const PartnerSide: React.FC<{}> = () => {
           <input
             className="main-input"
             type="text"
-            value={copyLink ? copyLink : ''}
+            value={referralLink ? referralLink : ''}
             ref={inputRef}
             readOnly={true}
             onClick={handleCopy}
