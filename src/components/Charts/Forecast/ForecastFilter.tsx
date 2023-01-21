@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
+import { isDevelopmentSite } from '@utils';
 import { setStateCoin, setStateTime } from '@store';
 import { Select, SpriteIcon, ISelectOption } from '@ui';
 
@@ -128,10 +129,12 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         </div>
       )}
 
-      <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
-        <img src="/img/play.png" alt="play" />
-        <span>{t('guide.title')}</span>
-      </Link>
+      {isDevelopmentSite && (
+        <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
+          <img src="/img/play.png" alt="play" />
+          <span>{t('guide.title')}</span>
+        </Link>
+      )}
 
       <div
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}
