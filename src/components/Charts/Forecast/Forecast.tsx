@@ -346,11 +346,11 @@ export const Forecast: React.FC<{}> = () => {
           param.point.y < 0 ||
           param.point.y > container.clientHeight
         ) {
-          toolTip.style.display = 'none';
+          // toolTip.style.display = 'none';
           return;
         }
 
-        tooltipRef.current.style.display = 'block';
+        tooltipRef.current.style.display = 'flex';
 
         // build tooltip html
 
@@ -383,10 +383,12 @@ export const Forecast: React.FC<{}> = () => {
 
         // show markers data
         if (param.hoveredMarkerId) {
-          if (param.hoveredMarkerId === 'update') {
+          if (param.hoveredMarkerId.includes('update')) {
+            const dateStamp = formatUnixDate(+param.hoveredMarkerId.split('-')[1] as UTCTimestamp);
+
             markersHtml += `<div class="chart-info__marker">
               <i style="background: #f68410"></i> 
-              <span>${t('marker.changes')}</span>
+              <span>${t('marker.changes')} ${dateStamp}</span>
             </div>`;
           }
         }
