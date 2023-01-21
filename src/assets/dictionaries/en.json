@@ -71,9 +71,9 @@
       "changes": "Forecast updated"
     },
     "guide": {
-      "title": "Руководство по торговле",
+      "title": "Spot tutorial",
       "modal": {
-        "title": "Руководство по торговле"
+        "title": "Spot tutorial"
       }
     },
     "lastUpdate": "Forecast updated",
