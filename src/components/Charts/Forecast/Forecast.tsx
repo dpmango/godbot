@@ -244,8 +244,8 @@ export const Forecast: React.FC<{}> = () => {
           },
         },
         timeScale: {
-          // fixLeftEdge: true,
           rightOffset: 20,
+          // fixLeftEdge: true
           fixRightEdge: true,
           borderVisible: false,
           timeVisible: true,
@@ -328,6 +328,8 @@ export const Forecast: React.FC<{}> = () => {
 
       chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
         if (!range) return;
+
+        setScrollRange(range);
       });
 
       // тултипы
