@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector, api } from '@core';
-import { getSignals } from '@store';
+import { getSignals, setFilter } from '@store';
 import { Loader, Pagination, Select, Toast, LockScreen } from '@ui';
 import { useProfile } from '@hooks';
 import { getPluralKey } from '@utils';
@@ -15,9 +15,8 @@ import audioNotify from '@assets/audio/notify.mp3';
 
 export const Signals: React.FC<{}> = () => {
   const dispatch = useAppDispatch();
-  const { data, metadata } = useAppSelector((state) => state.signalState);
+  const { data, filter, metadata } = useAppSelector((state) => state.signalState);
   const { tariffActive } = useAppSelector((state) => state.userState);
-  const [filter, setFilter] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   const { allowedFunctions } = useProfile();
@@ -48,11 +47,11 @@ export const Signals: React.FC<{}> = () => {
       // получить по целевой странице либо текущая с метаданных
       if (loader) setLoading(true);
 
-      await dispatch(getSignals({ status: filter, per: 10, page: page || metadata?.current_page }));
+      await dispatch(getSignals({ per: 10, page: page || metadata?.current_page }));
 
       if (loader) setLoading(false);
     },
-    [filter, metadata?.current_page]
+    [metadata?.current_page]
   );
 
   useEffect(() => {
@@ -66,7 +65,7 @@ export const Signals: React.FC<{}> = () => {
 
       timerConfirm.current = setInterval(() => {
         requestSignals({ loader: false });
-      }, 1 * 60 * 1000);
+      }, 1 * 20 * 1000);
     }
 
     return () => {
@@ -118,7 +117,9 @@ export const Signals: React.FC<{}> = () => {
           value={filter}
           placeholder={t('select.placeholder')}
           options={selectOptions}
-          onSelect={(v) => setFilter(v.value as string)}
+          onSelect={(v) => {
+            dispatch(setFilter(v.value as string));
+          }}
         />
       </div>
 
