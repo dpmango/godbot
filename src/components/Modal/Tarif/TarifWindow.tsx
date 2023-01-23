@@ -54,7 +54,11 @@ export const TarifWindow: React.FC<{}> = () => {
   }, [data, i18n.language]);
 
   const getTarifs = async () => {
-    const { data, error } = await api('get_tariffs/', {});
+    const { data, error } = await api('get_tariffs/', {
+      // params: {
+      //   language: 'ru' || i18n.language,
+      // },
+    });
 
     if (error) {
       Toast('error', `${error.status} ${error.message}`);

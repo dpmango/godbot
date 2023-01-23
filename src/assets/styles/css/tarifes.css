@@ -250,3 +250,6 @@
 		background-size: cover;
 		border-radius: 50%;
 }
+.tarifes__text li.is_cross:after {
+	background-image: url("/assets/images/deactive.svg");
+}

@@ -17,15 +17,35 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
 
   const { t, i18n } = useTranslation('tariff');
 
-  const descriptionList: string[] = useMemo(() => {
-    if (title === 'Trader') {
-      return t('description.trader', { returnObjects: true });
-    } else if (title === 'PRO Trader') {
-      return t('description.protrader', { returnObjects: true });
+  const descriptionList: { cross: boolean; label: string }[] = useMemo(() => {
+    if (description) {
+      return description
+        .split(';')
+        .map((str) => str.trim())
+        .filter((x) => x)
+        .map((str) => {
+          if (str.startsWith('-')) {
+            return {
+              cross: true,
+              label: str.replaceAll('-', ''),
+            };
+          } else {
+            return {
+              cross: false,
+              label: str,
+            };
+          }
+        });
     }
 
+    // if (title === 'Trader') {
+    //   return t('description.trader', { returnObjects: true });
+    // } else if (title === 'PRO Trader') {
+    //   return t('description.protrader', { returnObjects: true });
+    // }
+
     return [];
-  }, [i18n.language]);
+  }, [description, i18n.language]);
 
   const localizeUnits = ({ number, units }: IPeriodObj) => {
     const plural = localizeKeys(number, 'units', units.toLowerCase(), t);
@@ -135,7 +155,12 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       )}
 
       <ul className="tarifes__text">
-        {descriptionList && descriptionList.map((x, idx) => <li key={idx}>{x}</li>)}
+        {descriptionList &&
+          descriptionList.map((x, idx) => (
+            <li key={idx} className={cns(x.cross && 'is_cross')}>
+              {x.label}
+            </li>
+          ))}
       </ul>
     </div>
   );
