@@ -140,25 +140,6 @@
         "five": "ay"
       }
     },
-    "description": {
-      "trader": [
-        "BTC için 15 dakikalık tahmin grafiği",
-        "Yapay zekânın size gönderdiği varlık alım satımı sinyalleri",
-        "Tanıtım kursuna kısmen bir erişim",
-        "Telegram botu (yakında)",
-        "24 saat/7 gün hizmet veren Destek Bölümü"
-      ],
-      "protrader": [
-        "Tahmin çizelgeleri: Tüm zaman dilimlerinde 5 varlık",
-        "Yapay zekânın size gönderdiği varlık alım satımı sinyalleri",
-        "Tanıtım kursuna tam bir erişim",
-        "Telegram botu (yakında)",
-        "24 saat/7 gün hizmet veren Destek Bölümü",
-        "Ayda bir kez herhangi bir varlığın fiyatını hesaplama imkânı",
-        "Göstergeler, hisseler, döviz kurları, enflasyon oranı gibi diğer varlıkların tahmin grafikleri",
-        "Borsacıların özel sohbetine erişim"
-      ]
-    },
     "trial": {
       "alreadyActivated": "Deneme sürümünü zaten kullandınız"
     },

@@ -140,25 +140,6 @@
         "five": "months"
       }
     },
-    "description": {
-      "trader": [
-        "BTC forecast chart for 15-min TF",
-        "Signals to buy and sell assets from AI",
-        "Partial access to the training course",
-        "Connecting a Telegram bot (coming soon)",
-        "24/7 support service"
-      ],
-      "protrader": [
-        "Forecast charts: 5 assets on all timeframes",
-        "Signals to buy and sell assets from AI",
-        "Full access to the training course",
-        "Linking a Telegram bot (coming soon)",
-        "24/7 support service",
-        "The ability to order a calculation of the price of 1 of any asset per month",
-        "Forecast charts for other assets: indices, stocks, exchange rates, inflation, etc.",
-        "Access to the private traders' chat"
-      ]
-    },
     "trial": {
       "alreadyActivated": "You have already used the trial version"
     },
