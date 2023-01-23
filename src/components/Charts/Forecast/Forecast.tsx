@@ -245,6 +245,7 @@ export const Forecast: React.FC<{}> = () => {
         },
         timeScale: {
           // fixLeftEdge: true,
+          rightOffset: 20,
           fixRightEdge: true,
           borderVisible: false,
           timeVisible: true,
@@ -454,15 +455,18 @@ export const Forecast: React.FC<{}> = () => {
       const y = series.priceToCoordinate(value);
       const x = chart.current?.timeScale().timeToCoordinate(time);
 
-      if (y && x) {
+      const { visible } = series.options();
+
+      if (visible && y && x) {
         pulseRef.current.style.display = 'block';
         pulseRef.current.style.top = y - 4 + 'px';
         pulseRef.current.style.left = x + 54 - 4 + 'px';
+        return;
       }
-    } else {
-      if (pulseRef.current) {
-        pulseRef.current.style.display = 'none';
-      }
+    }
+
+    if (pulseRef.current) {
+      pulseRef.current.style.display = 'none';
     }
   }, [dataSeries, chartLines, scrollRange, crosshair]);
 
