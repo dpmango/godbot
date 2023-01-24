@@ -144,7 +144,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       return;
     }
 
-    // openExternalLink(data.url);
+    openExternalLink(data.url);
   }, [currentPlan]);
 
   return (
