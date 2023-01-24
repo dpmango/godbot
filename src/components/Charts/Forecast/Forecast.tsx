@@ -533,7 +533,8 @@ export const Forecast: React.FC<{}> = () => {
 
     if (allowedFunctions.forecast) {
       requestChart();
-      timerConfirm.current = setInterval(requestChart, updateIntervalMin * 60 * 1000);
+      // remove / 2
+      timerConfirm.current = setInterval(requestChart, updateIntervalMin * (60 / 6) * 1000);
     }
 
     return () => {

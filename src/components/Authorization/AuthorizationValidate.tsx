@@ -202,7 +202,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
     if (clearError) setError('');
     setValue('');
     setDigits(initialDigits);
-    inputRefs.current[0].focus();
+    inputRefs.current[0] && inputRefs.current[0].focus();
   };
 
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
