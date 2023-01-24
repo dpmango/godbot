@@ -2,9 +2,10 @@ import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 import dayjs from 'dayjs';
+import ym from 'react-yandex-metrika';
 
 import { Toast } from '@ui';
-import { formatPrice, localizeKeys, openExternalLink } from '@utils';
+import { formatPrice, localizeKeys, openExternalLink, LOG } from '@utils';
 import { api, useAppSelector } from '@core';
 import { ITarifDto, IPeriodObj } from '@interface/Tarif';
 
@@ -122,12 +123,28 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       },
     });
 
+    // @ts-ignore
+    if (ym && process.env.REACT_APP_YM_ID) {
+      let tariff = '';
+      const month = currentPlan.period.main_period.number;
+
+      if (title === 'Trader') {
+        tariff = 'trader';
+      } else if (title === 'PRO Trader') {
+        tariff = 'traderpro';
+      }
+
+      const goal = `${tariff}${month}`;
+      ym(process.env.REACT_APP_YM_ID, 'reachGoal', goal);
+      LOG.log({ goal });
+    }
+
     if (error) {
       Toast('error', error.message);
       return;
     }
 
-    openExternalLink(data.url);
+    // openExternalLink(data.url);
   }, [currentPlan]);
 
   return (
