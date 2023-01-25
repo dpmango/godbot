@@ -1,4 +1,4 @@
-import { useEffect, useState, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import xorBy from 'lodash/xorBy';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
@@ -7,9 +7,10 @@ import { useAppDispatch, useAppSelector, api } from '@core';
 import { getSignals, setFilter } from '@store';
 import { Loader, Pagination, Select, Toast, LockScreen } from '@ui';
 import { useProfile } from '@hooks';
-import { getPluralKey } from '@utils';
+import { getPluralKey, isValidNumber, clearString } from '@utils';
 
 import { SignalCard } from '@c/Signal';
+import { SpriteIcon } from '@ui';
 import { placeholderSignals } from './placeholderData';
 import audioNotify from '@assets/audio/notify.mp3';
 
@@ -18,6 +19,7 @@ export const Signals: React.FC<{}> = () => {
   const { data, filter, metadata } = useAppSelector((state) => state.signalState);
   const { tariffActive } = useAppSelector((state) => state.userState);
   const [loading, setLoading] = useState<boolean>(true);
+  const [calculator, setCalculator] = useState<string>('');
 
   const { allowedFunctions } = useProfile();
   const { t, i18n } = useTranslation('signal');
@@ -40,6 +42,16 @@ export const Signals: React.FC<{}> = () => {
     if (viewLocked) return placeholderSignals;
     return data;
   }, [data, viewLocked]);
+
+  // калькулятор
+  const handleCalculatorChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newVal = clearString(e.target.value);
+
+      setCalculator(isValidNumber(newVal) ? newVal : calculator);
+    },
+    [calculator]
+  );
 
   // запросы и условия по обновлению
   const requestSignals = useCallback(
@@ -106,11 +118,38 @@ export const Signals: React.FC<{}> = () => {
       <div className="recommend__head">
         <div className="recommend__title">
           <div>{t('title')}</div>
+
           {metadata?.winrate && metadata?.winrate !== '0%' && (
             <div className="recommend__title-winrate">
               Winrate: <strong>{metadata?.winrate}</strong>
             </div>
           )}
+          <form className="recommend__calc">
+            <div>{t('calc.title')}</div>
+            <div className="recommend__calc-input">
+              <input
+                type="text"
+                inputMode="decimal"
+                placeholder="1 000"
+                value={calculator}
+                onChange={handleCalculatorChange}
+              />
+              <div className="btn btn--recommend-calc">
+                <SpriteIcon name="signin-mini" width="12" height="12" />
+              </div>
+            </div>
+          </form>
+          {/* <form className="recommend__calc">
+            <div>Ваш бюджет:</div>
+            <div className="recommend__calc-input">
+              <input type="text" inputMode="decimal" placeholder="19 456 000" />
+              <div className="btn btn--yellow btn--recommend-calc">
+                <svg width="12" height="12">
+                  <use xlinkHref="img/icons-sprite.svg#pencil"></use>
+                </svg>
+              </div>
+            </div>
+          </form> */}
         </div>
 
         <Select
@@ -143,13 +182,15 @@ export const Signals: React.FC<{}> = () => {
                   {t('table.exit')}
                 </th>
                 <th className="recommend__table-stop recommend__table-center">{t('table.stop')}</th>
-                <th className="recommend__table-risk recommend__table-center">{t('table.risk')}</th>
+                <th className="recommend__table-risk recommend__table-center">
+                  {t(calculator ? 'table.order' : 'table.risk')}
+                </th>
               </tr>
             </thead>
 
             <tbody>
               {displaySignals?.map((x, idx) => (
-                <SignalCard key={idx} signal={x} />
+                <SignalCard key={idx} signal={x} calculator={calculator} />
               ))}
             </tbody>
           </table>

@@ -15,6 +15,7 @@ import {
   DocsDisclaimer,
 } from '@c/Modal';
 import { ForecastGuide } from '@c/Charts';
+import { PromoDiscount } from '@c/Promo';
 import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
 
 interface ILayout {
@@ -41,6 +42,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
         {searchParams.get('guide') !== null && <ForecastGuide />}
 
+        <PromoDiscount />
         <TeletypeWidget />
       </div>
     </>

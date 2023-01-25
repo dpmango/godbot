@@ -64,6 +64,7 @@
         "1d": "1 gün"
       }
     },
+    "testMode": "WARNING!<br/>TEST TIMEFRAME",
     "legend": {
       "title": "Grafik seçenekleri"
     },
@@ -103,7 +104,8 @@
       "enter": "Giriş Fiyatı",
       "exit": "Çıkış Fiyatı",
       "stop": "Stop Loss",
-      "risk": "İşlem başına risk"
+      "risk": "İşlem başına risk",
+      "order": "Order size"
     },
     "notify": {
       "new": {

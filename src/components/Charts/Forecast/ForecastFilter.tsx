@@ -122,6 +122,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
       </div>
 
+      {/* <div className="chart__testing" dangerouslySetInnerHTML={{ __html: t('testMode') }} /> */}
+
       {false && lastUpdate && (
         <div className="chart__head-time">
           {/* {t('lastUpdate')} */}
@@ -129,7 +131,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         </div>
       )}
 
-      {isDevelopmentSite && (
+      {i18n.language === 'ru-RU' && (
         <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
           <img src="/img/play.png" alt="play" />
           <span>{t('guide.title')}</span>

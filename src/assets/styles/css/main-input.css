@@ -1,4 +1,7 @@
 @charset "UTF-8";
+.main-input__wrap {
+		position: relative;
+}
 .main-input {
 		flex: 0 0 auto;
 		font-weight: normal;
@@ -26,4 +29,11 @@
 				padding: 0 20px;
 				font-size: 16px;
 		}
+}
+.btn--input {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		border-radius: 10px;
 }

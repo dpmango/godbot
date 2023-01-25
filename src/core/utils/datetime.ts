@@ -41,7 +41,7 @@ export const dateToDDMMMM = (d: string) => {
   }
 };
 
-const pad = (v: number, size = 2) => {
+export const pad = (v: number, size = 2) => {
   let s = String(v);
   while (s.length < size) {
     s = '0' + s;

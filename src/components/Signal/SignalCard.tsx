@@ -2,14 +2,15 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
-import { formatPrice, formatDate } from '@utils';
+import { formatPrice, formatDate, isValidNumber } from '@utils';
 import { ISignal } from '@interface/Signal';
 
 interface ISignalCard {
   signal: ISignal;
+  calculator: string;
 }
 
-export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
+export const SignalCard: React.FC<ISignalCard> = ({ signal, calculator }) => {
   const { t, i18n } = useTranslation('signal');
 
   const signalStatus = useMemo(() => {
@@ -45,6 +46,50 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
       title,
     };
   }, [signal.status, i18n.language]);
+
+  const calculatorRisk = useMemo(() => {
+    const { entry_price_range, stop_loss, risk } = signal;
+
+    let allocation = null;
+
+    const toNumber = (str: any) => {
+      if (!str) return null;
+
+      const parsed = parseFloat(str.toString().replaceAll(',', '.'));
+      if (isValidNumber(parsed)) return parsed;
+
+      return null;
+    };
+
+    // Риск на сделку – это доля от депозита, которую вы можете потерять при достижении стоп-лосса.
+    // Предположим, у вас $10 000 на счету. Это значит, что в случае достижения стоп-лосса вы можете потерять максимум $30.
+
+    if (entry_price_range.length && stop_loss && calculator) {
+      const avarageEnter =
+        entry_price_range.reduce((acc: number, x: string) => {
+          const toNum = toNumber(x);
+          if (toNum) {
+            return acc + toNum;
+          }
+          return acc;
+        }, 0) / entry_price_range.length;
+
+      const stopPercent = toNumber(stop_loss);
+      const riskPercent = toNumber(risk);
+
+      if (stopPercent && riskPercent) {
+        const enterPerStop = (avarageEnter / stopPercent - 1) * 100;
+        // console.log({ calculator }, { riskPercent }, { enterPerStop });
+        allocation = +calculator * (riskPercent / enterPerStop);
+      }
+    }
+
+    if (!toNumber(allocation)) {
+      allocation = null;
+    }
+
+    return allocation;
+  }, [calculator, signal]);
 
   return (
     <tr>
@@ -92,7 +137,9 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal }) => {
           )}
         </div>
       </td>
-      <td className="recommend__table-risk recommend__table-center">{signal.risk}%</td>
+      <td className="recommend__table-risk recommend__table-center">
+        {calculatorRisk !== null ? <>${formatPrice(calculatorRisk)}</> : <>{signal.risk}%</>}
+      </td>
     </tr>
   );
 };

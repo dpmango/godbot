@@ -9,6 +9,7 @@ export {
   secondsToStamp,
   timeToTz,
   getTimezone,
+  pad,
 } from './datetime';
 export {
   clearString,

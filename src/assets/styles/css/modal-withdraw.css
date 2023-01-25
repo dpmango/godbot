@@ -1,0 +1,13 @@
+@charset "UTF-8";
+.withdraw__row {
+		margin: 20px 0;
+}
+.withdraw__submit {
+		margin: 24px 0 0 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+}
+.btn--withdraw {
+		min-width: 207px;
+}

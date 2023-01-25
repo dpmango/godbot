@@ -289,3 +289,30 @@
 				border-top-width: 1px;
 		}
 }
+.chart__testing {
+		flex: 0 0 auto;
+		text-align: center;
+		color: var(--white);
+		background: var(--pro);
+		font-weight: 500;
+		font-size: 8px;
+		line-height: 12px;
+		text-transform: uppercase;
+		padding: 6px 10px;
+		border-radius: 10px;
+}
+@media only screen and (max-width: 767px) {
+		.chart__testing {
+				border-radius: 5px;
+				font-size: 7px;
+				padding: 4px 5px;
+		}
+		.chart__testing br {
+				display: none;
+		}
+}
+@media only screen and (max-width: 1023px) {
+		.chart__testing {
+				order: 4;
+		}
+}

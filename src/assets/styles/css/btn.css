@@ -51,6 +51,14 @@
 		background-color: var(--white);
 		color: var(--blue);
 }
+.btn--red {
+		background-color: #E02423;
+		border-color: #E02423;
+}
+.btn--yellow {
+		background-color: var(--yellow);
+		border-color: var(--yellow);
+}
 .btn--disabled, .btn:disabled {
 		cursor: default;
 		pointer-events: none;

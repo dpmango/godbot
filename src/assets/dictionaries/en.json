@@ -64,6 +64,7 @@
         "1d": "1 day"
       }
     },
+    "testMode": "WARNING!<br/>TEST TIMEFRAME",
     "legend": {
       "title": "Graph Options"
     },
@@ -103,7 +104,8 @@
       "enter": "Entry price",
       "exit": "Exit price",
       "stop": "Stop loss",
-      "risk": "Risk per trade"
+      "risk": "Risk per trade",
+      "order": "Order size"
     },
     "notify": {
       "new": {
