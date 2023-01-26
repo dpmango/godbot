@@ -14,7 +14,7 @@ export const EducationSection: React.FC<IEducationDto> = ({
   description,
   videos,
 }) => {
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const { t } = useTranslation('education', { keyPrefix: 'section' });
 

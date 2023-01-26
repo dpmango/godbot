@@ -105,7 +105,10 @@
       "exit": "Çıkış Fiyatı",
       "stop": "Stop Loss",
       "risk": "İşlem başına risk",
-      "order": "Order size"
+      "order": "Sipariş Boyutu"
+    },
+    "calc": {
+      "title": "Senin bütçen:"
     },
     "notify": {
       "new": {
@@ -147,6 +150,14 @@
     },
     "activated": {
       "success": "{{tariff}} tarifesi ödendi"
+    }
+  },
+  "promo": {
+    "discount": {
+      "title": "Tarifenizi ödeyin ve <br/>iki hafta hediye olarak alın",
+      "subtitle": "Ödülünüzü hemen alın!",
+      "action": "Tarife Seç",
+      "close": "İlgilenmiyorum"
     }
   },
   "activated": {

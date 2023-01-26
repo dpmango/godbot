@@ -105,7 +105,10 @@
       "exit": "Exit price",
       "stop": "Stop loss",
       "risk": "Risk per trade",
-      "order": "Order size"
+      "order": "Order Size"
+    },
+    "calc": {
+      "title": "Your budget:"
     },
     "notify": {
       "new": {
@@ -147,6 +150,14 @@
     },
     "activated": {
       "success": "{{tariff}} Plan activated"
+    }
+  },
+  "promo": {
+    "discount": {
+      "title": "Purchase the plan and get<br/>two weeks for free",
+      "subtitle": "Claim your reward!",
+      "action": "Choose plan",
+      "close": "Not interested"
     }
   },
   "activated": {

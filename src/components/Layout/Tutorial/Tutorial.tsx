@@ -1,7 +1,7 @@
 import { FC, useState, useMemo } from 'react';
 // @ts-ignore
 import Tour from 'reactour';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '@core';
@@ -30,12 +30,16 @@ export const Tutorial: FC<any> = () => {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const { t } = useTranslation('tutorial');
+  const { t, i18n } = useTranslation('tutorial');
 
   const onRequestClose = () => {
     setSearchParams({});
     dispatch(setTutorialComplete(true));
+    if (i18n.language === 'ru-RU') {
+      navigate('?guide');
+    }
   };
 
   const showTutorial = useMemo(() => {

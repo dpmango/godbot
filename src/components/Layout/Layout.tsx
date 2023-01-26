@@ -4,6 +4,7 @@ import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import cns from 'classnames';
 
 import { useAppSelector } from '@core';
+import { isDevelopmentSite } from '@/core/utils';
 
 import { Header } from '@c/Layout/Header';
 import {
@@ -42,7 +43,8 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
         {searchParams.get('guide') !== null && <ForecastGuide />}
 
-        <PromoDiscount />
+        {isDevelopmentSite && <PromoDiscount />}
+
         <TeletypeWidget />
       </div>
     </>

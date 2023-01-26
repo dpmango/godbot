@@ -11,12 +11,16 @@ interface ISignalsRequest {
 
 export const getSignals = createAsyncThunk(
   'recomendation/recomendationData',
-  async ({ page = 1, per }: ISignalsRequest, { getState }) => {
+  async ({ page, per }: ISignalsRequest, { getState }) => {
     const {
-      signalState: { filter },
+      signalState: { filter, metadata: storeMetadata },
     } = getState() as RootState;
 
-    let paginationParams = buildParams({ status: filter, page: page, paginated_by: per });
+    let paginationParams = buildParams({
+      status: filter,
+      page: page || storeMetadata?.current_page,
+      paginated_by: per,
+    });
 
     const { data, metadata } = await api('get_signals/', {
       params: paginationParams,
@@ -38,7 +42,7 @@ interface ISignalState {
 
 const initialState: ISignalState = {
   loading: null,
-  filter: '',
+  filter: 'WAITING',
   data: null,
   metadata: null,
 };

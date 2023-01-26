@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector, api } from '@core';
 import { getSignals, setFilter } from '@store';
 import { Loader, Pagination, Select, Toast, LockScreen } from '@ui';
 import { useProfile } from '@hooks';
-import { getPluralKey, isValidNumber, clearString } from '@utils';
+import { getPluralKey, isValidNumber, clearString, localStorageGet, localStorageSet } from '@utils';
 
 import { SignalCard } from '@c/Signal';
 import { SpriteIcon } from '@ui';
@@ -19,7 +19,10 @@ export const Signals: React.FC<{}> = () => {
   const { data, filter, metadata } = useAppSelector((state) => state.signalState);
   const { tariffActive } = useAppSelector((state) => state.userState);
   const [loading, setLoading] = useState<boolean>(true);
-  const [calculator, setCalculator] = useState<string>('');
+  const [calculator, setCalculator] = useState<string>(localStorageGet('signalCalculator') || '');
+  const [calculatorLocked, setCalculatorLocked] = useState<boolean>(
+    !!localStorageGet('signalCalculator')
+  );
 
   const { allowedFunctions } = useProfile();
   const { t, i18n } = useTranslation('signal');
@@ -46,12 +49,19 @@ export const Signals: React.FC<{}> = () => {
   // калькулятор
   const handleCalculatorChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newVal = clearString(e.target.value);
+      if (calculatorLocked) return;
+      const clearVal = clearString(e.target.value);
+      const newVal = isValidNumber(clearVal) ? clearVal : calculator;
 
-      setCalculator(isValidNumber(newVal) ? newVal : calculator);
+      setCalculator(newVal);
+      localStorageSet('signalCalculator', newVal);
     },
-    [calculator]
+    [calculator, calculatorLocked]
   );
+
+  const handleCalcClick = useCallback(() => {
+    setCalculatorLocked(!calculatorLocked);
+  }, [calculatorLocked]);
 
   // запросы и условия по обновлению
   const requestSignals = useCallback(
@@ -59,11 +69,11 @@ export const Signals: React.FC<{}> = () => {
       // получить по целевой странице либо текущая с метаданных
       if (loader) setLoading(true);
 
-      await dispatch(getSignals({ per: 10, page: page || metadata?.current_page }));
+      await dispatch(getSignals({ per: 10, page }));
 
       if (loader) setLoading(false);
     },
-    [metadata?.current_page]
+    []
   );
 
   useEffect(() => {
@@ -77,7 +87,7 @@ export const Signals: React.FC<{}> = () => {
 
       timerConfirm.current = setInterval(() => {
         requestSignals({ loader: false });
-      }, 1 * 20 * 1000);
+      }, 1 * 60 * 1000);
     }
 
     return () => {
@@ -132,24 +142,21 @@ export const Signals: React.FC<{}> = () => {
                 inputMode="decimal"
                 placeholder="1 000"
                 value={calculator}
+                disabled={calculatorLocked}
                 onChange={handleCalculatorChange}
               />
-              <div className="btn btn--recommend-calc">
-                <SpriteIcon name="signin-mini" width="12" height="12" />
+
+              <div
+                className={cns('btn btn--recommend-calc', calculatorLocked && 'btn--yellow')}
+                onClick={handleCalcClick}>
+                <SpriteIcon
+                  name={calculatorLocked ? 'pencil' : 'signin-mini'}
+                  width="12"
+                  height="12"
+                />
               </div>
             </div>
           </form>
-          {/* <form className="recommend__calc">
-            <div>Ваш бюджет:</div>
-            <div className="recommend__calc-input">
-              <input type="text" inputMode="decimal" placeholder="19 456 000" />
-              <div className="btn btn--yellow btn--recommend-calc">
-                <svg width="12" height="12">
-                  <use xlinkHref="img/icons-sprite.svg#pencil"></use>
-                </svg>
-              </div>
-            </div>
-          </form> */}
         </div>
 
         <Select
@@ -183,14 +190,14 @@ export const Signals: React.FC<{}> = () => {
                 </th>
                 <th className="recommend__table-stop recommend__table-center">{t('table.stop')}</th>
                 <th className="recommend__table-risk recommend__table-center">
-                  {t(calculator ? 'table.order' : 'table.risk')}
+                  {t(calculator && calculatorLocked ? 'table.order' : 'table.risk')}
                 </th>
               </tr>
             </thead>
 
             <tbody>
               {displaySignals?.map((x, idx) => (
-                <SignalCard key={idx} signal={x} calculator={calculator} />
+                <SignalCard key={idx} signal={x} calculator={calculatorLocked ? calculator : ''} />
               ))}
             </tbody>
           </table>
