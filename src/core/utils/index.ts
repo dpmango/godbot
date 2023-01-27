@@ -26,3 +26,4 @@ export { openExternalLink, isModalOpened } from './url';
 export { buildParams } from './api';
 export { copyToClipboard } from './clipboard';
 export { prepareSmartSearchRegexp, clearMorphologyInSearchTerm } from './search';
+export { reachGoal } from './tracker';

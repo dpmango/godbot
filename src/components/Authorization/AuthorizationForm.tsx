@@ -6,7 +6,7 @@ import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { api } from '@core';
-import { validEmail, localStorageSet, localStorageGet } from '@utils';
+import { validEmail, localStorageSet, localStorageGet, reachGoal } from '@utils';
 
 interface IFormValues {
   email: string;
@@ -86,6 +86,10 @@ export const AuthorizationForm: React.FC<{}> = () => {
       if (error) {
         setError(error.message);
         return;
+      }
+
+      if (data) {
+        reachGoal('lk_registration');
       }
 
       localStorageSet('lastEmailSend', Date.now());

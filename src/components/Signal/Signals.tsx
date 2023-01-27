@@ -50,7 +50,7 @@ export const Signals: React.FC<{}> = () => {
   const handleCalculatorChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (calculatorLocked) return;
-      const clearVal = clearString(e.target.value);
+      const clearVal = clearString(e.target.value, true);
       const newVal = isValidNumber(clearVal) ? clearVal : calculator;
 
       setCalculator(newVal);

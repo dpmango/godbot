@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import ym from 'react-yandex-metrika';
 
 import { Toast } from '@ui';
-import { formatPrice, localizeKeys, openExternalLink, LOG } from '@utils';
+import { formatPrice, localizeKeys, openExternalLink, reachGoal, clearString } from '@utils';
 import { api, useAppSelector } from '@core';
 import { ITarifDto, IPeriodObj } from '@interface/Tarif';
 
@@ -119,7 +119,10 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       method: 'POST',
       body: {
         id: currentPlan?.id,
-        redirect_url: window.location.origin + '/?success',
+        redirect_url: `${window.location.origin}/?success=${clearString(
+          title,
+          true
+        ).toLowerCase()}`,
       },
     });
 
@@ -134,9 +137,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
         tariff = 'traderpro';
       }
 
-      const goal = `${tariff}${month}`;
-      ym(process.env.REACT_APP_YM_ID, 'reachGoal', goal);
-      LOG.log({ goal });
+      reachGoal(`${tariff}${month}`);
     }
 
     if (error) {

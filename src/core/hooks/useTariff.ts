@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 
 import { api, useAppSelector, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
+import { reachGoal } from '@utils';
 import { Toast } from '@ui';
 
 const useTariff = () => {
@@ -37,6 +38,10 @@ const useTariff = () => {
     if (error) {
       Toast('error', error.message);
       return;
+    }
+
+    if (data) {
+      reachGoal('lk_trial_activation');
     }
 
     navigate(`${pathname}?activated`);

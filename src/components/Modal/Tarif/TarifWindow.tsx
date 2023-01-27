@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { api } from '@core';
-import { localizeKeys } from '@utils';
+import { localizeKeys, reachGoal } from '@utils';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
@@ -77,6 +77,7 @@ export const TarifWindow: React.FC<{}> = () => {
 
   useEffect(() => {
     getTarifs();
+    reachGoal('lk_tariffs');
   }, []);
 
   if (!data.length) return null;
