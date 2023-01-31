@@ -137,7 +137,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
         tariff = 'traderpro';
       }
 
-      reachGoal(`${tariff}${month}`);
+      reachGoal(`${tariff}${month}`, `Инициализация оплаты ${tariff}${month}`);
     }
 
     if (error) {

@@ -27,9 +27,9 @@ export const ModalInfo: React.FC<IModalInfoProps> = ({ name }) => {
   useEffect(() => {
     if (name === 'paymentAwait') {
       if (searchParams.get('success') === 'protrader') {
-        reachGoal('complete_order_pro');
+        reachGoal('complete_order_pro', 'Оплачен Pro Trader');
       } else {
-        reachGoal('lk_complete_order');
+        reachGoal('lk_complete_order', 'Оплачен Trader');
       }
     }
   }, [name, searchParams]);

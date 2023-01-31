@@ -77,7 +77,7 @@ export const TarifWindow: React.FC<{}> = () => {
 
   useEffect(() => {
     getTarifs();
-    reachGoal('lk_tariffs');
+    reachGoal('lk_tariffs', 'Изучение тарифов');
   }, []);
 
   if (!data.length) return null;
