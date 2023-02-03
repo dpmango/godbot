@@ -312,14 +312,21 @@ export const Forecast: React.FC<{}> = () => {
 
       // навигация по графику
       const lastTick = coinData[coinData.length - 1].timestamp;
+      const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
 
-      let timeDisplay = 12;
-      if (currentTime === '1m') {
-        timeDisplay = 3;
-      }
+      // на основе таймфрейма
+      // let timeDisplay = 12;
+      // if (currentTime === '1m') {
+      //   timeDisplay = 3;
+      // }
 
       const last = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
-      const from = last.subtract(timeDisplay, 'hour');
+      let from;
+      if (lastUpdateMarker) {
+        from = dayjs(utcToZonedTime(lastUpdateMarker * 1000, 'Etc/UTC'));
+      } else {
+        from = last.subtract(3, 'hour');
+      }
 
       chartInstance.timeScale().setVisibleRange({
         from: timeToTz((from.unix() * 1000) as UTCTimestamp),

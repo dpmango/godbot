@@ -42,7 +42,7 @@ interface ISignalState {
 
 const initialState: ISignalState = {
   loading: null,
-  filter: 'WAITING',
+  filter: '',
   data: null,
   metadata: null,
 };

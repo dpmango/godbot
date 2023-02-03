@@ -13,7 +13,7 @@ interface IInvestingProps {}
 
 export const Investing: FC<IInvestingProps> = () => {
   const { graphs } = useAppSelector((state) => state.investorState);
-  const { isProUser } = useAppSelector((state) => state.userState);
+  const { isProUser, userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
   const { allowedFunctions } = useProfile();
@@ -21,7 +21,7 @@ export const Investing: FC<IInvestingProps> = () => {
   const { t } = useTranslation('investing');
 
   const displayGrid = useMemo(() => {
-    if (!isProUser) {
+    if ((userData?.access_level || 0) < 3) {
       if (graphs?.data) {
         const fillPlaceholders = placeholderInvesting.slice(graphs?.data?.length, 8);
         return [...graphs?.data, ...fillPlaceholders];
@@ -31,7 +31,7 @@ export const Investing: FC<IInvestingProps> = () => {
     }
 
     return graphs?.data;
-  }, [graphs?.data, isProUser]);
+  }, [graphs?.data, userData?.access_level]);
 
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
