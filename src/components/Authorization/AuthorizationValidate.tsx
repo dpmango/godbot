@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { api, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
-import { secondsToStamp, localStorageGet, localStorageSet } from '@utils';
+import { secondsToStamp, localStorageGet, localStorageSet, reachGoal } from '@utils';
 import { Toast } from '@ui';
 
 const enLettersRegex = /^[a-zA-Z]+$/;
@@ -157,6 +157,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       resetForm(false);
 
       if (error.message.includes('60')) {
+        reachGoal('lk_registration', 'Регистрация завершена');
         navigate('/auth', { state: { error: error.message }, replace: true });
         localStorageSet('locked', Date.now());
       }
