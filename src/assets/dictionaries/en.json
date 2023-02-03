@@ -78,6 +78,19 @@
       }
     },
     "lastUpdate": "Forecast updated",
+    "willUpdate": {
+      "title": "Forecast will update in",
+      "minute": {
+        "one": "minute",
+        "two": "minutes",
+        "five": "minutes"
+      },
+      "hour": {
+        "one": "hour",
+        "two": "hours",
+        "five": "hours"
+      }
+    },
     "lock": "neural network graphics"
   },
   "investing": {

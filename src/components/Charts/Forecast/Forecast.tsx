@@ -45,6 +45,7 @@ export const Forecast: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [legendActive, setLegendActive] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
+  const [minutesToUpdate, setMinutesToUpdate] = useState<number>(0);
   const chart = useRef<IChartApi | null>(null);
   const [dataSeries, setSeries] = useState<any>([]);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
@@ -196,6 +197,13 @@ export const Forecast: React.FC<{}> = () => {
       });
     });
 
+    // Определение "график обновиться"
+    const lastTick = coinData[coinData.length - 1].timestamp;
+    const lastTime = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
+    const currentTime = dayjs();
+    const minutesToUpdate = (lastTime.unix() - currentTime.unix()) / 60;
+    setMinutesToUpdate(minutesToUpdate || 0);
+
     // watch changes in data
     // let forecastChanges: ISeriesData[] = [];
     // if (series.length && currentSeries[1].data) {
@@ -311,7 +319,6 @@ export const Forecast: React.FC<{}> = () => {
       setChartLines([...newChartLines]);
 
       // навигация по графику
-      const lastTick = coinData[coinData.length - 1].timestamp;
       const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
 
       // на основе таймфрейма
@@ -320,17 +327,16 @@ export const Forecast: React.FC<{}> = () => {
       //   timeDisplay = 3;
       // }
 
-      const last = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
       let from;
       if (lastUpdateMarker) {
         from = dayjs(utcToZonedTime(lastUpdateMarker * 1000, 'Etc/UTC'));
       } else {
-        from = last.subtract(3, 'hour');
+        from = lastTime.subtract(3, 'hour');
       }
 
       chartInstance.timeScale().setVisibleRange({
         from: timeToTz((from.unix() * 1000) as UTCTimestamp),
-        to: timeToTz((last.unix() * 1000) as UTCTimestamp),
+        to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
       });
 
       chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
@@ -606,6 +612,7 @@ export const Forecast: React.FC<{}> = () => {
         legendActive={legendActive}
         setLegendActive={(x) => setLegendActive(x)}
         lastUpdate={lastUpdate}
+        minutesToUpdate={minutesToUpdate}
       />
 
       <ForecastLegend active={legendActive} chartLines={chartLines} />

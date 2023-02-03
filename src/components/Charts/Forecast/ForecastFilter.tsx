@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
-import { isDevelopmentSite } from '@utils';
+import { isDevelopmentSite, Plurize, localizeKeys } from '@utils';
 import { setStateCoin, setStateTime } from '@store';
 import { Select, SpriteIcon, ISelectOption } from '@ui';
 
 interface IForecastFilterProps {
   lastUpdate?: string;
   legendActive: boolean;
+  minutesToUpdate: number;
   setLegendActive: (x: boolean) => void;
 }
 
@@ -18,6 +19,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   legendActive,
   setLegendActive,
   lastUpdate,
+  minutesToUpdate,
 }) => {
   const { isProUser, userData, loading } = useAppSelector((state) => state.userState);
 
@@ -26,6 +28,21 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
   let [searchParams, setSearchParams] = useSearchParams();
   const { t, i18n } = useTranslation('forecast');
+
+  // minutes to update
+  const minutesToUpdateVerbose = useMemo(() => {
+    let minute = Math.ceil(minutesToUpdate);
+    let displayUnit = minute;
+    let unitKey = 'minute';
+
+    if (minute >= 60) {
+      let hour = Math.ceil(minute / 60);
+      displayUnit = hour;
+      unitKey = 'hour';
+    }
+
+    return `${displayUnit} ${localizeKeys(displayUnit, 'willUpdate', unitKey, t)}`;
+  }, [minutesToUpdate, i18n.language]);
 
   // coins
   const coinOptions = useMemo(() => {
@@ -124,10 +141,10 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
       {/* <div className="chart__testing" dangerouslySetInnerHTML={{ __html: t('testMode') }} /> */}
 
-      {false && lastUpdate && (
+      {minutesToUpdate && (
         <div className="chart__head-time">
           {/* {t('lastUpdate')} */}
-          {lastUpdate}
+          {t('willUpdate.title')} {minutesToUpdateVerbose}
         </div>
       )}
 
