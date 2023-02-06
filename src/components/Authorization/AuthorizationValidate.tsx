@@ -157,7 +157,6 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
       resetForm(false);
 
       if (error.message.includes('60')) {
-        reachGoal('lk_registration', 'Регистрация завершена');
         navigate('/auth', { state: { error: error.message }, replace: true });
         localStorageSet('locked', Date.now());
       }
@@ -167,6 +166,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
 
     resetForm();
 
+    reachGoal('lk_registration', 'Регистрация завершена');
     Cookies.set('auth', Date.now().toString(), { expires: 7 });
     await dispatch(getCurrentUser());
     navigate('/', { replace: true });

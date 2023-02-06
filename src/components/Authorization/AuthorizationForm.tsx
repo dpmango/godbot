@@ -90,10 +90,9 @@ export const AuthorizationForm: React.FC<{}> = () => {
 
       if (data) {
         reachGoal('lk_registration_start', 'Регистрация начата');
+        localStorageSet('lastEmailSend', Date.now());
+        navigate('/auth/validation');
       }
-
-      localStorageSet('lastEmailSend', Date.now());
-      navigate('/auth/validation');
     },
     [loading, i18n.language]
   );
