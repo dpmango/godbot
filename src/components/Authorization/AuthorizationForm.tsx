@@ -88,11 +88,9 @@ export const AuthorizationForm: React.FC<{}> = () => {
         return;
       }
 
-      if (data) {
-        reachGoal('lk_registration_start', 'Регистрация начата');
-        localStorageSet('lastEmailSend', Date.now());
-        navigate('/auth/validation');
-      }
+      reachGoal('lk_registration_start', 'Регистрация начата');
+      localStorageSet('lastEmailSend', Date.now());
+      navigate('/auth/validation');
     },
     [loading, i18n.language]
   );
