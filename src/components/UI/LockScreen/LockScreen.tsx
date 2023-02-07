@@ -12,9 +12,10 @@ import { useTariff } from '@hooks';
 interface ILockScreenProps {
   section: string;
   textModifier?: string;
+  postText?: string;
 }
 
-export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier }) => {
+export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postText }) => {
   const { tariffActive, isProUser, userData } = useAppSelector((state) => state.userState);
 
   const { activateTrial } = useTariff();
@@ -59,7 +60,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier }) => {
 
           {translationKey === 'trial' ? (
             <a href="#" className="btn" onClick={handleTrialClick}>
-              {t(`${translationKey}.action`, { section })}
+              {t(`${translationKey}.action`, { section })} {postText && <>{postText}</>}
             </a>
           ) : (
             <Link className="btn" to="?tariffs">

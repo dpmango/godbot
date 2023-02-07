@@ -57,7 +57,7 @@ export const Investing: FC<IInvestingProps> = () => {
             {!investing.isPlaceholder ? (
               <InvestingChart id={investing.invest_id} />
             ) : (
-              <LockScreen section={t('lock') as string} />
+              <LockScreen section={t('lock') as string} postText={t('lockPost')} />
             )}
           </div>
         ))}

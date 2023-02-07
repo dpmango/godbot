@@ -94,7 +94,8 @@
     "lock": "Sinir ağı grafikleri"
   },
   "investing": {
-    "lock": "Tahmin"
+    "lock": "Tahmin",
+    "lockPost": "6+ ay için"
   },
   "signal": {
     "title": "Alım Satım Tavsiyeleri",

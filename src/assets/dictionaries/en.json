@@ -94,7 +94,8 @@
     "lock": "neural network graphics"
   },
   "investing": {
-    "lock": "forecast"
+    "lock": "forecast",
+    "lockPost": "for 6+ months"
   },
   "signal": {
     "title": "Trading Recommendations",
