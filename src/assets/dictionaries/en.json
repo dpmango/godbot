@@ -79,7 +79,7 @@
     },
     "lastUpdate": "Forecast updated",
     "willUpdate": {
-      "title": "Forecast will update in",
+      "title": "Forecast will update within",
       "minute": {
         "one": "minute",
         "two": "minutes",
