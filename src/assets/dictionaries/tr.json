@@ -89,7 +89,8 @@
         "one": "hour",
         "two": "hours",
         "five": "hours"
-      }
+      },
+      "soon": "yakında"
     },
     "lock": "Sinir ağı grafikleri"
   },

@@ -89,7 +89,8 @@
         "one": "hour",
         "two": "hours",
         "five": "hours"
-      }
+      },
+      "soon": "soon"
     },
     "lock": "neural network graphics"
   },
