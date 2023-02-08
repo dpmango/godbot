@@ -56,11 +56,13 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postTe
       {userData && (
         <div className={cns('fader__text', textModifier && `fader__text--${textModifier}`)}>
           <SpriteIcon name="lock" width="32" height="32" />
-          <div>{t(`${translationKey}.text`, { section })}</div>
+          <div>
+            {t(`${translationKey}.text`, { section })} {postText && <>{postText}</>}
+          </div>
 
           {translationKey === 'trial' ? (
             <a href="#" className="btn" onClick={handleTrialClick}>
-              {t(`${translationKey}.action`, { section })} {postText && <>{postText}</>}
+              {t(`${translationKey}.action`, { section })}
             </a>
           ) : (
             <Link className="btn" to="?tariffs">
