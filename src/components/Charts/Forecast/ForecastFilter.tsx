@@ -40,7 +40,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       displayUnit = hour;
       unitKey = 'hour';
     } else if (minute <= 0) {
-      return t('willUpdate.soon');
+      return null;
     }
 
     return `${displayUnit} ${localizeKeys(displayUnit, 'willUpdate', unitKey, t)}`;
@@ -146,7 +146,13 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       {minutesToUpdate && (
         <div className="chart__head-time">
           {/* {t('lastUpdate')} */}
-          {t('willUpdate.title')} {minutesToUpdateVerbose}
+          {minutesToUpdateVerbose ? (
+            <>
+              {t('willUpdate.title')} {minutesToUpdateVerbose}
+            </>
+          ) : (
+            <>{t('willUpdate.soon')}</>
+          )}
         </div>
       )}
 
