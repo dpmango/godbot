@@ -37,6 +37,7 @@
       "chooseTariff": "Choose your plan",
       "connectBot": "Link Telegram bot",
       "payedChat": "Go to Telegram chat",
+      "bot": "Go to Telegram bot",
       "tutorial": "Site tutorial"
     },
     "policies": {

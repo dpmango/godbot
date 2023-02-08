@@ -1,4 +1,5 @@
 export interface IUserDto {
+  id: number;
   name: string;
   tariff: string;
   expire_date: Date;

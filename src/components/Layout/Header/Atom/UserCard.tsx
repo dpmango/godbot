@@ -1,7 +1,8 @@
-import { useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
+import AES from 'crypto-js/aes';
 
 import { useAppSelector } from '@core';
 import { useClickOutside } from '@hooks';
@@ -22,6 +23,21 @@ export const UserCard: React.FC<{}> = () => {
   useClickOutside(dropdownRef, () => setUserOpened(false));
 
   const { t } = useTranslation('header');
+
+  const botLinkWithKey = useMemo(() => {
+    const base = process.env.REACT_APP_BOT_HREF || 'https://t.me/godbotpro_bot?start=';
+
+    const ID = userData?.id.toString() || '';
+    const SECRET = 'wearing bloke horsy clump bucko irate';
+    var encrypted = AES.encrypt(ID, SECRET).toString();
+    const startKey = encrypted
+      .replace('=', 'EQ')
+      .replace('/', '_SL')
+      .replace('+', '_PS')
+      .replace('-', '_MN');
+
+    return `${base}${startKey}`;
+  }, [userData?.id]);
 
   return (
     <div className="header__user" ref={dropdownRef}>
@@ -73,6 +89,13 @@ export const UserCard: React.FC<{}> = () => {
             target="_blank">
             <SpriteIcon name="telegram" width="16" height="16" />
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
+          </a>
+          <a
+            className={cns('header__user-link', !isProUser && 'header__user-link--disabled')}
+            href={botLinkWithKey}
+            target="_blank">
+            <SpriteIcon name="telegram" width="16" height="16" />
+            {t('actions.bot')}
           </a>
           <Link to={'/?tutorial'} className={cns('header__user-link')}>
             <SpriteIcon name="info-circle" width="16" height="16" />
