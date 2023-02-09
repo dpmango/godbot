@@ -116,14 +116,15 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   // initial params parser
   useEffect(() => {
     const coinParam = searchParams.get('coin');
-    if (coinParam && coinOptions.some((x) => x.value === coinParam)) {
+    if (coinParam && coinOptions.some((x) => x.value === coinParam && !x.disabled)) {
       dispatch(setStateCoin(coinParam));
     } else if (!coinParam) {
       dispatch(setStateCoin('BTC'));
     }
 
     const timeParam = searchParams.get('time');
-    if (timeParam && timeOptions.some((x) => x.value === timeParam)) {
+
+    if (timeParam && timeOptions.some((x) => x.value === timeParam && !x.disabled)) {
       dispatch(setStateTime(timeParam));
     } else {
       const firstAvailOption = timeOptions.find((x) => !x.disabled);
