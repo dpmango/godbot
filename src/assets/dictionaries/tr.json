@@ -110,7 +110,8 @@
       "waiting": "Bekleniyor",
       "cancel": "İptal edildi",
       "profit": "Gelirli tamamlandı",
-      "loss": "Kayıplı tamamlandı"
+      "loss": "Kayıplı tamamlandı",
+      "breakeven": "başabaşta kapalı"
     },
     "table": {
       "date": "Sinyal Tarihi",

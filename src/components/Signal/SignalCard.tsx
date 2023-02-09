@@ -37,6 +37,9 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal, calculator }) => {
         title = t('status.loss');
         color = 'recommend__table-red';
         break;
+      case 'BREAKEVEN':
+        title = t('status.breakeven');
+        break;
       default:
         break;
     }

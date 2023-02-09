@@ -110,7 +110,8 @@
       "waiting": "Pending",
       "cancel": "Canceled",
       "profit": "Closed with profit",
-      "loss": "Closed by stop"
+      "loss": "Closed by stop",
+      "breakeven": "Closed at breakeven"
     },
     "table": {
       "date": "Signal date",
