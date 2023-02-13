@@ -95,6 +95,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         label: t(`filter.ticks.${interval.label}`),
         disabled: userData?.access_level < interval.access_level,
         isPro: userData?.access_level < interval.access_level,
+        isTestMode: interval.test_mode,
       }));
     }
 
@@ -112,6 +113,13 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     },
     [searchParams]
   );
+
+  // is test graph
+  const isTestGraph = useMemo(() => {
+    const param = timeOptions.find((x) => x.value === currentTime && !x.disabled);
+
+    return param?.isTestMode;
+  }, [currentTime, timeOptions]);
 
   // initial params parser
   useEffect(() => {
@@ -142,7 +150,9 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
       </div>
 
-      {/* <div className="chart__testing" dangerouslySetInnerHTML={{ __html: t('testMode') }} /> */}
+      {isTestGraph && (
+        <div className="chart__testing" dangerouslySetInnerHTML={{ __html: t('testMode') }} />
+      )}
 
       {minutesToUpdate && (
         <div className="chart__head-time">

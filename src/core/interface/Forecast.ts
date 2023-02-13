@@ -15,6 +15,7 @@ export interface IGraphTickDto {
 export interface IIntervalDto {
   access_level: number;
   label: string;
+  test_mode: boolean;
 }
 
 export interface ICoinDto {
