@@ -38,6 +38,7 @@ export const Signals: React.FC<{}> = () => {
       { value: 'CANCEL', label: t('status.cancel') },
       { value: 'PROFIT', label: t('status.profit') },
       { value: 'LOSS', label: t('status.loss') },
+      { value: 'BREAKEVEN', label: t('status.breakeven') },
     ];
   }, [i18n.language]);
 

@@ -20,4 +20,7 @@ export interface IPartnerDto {
   balance: number;
   referral_percent: number;
   referrals: IReferralDto[];
+  conversion: string;
+  referral_count: number;
+  total_earnings: number;
 }

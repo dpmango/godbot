@@ -1,5 +1,5 @@
 import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 import { useAppSelector } from '@core';
 import { formatPrice } from '@utils';
@@ -9,6 +9,12 @@ export const PartnerBalance: React.FC<{}> = () => {
 
   const { t } = useTranslation('partner', { keyPrefix: 'balance' });
 
+  const statsKeys = [
+    { label: 'referral_count', value: partner?.referral_count },
+    { label: 'conversion', value: partner?.conversion },
+    { label: 'total_earnings', value: partner?.total_earnings },
+  ];
+
   return (
     <div className="partnership__balance">
       <div className="partnership__balance-acc">
@@ -17,29 +23,12 @@ export const PartnerBalance: React.FC<{}> = () => {
         {/* <a className="btn">{t('withdraw')}</a> */}
       </div>
 
-      {/* <div className="partnership__balance-info">
-        <span>
-          Заработок
-          <br />с нами
-        </span>
-        <strong>85.05%</strong>
-      </div>
-      <div className="partnership__balance-info">
-        <span>
-          Количество
-          <br />
-          сигналов
-        </span>
-        <strong>14 789</strong>
-      </div>
-      <div className="partnership__balance-info">
-        <span>
-          Проходимость
-          <br />
-          сигналов
-        </span>
-        <strong>98.5%</strong>
-      </div> */}
+      {statsKeys.map((x, idx) => (
+        <div className="partnership__balance-info" key={idx}>
+          <Trans t={t} i18nKey={x.label} />
+          <strong>{x.value}</strong>
+        </div>
+      ))}
     </div>
   );
 };

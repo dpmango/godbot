@@ -280,7 +280,10 @@
   "partner": {
     "balance": {
       "account": "Мой счет:",
-      "withdraw": "ВЫВЕСТИ СРЕДСТВА"
+      "withdraw": "ВЫВЕСТИ СРЕДСТВА",
+      "referral_count": "Число партнров",
+      "conversion": "Конверсия <br/> из регистраций в оплаты",
+      "total_earnings": "Доходность<br />за все время"
     },
     "list": {
       "title": "Мои партнеры",

@@ -280,7 +280,10 @@
   "partner": {
     "balance": {
       "account": "Benim puanım:",
-      "withdraw": "PARA ÇEKME"
+      "withdraw": "PARA ÇEKME",
+      "referral_count": "Bağlı kuruluş sayısı",
+      "conversion": "Kayıtlardan ödemelere <br/> dönüştürme",
+      "total_earnings": "Her zaman<br />kazanç"
     },
     "list": {
       "title": "ortaklarım",
