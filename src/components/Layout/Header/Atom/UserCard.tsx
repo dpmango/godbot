@@ -29,6 +29,7 @@ export const UserCard: React.FC<{}> = () => {
 
     const ID = userData?.id.toString() || '';
     const SECRET = process.env.REACT_APP_BOT_SECRET || '';
+
     var encrypted = AES.encrypt(ID, SECRET).toString();
     const startKey = encrypted
       .replace('=', '_EQ')
@@ -90,10 +91,7 @@ export const UserCard: React.FC<{}> = () => {
             <SpriteIcon name="telegram" width="16" height="16" />
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
           </a>
-          <a
-            className={cns('header__user-link', !isProUser && 'header__user-link--disabled')}
-            href={botLinkWithKey}
-            target="_blank">
+          <a className={cns('header__user-link')} href={botLinkWithKey} target="_blank">
             <SpriteIcon name="telegram" width="16" height="16" />
             {t('actions.bot')}
           </a>
