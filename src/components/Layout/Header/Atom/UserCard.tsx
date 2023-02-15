@@ -28,10 +28,10 @@ export const UserCard: React.FC<{}> = () => {
     const base = process.env.REACT_APP_BOT_HREF || 'https://t.me/godbotpro_bot?start=';
 
     const ID = userData?.id.toString() || '';
-    const SECRET = 'wearing bloke horsy clump bucko irate';
+    const SECRET = process.env.REACT_APP_BOT_SECRET || '';
     var encrypted = AES.encrypt(ID, SECRET).toString();
     const startKey = encrypted
-      .replace('=', 'EQ')
+      .replace('=', '_EQ')
       .replace('/', '_SL')
       .replace('+', '_PS')
       .replace('-', '_MN');
