@@ -16,7 +16,7 @@ import {
   DocsDisclaimer,
 } from '@c/Modal';
 import { ForecastGuide } from '@c/Charts';
-import { PromoDiscount } from '@c/Promo';
+import { PromoDiscount, PromoByBit } from '@c/Promo';
 import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
 
 interface ILayout {
@@ -44,6 +44,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('guide') !== null && <ForecastGuide />}
 
         {isDevelopmentSite && <PromoDiscount />}
+        <PromoByBit />
 
         <TeletypeWidget />
       </div>

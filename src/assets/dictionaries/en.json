@@ -175,6 +175,12 @@
       "subtitle": "Claim your reward!",
       "action": "Choose plan",
       "close": "Not interested"
+    },
+    "bybit": {
+      "title": "Get up to 30,000 USDT",
+      "subtitle": "For depositing and trading<br/>on the Bybit exchange",
+      "action": "Jump",
+      "close": "Not interested"
     }
   },
   "activated": {

@@ -175,6 +175,12 @@
       "subtitle": "Ödülünüzü hemen alın!",
       "action": "Tarife Seç",
       "close": "İlgilenmiyorum"
+    },
+    "bybit": {
+      "title": "30.000 USDT'ye kadar kazanın",
+      "subtitle": "Bybit borsasında<br/>para yatırmak ve ticaret yapmak için",
+      "action": "Atla",
+      "close": "İlgilenmiyorum"
     }
   },
   "activated": {
