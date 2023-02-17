@@ -1,4 +1,5 @@
-import { FC, useEffect, useRef, useState, useLayoutEffect, useContext } from 'react';
+import { FC, useEffect, useRef, useMemo, useState, useLayoutEffect, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   createChart,
   ColorType,
@@ -23,10 +24,26 @@ interface IInvestingChartProps {
 
 export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
   const chart = useRef<IChartApi | null>(null);
-
+  const [stats, setStats] = useState<{ min: number; max: number; length: number }>({
+    min: 0,
+    max: 0,
+    length: 0,
+  });
   const containerRef: any = useRef();
   const ctx = useContext(ThemeContext);
 
+  const { t, i18n } = useTranslation('investing');
+
+  // отображаемая статистика
+  const displayStats = useMemo(() => {
+    return [
+      { label: t('info.min'), value: `$ ${formatPrice(stats.min)}` },
+      { label: t('info.max'), value: `$ ${formatPrice(stats.max)}` },
+      { label: t('info.time'), value: stats.length },
+    ];
+  }, [i18n.language, stats]);
+
+  // Main function
   const fetchGraphAndCreate = async () => {
     const { raw: data }: Partial<{ raw: IInvestingGrafDto }> = await api(
       `get_invest_graph/${id}`,
@@ -48,6 +65,19 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
         time: timeToTz((timeUnix * 1000) as UTCTimestamp),
         value: data['trend_forecast'][key] || 0,
       };
+    });
+
+    const [minValue, maxValue] = investDataMapped.reduce(
+      (acc, cur) => {
+        return [Math.min(cur.value, acc[0]), Math.max(cur.value, acc[1])];
+      },
+      [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]
+    );
+
+    setStats({
+      min: minValue,
+      max: maxValue,
+      length: investDataMapped.length,
     });
 
     const seriesData = {
@@ -164,5 +194,17 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
     };
   }, []);
 
-  return <div data-id={id} ref={containerRef} style={{ height: 140 }} />;
+  return (
+    <>
+      <div data-id={id} ref={containerRef} style={{ height: 140 }} />
+
+      <ul className="investing__info">
+        {displayStats.map((stat, idx) => (
+          <li key={idx}>
+            {stat.label}: <strong>{stat.value}</strong>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 };

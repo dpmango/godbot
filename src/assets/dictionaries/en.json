@@ -97,7 +97,12 @@
   },
   "investing": {
     "lock": "forecast",
-    "lockPost": "for 6+ months"
+    "lockPost": "for 6+ months",
+    "info": {
+      "min": "Min price",
+      "max": "Max price",
+      "time": "Forecast time"
+    }
   },
   "signal": {
     "title": "Trading Recommendations",

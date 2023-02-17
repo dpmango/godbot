@@ -7,4 +7,5 @@ export const placeholderInvesting: IInvesting[] = [...Array(8)].map((_, idx) => 
   invest_id: idx,
   datetime: '2022-11-28T11:30:52.661Z',
   isPlaceholder: true,
+  direction: '',
 }));

@@ -5,6 +5,7 @@ export interface IInvesting {
   currency_code: string;
   datetime: string;
   isPlaceholder?: boolean;
+  direction: '' | 'SHORT' | 'LONG';
 }
 
 export interface IInvestingGrafDto {

@@ -97,7 +97,12 @@
   },
   "investing": {
     "lock": "Tahmin",
-    "lockPost": "6+ ay için"
+    "lockPost": "6+ ay için",
+    "info": {
+      "min": "minimum fiyat",
+      "max": "Maksimum fiyat",
+      "time": "Tahmin zamanı"
+    }
   },
   "signal": {
     "title": "Alım Satım Tavsiyeleri",

@@ -7,5 +7,6 @@ export { ForecastGuide } from './Forecast/ForecastGuide';
 
 export { Investing } from './Investing/Investing';
 export { InvestingChart } from './Investing/InvestingChart';
+export { InvestingCard } from './Investing/InvestingCard';
 
 import './chart.sass';

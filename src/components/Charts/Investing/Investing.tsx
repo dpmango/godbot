@@ -1,12 +1,12 @@
 import { FC, useMemo, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
 import { useProfile } from '@hooks';
 import { getInvesting } from '@store';
-import { LockScreen } from '@ui';
 
-import { InvestingChart } from '@c/Charts';
+import { InvestingCard } from '@c/Charts';
 import { placeholderInvesting } from './placeholderData';
 
 interface IInvestingProps {}
@@ -48,18 +48,7 @@ export const Investing: FC<IInvestingProps> = () => {
     <div className="investing">
       <div className="investing__grid">
         {displayGrid?.map((investing, index) => (
-          <div className="investing__block" key={index}>
-            <div className="investing__name">
-              <img src={investing.currency_icon} />
-              <strong>{investing.currency}</strong> <span>{investing.currency_code}</span>
-            </div>
-
-            {!investing.isPlaceholder ? (
-              <InvestingChart id={investing.invest_id} />
-            ) : (
-              <LockScreen section={t('lock') as string} postText={t('lockPost') as string} />
-            )}
-          </div>
+          <InvestingCard {...investing} key={index} />
         ))}
       </div>
     </div>
