@@ -281,9 +281,9 @@
     "balance": {
       "account": "My balance:",
       "withdraw": "WITHDRAWAL",
-      "referral_count": "Number of affiliates",
-      "conversion": "Conversion <br/> from registrations to payments",
-      "total_earnings": "Earning<br />for all time"
+      "referral_count": "Number of <br/>affiliates",
+      "conversion": "Conversion <br/>to payment",
+      "total_earnings": "Income<br />for all time"
     },
     "list": {
       "title": "My partners",

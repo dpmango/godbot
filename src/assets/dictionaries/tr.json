@@ -281,9 +281,9 @@
     "balance": {
       "account": "Benim puanım:",
       "withdraw": "PARA ÇEKME",
-      "referral_count": "Bağlı kuruluş sayısı",
-      "conversion": "Kayıtlardan ödemelere <br/> dönüştürme",
-      "total_earnings": "Her zaman<br />kazanç"
+      "referral_count": "Satış ortağı <br/>sayı",
+      "conversion": "Ödemeye <br/>dönüşüm",
+      "total_earnings": "Her zaman için<br />gelir"
     },
     "list": {
       "title": "ortaklarım",
