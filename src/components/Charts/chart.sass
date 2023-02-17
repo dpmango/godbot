@@ -130,14 +130,14 @@
   width: 8px
   height: 8px
   border-radius: 50%
-  background: #0F701E
+  background: #2962FF
   span
     position: absolute
     left: -8px
     top: -8px
     height: 24px
     width: 24px
-    border: 3px solid #0F701E
+    border: 3px solid #2962FF
     border-radius: 50%
     animation: pulsate 5s ease-out infinite
     transform-origin: center center
@@ -153,3 +153,20 @@
     transform: scale(1.2)
     opacity: 0
   
+
+.chart-legend-tw
+  position: absolute
+  top: 10px
+  right: 10px
+  z-index: 4
+  pointer-events: none
+  display: flex
+  flex-direction: column
+  label
+    flex: 0 0 auto
+    position: relative
+    display: flex
+    align-items: center
+    gap: 0 5px
+    font-size: 12px
+    margin-bottom: 6px

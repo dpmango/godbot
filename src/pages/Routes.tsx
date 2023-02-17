@@ -67,6 +67,7 @@ const ProtectedRoute = () => {
 
 const Router = () => {
   let location = useLocation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     window;
@@ -85,7 +86,7 @@ const Router = () => {
       <Route path="/" element={<ProtectedRoute />}>
         <Route index element={<HomePage />} />
         <Route path="partner" element={<Partner />} />
-        <Route path="education" element={<Education />} />
+        {i18n.language === 'ru-RU' && <Route path="education" element={<Education />} />}
         <Route path="faq" element={<FaqPage />} />
         <Route path="ui" element={<UiPage />} />
       </Route>

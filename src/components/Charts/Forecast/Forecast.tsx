@@ -74,7 +74,7 @@ export const Forecast: React.FC<{}> = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation('forecast');
 
-  const colors: string[] = ['#0F701E', '#0F701E', '#CD1D15', '#3DAB8E', '#966ADB'];
+  const colors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
   const paginatePer = 200;
   const viewLocked = !tariffActive;
 
@@ -640,6 +640,16 @@ export const Forecast: React.FC<{}> = () => {
                 </div>
               </>
             ))}
+          </div>
+          <div className="chart-legend-tw">
+            <label className="chart__legend-item">
+              <span className="chart__settings-line" style={{ borderColor: 'rgb(205, 29, 21)' }} />
+              Forecast
+            </label>
+            <label className="chart__legend-item">
+              <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
+              Real
+            </label>
           </div>
         </div>
       ) : (
