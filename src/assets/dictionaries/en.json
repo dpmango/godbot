@@ -47,6 +47,23 @@
       "disclaimer": "Disclaimer"
     }
   },
+  "units": {
+    "day": {
+      "one": "day",
+      "two": "days",
+      "five": "days"
+    },
+    "week": {
+      "one": "week",
+      "two": "weeks",
+      "five": "weeks"
+    },
+    "month": {
+      "one": "month",
+      "two": "months",
+      "five": "months"
+    }
+  },
   "charts": {
     "tabs": {
       "trading": "Trading",
@@ -150,23 +167,6 @@
     "gift": "gift",
     "noGift": "no gift",
     "discount": "Discount {{percent}}% until {{date}}",
-    "units": {
-      "day": {
-        "one": "day",
-        "two": "days",
-        "five": "days"
-      },
-      "week": {
-        "one": "week",
-        "two": "weeks",
-        "five": "weeks"
-      },
-      "month": {
-        "one": "month",
-        "two": "months",
-        "five": "months"
-      }
-    },
     "trial": {
       "alreadyActivated": "You have already used the trial version"
     },

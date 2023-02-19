@@ -22,6 +22,7 @@ export const TarifWindow: React.FC<{}> = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation('tariff');
+  const { t: tUnits } = useTranslation('units');
 
   const closeModal = () => {
     navigate(pathname);
@@ -31,7 +32,7 @@ export const TarifWindow: React.FC<{}> = () => {
   useClickOutside(modalRef, closeModal);
 
   const localizeUnits = ({ number, units }: IPeriodObj) => {
-    const plural = localizeKeys(number, 'units', units.toLowerCase(), t);
+    const plural = localizeKeys(number, units.toLowerCase(), tUnits);
 
     return `${number} ${plural}`;
   };

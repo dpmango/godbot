@@ -650,6 +650,10 @@ export const Forecast: React.FC<{}> = () => {
               <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
               Real
             </label>
+            <label className="chart__legend-item">
+              <span className="chart__settings-line" style={{ borderColor: '#F5840F' }} />
+              Update
+            </label>
           </div>
         </div>
       ) : (

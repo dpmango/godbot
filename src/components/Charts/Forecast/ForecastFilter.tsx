@@ -28,6 +28,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
   let [searchParams, setSearchParams] = useSearchParams();
   const { t, i18n } = useTranslation('forecast');
+  const { t: tUnits } = useTranslation('forecast', { keyPrefix: 'willUpdate' });
 
   // minutes to update
   const minutesToUpdateVerbose = useMemo(() => {
@@ -43,7 +44,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       return null;
     }
 
-    return `${displayUnit} ${localizeKeys(displayUnit, 'willUpdate', unitKey, t)}`;
+    return `${displayUnit} ${localizeKeys(displayUnit, unitKey, tUnits)}`;
   }, [minutesToUpdate, i18n.language]);
 
   // coins

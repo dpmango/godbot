@@ -23,15 +23,7 @@ export const InvestingCard: FC<ICardProps> = ({
   const { isProUser, userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
-  const { t, i18n } = useTranslation('investing', { keyPrefix: 'info' });
-
-  const stats = useMemo(() => {
-    return [
-      { label: t('min'), value: 1400 },
-      { label: t('max'), value: 1600 },
-      { label: t('time'), value: 11 },
-    ];
-  }, [i18n.language]);
+  const { t, i18n } = useTranslation('');
 
   return (
     <div className="investing__block">
@@ -51,7 +43,10 @@ export const InvestingCard: FC<ICardProps> = ({
       {!isPlaceholder ? (
         <InvestingChart id={invest_id} />
       ) : (
-        <LockScreen section={t('lock') as string} postText={t('lockPost') as string} />
+        <LockScreen
+          section={t('investing.lock') as string}
+          postText={t('investing.lockPost') as string}
+        />
       )}
     </div>
   );

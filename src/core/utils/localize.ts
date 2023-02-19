@@ -18,11 +18,6 @@ export const getPluralKey = (number: number) => {
   return Plurize(number, 'one', 'two', 'five');
 };
 
-export const localizeKeys = (number: number, base: string, unitKey: string, t: any): string => {
-  return Plurize(
-    number,
-    t(`${base}.${unitKey}.one`),
-    t(`${base}.${unitKey}.two`),
-    t(`${base}.${unitKey}.five`)
-  );
+export const localizeKeys = (number: number, unitKey: string, t: any): string => {
+  return Plurize(number, t(`${unitKey}.one`), t(`${unitKey}.two`), t(`${unitKey}.five`));
 };

@@ -29,27 +29,17 @@ export const Menu: React.FC<{}> = () => {
         <SpriteIcon name="home" width="16" height="16" />
         {t('menu.home')}
       </NavLink>
-      <NavLink
-        className={cns(
-          'header__links-link',
-          !availableLinks.partner && 'header__links-link--disabled'
-        )}
-        to="/partner">
+      <NavLink className={cns('header__links-link')} to="/partner">
         <SpriteIcon name="link" width="16" height="16" />
         {t('menu.partner')}
       </NavLink>
-      <NavLink
-        className={cns(
-          'header__links-link',
-          !availableLinks.education && 'header__links-link--disabled'
-        )}
-        to="/education">
-        <SpriteIcon name="hat" width="16" height="16" />
-        {t('menu.education')}
-      </NavLink>
-      <NavLink
-        className={cns('header__links-link', !availableLinks.faq && 'header__links-link--disabled')}
-        to="/faq">
+      {availableLinks.education && (
+        <NavLink className={cns('header__links-link')} to="/education">
+          <SpriteIcon name="hat" width="16" height="16" />
+          {t('menu.education')}
+        </NavLink>
+      )}
+      <NavLink className={cns('header__links-link')} to="/faq">
         <SpriteIcon name="info-square" width="16" height="16" />
         {t('menu.help')}
       </NavLink>

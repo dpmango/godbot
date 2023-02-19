@@ -13,7 +13,7 @@ import {
 import dayjs from 'dayjs';
 
 import { ThemeContext } from '@/App';
-import { timeToTz, formatPrice } from '@utils';
+import { timeToTz, localizeKeys, formatPrice } from '@utils';
 import { IInvestingGrafDto } from '@core/interface/Investor';
 import { api } from '@core';
 import { time } from 'console';
@@ -33,15 +33,19 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
   const ctx = useContext(ThemeContext);
 
   const { t, i18n } = useTranslation('investing');
+  const { t: tUnits } = useTranslation('units');
 
   // отображаемая статистика
   const displayStats = useMemo(() => {
+    const months = Math.round(stats.length / 30);
+    const plural = localizeKeys(months, 'month', tUnits);
+
     return [
       { label: t('info.min'), value: `$ ${formatPrice(stats.min)}` },
       { label: t('info.max'), value: `$ ${formatPrice(stats.max)}` },
-      { label: t('info.time'), value: stats.length },
+      { label: t('info.time'), value: `${months} ${plural}` },
     ];
-  }, [i18n.language, stats]);
+  }, [t, i18n.language, stats]);
 
   // Main function
   const fetchGraphAndCreate = async () => {

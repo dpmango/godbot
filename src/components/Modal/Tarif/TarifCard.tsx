@@ -17,6 +17,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
   const { userData } = useAppSelector((state) => state.userState);
 
   const { t, i18n } = useTranslation('tariff');
+  const { t: tUnits } = useTranslation('units');
 
   const descriptionList: { cross: boolean; label: string }[] = useMemo(() => {
     if (description) {
@@ -49,7 +50,7 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
   }, [description, i18n.language]);
 
   const localizeUnits = ({ number, units }: IPeriodObj) => {
-    const plural = localizeKeys(number, 'units', units.toLowerCase(), t);
+    const plural = localizeKeys(number, units.toLowerCase(), tUnits);
 
     return `${number} ${plural}`;
   };

@@ -47,6 +47,23 @@
       "disclaimer": "Sorumluluk reddi"
     }
   },
+  "units": {
+    "day": {
+      "one": "gün",
+      "two": "gün",
+      "five": "gün"
+    },
+    "week": {
+      "one": "hafta",
+      "two": "hafta",
+      "five": "hafta"
+    },
+    "month": {
+      "one": "ay",
+      "two": "ay",
+      "five": "ay"
+    }
+  },
   "charts": {
     "tabs": {
       "trading": "Alım Satım",
@@ -150,23 +167,6 @@
     "gift": "Hediye olarak",
     "noGift": "Hediye yok",
     "discount": "{{date}} tarihine kadar %{{percent}} indirimli",
-    "units": {
-      "day": {
-        "one": "gün",
-        "two": "gün",
-        "five": "gün"
-      },
-      "week": {
-        "one": "hafta",
-        "two": "hafta",
-        "five": "hafta"
-      },
-      "month": {
-        "one": "ay",
-        "two": "ay",
-        "five": "ay"
-      }
-    },
     "trial": {
       "alreadyActivated": "Deneme sürümünü zaten kullandınız"
     },
