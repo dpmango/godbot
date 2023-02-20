@@ -23,7 +23,7 @@ export const InvestingCard: FC<ICardProps> = ({
   const { isProUser, userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
-  const { t, i18n } = useTranslation('');
+  const { t, i18n } = useTranslation('investing');
 
   return (
     <div className="investing__block">
@@ -43,10 +43,7 @@ export const InvestingCard: FC<ICardProps> = ({
       {!isPlaceholder ? (
         <InvestingChart id={invest_id} />
       ) : (
-        <LockScreen
-          section={t('investing.lock') as string}
-          postText={t('investing.lockPost') as string}
-        />
+        <LockScreen section={t('lock') as string} postText={t('lockPost') as string} />
       )}
     </div>
   );
