@@ -43,13 +43,15 @@ export const PromoByBit = () => {
   if (!visible) return null;
 
   return (
-    <div className="countdown" style={{ backgroundImage: 'url("img/countdown/bg-green.png")' }}>
+    <div
+      className="wide-notification"
+      style={{ backgroundImage: 'url("img/countdown/bg-green.png")' }}>
       <div
-        className="countdown__image countdown__image--gift"
+        className="wide-notification__image wide-notification__image--gift"
         style={{ backgroundImage: 'url("img/countdown/gift.png")' }}
       />
-      <div className="countdown__text countdown__text--gift">
-        <div className="countdown__big">
+      <div className="wide-notification__text wide-notification__text--gift">
+        <div className="wide-notification__big">
           <Trans t={t} i18nKey={'title'} />
         </div>
         <div>
@@ -64,7 +66,7 @@ export const PromoByBit = () => {
       </div>
       <Countdown toDate={userData?.expire_date} />
 
-      <div className="countdown__close" onClick={closePromo}>
+      <div className="wide-notification__close" onClick={closePromo}>
         {t('close')}
       </div>
     </div>
