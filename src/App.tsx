@@ -21,7 +21,7 @@ function App() {
   const { fetchProfileWithLogout, setUserSettings } = useProfile();
 
   if (!localStorageGet('theme')) {
-    localStorageSet('theme', false);
+    localStorageSet('theme', true);
   }
   const [theme, changeTheme] = useState<boolean>(localStorageGet('theme'));
 
