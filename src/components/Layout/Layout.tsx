@@ -43,7 +43,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
         {searchParams.get('guide') !== null && <ForecastGuide />}
 
-        {isDevelopmentSite && <PromoDiscount />}
+        {/* {isDevelopmentSite && <PromoDiscount />} */}
         <PromoByBit />
 
         <TeletypeWidget />

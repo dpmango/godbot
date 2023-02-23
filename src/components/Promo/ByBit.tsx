@@ -24,15 +24,17 @@ export const PromoByBit = () => {
   useEffect(() => {
     const shownCookie = Cookies.get('shownByBit');
 
-    const expDate = dayjs(userData?.expire_date).unix();
-    const timeLeft = timeDiff(expDate * 1000);
-    const oneDayInSeconds = 24 * 60 * 60;
+    if (userData?.tariff === 'Trial') {
+      const expDate = dayjs(userData?.expire_date).unix();
+      const timeLeft = timeDiff(expDate * 1000);
+      const oneDayInSeconds = 24 * 60 * 60;
 
-    const isDiscountActive = timeLeft;
-    // todo переделать subscription date <= oneDayInSseconds
+      const isDiscountActive = timeLeft;
+      // todo переделать subscription date <= oneDayInSseconds
 
-    if (isDiscountActive && !shownCookie) {
-      setVisible(true);
+      if (isDiscountActive && !shownCookie) {
+        setVisible(true);
+      }
     }
 
     // if (shownCookie) {
