@@ -128,8 +128,8 @@
       "placeholder": "Deal status"
     },
     "status": {
-      "active": "Active",
-      "waiting": "Pending",
+      "active": "We purchased",
+      "waiting": "Suggested",
       "cancel": "Canceled",
       "profit": "Closed with profit",
       "loss": "Closed by stop",

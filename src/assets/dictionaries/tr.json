@@ -128,12 +128,12 @@
       "placeholder": "İşlem durumu"
     },
     "status": {
-      "active": "Aktif",
-      "waiting": "Bekleniyor",
+      "active": "Konumdayız",
+      "waiting": "Konuma girebilirsiniz",
       "cancel": "İptal edildi",
       "profit": "Gelirli tamamlandı",
       "loss": "Kayıplı tamamlandı",
-      "breakeven": "başabaşta kapalı"
+      "breakeven": "Kayıpsız tamamlandı"
     },
     "table": {
       "date": "Sinyal Tarihi",
@@ -182,8 +182,8 @@
       "close": "İlgilenmiyorum"
     },
     "bybit": {
-      "title": "30.000 USDT'ye kadar kazanın",
-      "subtitle": "Bybit borsasında<br/>para yatırmak ve ticaret yapmak için",
+      "title": "30k USDT'ye kadar kazanın",
+      "subtitle": "Bybit borsasında<br/> para yatırıp ticaret yaptığınız için",
       "action": "Atla",
       "close": "İlgilenmiyorum"
     }
