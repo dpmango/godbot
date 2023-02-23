@@ -27,10 +27,10 @@ export const UserCard: React.FC<{}> = () => {
   const botLinkWithKey = useMemo(() => {
     const base = process.env.REACT_APP_BOT_HREF || 'https://t.me/godbotpro_bot?start=';
 
-    const ID = userData?.id.toString() || '';
+    const ID = userData?.id || '';
     const SECRET = process.env.REACT_APP_BOT_SECRET || '';
 
-    var encrypted = AES.encrypt(ID, SECRET).toString();
+    var encrypted = AES.encrypt(ID.toString(), SECRET).toString();
     const startKey = encrypted
       .replace('=', '_EQ')
       .replace('/', '_SL')
