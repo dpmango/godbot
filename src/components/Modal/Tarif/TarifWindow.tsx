@@ -11,12 +11,16 @@ import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modal';
 import { Toast } from '@ui';
-import { IPlan, ITarifDto } from '@interface/Tarif';
+import { IPlan, ITarifDto, ITarifMetaData } from '@interface/Tarif';
 
 // import './tarifes.sass';
 
 export const TarifWindow: React.FC<{}> = () => {
   const [data, setData] = useState<ITarifDto[]>([]);
+  const [metaData, setMetaData] = useState<ITarifMetaData>({
+    pro_free_space: 0,
+    is_wanting_pro: false,
+  });
   const [activePeriodIdx, setActivePeriod] = useState<number>(0);
 
   const { pathname } = useLocation();
@@ -55,7 +59,7 @@ export const TarifWindow: React.FC<{}> = () => {
   }, [data, i18n.language]);
 
   const getTarifs = async () => {
-    const { data, error } = await api('get_tariffs/', {
+    const { data, metadata, error } = await api('get_tariffs/', {
       // params: {
       //   language: 'ru' || i18n.language,
       // },
@@ -74,6 +78,13 @@ export const TarifWindow: React.FC<{}> = () => {
     }));
 
     setData(updateData);
+
+    const { data: countData } = await api('get_pro_traders_count/', {});
+
+    setMetaData({
+      ...metadata,
+      pro_free_space: +countData.available_count || 0,
+    });
   };
 
   useEffect(() => {
@@ -108,7 +119,12 @@ export const TarifWindow: React.FC<{}> = () => {
           </div>
           <div className="tarifes__grid">
             {data.map((tarif, idx) => (
-              <TarifCard {...tarif} key={idx} activePeriodIdx={activePeriodIdx} />
+              <TarifCard
+                {...tarif}
+                key={idx}
+                activePeriodIdx={activePeriodIdx}
+                metaData={metaData}
+              />
             ))}
           </div>
           <div className="modal__close" onClick={closeModal}></div>

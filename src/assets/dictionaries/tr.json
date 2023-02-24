@@ -164,9 +164,18 @@
     "pay": "Öde",
     "prolong": "Tarife Yenile",
     "upgrade": "Tarife Geliştir",
+    "queue": "Bir kuyruğa katıl",
+    "queued": "Sıraya alındınız",
     "gift": "Hediye olarak",
     "noGift": "Hediye yok",
     "discount": "{{date}} tarihine kadar %{{percent}} indirimli",
+    "willOpen": "Satış açılacak",
+    "placesFree": "Kalan",
+    "places": {
+      "one": "yer",
+      "two": "yer",
+      "five": "yer"
+    },
     "trial": {
       "alreadyActivated": "Deneme sürümünü zaten kullandınız"
     },

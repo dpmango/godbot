@@ -3,6 +3,11 @@ export interface ITarifDto {
   description: string;
   plans: IPlan[];
   available: boolean;
+  active_days?: {
+    start: string;
+    end: string;
+  };
+  addition_days: number;
 }
 
 export interface IPlan {
@@ -20,4 +25,9 @@ export interface IPeriod {
 export interface IPeriodObj {
   number: number;
   units: string;
+}
+
+export interface ITarifMetaData {
+  pro_free_space: number;
+  is_wanting_pro: boolean;
 }

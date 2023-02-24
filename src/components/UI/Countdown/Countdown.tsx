@@ -35,8 +35,7 @@ export const Countdown: FC<ICountdownProps> = ({ toDate }) => {
     let seconds = '00';
 
     if (secondsLeft) {
-      // var days = Math.floor(secondsLeft / (60 * 60 * 24));
-      const hoursInt = Math.floor((secondsLeft % (60 * 60 * 24)) / (60 * 60));
+      const hoursInt = Math.floor(secondsLeft / (60 * 60));
       const minutesInt = Math.floor((secondsLeft % (60 * 60)) / 60);
       const secondsInt = Math.floor(secondsLeft % 60);
 

@@ -7,13 +7,21 @@ import ym from 'react-yandex-metrika';
 import { Toast } from '@ui';
 import { formatPrice, localizeKeys, openExternalLink, reachGoal, clearString } from '@utils';
 import { api, useAppSelector } from '@core';
-import { ITarifDto, IPeriodObj } from '@interface/Tarif';
+import { ITarifDto, IPeriodObj, ITarifMetaData } from '@interface/Tarif';
 
 interface ITarifCard extends ITarifDto {
   activePeriodIdx: number;
+  metaData: ITarifMetaData;
 }
 
-export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, activePeriodIdx }) => {
+export const TarifCard: React.FC<ITarifCard> = ({
+  title,
+  description,
+  plans,
+  active_days,
+  activePeriodIdx,
+  metaData,
+}) => {
   const { userData } = useAppSelector((state) => state.userState);
 
   const { t, i18n } = useTranslation('tariff');
@@ -93,6 +101,35 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
     };
   }, [activePeriodIdx, plans]);
 
+  // когда откроются продажи
+  // число - выдает количество свободных мест
+  // строка - дата когда будет следующая продажа
+  const nextSaleData = useMemo(() => {
+    if (title === 'PRO Trader') {
+      const now = new Date();
+      const curDayInMonth = now.getDate();
+      let nextDayForStart = null;
+
+      let startSales = active_days?.start ? +active_days?.start : 0;
+      let endSales = active_days?.end ? +active_days?.end : 0;
+
+      if (curDayInMonth >= startSales && curDayInMonth <= endSales) {
+        return metaData.pro_free_space;
+      }
+
+      const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, startSales || 1);
+      return nextMonth.toLocaleString('default', { day: 'numeric', month: 'numeric' });
+    }
+
+    return false;
+  }, [metaData, active_days, metaData]);
+
+  const localizePlaceUnits = (number: number) => {
+    const plural = localizeKeys(number, 'places', t);
+
+    return `${number} ${plural}`;
+  };
+
   const buttonData = useMemo(() => {
     let translationKey = 'pay';
 
@@ -110,10 +147,19 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
       }
     }
 
+    // Определение встать в очередь
+    if (title === 'PRO Trader' && userData?.tariff !== 'PRO Trader') {
+      if (metaData.is_wanting_pro) {
+        translationKey = 'queued';
+      } else if (typeof nextSaleData !== 'number') {
+        translationKey = 'queue';
+      }
+    }
+
     return {
       trans: translationKey,
     };
-  }, [userData?.tariff, title]);
+  }, [userData?.tariff, title, metaData, nextSaleData]);
 
   const handleActivate = useCallback(async () => {
     const { data, error } = await api('activate_tariff/', {
@@ -149,9 +195,35 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
     openExternalLink(data.url);
   }, [currentPlan]);
 
+  const handleQueue = useCallback(async () => {
+    const { data, error } = await api('stand_in_queue_to_tariff_pro/', {
+      method: 'POST',
+      body: {
+        wants_pro: true,
+      },
+    });
+  }, [metaData]);
+
   return (
     <div className="tarifes__block">
       {/* <div className="tarifes__gift">{t('discount', currentPlan?.discount)}</div> */}
+
+      {nextSaleData && (
+        <div className="tarifes__gift">
+          <div className="tarifes__gift-free" style={{ backgroundColor: 'rgba(202, 57, 12, 0.7)' }}>
+            {typeof nextSaleData === 'number' && (
+              <>
+                {t('placesFree')} {localizePlaceUnits(nextSaleData)}
+              </>
+            )}
+            {typeof nextSaleData === 'string' && (
+              <>
+                {t('willOpen')} {nextSaleData}
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="tarifes__name">{title}</div>
       {currentPlan && (
@@ -166,8 +238,11 @@ export const TarifCard: React.FC<ITarifCard> = ({ title, description, plans, act
             </span>
           </div>
           <a
-            className={cns('btn btn--tarifes', !currentPlan.available && 'btn--disabled')}
-            onClick={handleActivate}>
+            className={cns(
+              'btn btn--tarifes',
+              !currentPlan.available && buttonData.trans !== 'queue' && 'btn--disabled'
+            )}
+            onClick={buttonData.trans === 'queue' ? handleQueue : handleActivate}>
             {t(buttonData.trans)}
           </a>
         </>

@@ -164,9 +164,18 @@
     "pay": "Pay",
     "prolong": "Renew plan",
     "upgrade": "Upgrade your plan",
+    "queue": "Join a queue",
+    "queued": "You are queued",
     "gift": "gift",
     "noGift": "no gift",
     "discount": "Discount {{percent}}% until {{date}}",
+    "willOpen": "Sales will open",
+    "placesFree": "Remaining",
+    "places": {
+      "one": "place",
+      "two": "places",
+      "five": "places"
+    },
     "trial": {
       "alreadyActivated": "You have already used the trial version"
     },
