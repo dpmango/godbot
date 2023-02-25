@@ -26,11 +26,11 @@ export const ModalInfo: React.FC<IModalInfoProps> = ({ name }) => {
   // установка цели в зависимости от оплаченного тарифа (pro, trader)
   useEffect(() => {
     if (name === 'paymentAwait') {
-      if (searchParams.get('success') === 'protrader') {
-        reachGoal('complete_order_pro', 'Оплачен Pro Trader');
-      } else {
-        reachGoal('lk_complete_order', 'Оплачен Trader');
-      }
+      // if (searchParams.get('success') === 'protrader') {
+      //   reachGoal('complete_order_pro', 'Оплачен Pro Trader');
+      // } else {
+      //   reachGoal('lk_complete_order', 'Оплачен Trader');
+      // }
     }
   }, [name, searchParams]);
 

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useProfile } from '@hooks';
 import { Toast } from '@ui';
+import { reachGoal } from '@/core/utils';
 
 import { HomePage } from '@/pages/Home.page';
 import { Authorization } from '@/pages/Authorization.page';
@@ -54,6 +55,11 @@ const ProtectedRoute = () => {
     // вызывается только если тариф поменялся при последующих запросах
     if (accessToken && userTariff && intervalRun > 1) {
       Toast('success', t('activated.success', { tariff: userTariff }), { autoClose: false });
+      if (userTariff === 'PRO Trader') {
+        reachGoal('complete_order_pro', 'Оплачен Pro Trader');
+      } else if (userTariff === 'Trader') {
+        reachGoal('lk_complete_order', 'Оплачен Trader');
+      }
     }
   }, [userTariff]);
 
