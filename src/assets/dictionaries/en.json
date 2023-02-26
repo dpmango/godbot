@@ -35,7 +35,7 @@
     "actions": {
       "changeTariff": "Plan settings",
       "chooseTariff": "Choose your plan",
-      "connectBot": "Link Telegram bot",
+      "connectBot": "Activate Telegram bot",
       "payedChat": "Go to Telegram chat",
       "bot": "Go to Telegram bot",
       "tutorial": "Site tutorial"

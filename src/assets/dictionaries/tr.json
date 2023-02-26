@@ -35,7 +35,7 @@
     "actions": {
       "changeTariff": "Tarifeyi değiştir",
       "chooseTariff": "Bir plan seç",
-      "connectBot": "Telegram botunu bağla",
+      "connectBot": "Telegram botunu etkinleştir",
       "payedChat": "Telegram sohbetine git",
       "bot": "Telegram botuna git",
       "tutorial": "Site eğitimi"

@@ -35,7 +35,7 @@
     "actions": {
       "changeTariff": "Сменить тариф",
       "chooseTariff": "Выбрать тариф",
-      "connectBot": "Привязать Telegram-бота",
+      "connectBot": "Активировать Telegram-бота",
       "payedChat": "Перейти в Telegram-чат",
       "bot": "Перейти в Telegram-бот",
       "tutorial": "Туториал по сайту"
