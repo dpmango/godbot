@@ -221,7 +221,7 @@ export const Forecast: React.FC<{}> = () => {
         leftPriceScale: {
           visible: true,
           borderVisible: false,
-          scaleMargins: { bottom: 0.1, top: 0.2 },
+          // scaleMargins: { bottom: 0.1, top: 0.2 },
         },
         rightPriceScale: {
           visible: false,
@@ -374,9 +374,16 @@ export const Forecast: React.FC<{}> = () => {
         const dateStr = formatUnixDate(param.time as UTCTimestamp);
         let pricesHtml = '';
         newChartLines.forEach((ser, idx) => {
-          let price = param.seriesPrices.get(ser.instance);
-          if (typeof price === 'object') {
-            price = price.close;
+          let priceInstance = param.seriesData.get(ser.instance) as {
+            value: number;
+            time: number;
+            close?: number;
+          };
+          if (!priceInstance) return;
+
+          let price = priceInstance.value;
+          if (priceInstance.close) {
+            price = priceInstance.close;
           }
 
           if (!price) return;
@@ -388,20 +395,21 @@ export const Forecast: React.FC<{}> = () => {
           } else if (seriesData.id === 'RealLine') {
             displayName = 'Real';
           }
-
+          // @ts-ignore
           pricesHtml += `
             <div class="chart-info__pricedata">
               <i style="background: ${colors[idx]}"></i> 
-              <p>${displayName}:</p>&nbsp;${formatPrice(price as number)}
+              <p>${displayName}:</p>&nbsp;${formatPrice(price)}
             </div>`;
         });
 
         let markersHtml = '';
 
         // show markers data
-        if (param.hoveredMarkerId) {
-          if (param.hoveredMarkerId.includes('update')) {
-            const dateStamp = formatUnixDate(+param.hoveredMarkerId.split('-')[1] as UTCTimestamp);
+        const markerHovered = param.hoveredObjectId as string;
+        if (markerHovered) {
+          if (markerHovered.includes('update')) {
+            const dateStamp = formatUnixDate(+markerHovered.split('-')[1] as UTCTimestamp);
 
             markersHtml += `<div class="chart-info__marker">
               <i style="background: #f68410"></i> 
@@ -484,6 +492,11 @@ export const Forecast: React.FC<{}> = () => {
       pulseRef.current.style.display = 'none';
     }
   }, [dataSeries, chartLines, scrollRange, crosshair]);
+
+  // вернуться к текущему времени
+  const handleReturnToLive = useCallback(() => {
+    chart.current?.timeScale().scrollToRealTime();
+  }, []);
 
   // работа с цветовой темой
   const changeTheme = useCallback(() => {
@@ -654,6 +667,9 @@ export const Forecast: React.FC<{}> = () => {
               <span className="chart__settings-circle" style={{ backgroundColor: '#F5840F' }} />
               Update
             </label>
+          </div>
+          <div className="chart-return" onClick={handleReturnToLive}>
+            <span>&gt;&gt;</span>
           </div>
         </div>
       ) : (

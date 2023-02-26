@@ -101,7 +101,7 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
         leftPriceScale: {
           visible: true,
           borderVisible: false,
-          scaleMargins: { bottom: 0.1, top: 0.2 },
+          // scaleMargins: { bottom: 0.1, top: 0.2 },
         },
         rightPriceScale: {
           visible: false,
