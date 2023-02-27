@@ -51,6 +51,7 @@ export const Forecast: React.FC<{}> = () => {
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
   const [scrollRange, setScrollRange] = useState<LogicalRange>();
   const [crosshair, setCrosshair] = useState<MouseEventParams | null>(null);
+  const [returnVisible, setReturnVisible] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
 
   // стор
@@ -607,6 +608,9 @@ export const Forecast: React.FC<{}> = () => {
     if (debouncedRange && debouncedRange.from < 0) {
       requestPagination(debouncedRange);
     }
+    if (debouncedRange && debouncedRange.to) {
+      setReturnVisible(debouncedRange.to < 199);
+    }
   }, [debouncedRange]);
 
   // обновление данных
@@ -668,7 +672,9 @@ export const Forecast: React.FC<{}> = () => {
               Update
             </label>
           </div>
-          <div className="chart-return" onClick={handleReturnToLive}>
+          <div
+            className={cns('chart-return', returnVisible && '_visible')}
+            onClick={handleReturnToLive}>
             <span>&gt;&gt;</span>
           </div>
         </div>
