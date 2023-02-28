@@ -124,6 +124,7 @@ export const TarifWindow: React.FC<{}> = () => {
                 key={idx}
                 activePeriodIdx={activePeriodIdx}
                 metaData={metaData}
+                onRequestUpdate={getTarifs}
               />
             ))}
           </div>

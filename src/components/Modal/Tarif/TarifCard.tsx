@@ -12,6 +12,7 @@ import { ITarifDto, IPeriodObj, ITarifMetaData } from '@interface/Tarif';
 interface ITarifCard extends ITarifDto {
   activePeriodIdx: number;
   metaData: ITarifMetaData;
+  onRequestUpdate: () => void;
 }
 
 export const TarifCard: React.FC<ITarifCard> = ({
@@ -21,6 +22,7 @@ export const TarifCard: React.FC<ITarifCard> = ({
   active_days,
   activePeriodIdx,
   metaData,
+  onRequestUpdate,
 }) => {
   const { userData } = useAppSelector((state) => state.userState);
 
@@ -202,7 +204,11 @@ export const TarifCard: React.FC<ITarifCard> = ({
         wants_pro: true,
       },
     });
-  }, [metaData]);
+
+    if (!error) {
+      onRequestUpdate && onRequestUpdate();
+    }
+  }, [metaData, onRequestUpdate]);
 
   return (
     <div className="tarifes__block">
