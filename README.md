@@ -22,7 +22,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ```
 REACT_APP_API_URL=/api/
-REACT_APP_API_PROXY=https://dev.godbot.pro/
+REACT_APP_API_PROXY=https://app.devgodbot.ru/
 ```
 
 ## Available Scripts

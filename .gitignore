@@ -24,3 +24,5 @@ yarn-error.log*
 /public/robots.txt
 .zip
 .rar
+.idea
+.env

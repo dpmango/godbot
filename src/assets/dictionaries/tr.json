@@ -118,7 +118,7 @@
     "info": {
       "min": "minimum fiyat",
       "max": "Maksimum fiyat",
-      "time": "Tahmin zamanı"
+      "time": "Uzunluk"
     }
   },
   "signal": {

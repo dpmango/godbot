@@ -118,7 +118,7 @@
     "info": {
       "min": "Min price",
       "max": "Max price",
-      "time": "Forecast time"
+      "time": "Length"
     }
   },
   "signal": {
