@@ -675,7 +675,7 @@ export const Forecast: React.FC<{}> = () => {
           <div
             className={cns('chart-return', returnVisible && '_visible')}
             onClick={handleReturnToLive}>
-            <span>&gt;&gt;</span>
+            <img src="/img/next-tw.svg" alt="" />
           </div>
         </div>
       ) : (
