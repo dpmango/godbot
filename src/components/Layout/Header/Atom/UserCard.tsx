@@ -81,9 +81,6 @@ export const UserCard: React.FC<{}> = () => {
             <SpriteIcon name="refresh" width="16" height="16" />
             {t(tariffActive ? 'actions.changeTariff' : 'actions.chooseTariff')}
           </Link>
-          {/* <a className="header__user-link header__user-link--disabled" href="#">
-            {t('actions.connectBot')}
-          </a> */}
           <a
             className={cns('header__user-link', !isProUser && 'header__user-link--disabled')}
             href={isProUser ? 'https://t.me/+fQvg8JT7oUVhZDZi' : ''}
@@ -92,8 +89,8 @@ export const UserCard: React.FC<{}> = () => {
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
           </a>
           <a className={cns('header__user-link')} href={botLinkWithKey} target="_blank">
-            <SpriteIcon name="telegram" width="16" height="16" />
-            {t('actions.bot')}
+            <SpriteIcon name="bot" width="16" height="16" />
+            {t('actions.connectBot')}
           </a>
           <Link to={'/?tutorial'} className={cns('header__user-link')}>
             <SpriteIcon name="info-circle" width="16" height="16" />
