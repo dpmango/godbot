@@ -120,12 +120,12 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal, calculator }) => {
       </td>
       <td className="recommend__table-center recommend__table-nowrap">
         {signal.entry_price_range.map((item, idx) => (
-          <div key={idx}>${item}</div>
+          <div key={idx}>{item}</div>
         ))}
       </td>
       <td className="recommend__table-price recommend__table-center recommend__table-nowrap">
         {signal.get_exit_range.map((item, idx) => (
-          <div key={idx}>${item}</div>
+          <div key={idx}>{item}</div>
         ))}
       </td>
       <td className="recommend__table-stop recommend__table-center recommend__table-nowrap">
