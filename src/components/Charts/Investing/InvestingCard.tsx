@@ -30,14 +30,16 @@ export const InvestingCard: FC<ICardProps> = ({
       <div className="investing__name">
         <img src={currency_icon} />
         <strong>{currency}</strong> <span>{currency_code}</span>
-        <div
-          className={cns(
-            'investing__name-type',
-            direction === 'LONG' && 'investing__name-type--green',
-            direction === 'SHORT' && 'investing__name-type--red'
-          )}>
-          {direction || 'NEUTRAL'}
-        </div>
+        {direction && (
+          <div
+            className={cns(
+              'investing__name-type',
+              direction === 'LONG' && 'investing__name-type--green',
+              direction === 'SHORT' && 'investing__name-type--red'
+            )}>
+            {direction}
+          </div>
+        )}
       </div>
 
       {!isPlaceholder ? (

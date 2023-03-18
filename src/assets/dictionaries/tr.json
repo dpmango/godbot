@@ -114,7 +114,7 @@
   },
   "investing": {
     "lock": "Tahmin",
-    "lockPost": "6+ ay için",
+    "lockPost": "≥6 ay için",
     "info": {
       "min": "minimum fiyat",
       "max": "Maksimum fiyat",
@@ -230,7 +230,7 @@
       },
       "upgrade": {
         "text": "{{section}} bölümünün gösterilmesi için PRO tarifesini bağlamanız gerekiyor",
-        "action": "PRO BAĞLA"
+        "action": "TARIFEYI BAĞLA"
       },
       "prolong": {
         "text": "{{section}} bölümünün gösterilmesi için tarifeyi yenilemeniz gerekiyor",
@@ -239,6 +239,10 @@
       "trial": {
         "text": "{{section}} bölümünün gösterilmesi için tarifeyi etkinleştirmeniz gerekiyor",
         "action": "ÜCRETSİZ DENEYİN"
+      },
+      "proOneMonth": {
+        "text": "{{section}} bölümünün gösterilmesi için PRO tarifesini bağlamanız gerekiyor",
+        "action": "TARIFEYI UZAT"
       }
     },
     "modal": {

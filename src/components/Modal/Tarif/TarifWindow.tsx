@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,7 @@ import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modal';
 import { Toast } from '@ui';
 import { IPlan, ITarifDto, ITarifMetaData } from '@interface/Tarif';
+import { useAppSelector } from '@core';
 
 // import './tarifes.sass';
 
@@ -21,7 +22,24 @@ export const TarifWindow: React.FC<{}> = () => {
     pro_free_space: 0,
     is_wanting_pro: false,
   });
-  const [activePeriodIdx, setActivePeriod] = useState<number>(0);
+  const { isProUser, userData } = useAppSelector((state) => state.userState);
+
+  const getDefaultTabIdx = useCallback(() => {
+    const isProUserOneMonth = isProUser && userData?.access_level === 2;
+
+    // For ProUsers oneMonth: open tariffs with 6+ months
+    if (isProUserOneMonth) {
+      return 1;
+    }
+    // For not ProUsers: open tariffs with 6+ months
+    if (!isProUser) {
+      return 1;
+    }
+
+    return 0;
+  }, [isProUser, userData?.access_level]);
+
+  const [activePeriodIdx, setActivePeriod] = useState<number>(getDefaultTabIdx());
 
   const { pathname } = useLocation();
   const navigate = useNavigate();

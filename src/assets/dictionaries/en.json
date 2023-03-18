@@ -114,7 +114,7 @@
   },
   "investing": {
     "lock": "forecast",
-    "lockPost": "for 6+ months",
+    "lockPost": "for ≥6 months",
     "info": {
       "min": "Min price",
       "max": "Max price",
@@ -230,7 +230,7 @@
       },
       "upgrade": {
         "text": "To display {{section}} you need to purchase the PRO Plan",
-        "action": "ACTIVATE PRO"
+        "action": "CONNECT TARIFF"
       },
       "prolong": {
         "text": "To display {{section}} you need to extend your plan",
@@ -239,6 +239,10 @@
       "trial": {
         "text": "To display {{section}} you need to activate the plan",
         "action": "TRY FOR FREE"
+      },
+      "proOneMonth": {
+        "text": "To display {{section}} you need to purchase the PRO Plan",
+       "action": "EXTEND TARIFF"
       }
     },
     "modal": {
