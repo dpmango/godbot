@@ -28,6 +28,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postTe
       prolong: !tariffActive && ['Trader', 'PRO Trader'].includes(userData?.tariff || ''),
       activate: !tariffActive,
       upgrade: !isProUser,
+      isProUserOneMonth: isProUser && userData?.access_level === 2,
     };
   }, [userData?.tariff, tariffActive]);
 
@@ -40,6 +41,8 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postTe
       return 'activate';
     } else if (action.upgrade) {
       return 'upgrade';
+    } else if (action.isProUserOneMonth) {
+      return 'proOneMonth';
     }
 
     return 'trial';
@@ -48,6 +51,22 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postTe
   const handleTrialClick = useCallback(() => {
     activateTrial();
   }, []);
+
+  const getButton = useCallback(() => {
+    if (translationKey === 'trial') {
+      return (
+        <a href="#" className="btn" onClick={handleTrialClick}>
+          {t(`${translationKey}.action`, { section })}
+        </a>
+      );
+    }
+
+    return (
+      <Link className="btn" to="?tariffs">
+        {t(`${translationKey}.action`, { section })}
+      </Link>
+    );
+  }, [translationKey, action.isProUserOneMonth]);
 
   // проверка по userData - чтобы не было отображения замков при прогрузке сайтов.
   // В будующем заменить на скелетон или лоадер
@@ -60,15 +79,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postTe
             {t(`${translationKey}.text`, { section })} {postText && <>{postText}</>}
           </div>
 
-          {translationKey === 'trial' ? (
-            <a href="#" className="btn" onClick={handleTrialClick}>
-              {t(`${translationKey}.action`, { section })}
-            </a>
-          ) : (
-            <Link className="btn" to="?tariffs">
-              {t(`${translationKey}.action`, { section })}
-            </Link>
-          )}
+          {getButton()}
         </div>
       )}
     </div>
