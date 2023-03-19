@@ -222,7 +222,7 @@ export const Forecast: React.FC<{}> = () => {
         leftPriceScale: {
           visible: true,
           borderVisible: false,
-          // scaleMargins: { bottom: 0.1, top: 0.2 },
+          scaleMargins: { bottom: 0, top: 0 },
         },
         rightPriceScale: {
           visible: false,
@@ -399,7 +399,7 @@ export const Forecast: React.FC<{}> = () => {
           // @ts-ignore
           pricesHtml += `
             <div class="chart-info__pricedata">
-              <i style="background: ${colors[idx]}"></i> 
+              <i style="background: ${colors[idx]}"></i>
               <p>${displayName}:</p>&nbsp;${formatPrice(price)}
             </div>`;
         });
@@ -413,7 +413,7 @@ export const Forecast: React.FC<{}> = () => {
             const dateStamp = formatUnixDate(+markerHovered.split('-')[1] as UTCTimestamp);
 
             markersHtml += `<div class="chart-info__marker">
-              <i style="background: #f68410"></i> 
+              <i style="background: #f68410"></i>
               <span>${t('marker.changes')} ${dateStamp}</span>
             </div>`;
           }
@@ -484,7 +484,7 @@ export const Forecast: React.FC<{}> = () => {
       if (visible && y && x) {
         pulseRef.current.style.display = 'block';
         pulseRef.current.style.top = y - 4 + 'px';
-        pulseRef.current.style.left = x + 54 - 4 + 'px';
+        pulseRef.current.style.left = x + 54 + 'px';
         return;
       }
     }
