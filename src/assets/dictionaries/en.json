@@ -110,7 +110,11 @@
       },
       "soon": "Forecast will update soon"
     },
-    "lock": "neural network graphics"
+    "lock": "neural network graphics",
+    "forecastOutdated": {
+      "text": "The forecast will be updated soon.<br> AI decided to have a cup of tea!",
+      "action": "Close"
+    }
   },
   "investing": {
     "lock": "forecast",

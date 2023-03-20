@@ -24,17 +24,17 @@
     display: flex
     flex-direction: column
     padding: 8px 8px 32px
-  
+
 
   &__label
     display: block
     font-weight: 600
     font-size: 12px
-  
+
 
   &__prices
     margin-top: 12px
-  
+
 
   &__pricedata
     display: flex
@@ -45,7 +45,7 @@
 
     &:not(:last-child)
       margin-bottom: 5px
-    
+
 
     i
       flex: 0 0 auto
@@ -53,18 +53,18 @@
       height: 8px
       border-radius: 50%
       margin-right: 4px
-    
+
 
     p
       // flex: 0 0 calc(100% - 12px)
       font-size: 11px
       font-weight: 400
-    
-  
+
+
 
   &__markers
     margin-top: auto
-  
+
 
   &__marker
     font-size: 12px
@@ -81,15 +81,15 @@
       height: 12px
       border-radius: 50%
       margin-bottom: 4px
-    
-  
+
+
 
 
 .mainwrap.themeDark
   .chart-info
     color: white
     background: rgba(black, 0.2)
-  
+
 
 
 .chart-watermark
@@ -114,8 +114,8 @@
       opacity: 0.15
       svg
         fill: #262628 !important
-      
-    
+
+
 .mainwrap.themeDark
   .chart-watermark
     &__col
@@ -169,12 +169,12 @@
   0%
     transform: scale(0.1)
     opacity: 0
-  10% 
+  10%
     opacity: 1
   20%, 100%
     transform: scale(1.2)
     opacity: 0
-  
+
 
 .chart-legend-tw
   position: absolute
@@ -191,4 +191,10 @@
     align-items: center
     gap: 0 5px
     font-size: 12px
-    margin-bottom: 6px
+    margin-bottom: 6px 2 1
+
+.chart-popup
+  border-radius: 10px !important
+
+  svg
+    fill: var(--text)

@@ -110,7 +110,11 @@
       },
       "soon": "Tahmin yakında güncellenecek"
     },
-    "lock": "Sinir ağı grafikleri"
+    "lock": "Sinir ağı grafikleri",
+    "forecastOutdated": {
+      "text": "Tahmin yakında güncellenecektir.<br> AI bir fincan çay içmeye karar verdi!",
+      "action": "Kapalı"
+    }
   },
   "investing": {
     "lock": "Tahmin",
