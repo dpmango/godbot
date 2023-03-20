@@ -17,7 +17,6 @@ import {
   Time,
 } from 'lightweight-charts';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
 import cns from 'classnames';
 import dayjs from 'dayjs';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -52,6 +51,8 @@ export const Forecast: React.FC<{}> = () => {
   const [scrollRange, setScrollRange] = useState<LogicalRange>();
   const [crosshair, setCrosshair] = useState<MouseEventParams | null>(null);
   const [returnVisible, setReturnVisible] = useState<boolean>(false);
+  const [isForecastOutdated, setIsForecastOutdated] = useState<boolean>(true);
+  const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
 
   // стор
@@ -72,7 +73,6 @@ export const Forecast: React.FC<{}> = () => {
   const ctx = useContext(ThemeContext);
 
   const { allowedFunctions } = useProfile();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation('forecast');
 
   const colors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
@@ -89,6 +89,59 @@ export const Forecast: React.FC<{}> = () => {
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
     // подготовка (маппинг) данных
     const PERF_TIME_SERIES = performance.now();
+
+    // мапинг данных по графикам
+    const chartsData = {
+      RealCandle: coinData
+        .map((x: IGraphTickDto) => {
+          return {
+            time: x.timestamp,
+            open: x.real_open || 0,
+            close: x.real_close || 0,
+            high: x.real_high || 0,
+            low: x.real_low || 0,
+          };
+        })
+        .filter((x) => x.open && x.close && x.low && x.high),
+      RealLine: coinData
+        .map((x: IGraphTickDto) => {
+          return {
+            time: x.timestamp,
+            value: x.real_open || 0,
+          };
+        })
+        .filter((x) => x.value),
+      Forecast: coinData
+        .map((x: IGraphTickDto, _idx) => {
+          return {
+            time: x.timestamp,
+            // value: idx >= 180 ? getRandomInt(16000, 17000) : x.forecast,
+            value: x.forecast_trend,
+          };
+        })
+        .filter((x) => x.value),
+      Upper: coinData
+        .map((x: IGraphTickDto) => {
+          return {
+            time: x.timestamp,
+            value: x.forecast_high,
+          };
+        })
+        .filter((x) => x.value),
+      Lower: coinData
+        .map((x: IGraphTickDto) => {
+          return {
+            time: x.timestamp,
+            value: x.forecast_low,
+          };
+        })
+        .filter((x) => x.value),
+    };
+
+    // Test: симулировать неактуальные forecast данные для последней точки
+    //const realLineTime = chartsData.RealLine[chartsData.RealLine.length - 1].time;
+    //chartsData.Forecast = chartsData.Forecast.filter(({ time }) => time < realLineTime);
+
     const currentSeries = [
       {
         id: 'RealCandle',
@@ -98,17 +151,7 @@ export const Forecast: React.FC<{}> = () => {
           color: colors[0],
           visible: false,
         },
-        data: coinData
-          .map((x: IGraphTickDto) => {
-            return {
-              time: x.timestamp,
-              open: x.real_open || 0,
-              close: x.real_close || 0,
-              high: x.real_high || 0,
-              low: x.real_low || 0,
-            };
-          })
-          .filter((x) => x.open && x.close && x.low && x.high),
+        data: chartsData.RealCandle,
       },
       {
         id: 'RealLine',
@@ -119,14 +162,7 @@ export const Forecast: React.FC<{}> = () => {
           lineWidth: 3 as LineWidth,
           visible: true,
         },
-        data: coinData
-          .map((x: IGraphTickDto) => {
-            return {
-              time: x.timestamp,
-              value: x.real_open || 0,
-            };
-          })
-          .filter((x) => x.value),
+        data: chartsData.RealLine,
       },
       {
         id: 'Forecast',
@@ -136,15 +172,7 @@ export const Forecast: React.FC<{}> = () => {
           lineWidth: 3 as LineWidth,
         },
         showChanges: true,
-        data: coinData
-          .map((x: IGraphTickDto, idx) => {
-            return {
-              time: x.timestamp,
-              // value: idx >= 180 ? getRandomInt(16000, 17000) : x.forecast,
-              value: x.forecast_trend,
-            };
-          })
-          .filter((x) => x.value),
+        data: chartsData.Forecast,
       },
       {
         id: 'Upper',
@@ -155,14 +183,7 @@ export const Forecast: React.FC<{}> = () => {
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
         },
-        data: coinData
-          .map((x: IGraphTickDto) => {
-            return {
-              time: x.timestamp,
-              value: x.forecast_high,
-            };
-          })
-          .filter((x) => x.value),
+        data: chartsData.Upper,
       },
       {
         id: 'Lower',
@@ -173,14 +194,7 @@ export const Forecast: React.FC<{}> = () => {
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
         },
-        data: coinData
-          .map((x: IGraphTickDto) => {
-            return {
-              time: x.timestamp,
-              value: x.forecast_low,
-            };
-          })
-          .filter((x) => x.value),
+        data: chartsData.Lower,
       },
     ];
 
@@ -623,6 +637,24 @@ export const Forecast: React.FC<{}> = () => {
     }
   }, [data, viewLocked]);
 
+  // Проверка на устаревшие Forecast данные
+  useEffect(() => {
+    if (dataSeries.length === 0) {
+      return;
+    }
+
+    const getChartLastPoint = (index: number) => {
+      const { data } = dataSeries[index];
+
+      return data[data.length - 1]?.time;
+    };
+
+    const realLineLastItemTime = getChartLastPoint(1);
+    const forecastLastItemTime = getChartLastPoint(2);
+
+    setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
+  }, [dataSeries, chartLines, setIsForecastOutdated]);
+
   return (
     <div className={cns('chart', viewLocked && 'chart--locked')}>
       <ForecastFilter
@@ -634,7 +666,9 @@ export const Forecast: React.FC<{}> = () => {
 
       <ForecastLegend active={legendActive} chartLines={chartLines} />
 
-      {!viewLocked ? (
+      {viewLocked ? (
+        <img style={{ minHeight: 200 }} src="/img/temp/chart.png" width="100%" alt="" />
+      ) : (
         <div
           ref={containerRef}
           className="chart-container"
@@ -645,6 +679,7 @@ export const Forecast: React.FC<{}> = () => {
           <div className="chart-pulse" ref={pulseRef}>
             <span></span>
           </div>
+
           <div className="chart-watermark">
             {[0, 1, 2, 3].map((x) => (
               <>
@@ -677,9 +712,26 @@ export const Forecast: React.FC<{}> = () => {
             onClick={handleReturnToLive}>
             <img src="/img/next-tw.svg" alt="" />
           </div>
+
+          {/* Нет актуальных предсказаний на графике, выводим предупреждение */}
+          {!isForceGraph && isForecastOutdated && (
+            <>
+              <div className={'fader fader--active chart-popup'}>
+                <div className="fader__text fader__text--big">
+                  <svg width="32" height="32">
+                    <use xlinkHref="/img/icons-tea.svg#tea"></use>
+                  </svg>
+
+                  <div dangerouslySetInnerHTML={{ __html: t('forecastOutdated.text') }} />
+
+                  <button className="btn fader__btn-min" onClick={() => setIsForceGraph(true)}>
+                    {t('forecastOutdated.action')}
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
-      ) : (
-        <img style={{ minHeight: 200 }} src="/img/temp/chart.png" width="100%" alt="" />
       )}
 
       <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
