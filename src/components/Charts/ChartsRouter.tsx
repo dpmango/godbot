@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@core';
 
 import { Forecast, Investing } from '@c/Charts';
+import { Signals } from '../Signal';
 
 // TODO - переделать табы на роутер
 export const ChartsRouter: React.FC<{}> = () => {
@@ -25,6 +26,14 @@ export const ChartsRouter: React.FC<{}> = () => {
           </div>
           <div
             className={cns(
+              'tabs__link tabs__link--desktop',
+              activeTab === 'Signals' && 'tabs__link--active'
+            )}
+            onClick={() => setActiveTab('Signals')}>
+            {t('tabs.signals')}
+          </div>
+          <div
+            className={cns(
               'tabs__link',
               activeTab === 'Investing' && 'tabs__link--active'
               // !allowedFunctions.investing && 'tabs__link--disabled'
@@ -38,6 +47,7 @@ export const ChartsRouter: React.FC<{}> = () => {
 
       {activeTab === 'Forecast' && <Forecast />}
       {activeTab === 'Investing' && <Investing />}
+      {activeTab === 'Signals' && <Signals />}
     </>
   );
 };

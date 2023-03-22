@@ -14,7 +14,7 @@ import { SpriteIcon } from '@ui';
 import { placeholderSignals } from './placeholderData';
 import audioNotify from '@assets/audio/notify.mp3';
 
-export const Signals: React.FC<{}> = () => {
+export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobileView = false }) => {
   const dispatch = useAppDispatch();
   const { data, filter, metadata } = useAppSelector((state) => state.signalState);
   const { tariffActive } = useAppSelector((state) => state.userState);
@@ -125,40 +125,45 @@ export const Signals: React.FC<{}> = () => {
 
   // условия || viewLocked для отображения плейсхолдера под блюром
   return (
-    <div className={cns('recommend', viewLocked && 'recommend--locked')}>
+    <div
+      className={cns(
+        'recommend recommend--active',
+        isOnlyMobileView && 'recommend--active-mobile',
+        viewLocked && 'recommend--locked'
+      )}>
       <div className="recommend__head">
-        <div className="recommend__title">
-          <div>{t('title')}</div>
+        <div className="recommend__title">{t('title')}</div>
 
-          {metadata?.winrate && metadata?.winrate !== '0%' && (
-            <div className="recommend__title-winrate">
-              Winrate: <strong>{metadata?.winrate}</strong>
-            </div>
-          )}
-          <form className="recommend__calc">
-            <div>{t('calc.title')}</div>
-            <div className="recommend__calc-input">
-              <input
-                type="text"
-                inputMode="decimal"
-                placeholder="1 000"
-                value={calculator}
-                disabled={calculatorLocked}
-                onChange={handleCalculatorChange}
+        <form className="recommend__calc">
+          <div>{t('calc.title')}</div>
+          <div className="recommend__calc-input">
+            <input
+              type="text"
+              inputMode="decimal"
+              placeholder="1 000"
+              value={calculator}
+              disabled={calculatorLocked}
+              onChange={handleCalculatorChange}
+            />
+
+            <div
+              className={cns('btn btn--recommend-calc', calculatorLocked && 'btn--yellow')}
+              onClick={handleCalcClick}>
+              <SpriteIcon
+                name={calculatorLocked ? 'pencil' : 'signin-mini'}
+                width="12"
+                height="12"
               />
-
-              <div
-                className={cns('btn btn--recommend-calc', calculatorLocked && 'btn--yellow')}
-                onClick={handleCalcClick}>
-                <SpriteIcon
-                  name={calculatorLocked ? 'pencil' : 'signin-mini'}
-                  width="12"
-                  height="12"
-                />
-              </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
+
+        {metadata?.winrate && metadata?.winrate !== '0%' && (
+          <div className="recommend__title-winrate">
+            Winrate: <strong>{metadata?.winrate}</strong>
+          </div>
+        )}
+        <div className="btn_UPDATEME recommend__head-btn"></div>
 
         <Select
           value={filter}

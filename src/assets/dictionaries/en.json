@@ -67,7 +67,8 @@
   "charts": {
     "tabs": {
       "trading": "Trading",
-      "investing": "Investment"
+      "investing": "Investment",
+      "signals": "Trading Recommendations"
     }
   },
   "forecast": {
@@ -174,6 +175,11 @@
     "noGift": "no gift",
     "discount": "Discount {{percent}}% until {{date}}",
     "willOpen": "Sales will open",
+    "sales": {
+      "days": "d.",
+      "hours": "h.",
+      "minutes": "min."
+    },
     "placesFree": "Remaining",
     "places": {
       "one": "place",

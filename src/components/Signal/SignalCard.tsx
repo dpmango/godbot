@@ -94,6 +94,21 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal, calculator }) => {
     return allocation;
   }, [calculator, signal]);
 
+  const getPStatus = (status: 'yellow' | 'green' | 'red' | undefined, percent?: string) => {
+    switch (status) {
+      case 'yellow':
+        return (
+          <div className="recommend__table-pstatus recommend__table-pstatus--yellow">{percent}</div>
+        );
+      case 'green':
+        return <div className="recommend__table-pstatus recommend__table-pstatus--green"></div>;
+      case 'red':
+        return <div className="recommend__table-pstatus recommend__table-pstatus--red"></div>;
+      default:
+        return null;
+    }
+  };
+
   return (
     <tr>
       <td className="recommend__table-date recommend__table-light recommend__table-nowrap recommend__hide-mobile">
@@ -119,14 +134,24 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal, calculator }) => {
         {signalStatus.title}
       </td>
       <td className="recommend__table-center recommend__table-nowrap">
-        {signal.entry_price_range.map((item, idx) => (
-          <div key={idx}>{item}</div>
-        ))}
+        <ul className="recommend__table-pricelist">
+          {signal.entry_price_range.map((item, idx) => (
+            <li key={idx}>
+              {/* TODO after back updated: getPStatus('yellow', '30%') */}
+              {item}{' '}
+            </li>
+          ))}
+        </ul>
       </td>
       <td className="recommend__table-price recommend__table-center recommend__table-nowrap">
-        {signal.get_exit_range.map((item, idx) => (
-          <div key={idx}>{item}</div>
-        ))}
+        <ul className="recommend__table-pricelist">
+          {signal.get_exit_range.map((item, idx) => (
+            <li key={idx}>
+              {/* TODO after back updated: getPStatus('yellow', '30%') */}
+              {item}{' '}
+            </li>
+          ))}
+        </ul>
       </td>
       <td className="recommend__table-stop recommend__table-center recommend__table-nowrap">
         <div>

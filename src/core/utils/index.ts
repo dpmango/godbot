@@ -27,3 +27,4 @@ export { buildParams } from './api';
 export { copyToClipboard } from './clipboard';
 export { prepareSmartSearchRegexp, clearMorphologyInSearchTerm } from './search';
 export { reachGoal } from './tracker';
+export { getSalesTime } from './sales';

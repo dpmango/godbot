@@ -1,11 +1,18 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 import dayjs from 'dayjs';
 import ym from 'react-yandex-metrika';
 
 import { Toast } from '@ui';
-import { formatPrice, localizeKeys, openExternalLink, reachGoal, clearString } from '@utils';
+import {
+  formatPrice,
+  localizeKeys,
+  openExternalLink,
+  reachGoal,
+  clearString,
+  getSalesTime,
+} from '@utils';
 import { api, useAppSelector } from '@core';
 import { ITarifDto, IPeriodObj, ITarifMetaData } from '@interface/Tarif';
 
@@ -120,7 +127,11 @@ export const TarifCard: React.FC<ITarifCard> = ({
       }
 
       const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, startSales || 1);
-      return nextMonth.toLocaleString('default', { day: 'numeric', month: 'numeric' });
+      return nextMonth.toLocaleString('default', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+      });
     }
 
     return false;
@@ -210,25 +221,60 @@ export const TarifCard: React.FC<ITarifCard> = ({
     }
   }, [metaData, onRequestUpdate]);
 
-  return (
-    <div className="tarifes__block">
-      {/* <div className="tarifes__gift">{t('discount', currentPlan?.discount)}</div> */}
+  const [sales, setSales] = useState({ diff: 0, days: [0], hours: [0], minutes: [0] });
+  useEffect(() => {
+    if (typeof nextSaleData !== 'string') {
+      return;
+    }
 
+    // Вычисление данных для вывода даты следеющей продажи
+    setSales(getSalesTime(nextSaleData));
+
+    const secondsLeft = 60 - dayjs().get('second');
+
+    // Каждую минуту обновлять состояние sales объекта
+    setTimeout(
+      () => setInterval(() => setSales(getSalesTime(nextSaleData)), 60 * 1000),
+      secondsLeft * 1000
+    );
+  }, [nextSaleData]);
+
+  const getSalesNumbers = useCallback(
+    (numList: Array<number>, text: string) =>
+      Array.isArray(numList) && numList.length > 0 ? (
+        <>
+          {numList.map((num) => (
+            <span className="tarifes__sales-num">{num}</span>
+          ))}
+          <span className="tarifes__sales-label">{text}</span>
+        </>
+      ) : null,
+    []
+  );
+
+  return (
+    <div className={cns('tarifes__block', userData?.tariff === title && 'tarifes__block--active')}>
+      {/* <div className="tarifes__gift">{t('discount', currentPlan?.discount)}</div> */}
       {nextSaleData && (
-        <div className="tarifes__gift">
-          <div className="tarifes__gift-free" style={{ backgroundColor: 'rgba(202, 57, 12, 0.7)' }}>
-            {typeof nextSaleData === 'number' && (
-              <>
+        <>
+          {typeof nextSaleData === 'number' && (
+            <div className="tarifes__gift">
+              <div
+                className="tarifes__gift-free"
+                style={{ backgroundColor: 'rgba(202, 57, 12, 0.7)' }}>
                 {t('placesFree')} {localizePlaceUnits(nextSaleData)}
-              </>
-            )}
-            {typeof nextSaleData === 'string' && (
-              <>
-                {t('willOpen')} {nextSaleData}
-              </>
-            )}
-          </div>
-        </div>
+              </div>
+            </div>
+          )}
+          {typeof nextSaleData === 'string' && sales?.diff > 0 && (
+            <div className="tarifes__sales">
+              <div className="tarifes__sales-big">{t('willOpen')}</div>
+              {getSalesNumbers(sales.days, t('sales.days'))}
+              {getSalesNumbers(sales.hours, t('sales.hours'))}
+              {getSalesNumbers(sales.minutes, t('sales.minutes'))}
+            </div>
+          )}
+        </>
       )}
 
       <div className="tarifes__name">{title}</div>
