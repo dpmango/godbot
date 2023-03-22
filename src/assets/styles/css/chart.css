@@ -27,71 +27,116 @@
 .chart__head {
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
 	position: relative;
+	gap: 6px;
 }
 @media only screen and (max-width: 767px) {
 	.chart__head {
-		margin-bottom: 12px;
-		margin-right: -5px;
-		padding-right: 30px;
-		gap: 6px 10px;
+		margin-bottom: 32px;
+		flex-wrap: wrap;
+		justify-content: flex-end;
 	}
 }
 @media only screen and (min-width: 768px) {
 	.chart__head {
-		margin-bottom: 24px;
-		padding-right: 50px;
-		min-height: 40px;
+		margin-bottom: 20px;
 		gap: 10px;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.chart__head {
+		gap: 10px 20px;
 	}
 }
 .chart__head-title {
 	font-weight: 600;
+	order: 1;
 }
 @media only screen and (max-width: 767px) {
 	.chart__head-title {
+		width: calc(100% - 192px);
+	}
+}
+@media only screen and (max-width: 1023px) {
+	.chart__head-title {
+		flex: 0 0 auto;
 		font-size: 11px;
 		line-height: 14px;
 	}
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
 	.chart__head-title {
-		font-size: 16px;
-		line-height: 20px;
-		padding-right: 20px;
+		font-size: 14px;
+		line-height: 1;
+		min-width: 124px;
 	}
 }
 .chart__head-filters {
-	flex: 1 1 auto;
-	max-width: 100%;
+	flex: 0 0 auto;
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
+	order: 2;
+}
+.chart__head-filters > * {
+	min-width: 0;
 }
 @media only screen and (max-width: 767px) {
 	.chart__head-filters {
+		width: 186px;
 		gap: 6px;
+	}
+	.chart__head-filters > *:nth-child(1) {
+		width: 102px;
+	}
+	.chart__head-filters > *:nth-child(2) {
+		width: 78px;
 	}
 }
 @media only screen and (min-width: 768px) {
 	.chart__head-filters {
 		gap: 10px;
-		flex: 1 1 auto;
+		width: 252px;
+		margin-right: auto;
+	}
+	.chart__head-filters > * {
+		flex: 1;
+	}
+}
+.chart__head-time {
+	font-weight: 500;
+	color: var(--grey);
+	order: 3;
+}
+@media only screen and (max-width: 767px) {
+	.chart__head-time {
+		font-size: 10px;
+		line-height: 1;
+		flex: 0 0 auto;
+		width: calc(100% - 72px);
+	}
+	.chart__testing ~ .chart__head-time {
+		width: calc(100% - 192px);
+	}
+}
+@media only screen and (min-width: 768px) {
+	.chart__head-time {
+		text-align: center;
 	}
 }
 @media only screen and (max-width: 1023px) {
 	.chart__head-time {
-		display: none;
+		font-size: 10px;
+		line-height: 1;
 	}
 }
 @media only screen and (min-width: 1024px) {
 	.chart__head-time {
-		font-weight: 600;
 		font-size: 12px;
-		line-height: 14px;
-		color: var(--grey);
+		line-height: 1.46;
 	}
+}
+.chart__head-btn {
+	order: 5;
 }
 .chart__head-btn img {
 	flex: 0 0 auto;
@@ -101,48 +146,70 @@
 	margin-top: -4px;
 	margin-bottom: -4px;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1279px) {
 	.chart__head-btn {
-		width: 20px;
-		height: 20px;
+		width: 30px;
+		height: 30px;
 		padding: 0;
-		border-radius: 5px;
+		border-radius: 10px;
 	}
 	.chart__head-btn span {
 		display: none;
 	}
 	.chart__head-btn img {
-		max-height: 10px;
+		max-height: 16px;
 	}
 }
-@media only screen and (min-width: 767px) {
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+	.chart__head-btn {
+		height: 40px;
+		width: 40px;
+	}
 	.chart__head-btn img {
-		max-height: 20px;
-		margin-left: -15px;
-		margin-right: 4px;
+		max-height: 24px;
+	}
+}
+@media only screen and (min-width: 1280px) {
+	.chart__head-btn {
+		height: 40px;
+		border-radius: 10px;
+		padding: 0 15px;
+		font-size: 12px;
+		gap: 15px;
+	}
+	.chart__head-btn img {
+		max-height: 24px;
+		margin: 0 -7px;
 	}
 }
 .chart__settings-opener {
+	order: 6;
 	flex: 0 0 auto;
-	margin-left: auto;
 	cursor: pointer;
 	user-select: none;
-	position: absolute;
-	top: 0;
-	right: 0;
+	position: relative;
 	background: var(--blue);
 	border-radius: 10px;
-	width: 40px;
-	height: 40px;
 	z-index: 96;
-	transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+	transition-property: transform, opacity;
+	transition-duration: 0.2s;
+	transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+	transform: translate3d(0, 0, 0);
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1023px) {
 	.chart__settings-opener {
-		margin-top: -10px;
-		margin-bottom: -10px;
-		margin-right: -5px;
-		transform: scale(0.5);
+		width: 30px;
+		height: 30px;
+	}
+	.chart__settings-opener--active {
+		transform: translate3d(0, -30px, 0);
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.chart__settings-opener {
+		width: 40px;
+		height: 40px;
+		margin-left: -10px;
 	}
 }
 @media (pointer: fine) {
@@ -157,8 +224,20 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -10px;
+	transform: translate3d(-50%, -50%, 0);
 	transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+@media only screen and (max-width: 1023px) {
+	.chart__settings-opener svg {
+		width: 16px;
+		height: 16px;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.chart__settings-opener svg {
+		width: 20px;
+		height: 20px;
+	}
 }
 .chart__settings-opener--active svg {
 	opacity: 0;

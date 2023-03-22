@@ -484,6 +484,15 @@ export const Forecast: React.FC<{}> = () => {
   };
 
   // пульсирующая точка
+  //const pointData = dataSeries.length > 0 ? dataSeries[1].data : [];
+  //const lastPoint = pointData[pointData.length - 1];
+  //const pulsePointTime = lastPoint?.time;
+  //const pulsePointValue = lastPoint?.value;
+  //const pointSeries = chartLines.length > 0 ? chartLines[1].instance : null;
+  //const pointY = pointSeries?.priceToCoordinate(pulsePointValue);
+  //const pointX = chart.current?.timeScale().timeToCoordinate(pulsePointTime);
+  //const pointVisible = pointSeries?.options().visible;
+
   useEffect(() => {
     if (pulseRef.current && chart.current && dataSeries.length && chartLines.length) {
       const data = dataSeries[1].data;

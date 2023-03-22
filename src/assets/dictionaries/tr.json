@@ -67,7 +67,8 @@
   "charts": {
     "tabs": {
       "trading": "Alım Satım",
-      "investing": "Yatırımlar"
+      "investing": "Yatırımlar",
+      "signals": "Alım Satım Tavsiyeleri"
     }
   },
   "forecast": {
@@ -174,6 +175,11 @@
     "noGift": "Hediye yok",
     "discount": "{{date}} tarihine kadar %{{percent}} indirimli",
     "willOpen": "Satış açılacak",
+    "sales": {
+      "days": "g.",
+      "hours": "s.",
+      "minutes": "dak."
+    },
     "placesFree": "Kalan",
     "places": {
       "one": "yer",

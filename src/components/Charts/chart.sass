@@ -1,7 +1,13 @@
 .chart-container
   position: relative
-  height: 400px
+  min-height: 220px
+  height: calc(100vh - 340px)
   overflow: hidden
+  z-index: 1
+
+@media only screen and (max-width: 767px)
+  .chart-container
+    height: 220px
 
 .chart-info
   position: absolute

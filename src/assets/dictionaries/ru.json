@@ -67,7 +67,8 @@
   "charts": {
     "tabs": {
       "trading": "Трейдинг",
-      "investing": "Инвестирование"
+      "investing": "Инвестирование",
+      "signals": "Рекомендации по торговле"
     }
   },
   "forecast": {
@@ -173,7 +174,12 @@
     "gift": "в подарок",
     "noGift": "без подарка",
     "discount": "Скидка {{percent}}% до {{date}}",
-    "willOpen": "Продажи откроются",
+    "willOpen": "Продажи откроются через",
+    "sales": {
+      "days": "дн.",
+      "hours": "ч.",
+      "minutes": "мин."
+    },
     "placesFree": "Осталось",
     "places": {
       "one": "место",
