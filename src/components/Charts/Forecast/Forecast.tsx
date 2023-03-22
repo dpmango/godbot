@@ -655,7 +655,7 @@ export const Forecast: React.FC<{}> = () => {
     const getChartLastPoint = (index: number) => {
       const { data } = dataSeries[index];
 
-      return data[data.length - 1]?.time;
+      return data[data.length - 1]?.time || 0;
     };
 
     const realLineLastItemTime = getChartLastPoint(1);
