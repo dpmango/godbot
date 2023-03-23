@@ -170,13 +170,18 @@ export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobile
             Winrate: <strong>{metadata?.winrate}</strong>
           </div>
         )}
-        <a
-          onClick={onOpenTutorial}
-          className="btn recommend__head-btn"
-          title={t('guide.btn') || 'tutorial'}>
-          <SpriteIcon name="play-min" width="24" height="24" />
-          <span>{t('guide.btn')}</span>
-        </a>
+
+        {i18n.language === 'ru-RU' ? (
+          <a
+            onClick={onOpenTutorial}
+            className="btn recommend__head-btn"
+            title={t('guide.btn') || 'tutorial'}>
+            <SpriteIcon name="play-min" width="24" height="24" />
+            <span>{t('guide.btn')}</span>
+          </a>
+        ) : (
+          <span className="recommend__head-btn-empty" />
+        )}
 
         <Select
           value={filter}
