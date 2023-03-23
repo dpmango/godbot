@@ -194,6 +194,7 @@
 	width: 12px;
 	height: 12px;
 }
+.recommend__head-btn-empty,
 .recommend__head-btn {
 	margin-left: auto;
 }
@@ -214,6 +215,9 @@
 	}
 }
 @media only screen and (min-width: 768px) {
+	.recommend__head-btn-empty {
+		order: 3;
+	}
 	.recommend__head-btn {
 		order: 3;
 		margin-left: auto;
