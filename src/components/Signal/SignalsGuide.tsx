@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 
-export const ForecastGuide: React.FC<{}> = () => {
+export const SignalsGuide: React.FC<{}> = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation('forecast', { keyPrefix: 'guide.modal' });
+  const { t } = useTranslation('signal', { keyPrefix: 'guide.modal' });
 
   const closeModal = () => {
     navigate(pathname);
@@ -21,19 +21,19 @@ export const ForecastGuide: React.FC<{}> = () => {
   return (
     <>
       <Helmet>
-        <title>Godbot | Guide</title>
+        <title>Godbot | SpotTutorial</title>
       </Helmet>
 
-      <Modal name="guide">
+      <Modal name="SpotTutorial">
         <div className="modal__block modal__block--video" ref={modalRef}>
           <div className="modal__title">{t('title')}</div>
           <div className="video">
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/lMOb6vLNXq8"
-              title="YouTube video player"
+              src="https://www.youtube.com/embed/CPkNwWalL-Y"
               frameBorder="0"
+              title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen={false}
             />

@@ -161,7 +161,13 @@
         "five": "{{count}} new signals added"
       }
     },
-    "lock": "forecasts"
+    "lock": "forecasts",
+    "guide": {
+      "btn": "Spot tutorial",
+      "modal": {
+        "title": "Spot tutorial"
+      }
+    }
   },
   "tariff": {
     "title": "Plan",

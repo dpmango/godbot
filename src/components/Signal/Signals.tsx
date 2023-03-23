@@ -13,10 +13,12 @@ import { SignalCard } from '@c/Signal';
 import { SpriteIcon } from '@ui';
 import { placeholderSignals } from './placeholderData';
 import audioNotify from '@assets/audio/notify.mp3';
+import { useNavigate } from 'react-router-dom';
 
 export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobileView = false }) => {
   const dispatch = useAppDispatch();
   const { data, filter, metadata } = useAppSelector((state) => state.signalState);
+
   const { tariffActive } = useAppSelector((state) => state.userState);
   const [loading, setLoading] = useState<boolean>(true);
   const [calculator, setCalculator] = useState<string>(localStorageGet('signalCalculator') || '');
@@ -26,6 +28,7 @@ export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobile
 
   const { allowedFunctions } = useProfile();
   const { t, i18n } = useTranslation('signal');
+  const navigate = useNavigate();
 
   const viewLocked = !tariffActive;
 
@@ -123,6 +126,10 @@ export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobile
     };
   }, [allowedFunctions.signal]);
 
+  const onOpenTutorial = useCallback(() => {
+    navigate('?spot-tutorial');
+  }, []);
+
   // условия || viewLocked для отображения плейсхолдера под блюром
   return (
     <div
@@ -163,7 +170,13 @@ export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobile
             Winrate: <strong>{metadata?.winrate}</strong>
           </div>
         )}
-        <div className="btn_UPDATEME recommend__head-btn"></div>
+        <a
+          onClick={onOpenTutorial}
+          className="btn recommend__head-btn"
+          title={t('guide.btn') || 'tutorial'}>
+          <SpriteIcon name="play-min" width="24" height="24" />
+          <span>{t('guide.btn')}</span>
+        </a>
 
         <Select
           value={filter}
