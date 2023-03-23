@@ -200,13 +200,12 @@
 @media only screen and (max-width: 767px) {
 	.recommend__head-btn {
 		order: 3;
-		/*width: 24px;*/
-		width: 0;
-		margin: 0;
+		padding: 0;
+		width: 24px;
 		height: 24px;
 		border-radius: 8px;
 	}
-	.recommend__head-btn img {
+	.recommend__head-btn svg {
 		max-width: 13px;
 		max-height: 13px;
 	}
@@ -224,7 +223,7 @@
 		border-radius: 10px;
 		gap: 5px;
 	}
-	.recommend__head-btn img {
+	.recommend__head-btn svg {
 		max-width: 14px;
 		max-height: 14px;
 	}
