@@ -55,18 +55,22 @@
 @media only screen and (max-width: 767px) {
 	.chart__head-title {
 		width: calc(100% - 192px);
+		font-size: 10px;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.chart__head-title {
+		font-size: 14px;
 	}
 }
 @media only screen and (max-width: 1023px) {
 	.chart__head-title {
 		flex: 0 0 auto;
-		font-size: 11px;
 		line-height: 14px;
 	}
 }
 @media only screen and (min-width: 1024px) {
 	.chart__head-title {
-		font-size: 14px;
 		line-height: 1;
 		min-width: 124px;
 	}
@@ -190,19 +194,24 @@
 	position: relative;
 	background: var(--blue);
 	border-radius: 10px;
-	z-index: 96;
+	z-index: 89;
 	transition-property: transform, opacity;
 	transition-duration: 0.2s;
 	transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
 	transform: translate3d(0, 0, 0);
 }
+.chart__settings-opener--active {
+	z-index: 96;
+}
+@media only screen and (max-width: 768px) {
+	.chart__settings-opener--active {
+		transform: translate3d(0, -30px, 0);
+	}
+}
 @media only screen and (max-width: 1023px) {
 	.chart__settings-opener {
 		width: 30px;
 		height: 30px;
-	}
-	.chart__settings-opener--active {
-		transform: translate3d(0, -30px, 0);
 	}
 }
 @media only screen and (min-width: 1024px) {

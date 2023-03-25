@@ -45,7 +45,7 @@ export const Investing: FC<IInvestingProps> = () => {
   }, [allowedFunctions.investing]);
 
   return (
-    <div className="investing">
+    <div className="investing investing--active">
       <div className="investing__grid">
         {displayGrid?.map((investing, index) => (
           <InvestingCard {...investing} key={index} />

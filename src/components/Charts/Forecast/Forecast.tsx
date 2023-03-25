@@ -53,7 +53,7 @@ export const Forecast: React.FC<{}> = () => {
   const [returnVisible, setReturnVisible] = useState<boolean>(false);
   const [isForecastOutdated, setIsForecastOutdated] = useState<boolean>(true);
   const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
-  const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
+  const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 250);
 
   // стор
   const {
@@ -484,15 +484,6 @@ export const Forecast: React.FC<{}> = () => {
   };
 
   // пульсирующая точка
-  //const pointData = dataSeries.length > 0 ? dataSeries[1].data : [];
-  //const lastPoint = pointData[pointData.length - 1];
-  //const pulsePointTime = lastPoint?.time;
-  //const pulsePointValue = lastPoint?.value;
-  //const pointSeries = chartLines.length > 0 ? chartLines[1].instance : null;
-  //const pointY = pointSeries?.priceToCoordinate(pulsePointValue);
-  //const pointX = chart.current?.timeScale().timeToCoordinate(pulsePointTime);
-  //const pointVisible = pointSeries?.options().visible;
-
   useEffect(() => {
     if (pulseRef.current && chart.current && dataSeries.length && chartLines.length) {
       const data = dataSeries[1].data;
@@ -520,6 +511,7 @@ export const Forecast: React.FC<{}> = () => {
   // вернуться к текущему времени
   const handleReturnToLive = useCallback(() => {
     chart.current?.timeScale().scrollToRealTime();
+    setReturnVisible(false);
   }, []);
 
   // работа с цветовой темой
@@ -632,7 +624,12 @@ export const Forecast: React.FC<{}> = () => {
       requestPagination(debouncedRange);
     }
     if (debouncedRange && debouncedRange.to) {
-      setReturnVisible(debouncedRange.to < 199);
+      // Проверка на отображение кнопки для скрола в начало графика
+      const requestedPoints = dataNav?.requested?.length * 200;
+      const loadedSize = requestedPoints === 0 ? 199 : requestedPoints;
+      const visibleShiftFromStart = 20;
+
+      setReturnVisible(debouncedRange.to < loadedSize - visibleShiftFromStart);
     }
   }, [debouncedRange]);
 
@@ -676,7 +673,7 @@ export const Forecast: React.FC<{}> = () => {
       <ForecastLegend active={legendActive} chartLines={chartLines} />
 
       {viewLocked ? (
-        <img style={{ minHeight: 200 }} src="/img/temp/chart.png" width="100%" alt="" />
+        <img className="fader--size-big" src="/img/temp/chart.png" width="100%" alt="" />
       ) : (
         <div
           ref={containerRef}
@@ -745,7 +742,7 @@ export const Forecast: React.FC<{}> = () => {
 
       <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
 
-      {viewLocked && <LockScreen section={t('lock')} textModifier={'big'} />}
+      {viewLocked && <LockScreen sizeModifier="big" section={t('lock')} textModifier={'big'} />}
 
       {/* {loading && (
         <div className="chart__load">
