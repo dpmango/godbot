@@ -12,10 +12,16 @@ import { useTariff } from '@hooks';
 interface ILockScreenProps {
   section: string;
   textModifier?: string;
+  sizeModifier?: 'big';
   postText?: string;
 }
 
-export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postText }) => {
+export const LockScreen: FC<ILockScreenProps> = ({
+  section,
+  textModifier,
+  sizeModifier,
+  postText,
+}) => {
   const { tariffActive, isProUser, userData } = useAppSelector((state) => state.userState);
 
   const { activateTrial } = useTariff();
@@ -71,7 +77,7 @@ export const LockScreen: FC<ILockScreenProps> = ({ section, textModifier, postTe
   // проверка по userData - чтобы не было отображения замков при прогрузке сайтов.
   // В будующем заменить на скелетон или лоадер
   return (
-    <div className="fader fader--active">
+    <div className={cns('fader fader--active', sizeModifier && `fader--size-${sizeModifier}`)}>
       {userData && (
         <div className={cns('fader__text', textModifier && `fader__text--${textModifier}`)}>
           <SpriteIcon name="lock" width="32" height="32" />

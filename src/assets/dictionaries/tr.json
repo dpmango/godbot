@@ -267,6 +267,9 @@
     "loader": {
       "title": "Sayfayı yüklüyoruz",
       "description": "Lütfen biraz bekleyin"
+    },
+    "info": {
+      "turnPhone": "Telefonunuzu çevir"
     }
   },
   "tutorial": {

@@ -267,6 +267,9 @@
     "loader": {
       "title": "We are loading page",
       "description": "Pleasе, wait a bit"
+    },
+    "info": {
+      "turnPhone": "Turn your phone"
     }
   },
   "tutorial": {

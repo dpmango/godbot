@@ -1,7 +1,7 @@
 .chart-container
   position: relative
   min-height: 220px
-  height: calc(100vh - 340px)
+  height: calc(100vh - 290px)
   overflow: hidden
   z-index: 1
 
@@ -150,6 +150,13 @@
   &._visible
     opacity: 1
     pointer-events: all
+
+@media only screen and (max-width: 767px)
+  .chart-return
+    bottom: 30px
+    right: 10px
+    width: 24px
+    height: 24px
 
 .chart-pulse
   display: none

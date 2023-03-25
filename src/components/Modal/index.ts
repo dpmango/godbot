@@ -5,3 +5,4 @@ export { DocsPrivacy } from './Docs/Privacy';
 export { DocsTerms } from './Docs/Terms';
 export { DocsCookies } from './Docs/Cookies';
 export { DocsDisclaimer } from './Docs/Disclaimer';
+export { MobileTurnMessage } from './MobileTurnMessage';

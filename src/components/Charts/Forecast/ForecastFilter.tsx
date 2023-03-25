@@ -137,8 +137,15 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       dispatch(setStateTime(timeParam));
     } else {
       const firstAvailOption = timeOptions.find((x) => !x.disabled);
+      const min15AvailOption = timeOptions.find((x) => !x.disabled && x.value === '15m');
       if (firstAvailOption) {
         dispatch(setStateTime(firstAvailOption.value));
+        if (min15AvailOption) {
+          // Ставим в приоритете 15 мин отображение графика
+          dispatch(setStateTime(min15AvailOption.value));
+        } else {
+          dispatch(setStateTime(firstAvailOption.value));
+        }
       }
     }
   }, [coinOptions, timeOptions, searchParams.get('coin'), searchParams.get('time')]);

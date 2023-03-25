@@ -4,19 +4,21 @@ import { useLocation } from 'react-router-dom';
 import cns from 'classnames';
 
 import { useAppSelector } from '@core';
-import { useProfile, useScrollLock } from '@/core/hooks';
+import { useProfile, useScrollLock, useWindowParams } from '@/core/hooks';
 import { Loader } from '@ui';
 
 import { Layout } from '@c/Layout/Layout';
 import { ChartsRouter } from '@c/Charts';
 import { Signals } from '@c/Signal';
 import { Tutorial } from '@c/Layout/Tutorial/Tutorial';
+import { MobileTurnMessage } from '@/components/Modal';
 
 export const HomePage: React.FC<{}> = () => {
   const [loaderShown, setLoaderShown] = useState<boolean>(false);
   const { userData } = useAppSelector((state) => state.userState);
   const { data, currentCoin, currentTime } = useAppSelector((state) => state.forecastState);
   const { data: signalData } = useAppSelector((state) => state.signalState);
+  const { isVerticalMobile } = useWindowParams();
 
   const { search } = useLocation();
   const { lockScroll, unlockScroll } = useScrollLock();
@@ -63,6 +65,8 @@ export const HomePage: React.FC<{}> = () => {
           <ChartsRouter />
           {/* Singals для desktop находится в ChartsRouter */}
           <Signals isOnlyMobileView={true} />
+
+          {isVerticalMobile && <MobileTurnMessage />}
         </div>
       </div>
     </Layout>
