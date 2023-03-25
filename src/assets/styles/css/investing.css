@@ -31,6 +31,11 @@
 	color: inherit;
 	min-height: 265px;
 }
+@media only screen and (min-width: 768px) {
+	.investing__block {
+		background: var(--block-bg2);
+	}
+}
 .investing__name {
 	display: flex;
 	align-items: center;
