@@ -101,7 +101,7 @@ export const TarifWindow: React.FC<{}> = () => {
 
     setMetaData({
       ...metadata,
-      pro_free_space: +countData.available_count || 0,
+      pro_free_space: +countData?.available_count || 0,
     });
   };
 
