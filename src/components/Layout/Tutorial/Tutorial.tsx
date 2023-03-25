@@ -88,7 +88,7 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>1/11</span>
+                  <span>1/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step1.text')}</span>
                 </div>
@@ -110,7 +110,7 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>2/11</span>
+                  <span>2/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step2.text')}</span>
                 </div>
@@ -135,7 +135,7 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>3/11</span>
+                  <span>3/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step3.text')}</span>
                 </div>
@@ -160,7 +160,7 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>4/11</span>
+                  <span>4/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step4.text')}</span>
                 </div>
@@ -185,7 +185,7 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>5/11</span>
+                  <span>5/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step5.text')}</span>
                 </div>
@@ -210,7 +210,7 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>6/11</span>
+                  <span>6/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step6.text')}</span>
                 </div>
@@ -235,7 +235,7 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>7/11</span>
+                  <span>7/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step7.text')}</span>
                 </div>
@@ -255,7 +255,9 @@ export const Tutorial: FC<any> = () => {
               color: '#fff',
             },
           },
-          {
+          /*
+          Пропускаем 8 шаг
+           {
             selector: '.test123',
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
@@ -280,20 +282,21 @@ export const Tutorial: FC<any> = () => {
               color: '#fff',
             },
           },
+          */
           {
             selector: '.recommend',
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>9/11</span>
+                  <span>8/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step9.text')}</span>
                 </div>
                 <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(8)}>
+                  <div className="tourStep-prev" onClick={() => goTo(7)}>
                     {t('btns.prev')}
                   </div>
-                  <div className="tourStep-next" onClick={() => goTo(10)}>
+                  <div className="tourStep-next" onClick={() => goTo(9)}>
                     {t('btns.next')}
                   </div>
                 </div>
@@ -310,15 +313,15 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>10/11</span>
+                  <span>9/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step10.text')}</span>
                 </div>
                 <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(9)}>
+                  <div className="tourStep-prev" onClick={() => goTo(8)}>
                     {t('btns.prev')}
                   </div>
-                  <div className="tourStep-next" onClick={() => goTo(11)}>
+                  <div className="tourStep-next" onClick={() => goTo(10)}>
                     {t('btns.next')}
                   </div>
                 </div>
@@ -336,12 +339,12 @@ export const Tutorial: FC<any> = () => {
             content: ({ goTo, close }: { goTo: any; close: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>11/11</span>
+                  <span>10/10</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step11.text')}</span>
                 </div>
                 <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(10)}>
+                  <div className="tourStep-prev" onClick={() => goTo(9)}>
                     {t('btns.prev')}
                   </div>
                   <div className="tourStep-next" onClick={() => close()}>
@@ -366,7 +369,7 @@ export const Tutorial: FC<any> = () => {
         prevButton={false}
         getCurrentStep={(step: any) => {
           setStep(step);
-          if (step === 6 || step === 7 || step === 8) {
+          if (step === 6 || step === 7) {
             const btn = document.querySelector(
               '.tabs .tabs__link:last-child'
             ) as HTMLElement | null;
@@ -374,7 +377,7 @@ export const Tutorial: FC<any> = () => {
             if (btn != null) {
               btn.click();
             }
-          } else if (step === 10 || step === 11) {
+          } else if (step === 9 || step === 10) {
             const btn = document.querySelector('.header__user-opener') as HTMLElement | null;
 
             if (btn != null) {

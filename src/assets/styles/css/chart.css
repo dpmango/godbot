@@ -384,7 +384,7 @@
 }
 @media only screen and (max-width: 767px) {
 	.chart__settings-line {
-		border-top-width: 1px;
+		border-width: 3px 0 0 0;
 	}
 }
 .chart__testing {

@@ -295,18 +295,18 @@
         "text": "Her varlık birkaç alım satım süresinde hesaplanır. Burada istediğiniz süreyi seçebilirsiniz"
       },
       "step4": {
-        "text": "Yalnızca 4 çizgi görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. Olgu, tahmin çizgisinden veya yakında vakaların % 80'inde hareket eder. Fiyat, vakaların % 99'unda kanal içindedir. Tahmin, varlık fiyatının önemli dalgalanmalar veya yeni borsa bilgi halinde otomatik olarak yeniden yapılır."
+        "text": "Yalnızca 4 çizgi görürsünüz: tahmin, gerçek ve kanalın üst ve alt sınırları. Tahmin, varlık fiyatının önemli dalgalanmalar veya yeni borsa bilgi halinde otomatik olarak yeniden yapılır."
       },
       "step5": {
         "text": "Göstergede, grafikteki her çizgi etkinleştirebilir veya devre dışı bırakabilirsiniz."
       },
       "step6": {
-        "text": "Yatırım sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmeniz için tasarlanmıştır. İlgilendirilen varlıkların hesaplanmasını yaptırabilirsiniz."
+        "text": "Yatırım sekmesi, varlıklara uzun vadeli yatırım yapma kararı verebilmeniz için tasarlanmıştır."
       },
       "step7": {
-        "text": "Göstergede varlık şirketin borsa kodunu ve tahminini görürsünüz. Tahmin tamamlanıncaya kadar güncellenmez ve ilgili fiyat yukarı çekilmez."
+        "text": "Kartta bir varlık ticker'i, bir tahmin grafiği, tahmin edilen asgari ve azami fiyatlar ve tahmin aralığını görebilirsiniz."
       },
-      "step8": {
+      "step8-skipped": {
         "text": "PRO Trader tarifesinde 1 varlığın aylık hesaplamasını yaptırabilirsiniz. "
       },
       "step9": {

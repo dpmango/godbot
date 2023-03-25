@@ -295,18 +295,18 @@
         "text": "Each asset is calculated on multiple time frames. Choose the most suitable one for trading."
       },
       "step4": {
-        "text": "You can see only 4 lines: forecast price, current price, and the upper and lower limits of price movements. Current price is moving along or near the forecast line in about 80% of cases. In 99% of cases the price is inside the channel. The forecast is recalculated automatically in case of significant fluctuations in the asset price or when new market input data is updated."
+        "text": "You can see only 4 lines: forecast price, current price, and the upper and lower limits of price movements. The forecast is recalculated automatically in case of significant fluctuations in the asset price or when new market input data is updated."
       },
       "step5": {
         "text": "Using the legend, you can enable or disable each line on the chart."
       },
       "step6": {
-        "text": "The \"Investment\" tab is designed to be able to make a decision on long-term investments in assets. You can order a calculation of assets that interest you."
+        "text": "The \"Investment\" tab is designed to be able to make a decision on long-term investments in assets."
       },
       "step7": {
-        "text": "In the card you can see a forecast chart of a specific asset. The current price is not pulled up and the forecast will not be updated until it is complete."
+        "text": "In this card you can see the asset ticket, the forecast graph, the minimum and maximum forecasted prices along with the forecasting range."
       },
-      "step8": {
+      "step8-skipped": {
         "text": "PRO Plan allows you to request the calculation of 1 asset per month. Additional calculations you can get for the extra charge. "
       },
       "step9": {
