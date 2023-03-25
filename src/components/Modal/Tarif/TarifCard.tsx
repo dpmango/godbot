@@ -31,7 +31,7 @@ export const TarifCard: React.FC<ITarifCard> = ({
   metaData,
   onRequestUpdate,
 }) => {
-  const { userData } = useAppSelector((state) => state.userState);
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
 
   const { t, i18n } = useTranslation('tariff');
   const { t: tUnits } = useTranslation('units');
@@ -147,7 +147,7 @@ export const TarifCard: React.FC<ITarifCard> = ({
     let translationKey = 'pay';
 
     if (userData?.tariff === 'Trader') {
-      if (title === 'Trader') {
+      if (title === 'Trader' && tariffActive) {
         translationKey = 'prolong';
       } else if (title === 'PRO Trader') {
         translationKey = 'upgrade';
@@ -155,13 +155,13 @@ export const TarifCard: React.FC<ITarifCard> = ({
     } else if (userData?.tariff === 'PRO Trader') {
       if (title === 'Trader') {
         // isDisabled = true;
-      } else if (title === 'PRO Trader') {
+      } else if (title === 'PRO Trader' && tariffActive) {
         translationKey = 'prolong';
       }
     }
 
     // Определение встать в очередь
-    if (title === 'PRO Trader' && userData?.tariff !== 'PRO Trader') {
+    if (title === 'PRO Trader' && userData?.tariff !== 'PRO Trader' && !!nextSaleData) {
       if (metaData.is_wanting_pro) {
         translationKey = 'queued';
       } else if (typeof nextSaleData !== 'number') {
@@ -255,7 +255,7 @@ export const TarifCard: React.FC<ITarifCard> = ({
   return (
     <div className={cns('tarifes__block', userData?.tariff === title && 'tarifes__block--active')}>
       {/* <div className="tarifes__gift">{t('discount', currentPlan?.discount)}</div> */}
-      {nextSaleData && (
+      {!!nextSaleData && (
         <>
           {typeof nextSaleData === 'number' && (
             <div className="tarifes__gift">
