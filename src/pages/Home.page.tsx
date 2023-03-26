@@ -62,9 +62,8 @@ export const HomePage: React.FC<{}> = () => {
       <div className={cns('content', loading && 'content--loading')}>
         <div className="container">
           <Loader theme="page" active={loading} threshold={1} />
+
           <ChartsRouter />
-          {/* Singals для desktop находится в ChartsRouter */}
-          <Signals isOnlyMobileView={true} />
 
           {isVerticalMobile && <MobileTurnMessage />}
         </div>

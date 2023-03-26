@@ -176,7 +176,7 @@
     "prolong": "Renew plan",
     "upgrade": "Upgrade your plan",
     "queue": "Submit your application",
-    "queued": "We will contact you",
+    "queued": "The place is booked",
     "gift": "gift",
     "noGift": "no gift",
     "discount": "Discount {{percent}}% until {{date}}",

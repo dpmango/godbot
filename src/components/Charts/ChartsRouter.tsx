@@ -6,9 +6,12 @@ import { useAppSelector } from '@core';
 
 import { Forecast, Investing } from '@c/Charts';
 import { Signals } from '../Signal';
+import { useWindowParams } from '@/core/hooks';
 
 // TODO - переделать табы на роутер
 export const ChartsRouter: React.FC<{}> = () => {
+  const { isTablet } = useWindowParams();
+
   const [activeTab, setActiveTab] = useState<string>('Forecast');
 
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
@@ -47,7 +50,7 @@ export const ChartsRouter: React.FC<{}> = () => {
 
       {activeTab === 'Forecast' && <Forecast />}
       {activeTab === 'Investing' && <Investing />}
-      {activeTab === 'Signals' && <Signals />}
+      {(activeTab === 'Signals' || isTablet) && <Signals />}
     </>
   );
 };

@@ -377,6 +377,14 @@ export const Tutorial: FC<any> = () => {
             if (btn != null) {
               btn.click();
             }
+          } else if (step === 8) {
+            const btn = document.querySelector(
+              '.tabs .tabs__link:nth-child(2)'
+            ) as HTMLElement | null;
+
+            if (btn != null) {
+              btn.click();
+            }
           } else if (step === 9 || step === 10) {
             const btn = document.querySelector('.header__user-opener') as HTMLElement | null;
 
