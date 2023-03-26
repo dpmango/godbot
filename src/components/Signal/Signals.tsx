@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
-import xorBy from 'lodash/xorBy';
+//import xorBy from 'lodash/xorBy';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
@@ -15,7 +15,7 @@ import { placeholderSignals } from './placeholderData';
 import audioNotify from '@assets/audio/notify.mp3';
 import { useNavigate } from 'react-router-dom';
 
-export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobileView = false }) => {
+export const Signals: React.FC<{}> = ({}) => {
   const dispatch = useAppDispatch();
   const { data, filter, metadata } = useAppSelector((state) => state.signalState);
 
@@ -132,12 +132,7 @@ export const Signals: React.FC<{ isOnlyMobileView?: boolean }> = ({ isOnlyMobile
 
   // условия || viewLocked для отображения плейсхолдера под блюром
   return (
-    <div
-      className={cns(
-        'recommend recommend--active',
-        isOnlyMobileView && 'recommend--active-mobile',
-        viewLocked && 'recommend--locked'
-      )}>
+    <div className={cns('recommend recommend--active', viewLocked && 'recommend--locked')}>
       <div className="recommend__head">
         <div className="recommend__title">{t('title')}</div>
 

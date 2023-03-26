@@ -15,18 +15,12 @@
 	.recommend:not(:first-child) {
 		margin-top: 20px;
 	}
-	.recommend:not(.recommend--active-mobile) {
-		display: none;
-	}
 }
 @media only screen and (min-width: 768px) {
 	.recommend {
 		padding: 26px 20px 20px 20px;
 	}
 	.recommend:not(.recommend--active) {
-		display: none;
-	}
-	.recommend.recommend--active-mobile {
 		display: none;
 	}
 }
