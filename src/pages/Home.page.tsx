@@ -33,9 +33,9 @@ export const HomePage: React.FC<{}> = () => {
     if (allowedFunctions.forecast && !data.length) {
       return true;
     }
-    if (allowedFunctions.investing && !signalData?.length) {
-      return true;
-    }
+    //if (allowedFunctions.investing && !signalData?.length) {
+    //return true;
+    //}
 
     return false;
   }, [loaderShown, userData, allowedFunctions, data, signalData]);
