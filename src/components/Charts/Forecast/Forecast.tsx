@@ -107,7 +107,7 @@ export const Forecast: React.FC<{}> = () => {
         .map((x: IGraphTickDto) => {
           return {
             time: x.timestamp,
-            value: x.real_open || 0,
+            value: x.real_close || 0,
           };
         })
         .filter((x) => x.value),
