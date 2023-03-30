@@ -6,3 +6,4 @@ export { DocsTerms } from './Docs/Terms';
 export { DocsCookies } from './Docs/Cookies';
 export { DocsDisclaimer } from './Docs/Disclaimer';
 export { MobileTurnMessage } from './MobileTurnMessage';
+export { BlockGraphPopup } from './BlockGraphPopup';

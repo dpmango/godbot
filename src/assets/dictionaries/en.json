@@ -115,6 +115,9 @@
     "forecastOutdated": {
       "text": "The forecast will be updated soon.<br> AI decided to have a cup of tea!",
       "action": "Close"
+    },
+    "block": {
+      "graph": "To view the full version of the schedule, you need to renew the tariff"
     }
   },
   "investing": {

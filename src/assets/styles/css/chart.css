@@ -414,3 +414,30 @@
 		order: 4;
 	}
 }
+
+.chart-graph-block {
+	position: absolute;
+	height: calc(100% - 40px);
+	top: 0;
+	right: 0;
+	min-width: 250px;
+	border-radius: 10px;
+	background: rgba(69, 114, 238, 0.1);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	z-index: 98;
+	transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+	color: var(--text);
+	box-sizing: border-box;
+	backface-visibility: hidden;
+	opacity: 1;
+	pointer-events: none;
+}
+.chart-graph-block__content {
+	pointer-events: all;
+}
+@media only screen and (max-height: 440px) {
+	.chart-graph-block__content {
+		gap: 10px 0 !important;
+	}
+}

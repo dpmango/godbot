@@ -31,6 +31,7 @@ import { IGraphTickDto } from '@/core/interface/Forecast';
 
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
+import { BlockGraphPopup } from '@/components/Modal';
 
 export interface IChartLines {
   id: string;
@@ -54,6 +55,7 @@ export const Forecast: React.FC<{}> = () => {
   const [isForecastOutdated, setIsForecastOutdated] = useState<boolean>(true);
   const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 250);
+  const [blockPointX, setBlockPointX] = useState(500);
 
   // стор
   const {
@@ -61,6 +63,7 @@ export const Forecast: React.FC<{}> = () => {
     dataNav,
     currentCoin,
     currentTime,
+    prolongation,
     loading: storeLoading,
   } = useAppSelector((state) => state.forecastState);
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
@@ -78,6 +81,68 @@ export const Forecast: React.FC<{}> = () => {
   const colors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
   const paginatePer = 200;
   const viewLocked = !tariffActive;
+
+  // Проверка на блокировку скрола для пользователя
+  const checkForBlockScroll = ({ from, to }: { from: number; to: number }) => {
+    const isPossibleToCheck =
+      prolongation.required > 0 &&
+      prolongation.blockFromTimestamp &&
+      ((dataSeries.length >= 1 && dataSeries[1]) || (dataSeries.length >= 2 && dataSeries[2]));
+
+    if (isPossibleToCheck) {
+      const mockPoints = prolongation.required;
+      const pointsSize = dataNav.points;
+      const rightBlockPoint = pointsSize;
+      const leftBlockPoint = rightBlockPoint - 2 * mockPoints;
+
+      const data = dataSeries[2]?.data || dataSeries[1]?.data;
+      const checkPoint = data.length - 1 - mockPoints;
+
+      const xCoordinate = chart.current
+        ?.timeScale()
+        .timeToCoordinate(prolongation.blockFromTimestamp || data.time);
+
+      if (xCoordinate) {
+        setBlockPointX(xCoordinate);
+      }
+
+      const middlePointLogic = from + (to - from) / 2;
+
+      // BlockGraphPopup не должен быть больше по размеру чем пол графика
+      if (to > rightBlockPoint || middlePointLogic > checkPoint) {
+        // Force set visible range
+        const newFrom = from < leftBlockPoint ? from : leftBlockPoint;
+
+        chart.current?.timeScale().setVisibleLogicalRange({ from: newFrom, to: rightBlockPoint });
+
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const checkLogicalRange = (range: LogicalRange | null) => {
+    if (!range) {
+      return;
+    }
+
+    if (checkForBlockScroll(range)) {
+      setScrollRange(range);
+    }
+  };
+  useEffect(() => {
+    if (chart.current) {
+      // Подписываемся на проверку обновления VisibleRange графика
+      chart.current.timeScale().subscribeVisibleLogicalRangeChange(checkLogicalRange);
+    }
+
+    return () => {
+      // По обновлению - отписываемся
+      chart.current &&
+        chart.current.timeScale().unsubscribeVisibleLogicalRangeChange(checkLogicalRange);
+    };
+  }, [chart.current, checkForBlockScroll]);
 
   // data: {
   //   time: UTCTimestamp;
@@ -198,7 +263,7 @@ export const Forecast: React.FC<{}> = () => {
       },
     ];
 
-    // точки обновленний прогноза
+    // точки обновленный прогноза
     const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
     let updateMarkers: SeriesMarker<Time>[] = [];
     updateDates.forEach((x) => {
@@ -342,23 +407,16 @@ export const Forecast: React.FC<{}> = () => {
       //   timeDisplay = 3;
       // }
 
-      let from;
+      let from = lastTime.subtract(3, 'hour');
       if (lastUpdateMarker) {
         from = dayjs(utcToZonedTime(lastUpdateMarker * 1000, 'Etc/UTC'));
-      } else {
-        from = lastTime.subtract(3, 'hour');
       }
 
-      chartInstance.timeScale().setVisibleRange({
+      const visibleRange = {
         from: timeToTz((from.unix() * 1000) as UTCTimestamp),
         to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
-      });
-
-      chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
-        if (!range) return;
-
-        setScrollRange(range);
-      });
+      };
+      chartInstance.timeScale().setVisibleRange(visibleRange);
 
       // тултипы
       chartInstance.subscribeCrosshairMove((param) => {
@@ -499,6 +557,8 @@ export const Forecast: React.FC<{}> = () => {
         pulseRef.current.style.display = 'block';
         pulseRef.current.style.top = y - 4 + 'px';
         pulseRef.current.style.left = x + 54 + 'px';
+
+        // setBlockPointX(x);
         return;
       }
     }
@@ -619,14 +679,15 @@ export const Forecast: React.FC<{}> = () => {
     [dataNav]
   );
 
+  // Логика отображения кнопки скрола в начало графика
   useEffect(() => {
     if (debouncedRange && debouncedRange.from < 0) {
       requestPagination(debouncedRange);
     }
     if (debouncedRange && debouncedRange.to) {
       // Проверка на отображение кнопки для скрола в начало графика
-      const requestedPoints = dataNav?.requested?.length * 200;
-      const loadedSize = requestedPoints === 0 ? 199 : requestedPoints;
+      const requestedPoints = dataNav?.requested?.length * paginatePer - 1;
+      const loadedSize = requestedPoints === 0 ? paginatePer - 1 : requestedPoints;
       const visibleShiftFromStart = 20;
 
       setReturnVisible(debouncedRange.to < loadedSize - visibleShiftFromStart);
@@ -737,6 +798,8 @@ export const Forecast: React.FC<{}> = () => {
               </div>
             </>
           )}
+
+          <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />
         </div>
       )}
 
