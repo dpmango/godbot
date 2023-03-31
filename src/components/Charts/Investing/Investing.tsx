@@ -8,6 +8,7 @@ import { getInvesting } from '@store';
 
 import { InvestingCard } from '@c/Charts';
 import { placeholderInvesting } from './placeholderData';
+import { IInvesting } from '@/core/interface/Investor';
 
 interface IInvestingProps {}
 
@@ -21,16 +22,22 @@ export const Investing: FC<IInvestingProps> = () => {
   const { t } = useTranslation('investing');
 
   const displayGrid = useMemo(() => {
-    if ((userData?.access_level || 0) < 3) {
+    const userAccessLevel = userData?.access_level || 0;
+
+    if (userAccessLevel < 3) {
       if (graphs?.data) {
-        const fillPlaceholders = placeholderInvesting.slice(graphs?.data?.length, 8);
-        return [...graphs?.data, ...fillPlaceholders];
+        console.log('displayGrid', graphs, userData?.access_level);
+
+        const visibleGraphs =
+          graphs.data.filter(({ access_level }) => access_level <= userAccessLevel) || [];
+        const fillPlaceholders = placeholderInvesting.slice(visibleGraphs.length, 8);
+        return [...visibleGraphs, ...fillPlaceholders];
       } else {
         return placeholderInvesting;
       }
     }
 
-    return graphs?.data;
+    return graphs?.data || [];
   }, [graphs?.data, userData?.access_level]);
 
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
