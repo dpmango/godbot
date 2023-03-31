@@ -118,7 +118,8 @@
     },
     "block": {
       "graph": "To view the full version of the schedule, you need to renew the tariff"
-    }
+    },
+    "under-text": "We use technology from TradingView."
   },
   "investing": {
     "lock": "forecast",
@@ -261,7 +262,7 @@
       },
       "proOneMonth": {
         "text": "To display {{section}} you need to purchase the PRO Plan",
-       "action": "EXTEND TARIFF"
+        "action": "EXTEND TARIFF"
       }
     },
     "modal": {

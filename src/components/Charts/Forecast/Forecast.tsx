@@ -723,95 +723,104 @@ export const Forecast: React.FC<{}> = () => {
   }, [dataSeries, chartLines, setIsForecastOutdated]);
 
   return (
-    <div className={cns('chart', viewLocked && 'chart--locked')}>
-      <ForecastFilter
-        legendActive={legendActive}
-        setLegendActive={(x) => setLegendActive(x)}
-        lastUpdate={lastUpdate}
-        minutesToUpdate={minutesToUpdate}
-      />
+    <>
+      <div className={cns('chart', viewLocked && 'chart--locked')}>
+        <ForecastFilter
+          legendActive={legendActive}
+          setLegendActive={(x) => setLegendActive(x)}
+          lastUpdate={lastUpdate}
+          minutesToUpdate={minutesToUpdate}
+        />
 
-      <ForecastLegend active={legendActive} chartLines={chartLines} />
+        <ForecastLegend active={legendActive} chartLines={chartLines} />
 
-      {viewLocked ? (
-        <img className="fader--size-big" src="/img/temp/chart.png" width="100%" alt="" />
-      ) : (
-        <div
-          ref={containerRef}
-          className="chart-container"
-          style={{
-            opacity: loading ? '0' : '1',
-          }}>
-          <div className="chart-info" ref={tooltipRef} />
-          <div className="chart-pulse" ref={pulseRef}>
-            <span></span>
-          </div>
+        {viewLocked ? (
+          <img className="fader--size-big" src="/img/temp/chart.png" width="100%" alt="" />
+        ) : (
+          <div
+            ref={containerRef}
+            className="chart-container"
+            style={{
+              opacity: loading ? '0' : '1',
+            }}>
+            <div className="chart-info" ref={tooltipRef} />
+            <div className="chart-pulse" ref={pulseRef}>
+              <span></span>
+            </div>
 
-          <div className="chart-watermark">
-            {[0, 1, 2, 3].map((x) => (
+            <div className="chart-watermark">
+              {[0, 1, 2, 3].map((x) => (
+                <>
+                  <div className="chart-watermark__col">
+                    <Logo />
+                  </div>
+                  <div className="chart-watermark__col">
+                    <Logo />
+                    <Logo />
+                  </div>
+                </>
+              ))}
+            </div>
+            <div className="chart-legend-tw">
+              <label className="chart__legend-item">
+                <span
+                  className="chart__settings-line"
+                  style={{ borderColor: 'rgb(205, 29, 21)' }}
+                />
+                Forecast
+              </label>
+              <label className="chart__legend-item">
+                <span
+                  className="chart__settings-line"
+                  style={{ borderColor: 'rgb(41, 98, 255)' }}
+                />
+                Real
+              </label>
+              <label className="chart__legend-item">
+                <span className="chart__settings-circle" style={{ backgroundColor: '#F5840F' }} />
+                Update
+              </label>
+            </div>
+            <div
+              className={cns('chart-return', returnVisible && '_visible')}
+              onClick={handleReturnToLive}>
+              <img src="/img/next-tw.svg" alt="" />
+            </div>
+
+            {/* Нет актуальных предсказаний на графике, выводим предупреждение */}
+            {!isForceGraph && isForecastOutdated && (
               <>
-                <div className="chart-watermark__col">
-                  <Logo />
-                </div>
-                <div className="chart-watermark__col">
-                  <Logo />
-                  <Logo />
+                <div className={'fader fader--active chart-popup'}>
+                  <div className="fader__text fader__text--big">
+                    <svg width="32" height="32">
+                      <use xlinkHref="/img/icons-tea.svg#tea"></use>
+                    </svg>
+
+                    <div dangerouslySetInnerHTML={{ __html: t('forecastOutdated.text') }} />
+
+                    <button className="btn fader__btn-min" onClick={() => setIsForceGraph(true)}>
+                      {t('forecastOutdated.action')}
+                    </button>
+                  </div>
                 </div>
               </>
-            ))}
+            )}
+
+            <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />
           </div>
-          <div className="chart-legend-tw">
-            <label className="chart__legend-item">
-              <span className="chart__settings-line" style={{ borderColor: 'rgb(205, 29, 21)' }} />
-              Forecast
-            </label>
-            <label className="chart__legend-item">
-              <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
-              Real
-            </label>
-            <label className="chart__legend-item">
-              <span className="chart__settings-circle" style={{ backgroundColor: '#F5840F' }} />
-              Update
-            </label>
-          </div>
-          <div
-            className={cns('chart-return', returnVisible && '_visible')}
-            onClick={handleReturnToLive}>
-            <img src="/img/next-tw.svg" alt="" />
-          </div>
+        )}
 
-          {/* Нет актуальных предсказаний на графике, выводим предупреждение */}
-          {!isForceGraph && isForecastOutdated && (
-            <>
-              <div className={'fader fader--active chart-popup'}>
-                <div className="fader__text fader__text--big">
-                  <svg width="32" height="32">
-                    <use xlinkHref="/img/icons-tea.svg#tea"></use>
-                  </svg>
+        <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
 
-                  <div dangerouslySetInnerHTML={{ __html: t('forecastOutdated.text') }} />
+        {viewLocked && <LockScreen sizeModifier="big" section={t('lock')} textModifier={'big'} />}
 
-                  <button className="btn fader__btn-min" onClick={() => setIsForceGraph(true)}>
-                    {t('forecastOutdated.action')}
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
-
-          <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />
-        </div>
-      )}
-
-      <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
-
-      {viewLocked && <LockScreen sizeModifier="big" section={t('lock')} textModifier={'big'} />}
-
-      {/* {loading && (
+        {/* {loading && (
         <div className="chart__load">
           <Loader />
         </div>
       )} */}
-    </div>
+      </div>
+      <div className="chart__undertext">{t('under-text')}</div>
+    </>
   );
 };
