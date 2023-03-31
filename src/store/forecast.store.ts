@@ -110,7 +110,10 @@ export const forecastState = createSlice({
     });
     builder.addCase(getChart.fulfilled, (state, action) => {
       state.loading = false;
-      // Проверка, что пока выполнялся реквест, пользователь не сбросил график
+      /*
+       Проверка, что пока выполнялся реквест, пользователь не поменял график
+       Чтобы данные с прошлого графика не пришли на другой график 
+      */
       const isSameRequest = action.meta.requestId === state.requestId;
 
       if (action.payload.data && isSameRequest) {
@@ -151,42 +154,51 @@ export const forecastState = createSlice({
           const first = state.data[state.data.length - 1];
           const second = state.data[state.data.length - 2];
 
+          const getNotNullValue = (point: IGraphTickDto) => {
+            const {
+              forecast_low,
+              forecast_trend,
+              forecast_high,
+              real_close,
+              real_high,
+              real_low,
+              real_open,
+            } = point;
+
+            return (
+              forecast_low ||
+              forecast_trend ||
+              forecast_high ||
+              real_close ||
+              real_high ||
+              real_low ||
+              real_open ||
+              0
+            );
+          };
+
           const randomPointsSize = 20; // metadata?.prolongation_required
           state.prolongation = {
             blockFromTimestamp: first.timestamp,
             required: randomPointsSize,
           };
 
+          const minVal = Math.min(...state.data.map(getNotNullValue));
+          const maxVal = Math.max(...state.data.map(getNotNullValue));
+
           const timestampDiff = Math.abs(first.timestamp - second.timestamp) as UTCTimestamp;
           let currentTimestamp = first.timestamp as number;
-
-          const {
-            forecast_low,
-            forecast_trend,
-            forecast_high,
-            real_close,
-            real_high,
-            real_low,
-            real_open,
-          } = first;
-          const value =
-            forecast_low ||
-            forecast_trend ||
-            forecast_high ||
-            real_close ||
-            real_high ||
-            real_low ||
-            real_open;
 
           // Adding new mock points
           for (let i = 0; i < randomPointsSize; i++) {
             currentTimestamp += timestampDiff;
+            const lastValue = getNotNullValue(state.data[state.data.length - 1]);
 
             state.data.push({
               ...first,
               timestamp: currentTimestamp as UTCTimestamp,
-              forecast_trend: value,
-            } as typeof first);
+              forecast_trend: lastValue + ((Math.random() - 0.5) * Math.abs(maxVal - minVal)) / 6,
+            } as IGraphTickDto);
           }
 
           state.dataNav.points += randomPointsSize;

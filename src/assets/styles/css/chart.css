@@ -438,8 +438,8 @@
 	min-width: 250px;
 	border-radius: 10px;
 	background: rgba(69, 114, 238, 0.1);
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
+	backdrop-filter: blur(1px);
+	-webkit-backdrop-filter: blur(1px);
 	z-index: 98;
 	transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 	color: var(--text);
