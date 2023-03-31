@@ -115,10 +115,11 @@
     "forecastOutdated": {
       "text": "Tahmin yakında güncellenecektir.<br> AI bir fincan çay içmeye karar verdi!",
       "action": "Kapalı"
-    }, 
+    },
     "block": {
       "graph": "Programın tam sürümünü görüntülemek için tarifeyi yenilemeniz gerekir"
-    }
+    },
+    "under-text": "TradingView teknolojisini kullanıyoruz."
   },
   "investing": {
     "lock": "Tahmin",
@@ -200,8 +201,8 @@
     },
     "activated": {
       "success": "{{tariff}} tarifesi ödendi"
-    } 
-   },
+    }
+  },
   "promo": {
     "discount": {
       "title": "Tarifenizi ödeyin ve <br/>iki hafta hediye olarak alın",

@@ -24,6 +24,21 @@
 .chart--locked {
 	min-height: 500px;
 }
+.chart__undertext {
+	margin-top: 8px;
+	margin-left: 20px;
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--grey);
+}
+@media only screen and (max-width: 767px) {
+	.chart__undertext {
+		margin-left: 10px;
+		font-size: 10px;
+		line-height: 1;
+	}
+}
+
 .chart__head {
 	display: flex;
 	align-items: center;
