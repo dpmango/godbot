@@ -14,9 +14,9 @@ import dayjs from 'dayjs';
 
 import { ThemeContext } from '@/App';
 import { timeToTz, localizeKeys, formatPrice } from '@utils';
-import { IInvestingGrafDto } from '@core/interface/Investor';
+import { IGraphPoint, IGraphPointKeys, IInvestingGrafDto } from '@core/interface/Investor';
 import { api } from '@core';
-import { time } from 'console';
+import { graphColors } from '../Forecast/Forecast';
 
 interface IInvestingChartProps {
   id: number;
@@ -49,30 +49,38 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
 
   // Main function
   const fetchGraphAndCreate = async () => {
-    const { raw: data }: Partial<{ raw: IInvestingGrafDto }> = await api(
-      `get_invest_graph/${id}`,
-      {}
-    );
+    const { data }: { data: Array<IGraphPoint> | null } = await api(`get_invest_graph/${id}`, {});
 
     if (!data) return;
 
-    const investDataMapped = Object.keys(data.time_list_forecast).map((key) => {
-      const timeValue = data.time_list_forecast[key];
-      let mask = 'YYYY-MM-DD';
-      if (timeValue.length > 10) {
-        mask = 'YYYY-MM-DD HH:mm:ss';
-      }
+    const convertDataForLines = (data: Array<IGraphPoint>, key: IGraphPointKeys) => {
+      const convertedData = data
+        .map((item: IGraphPoint) => {
+          const timeValue = item.timestamp;
+          let mask = 'YYYY-MM-DD';
+          if (timeValue.length > 10) {
+            // 2023-03-31T00:00:00Z
+            mask = 'YYYY-MM-DD HH:mm:ss';
+          }
 
-      const timeUnix = dayjs(timeValue, mask, true).unix() as UTCTimestamp;
+          // 2023-03-31T00:00:00Z
+          const timeUnix = dayjs.utc(timeValue).unix();
 
-      return {
-        time: timeToTz((timeUnix * 1000) as UTCTimestamp),
-        value: data['trend_forecast'][key] || 0,
-      };
-    });
+          return {
+            time: timeToTz((timeUnix * 1000) as UTCTimestamp),
+            value: Number(item[key] || 0),
+          };
+        })
+        .filter((x) => x.value)
+        .sort((a, b) => a.time - b.time);
+
+      return convertedData;
+    };
+
+    const investDataMapped = convertDataForLines(data, 'forecast_trend');
 
     const [minValue, maxValue] = investDataMapped.reduce(
-      (acc, cur) => {
+      (acc: Array<number>, cur: { value: number; time: UTCTimestamp }) => {
         return [Math.min(cur.value, acc[0]), Math.max(cur.value, acc[1])];
       },
       [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]
@@ -84,15 +92,50 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
       length: investDataMapped.length,
     });
 
-    const seriesData = {
-      name: 'Trend Forecast',
-      type: 'line',
-      lineStyle: {
-        color: '#4F9E7D',
-        lineWidth: 2 as LineWidth,
+    const seriesData = [
+      {
+        name: 'Trend Forecast',
+        type: 'line',
+        lineStyle: {
+          color: '#4F9E7D',
+          lineWidth: 2 as LineWidth,
+        },
+        data: investDataMapped,
       },
-      data: investDataMapped,
-    };
+      {
+        id: 'Upper',
+        type: 'line',
+        lineStyle: {
+          color: graphColors[3],
+          lineWidth: 1 as LineWidth,
+          lineStyle: LineStyle.Dashed,
+          crosshairMarkerVisible: false,
+        },
+        data: convertDataForLines(data, 'forecast_high'),
+      },
+      {
+        id: 'Lower',
+        type: 'line',
+        lineStyle: {
+          color: graphColors[4],
+          lineWidth: 1 as LineWidth,
+          lineStyle: LineStyle.Dashed,
+          crosshairMarkerVisible: false,
+        },
+        data: convertDataForLines(data, 'forecast_low'),
+      },
+      {
+        id: 'RealLine',
+        displayName: 'Real (line)',
+        type: 'line',
+        lineStyle: {
+          color: graphColors[0],
+          lineWidth: 3 as LineWidth,
+          visible: true,
+        },
+        data: convertDataForLines(data, 'real_close'),
+      },
+    ];
 
     if (!chart.current) {
       const chartInstance = createChart(containerRef.current, {
@@ -136,12 +179,15 @@ export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
       });
 
       chart.current = chartInstance;
-      const lineSeries = chartInstance.addLineSeries({
-        lastValueVisible: false,
-        priceLineVisible: false,
-        ...seriesData.lineStyle,
+      seriesData.forEach((series) => {
+        const lineSeries = chartInstance.addLineSeries({
+          lastValueVisible: false,
+          priceLineVisible: false,
+          ...series.lineStyle,
+        });
+
+        lineSeries.setData(series.data);
       });
-      lineSeries.setData(seriesData.data);
 
       chartInstance.timeScale().fitContent();
     }

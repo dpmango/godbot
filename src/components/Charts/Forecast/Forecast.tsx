@@ -39,6 +39,7 @@ export interface IChartLines {
   showChanges: boolean;
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
+export const graphColors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
 
 export const Forecast: React.FC<{}> = () => {
   // внутренние стейты
@@ -78,7 +79,6 @@ export const Forecast: React.FC<{}> = () => {
   const { allowedFunctions } = useProfile();
   const { t } = useTranslation('forecast');
 
-  const colors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
   const paginatePer = 200;
   const viewLocked = !tariffActive;
 
@@ -213,7 +213,7 @@ export const Forecast: React.FC<{}> = () => {
         displayName: 'Real (candle)',
         type: 'candle',
         candleStyle: {
-          color: colors[0],
+          color: graphColors[0],
           visible: false,
         },
         data: chartsData.RealCandle,
@@ -223,7 +223,7 @@ export const Forecast: React.FC<{}> = () => {
         displayName: 'Real (line)',
         type: 'line',
         lineStyle: {
-          color: colors[0],
+          color: graphColors[0],
           lineWidth: 3 as LineWidth,
           visible: true,
         },
@@ -233,7 +233,7 @@ export const Forecast: React.FC<{}> = () => {
         id: 'Forecast',
         type: 'line',
         lineStyle: {
-          color: colors[2],
+          color: graphColors[2],
           lineWidth: 3 as LineWidth,
         },
         showChanges: true,
@@ -243,7 +243,7 @@ export const Forecast: React.FC<{}> = () => {
         id: 'Upper',
         type: 'line',
         lineStyle: {
-          color: colors[3],
+          color: graphColors[3],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -254,7 +254,7 @@ export const Forecast: React.FC<{}> = () => {
         id: 'Lower',
         type: 'line',
         lineStyle: {
-          color: colors[4],
+          color: graphColors[4],
           lineWidth: 1 as LineWidth,
           lineStyle: LineStyle.Dashed,
           crosshairMarkerVisible: false,
@@ -471,7 +471,7 @@ export const Forecast: React.FC<{}> = () => {
           // @ts-ignore
           pricesHtml += `
             <div class="chart-info__pricedata">
-              <i style="background: ${colors[idx]}"></i>
+              <i style="background: ${graphColors[idx]}"></i>
               <p>${displayName}:</p>&nbsp;${formatPrice(price)}
             </div>`;
         });
@@ -749,16 +749,12 @@ export const Forecast: React.FC<{}> = () => {
             </div>
 
             <div className="chart-watermark">
-              {[0, 1, 2, 3].map((x) => (
-                <>
-                  <div className="chart-watermark__col">
-                    <Logo />
-                  </div>
-                  <div className="chart-watermark__col">
-                    <Logo />
-                    <Logo />
-                  </div>
-                </>
+              {[1, 2, 1, 2].map((num, index) => (
+                <div key={index} className="chart-watermark__col">
+                  {[...Array(num)].map((_, i) => (
+                    <Logo key={i} />
+                  ))}
+                </div>
               ))}
             </div>
             <div className="chart-legend-tw">
