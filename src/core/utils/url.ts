@@ -32,7 +32,6 @@ export const removeQueryParam = (url: string, paramName: string) => {
     const queryParams = urlObj.searchParams;
 
     queryParams.delete(paramName);
-
     urlObj.search = queryParams.toString();
 
     return urlObj.pathname + urlObj.search + urlObj.hash;
