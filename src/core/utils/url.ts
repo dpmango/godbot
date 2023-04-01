@@ -27,12 +27,18 @@ export const isModalOpened = (searchParams: URLSearchParams) => {
  result: '/path#fragment'
 */
 export const removeQueryParam = (url: string, paramName: string) => {
-  const urlObj = new URL(url);
-  const queryParams = urlObj.searchParams;
+  try {
+    const urlObj = new URL(url);
+    const queryParams = urlObj.searchParams;
 
-  queryParams.delete(paramName);
+    queryParams.delete(paramName);
 
-  urlObj.search = queryParams.toString();
+    urlObj.search = queryParams.toString();
 
-  return urlObj.pathname + urlObj.search + urlObj.hash;
+    return urlObj.pathname + urlObj.search + urlObj.hash;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return '/';
 };

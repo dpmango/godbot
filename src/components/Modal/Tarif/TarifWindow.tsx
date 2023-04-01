@@ -46,7 +46,7 @@ export const TarifWindow: React.FC<{}> = () => {
   const { t: tUnits } = useTranslation('units');
 
   const closeModal = () => {
-    const currentUrl = window.location.href;
+    const currentUrl = window?.location?.href || '';
     const prevQuery = removeQueryParam(currentUrl, 'tariffs');
 
     navigate(prevQuery);
