@@ -1,8 +1,8 @@
-import { LegacyRef, Ref, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useClickOutside, useDebounce } from '@hooks';
+import { useClickOutside } from '@hooks';
 import { useAppSelector } from '@/core';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 interface IModalTurnMessageProps {
   pointX?: number;
@@ -16,7 +16,7 @@ const VISIBLE_SIZE = 10;
 export const BlockGraphPopup: React.FC<IModalTurnMessageProps> = ({ pointX = 500, graphRef }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [currentWidth, setCurrentWidth] = useState(0);
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const modalRef = useRef(null);
   const { prolongation } = useAppSelector((state) => state.forecastState);
   const debouncePointX = pointX; //useDebounce(pointX, 50);
@@ -50,7 +50,7 @@ export const BlockGraphPopup: React.FC<IModalTurnMessageProps> = ({ pointX = 500
 
         <div>{t('block.graph')}</div>
 
-        <Link className="btn" to={`${pathname}?tariffs`}>
+        <Link className="btn" to={`${pathname}${search}${search ? '&' : '?'}tariffs`}>
           {tTariff('prolong')}
         </Link>
       </div>

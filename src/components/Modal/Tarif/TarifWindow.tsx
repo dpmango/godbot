@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { api } from '@core';
-import { localizeKeys, reachGoal } from '@utils';
+import { localizeKeys, reachGoal, removeQueryParam } from '@utils';
 import { Modal } from '@ui';
 import { useClickOutside } from '@hooks';
 import { IPeriodObj } from '@core/interface/Tarif';
@@ -41,13 +41,15 @@ export const TarifWindow: React.FC<{}> = () => {
 
   const [activePeriodIdx, setActivePeriod] = useState<number>(getDefaultTabIdx());
 
-  const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation('tariff');
   const { t: tUnits } = useTranslation('units');
 
   const closeModal = () => {
-    navigate(pathname);
+    const currentUrl = window?.location?.href || '';
+    const prevQuery = removeQueryParam(currentUrl, 'tariffs');
+
+    navigate(prevQuery);
   };
 
   const modalRef = useRef(null);

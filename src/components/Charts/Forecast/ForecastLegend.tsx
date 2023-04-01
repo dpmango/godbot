@@ -8,7 +8,7 @@ export const ForecastLegend: React.FC<{
   chartLines: IChartLines[];
   active: boolean;
 }> = ({ chartLines, active }) => {
-  const [renderer, setRenderer] = useState<number>(0);
+  const [_, setRenderer] = useState<number>(0);
   const { t } = useTranslation('forecast');
 
   const handleVisibilityToggle = useCallback(
@@ -31,7 +31,7 @@ export const ForecastLegend: React.FC<{
     <div className={cns('chart__settings-dropdown', active && 'chart__settings-dropdown--active')}>
       <div className="chart__settings-title">{t('legend.title')}</div>
       <div className="chart__settings-checks">
-        {chartLines.map((chartLine, index) => {
+        {chartLines.map((chartLine) => {
           // @ts-ignore
           const { visible, color } = chartLine.instance.options();
 

@@ -4,7 +4,7 @@ import { buildParams, PerformanceLog, timeToTz } from '@utils';
 import { IGraphTickDto, ICoinDto } from '@/core/interface/Forecast';
 import { RootState } from '@core';
 import { UTCTimestamp } from 'lightweight-charts';
-import { stat } from 'fs';
+//import { stat } from 'fs';
 
 export const getCoins = createAsyncThunk('chart/coinData', async () => {
   const { data } = await api('get_currencies/', {});
@@ -110,7 +110,10 @@ export const forecastState = createSlice({
     });
     builder.addCase(getChart.fulfilled, (state, action) => {
       state.loading = false;
-      // Проверка, что пока выполнялся реквест, пользователь не сбросил график
+      /*
+       Проверка, что пока выполнялся реквест, пользователь не поменял график
+       Чтобы данные с прошлого графика не пришли на другой график 
+      */
       const isSameRequest = action.meta.requestId === state.requestId;
 
       if (action.payload.data && isSameRequest) {
@@ -151,6 +154,29 @@ export const forecastState = createSlice({
           const first = state.data[state.data.length - 1];
           const second = state.data[state.data.length - 2];
 
+          const getNotNullValue = (point: IGraphTickDto) => {
+            const {
+              forecast_low,
+              forecast_trend,
+              forecast_high,
+              real_close,
+              real_high,
+              real_low,
+              real_open,
+            } = point;
+
+            return (
+              forecast_low ||
+              forecast_trend ||
+              forecast_high ||
+              real_close ||
+              real_high ||
+              real_low ||
+              real_open ||
+              0
+            );
+          };
+
           const randomPointsSize = 20; // metadata?.prolongation_required
           state.prolongation = {
             blockFromTimestamp: first.timestamp,
@@ -159,37 +185,38 @@ export const forecastState = createSlice({
 
           const timestampDiff = Math.abs(first.timestamp - second.timestamp) as UTCTimestamp;
           let currentTimestamp = first.timestamp as number;
-
-          const {
-            forecast_low,
-            forecast_trend,
-            forecast_high,
-            real_close,
-            real_high,
-            real_low,
-            real_open,
-          } = first;
-          const value =
-            forecast_low ||
-            forecast_trend ||
-            forecast_high ||
-            real_close ||
-            real_high ||
-            real_low ||
-            real_open;
+          const lastValue = getNotNullValue(first);
 
           // Adding new mock points
           for (let i = 0; i < randomPointsSize; i++) {
             currentTimestamp += timestampDiff;
 
+            // generate invisible line for blocked part of the chart
             state.data.push({
-              ...first,
               timestamp: currentTimestamp as UTCTimestamp,
-              forecast_trend: value,
-            } as typeof first);
+              invisible_line: lastValue,
+            } as IGraphTickDto);
+          }
+          state.dataNav.points += randomPointsSize;
+
+          // Mock: Generate left side of the graph
+          /*
+          const firstItem = state.data[0];
+          const firstValue = getNotNullValue(firstItem);
+          const shiftNum = 1000;
+          let currentTimestamp2 = firstItem.timestamp as number;
+
+          for (let i = 0; i < shiftNum; i++) {
+            currentTimestamp2 -= timestampDiff;
+
+            state.data.unshift({
+              timestamp: currentTimestamp2 as UTCTimestamp,
+              forecast_trend: firstValue,
+            } as IGraphTickDto);
           }
 
-          state.dataNav.points += randomPointsSize;
+          state.dataNav.points += shiftNum;
+          */
         }
       }
     });

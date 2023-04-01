@@ -8,7 +8,7 @@
     }
   },
   "rules": {
-    "no-console": "warn",
+    "no-console": ["warn", { allow: ["warn", "error"] }],
     "quotes": ["error", "single"],
     "prettier/prettier": "warn",
     "react/prop-types": "off",
