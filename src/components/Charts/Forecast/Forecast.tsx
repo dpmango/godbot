@@ -852,7 +852,9 @@ export const Forecast: React.FC<{}> = () => {
               </>
             )}
 
-            <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />
+            {containerRef?.current && (
+              <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />
+            )}
           </div>
         )}
 

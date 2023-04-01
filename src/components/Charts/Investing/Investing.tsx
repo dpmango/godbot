@@ -1,6 +1,4 @@
 import { FC, useMemo, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
 import { useProfile } from '@hooks';
@@ -8,18 +6,15 @@ import { getInvesting } from '@store';
 
 import { InvestingCard } from '@c/Charts';
 import { placeholderInvesting } from './placeholderData';
-import { IInvesting } from '@/core/interface/Investor';
 
 interface IInvestingProps {}
 
 export const Investing: FC<IInvestingProps> = () => {
   const { graphs } = useAppSelector((state) => state.investorState);
-  const { isProUser, userData } = useAppSelector((state) => state.userState);
+  const { userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
   const { allowedFunctions } = useProfile();
-
-  const { t } = useTranslation('investing');
 
   const displayGrid = useMemo(() => {
     const userAccessLevel = userData?.access_level || 0;

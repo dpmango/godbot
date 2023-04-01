@@ -22,7 +22,7 @@ export {
 export { localStorageSet, localStorageGet } from './localstorage';
 export { formatPrice } from './price';
 export { Plurize, getPluralKey, localizeKeys } from './localize';
-export { openExternalLink, isModalOpened } from './url';
+export { openExternalLink, isModalOpened, removeQueryParam } from './url';
 export { buildParams } from './api';
 export { copyToClipboard } from './clipboard';
 export { prepareSmartSearchRegexp, clearMorphologyInSearchTerm } from './search';
