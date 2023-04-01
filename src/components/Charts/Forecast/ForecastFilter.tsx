@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useEffect, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
-import { isDevelopmentSite, Plurize, localizeKeys } from '@utils';
+import { localizeKeys } from '@utils';
 import { setStateCoin, setStateTime } from '@store';
 import { Select, SpriteIcon, ISelectOption } from '@ui';
 
@@ -18,12 +18,11 @@ interface IForecastFilterProps {
 export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   legendActive,
   setLegendActive,
-  lastUpdate,
   minutesToUpdate,
 }) => {
-  const { isProUser, userData, loading } = useAppSelector((state) => state.userState);
+  const { isProUser, userData } = useAppSelector((state) => state.userState);
 
-  const { currentCoin, currentTime, data, coins } = useAppSelector((state) => state.forecastState);
+  const { currentCoin, currentTime, coins } = useAppSelector((state) => state.forecastState);
   const dispatch = useAppDispatch();
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -164,7 +163,6 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 
       {minutesToUpdate && (
         <div className="chart__head-time">
-          {/* {t('lastUpdate')} */}
           {minutesToUpdateVerbose ? (
             <>
               {t('willUpdate.title')} {minutesToUpdateVerbose}

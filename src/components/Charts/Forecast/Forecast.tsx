@@ -32,8 +32,6 @@ import { IGraphTickDto } from '@/core/interface/Forecast';
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
 import { BlockGraphPopup } from '@/components/Modal';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/core/store';
 
 export interface IChartLines {
   id: string;
@@ -63,15 +61,10 @@ export const Forecast: React.FC<{}> = () => {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   // стор
-  const {
-    data,
-    dataNav,
-    currentCoin,
-    currentTime,
-    prolongation,
-    loading: storeLoading,
-  } = useAppSelector((state) => state.forecastState);
-  const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  const { data, dataNav, currentCoin, currentTime, prolongation } = useAppSelector(
+    (state) => state.forecastState
+  );
+  const { tariffActive } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
   // рефы

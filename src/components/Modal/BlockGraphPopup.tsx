@@ -41,10 +41,6 @@ export const BlockGraphPopup: React.FC<IModalTurnMessageProps> = ({ pointX = 500
     return null;
   }
 
-  //const onClick = useCallback(() => {
-  //setSearchParams({ ...searchParams, tariffs: '' });
-  //}, []);
-
   return (
     <div style={{ width: currentWidth }} className={'chart-graph-block'}>
       <div className="fader__text fader__text--big chart-graph-block__content">

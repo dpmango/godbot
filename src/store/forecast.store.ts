@@ -4,7 +4,7 @@ import { buildParams, PerformanceLog, timeToTz } from '@utils';
 import { IGraphTickDto, ICoinDto } from '@/core/interface/Forecast';
 import { RootState } from '@core';
 import { UTCTimestamp } from 'lightweight-charts';
-import { stat } from 'fs';
+//import { stat } from 'fs';
 
 export const getCoins = createAsyncThunk('chart/coinData', async () => {
   const { data } = await api('get_currencies/', {});
@@ -182,7 +182,6 @@ export const forecastState = createSlice({
             blockFromTimestamp: first.timestamp,
             required: randomPointsSize,
           };
-          state.prolongation.required = randomPointsSize;
 
           const timestampDiff = Math.abs(first.timestamp - second.timestamp) as UTCTimestamp;
           let currentTimestamp = first.timestamp as number;
