@@ -26,8 +26,6 @@ export const Investing: FC<IInvestingProps> = () => {
 
     if (userAccessLevel < 3) {
       if (graphs?.data) {
-        console.log('displayGrid', graphs, userData?.access_level);
-
         const visibleGraphs =
           graphs.data.filter(({ access_level }) => access_level <= userAccessLevel) || [];
         const fillPlaceholders = placeholderInvesting.slice(visibleGraphs.length, 8);

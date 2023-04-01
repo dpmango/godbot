@@ -32,6 +32,8 @@ import { IGraphTickDto } from '@/core/interface/Forecast';
 import { ForecastFilter, ForecastLegend } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
 import { BlockGraphPopup } from '@/components/Modal';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/core/store';
 
 export interface IChartLines {
   id: string;
@@ -40,6 +42,7 @@ export interface IChartLines {
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
 export const graphColors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
+export const graphColorInvisible: string = '#00000000';
 
 export const Forecast: React.FC<{}> = () => {
   // внутренние стейты
@@ -57,6 +60,7 @@ export const Forecast: React.FC<{}> = () => {
   const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 250);
   const [blockPointX, setBlockPointX] = useState(500);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   // стор
   const {
@@ -82,59 +86,86 @@ export const Forecast: React.FC<{}> = () => {
   const paginatePer = 200;
   const viewLocked = !tariffActive;
 
+  useEffect(() => {
+    /* 
+     Если сбросили точки на графике, значит поменяли currentRange/currentCoin
+     И возможно нужно будет выравнивать график при блокировке
+     */
+    if (data.length === 0 && dataNav.points === 0 && !isFirstLoad) {
+      setIsFirstLoad(true);
+    }
+  }, [data.length, dataNav.points, isFirstLoad]);
+
   // Проверка на блокировку скрола для пользователя
-  const checkForBlockScroll = ({ from, to }: { from: number; to: number }) => {
-    const isPossibleToCheck =
-      prolongation.required > 0 &&
-      prolongation.blockFromTimestamp &&
-      ((dataSeries.length >= 1 && dataSeries[1]) || (dataSeries.length >= 2 && dataSeries[2]));
+  const checkForBlockScroll = useCallback(
+    ({ from, to }: { from: number; to: number }) => {
+      const isPossibleToCheck =
+        prolongation.required > 0 &&
+        prolongation.blockFromTimestamp &&
+        ((dataSeries.length >= 1 && dataSeries[1]) || (dataSeries.length >= 2 && dataSeries[2]));
 
-    if (isPossibleToCheck) {
-      const mockPoints = prolongation.required;
-      const pointsSize = dataNav.points;
-      const rightBlockPoint = pointsSize;
-      const leftBlockPoint = rightBlockPoint - 2 * mockPoints;
+      if (isPossibleToCheck) {
+        const mockPoints = 20; // prolongation.required
+        const pointsSize = dataNav.points;
+        const rightBlockPoint = pointsSize;
+        const leftBlockPoint = rightBlockPoint - 2 * mockPoints;
 
-      const data = dataSeries[2]?.data || dataSeries[1]?.data;
-      const checkPoint = data.length - 1 - mockPoints;
+        const data = dataSeries[2]?.data || dataSeries[1]?.data;
+        const blockPoint = rightBlockPoint - mockPoints;
 
-      const xCoordinate = chart.current
-        ?.timeScale()
-        .timeToCoordinate(prolongation.blockFromTimestamp || data.time);
+        const xCoordinate = chart.current
+          ?.timeScale()
+          .timeToCoordinate(prolongation.blockFromTimestamp || data.time);
 
-      if (xCoordinate) {
-        setBlockPointX(xCoordinate);
+        if (xCoordinate) {
+          setBlockPointX(xCoordinate);
+        }
+
+        const middlePointLogic = (to + from) / 2;
+
+        // BlockGraphPopup не должен быть больше по размеру чем пол графика
+        if (middlePointLogic > blockPoint) {
+          const newFrom = from < leftBlockPoint ? from : from - 0.5;
+          const newTo = to < rightBlockPoint ? to : to - 0.1;
+
+          chart.current?.timeScale().setVisibleLogicalRange({ from: newFrom, to: newTo });
+
+          return false;
+        }
       }
 
-      const middlePointLogic = from + (to - from) / 2;
+      return true;
+    },
+    [prolongation.required, dataNav.points, dataSeries.length, chart.current]
+  );
 
-      // BlockGraphPopup не должен быть больше по размеру чем пол графика
-      if (to > rightBlockPoint || middlePointLogic > checkPoint) {
-        // Force set visible range
-        const newFrom = from < leftBlockPoint ? from : leftBlockPoint;
-
-        chart.current?.timeScale().setVisibleLogicalRange({ from: newFrom, to: rightBlockPoint });
-
-        return false;
+  const checkLogicalRange = useCallback(
+    (range: LogicalRange | null) => {
+      if (!range) {
+        return;
       }
-    }
 
-    return true;
-  };
+      if (checkForBlockScroll(range)) {
+        setScrollRange(range);
+      }
+    },
+    [checkForBlockScroll]
+  );
 
-  const checkLogicalRange = (range: LogicalRange | null) => {
-    if (!range) {
-      return;
-    }
-
-    if (checkForBlockScroll(range)) {
-      setScrollRange(range);
-    }
-  };
   useEffect(() => {
     if (chart.current) {
       // Подписываемся на проверку обновления VisibleRange графика
       chart.current.timeScale().subscribeVisibleLogicalRangeChange(checkLogicalRange);
+
+      // Force scale graph on init if blocked view
+      const currentRange = chart.current.timeScale().getVisibleLogicalRange();
+      if (currentRange && isFirstLoad) {
+        setIsFirstLoad(false);
+
+        chart.current
+          ?.timeScale()
+          .setVisibleLogicalRange({ from: currentRange.from - 0.1, to: currentRange.to - 0.1 });
+      }
     }
 
     return () => {
@@ -142,7 +173,7 @@ export const Forecast: React.FC<{}> = () => {
       chart.current &&
         chart.current.timeScale().unsubscribeVisibleLogicalRangeChange(checkLogicalRange);
     };
-  }, [chart.current, checkForBlockScroll]);
+  }, [chart.current, checkLogicalRange, isFirstLoad]);
 
   // data: {
   //   time: UTCTimestamp;
@@ -198,6 +229,14 @@ export const Forecast: React.FC<{}> = () => {
           return {
             time: x.timestamp,
             value: x.forecast_low,
+          };
+        })
+        .filter((x) => x.value),
+      Invisible: coinData
+        .map((x: IGraphTickDto) => {
+          return {
+            time: x.timestamp,
+            value: x.invisible_line,
           };
         })
         .filter((x) => x.value),
@@ -260,6 +299,17 @@ export const Forecast: React.FC<{}> = () => {
           crosshairMarkerVisible: false,
         },
         data: chartsData.Lower,
+      },
+      {
+        id: 'Invisible',
+        type: 'line',
+        lineStyle: {
+          color: graphColorInvisible,
+          lineWidth: 1 as LineWidth,
+          lineStyle: LineStyle.Dashed,
+          crosshairMarkerVisible: false,
+        },
+        data: chartsData.Invisible,
       },
     ];
 
@@ -349,7 +399,7 @@ export const Forecast: React.FC<{}> = () => {
 
       let newChartLines: IChartLines[] = [];
 
-      currentSeries.forEach((s, idx) => {
+      currentSeries.forEach((line) => {
         let lineSeriesInstance;
 
         const sharedSeriesOptions = {
@@ -362,12 +412,12 @@ export const Forecast: React.FC<{}> = () => {
           } as DeepPartial<PriceFormat>,
         };
 
-        if (s.type === 'line') {
+        if (line.type === 'line') {
           lineSeriesInstance = chartInstance.addLineSeries({
             ...sharedSeriesOptions,
-            ...s.lineStyle,
+            ...line.lineStyle,
           });
-        } else if (s.type === 'candle') {
+        } else if (line.type === 'candle') {
           lineSeriesInstance = chartInstance.addCandlestickSeries({
             ...sharedSeriesOptions,
             upColor: '#26a69a',
@@ -375,22 +425,22 @@ export const Forecast: React.FC<{}> = () => {
             borderVisible: false,
             wickUpColor: '#26a69a',
             wickDownColor: '#ef5350',
-            ...s.candleStyle,
+            ...line.candleStyle,
           });
         }
 
         if (lineSeriesInstance) {
-          lineSeriesInstance.setData(s.data);
+          lineSeriesInstance.setData(line.data);
 
-          if (s.showChanges) {
+          if (line.showChanges) {
             if (updateMarkers.length) {
               lineSeriesInstance.setMarkers(updateMarkers);
             }
           }
           newChartLines.push({
-            id: s.id,
-            name: s.displayName || s.id,
-            showChanges: s.showChanges || false,
+            id: line.id,
+            name: line.displayName || line.id,
+            showChanges: line.showChanges || false,
             instance: lineSeriesInstance,
           });
         }
@@ -463,7 +513,7 @@ export const Forecast: React.FC<{}> = () => {
           const seriesData = currentSeries[idx];
 
           let displayName = seriesData.id;
-          if (seriesData.id === 'RealCandle') {
+          if (seriesData.id === 'RealCandle' || seriesData.id === 'Invisible') {
             return false;
           } else if (seriesData.id === 'RealLine') {
             displayName = 'Real';
@@ -523,7 +573,7 @@ export const Forecast: React.FC<{}> = () => {
       });
 
       if (updateMarkers.length) {
-        chartLines.forEach((lineSeries, idx) => {
+        chartLines.forEach((lineSeries) => {
           if (lineSeries.showChanges) {
             lineSeries.instance.setMarkers(updateMarkers);
           }

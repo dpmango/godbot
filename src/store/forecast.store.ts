@@ -182,26 +182,40 @@ export const forecastState = createSlice({
             blockFromTimestamp: first.timestamp,
             required: randomPointsSize,
           };
-
-          const minVal = Math.min(...state.data.map(getNotNullValue));
-          const maxVal = Math.max(...state.data.map(getNotNullValue));
+          state.prolongation.required = randomPointsSize;
 
           const timestampDiff = Math.abs(first.timestamp - second.timestamp) as UTCTimestamp;
           let currentTimestamp = first.timestamp as number;
+          const lastValue = getNotNullValue(first);
 
           // Adding new mock points
           for (let i = 0; i < randomPointsSize; i++) {
             currentTimestamp += timestampDiff;
-            const lastValue = getNotNullValue(state.data[state.data.length - 1]);
 
+            // generate invisible line for blocked part of the chart
             state.data.push({
-              ...first,
               timestamp: currentTimestamp as UTCTimestamp,
-              forecast_trend: lastValue + ((Math.random() - 0.5) * Math.abs(maxVal - minVal)) / 6,
+              invisible_line: lastValue,
             } as IGraphTickDto);
           }
 
-          state.dataNav.points += randomPointsSize;
+          // Mock: Generate left side of the graph
+          const firstItem = state.data[0];
+          const firstValue = getNotNullValue(firstItem);
+          const shiftNum = 1000;
+          let currentTimestamp2 = firstItem.timestamp as number;
+
+          // Adding new mock points
+          for (let i = 0; i < shiftNum; i++) {
+            currentTimestamp2 -= timestampDiff;
+
+            state.data.unshift({
+              timestamp: currentTimestamp2 as UTCTimestamp,
+              forecast_trend: firstValue,
+            } as IGraphTickDto);
+          }
+
+          state.dataNav.points += randomPointsSize + shiftNum;
         }
       }
     });
