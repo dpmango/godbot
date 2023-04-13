@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '@core';
 import { getCurrentUser } from '@store';
+import { reachGoal } from '@utils';
 
 // import '@c/Authorization/login.sass';
 
@@ -31,6 +32,7 @@ export const Authorization: React.FC<{}> = () => {
     };
 
     checkAuth();
+    reachGoal('lk_auth', 'Перешел на страницу авторизации');
   }, []);
 
   return (

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@core';
+import { useProfile } from '@hooks';
 
 import { Forecast, Investing } from '@c/Charts';
 import { Signals } from '../Signal';
@@ -11,12 +12,20 @@ import { useWindowParams } from '@/core/hooks';
 // TODO - переделать табы на роутер
 export const ChartsRouter: React.FC<{}> = () => {
   const { isTablet } = useWindowParams();
+  const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  const { data } = useAppSelector((state) => state.forecastState);
 
   const [activeTab, setActiveTab] = useState<string>('Forecast');
-
-  const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  const [shouldSetTab, setShouldSetTab] = useState(true);
 
   const { t } = useTranslation('charts');
+
+  useEffect(() => {
+    if (shouldSetTab && userData?.tariff === 'Trial' && data.length) {
+      setActiveTab('Signals');
+      setShouldSetTab(false);
+    }
+  }, [userData?.tariff, data]);
 
   return (
     <>

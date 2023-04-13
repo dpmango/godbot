@@ -41,7 +41,7 @@ const useTariff = () => {
     }
 
     if (data) {
-      reachGoal('lk_trial_activation', 'Триал');
+      reachGoal('lk_trial_activation', 'ЛК - Активация триал-периода');
     }
 
     navigate(`${pathname}?activated`);

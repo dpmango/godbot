@@ -166,7 +166,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
 
     resetForm();
 
-    reachGoal('lk_registration', 'Регистрация завершена');
+    reachGoal('lk_registration', 'ЛК - Регистрация');
     Cookies.set('auth', Date.now().toString(), { expires: 7 });
     await dispatch(getCurrentUser());
     navigate('/', { replace: true });

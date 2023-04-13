@@ -861,7 +861,7 @@ export const Forecast: React.FC<{}> = () => {
         </div>
       )} */}
       </div>
-      <div className="chart__undertext">{t('under-text')}</div>
+      {/* <div className="chart__undertext">{t('under-text')}</div> */}
     </>
   );
 };

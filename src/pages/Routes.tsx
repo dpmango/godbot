@@ -56,9 +56,9 @@ const ProtectedRoute = () => {
     if (accessToken && userTariff && intervalRun > 1) {
       Toast('success', t('activated.success', { tariff: userTariff }), { autoClose: false });
       if (userTariff === 'PRO Trader') {
-        reachGoal('complete_order_pro', 'Оплачен Pro Trader');
+        reachGoal('complete_order_pro', 'ЛК - Оплата Trader Pro');
       } else if (userTariff === 'Trader') {
-        reachGoal('lk_complete_order', 'Оплачен Trader');
+        reachGoal('lk_complete_order', 'ЛК - Оплата Trader');
       }
     }
   }, [userTariff]);
