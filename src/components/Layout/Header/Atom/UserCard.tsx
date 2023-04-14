@@ -83,7 +83,7 @@ export const UserCard: React.FC<{}> = () => {
           </Link>
           <a
             className={cns('header__user-link', !isProUser && 'header__user-link--disabled')}
-            href={isProUser ? 'https://t.me/+fQvg8JT7oUVhZDZi' : ''}
+            href={isProUser ? 'https://t.me/+aeBQzpHS3G8xZTVi' : ''}
             target="_blank">
             <SpriteIcon name="telegram" width="16" height="16" />
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
