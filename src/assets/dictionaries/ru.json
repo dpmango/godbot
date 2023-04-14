@@ -38,7 +38,8 @@
       "connectBot": "Активировать Telegram-бота",
       "payedChat": "Перейти в Telegram-чат",
       "bot": "Перейти в Telegram-бот",
-      "tutorial": "Туториал по сайту"
+      "tutorial": "Туториал по сайту",
+      "promo": "Ввести промокод"
     },
     "policies": {
       "confidentiality": "Конфиденциальность",
@@ -216,6 +217,18 @@
       "action": "Перейти",
       "close": "Не интересно"
     }
+  },
+  "promocode": {
+    "pagetitle": "Godbot | Активация промокода",
+    "title": "Активация промокода",
+    "field": {
+      "placeholder": "Введите промокод",
+      "validation": {
+        "empty": "Поле не может быть пустым",
+        "length": "Промокод состоит из 10 символов"
+      }
+    },
+    "action": "Активировать"
   },
   "activated": {
     "pagetitle": "Godbot | Пробный тариф",

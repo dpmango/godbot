@@ -16,7 +16,7 @@ import {
   DocsDisclaimer,
 } from '@c/Modal';
 import { ForecastGuide } from '@c/Charts';
-import { PromoDiscount, PromoByBit } from '@c/Promo';
+import { PromoDiscount, PromoByBit, Promocode } from '@c/Promo';
 import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
 import { SignalsGuide } from '../Signal';
 
@@ -43,7 +43,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('cookies') !== null && <DocsCookies />}
         {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
         {searchParams.get('guide') !== null && <ForecastGuide />}
-        {searchParams.get('spot-tutorial') !== null && <SignalsGuide />}
+        {searchParams.get('promocode') !== null && <Promocode />}
 
         {/* {isDevelopmentSite && <PromoDiscount />} */}
         <PromoByBit />

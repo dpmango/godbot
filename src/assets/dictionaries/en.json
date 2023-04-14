@@ -38,7 +38,8 @@
       "connectBot": "Activate Telegram bot",
       "payedChat": "Go to Telegram chat",
       "bot": "Go to Telegram bot",
-      "tutorial": "Site tutorial"
+      "tutorial": "Site tutorial",
+      "promo": "Enter promo code"
     },
     "policies": {
       "confidentiality": "Privacy Policy",
@@ -216,6 +217,18 @@
       "action": "Jump",
       "close": "Not interested"
     }
+  },
+  "promocode": {
+    "pagetitle": "Godbot | Promo code activation",
+    "title": "Promo code activation",
+    "field": {
+      "placeholder": "Enter promo code",
+      "validation": {
+        "empty": "The field cannot be empty",
+        "length": "Promo code consists of 10 characters"
+      }
+    },
+    "action": "Activate"
   },
   "activated": {
     "pagetitle": "Godbot | Trial",

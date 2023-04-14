@@ -96,6 +96,10 @@ export const UserCard: React.FC<{}> = () => {
             <SpriteIcon name="info-circle" width="16" height="16" />
             {t('actions.tutorial')}
           </Link>
+          <Link to={'/?promocode'} className={cns('header__user-link')}>
+            <SpriteIcon name="coupon" width="16" height="16" />
+            {t('actions.promo')}
+          </Link>
         </div>
 
         <Socials />

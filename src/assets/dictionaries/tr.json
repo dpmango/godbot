@@ -38,7 +38,8 @@
       "connectBot": "Telegram botunu etkinleştir",
       "payedChat": "Telegram sohbetine git",
       "bot": "Telegram botuna git",
-      "tutorial": "Site eğitimi"
+      "tutorial": "Site eğitimi",
+      "promo": "Promosyon kodunu girin"
     },
     "policies": {
       "confidentiality": "Gizlilik İlkesi",
@@ -216,6 +217,18 @@
       "action": "Atla",
       "close": "İlgilenmiyorum"
     }
+  },
+  "promocode": {
+    "pagetitle": "Godbot | Promosyon kodu aktivasyonu",
+    "title": "Promosyon kodu aktivasyonu",
+    "field": {
+      "placeholder": "Promosyon kodunu girin",
+      "validation": {
+        "empty": "alan boş olamaz",
+        "length": "Promosyon kodu 10 karakterden oluşur"
+      }
+    },
+    "action": "Etkinleştir"
   },
   "activated": {
     "pagetitle": "Godbot | Deneme oranı",
