@@ -63,7 +63,7 @@ export const Withdraw = () => {
         method: 'POST',
         body: {
           wallet: values.address,
-          amount: values.summ.toString(),
+          amount: values.summ ? values.summ.toString() : 0,
         },
       });
 
