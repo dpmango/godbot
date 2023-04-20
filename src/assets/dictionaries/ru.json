@@ -363,6 +363,27 @@
     "instruction": {
       "info": "С каждой покупки вашими рефералами вы получаете",
       "percent": "<strong>{{percent}}%</strong> на свой счет в личном кабинете"
+    },
+    "withdraw": {
+      "pagetitle": "Godbot | Вывести",
+      "title": "Вывести",
+      "address": {
+        "label": "Адрес USDT TRC20",
+        "placeholder": "Кошелек USDT TRC20",
+        "validation": {
+          "empty": "Введите адрес",
+          "mask": "Неверный адрес USDT TRC20"
+        }
+      },
+      "summ": {
+        "label": "Сумма",
+        "placeholder": "Введите сумму",
+        "validation": {
+          "min": "Минимальная сумма 1 USDT",
+          "max": "Сумма вывода больше баланса"
+        }
+      },
+      "action": "Вывести"
     }
   },
   "education": {

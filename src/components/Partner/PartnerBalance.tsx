@@ -1,5 +1,6 @@
 import cns from 'classnames';
 import { useTranslation, Trans } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 
 import { useAppSelector } from '@core';
 import { formatPrice } from '@utils';
@@ -8,6 +9,7 @@ export const PartnerBalance: React.FC<{}> = () => {
   const { partner } = useAppSelector((state) => state.userState);
 
   const { t } = useTranslation('partner', { keyPrefix: 'balance' });
+  const { pathname } = useLocation();
 
   const statsKeys = [
     { label: 'referral_count', value: partner?.referral_count },
@@ -20,7 +22,9 @@ export const PartnerBalance: React.FC<{}> = () => {
       <div className="partnership__balance-acc">
         <div className="partnership__balance-label">{t('account')}</div>
         <div className="partnership__balance-sum">${formatPrice(partner?.balance, 0)}</div>
-        {/* <a className="btn">{t('withdraw')}</a> */}
+        <Link className="btn" to={`${pathname}?withdraw`}>
+          {t('withdraw')}
+        </Link>
       </div>
 
       {statsKeys.map((x, idx) => (

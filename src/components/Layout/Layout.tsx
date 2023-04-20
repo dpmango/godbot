@@ -18,6 +18,7 @@ import {
 import { ForecastGuide } from '@c/Charts';
 import { PromoDiscount, PromoByBit, Promocode } from '@c/Promo';
 import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
+import { Withdraw } from '@c/Partner';
 import { SignalsGuide } from '../Signal';
 
 interface ILayout {
@@ -44,6 +45,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
         {searchParams.get('guide') !== null && <ForecastGuide />}
         {searchParams.get('promocode') !== null && <Promocode />}
+        {searchParams.get('withdraw') !== null && <Withdraw />}
 
         {/* {isDevelopmentSite && <PromoDiscount />} */}
         <PromoByBit />

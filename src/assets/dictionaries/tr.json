@@ -363,6 +363,27 @@
     "instruction": {
       "info": "Yönlendirme bağlantınızı kullanarak her hizmet satın alımında,",
       "percent": "<strong>{{percent}}%</strong> kişisel hesabınıza"
+    },
+    "withdraw": {
+      "pagetitle": "Godbot | Withdraw",
+      "title": "Withdraw",
+      "address": {
+        "label": "USDT TRC20 address",
+        "placeholder": "USDT TRC20 Wallet",
+        "validation": {
+          "empty": "Enter address",
+          "mask": "Invalid USDT TRC20 address"
+        }
+      },
+      "summ": {
+        "label": "Amount",
+        "placeholder": "Enter amount",
+        "validation": {
+          "min": "Minimum amount 1 USDT",
+          "max": "Withdrawal amount is greater than balance"
+        }
+      },
+      "action": "Output"
     }
   },
   "faq": {

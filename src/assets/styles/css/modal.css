@@ -37,6 +37,11 @@
 	text-align: center;
 	z-index: 2;
 }
+
+.modal__form .login__input:not(:first-child){
+	margin-top: 16px;
+}
+
 @media only screen and (max-width: 767px) {
 	.modal__block {
 		padding: 30px 20px;
