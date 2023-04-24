@@ -1,8 +1,7 @@
 import { TarifCard } from '@c/Modal';
 import { IPeriodObj } from '@interface/Tarif';
 import { IPlan, ITarifDto, ITarifMetaData } from '@interface/Tarif';
-import { Modal } from '@ui';
-import { Toast } from '@ui';
+import { Modal, Toast } from '@ui';
 import { Helmet } from 'react-helmet';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 

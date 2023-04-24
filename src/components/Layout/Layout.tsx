@@ -14,9 +14,6 @@ import { PromoByBit, Promocode, PromoDiscount } from '@c/Promo';
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 import { ThemeContext } from '@/App';
-import { isDevelopmentSite } from '@/core/utils';
-
-import { SignalsGuide } from '../Signal';
 
 interface ILayout {
   children: React.ReactElement[] | React.ReactElement;
@@ -44,7 +41,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('promocode') !== null && <Promocode />}
         {searchParams.get('withdraw') !== null && <Withdraw />}
 
-        {/* {isDevelopmentSite && <PromoDiscount />} */}
+        {/* {isDevelopmentSite && <PromoDiscount />}  */}
         <PromoByBit />
 
         <TeletypeWidget />

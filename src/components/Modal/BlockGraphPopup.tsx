@@ -1,7 +1,5 @@
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
-import { useAppSelector } from '@/core';
-
 interface IModalTurnMessageProps {
   pointX?: number;
   graphRef: any;

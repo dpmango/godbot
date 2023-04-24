@@ -6,7 +6,6 @@ import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
 
 import { MobileTurnMessage } from '@/components/Modal';
-import { useProfile, useScrollLock, useWindowParams } from '@/core/hooks';
 
 export const HomePage = () => {
   const [loaderShown, setLoaderShown] = useState<boolean>(false);

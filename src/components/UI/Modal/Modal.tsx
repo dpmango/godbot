@@ -1,5 +1,3 @@
-import { useScrollLock } from '@/core/hooks';
-
 // import './modal.sass';
 
 interface IModalProps {

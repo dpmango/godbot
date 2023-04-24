@@ -1,6 +1,8 @@
 import { SpriteIcon } from '@ui';
 import dayjs from 'dayjs';
 
+import type { ILangSelect } from '@/core/utils/lang';
+
 export const Languages = () => {
   const [opened, setOpened] = useState(false);
 
