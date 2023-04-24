@@ -1,4 +1,3 @@
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 interface IModalTurnMessageProps {
   pointX?: number;

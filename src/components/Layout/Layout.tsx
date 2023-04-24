@@ -11,7 +11,6 @@ import {
 } from '@c/Modal';
 import { Withdraw } from '@c/Partner';
 import { PromoByBit, Promocode, PromoDiscount } from '@c/Promo';
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 import { ThemeContext } from '@/App';
 

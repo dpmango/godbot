@@ -2,8 +2,6 @@ import audioNotify from '@assets/audio/notify.mp3';
 import { SignalCard } from '@c/Signal';
 import { Loader, LockScreen, Pagination, Select, Toast } from '@ui';
 import { SpriteIcon } from '@ui';
-//import xorBy from 'lodash/xorBy';
-import { useNavigate } from 'react-router-dom';
 
 import { placeholderSignals } from './placeholderData';
 

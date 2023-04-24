@@ -1,5 +1,4 @@
 import { SpriteIcon } from '@ui';
-import { Link, useSearchParams } from 'react-router-dom';
 
 // import './fader.sass';
 

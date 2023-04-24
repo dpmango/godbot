@@ -1,6 +1,5 @@
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
 import { Helmet } from 'react-helmet';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 interface IFormValues {
   email: string;

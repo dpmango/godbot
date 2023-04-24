@@ -2,7 +2,7 @@ import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 import { Toast } from '@ui';
 import Cookies from 'js-cookie';
-import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 import { Authorization } from '@/pages/Authorization.page';
 import { Education } from '@/pages/Education.page';

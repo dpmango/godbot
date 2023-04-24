@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import type { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-import forecastState from '@/store/forecast.store';
-import investorState from '@/store/investor.store';
-import signalState from '@/store/signals.store';
-import uiState from '@/store/ui.store';
-import userState from '@/store/user.store';
+import forecastState from '@/core/store/forecast.store';
+import investorState from '@/core/store/investor.store';
+import signalState from '@/core/store/signals.store';
+import uiState from '@/core/store/ui.store';
+import userState from '@/core/store/user.store';
 
 export const store = configureStore({
   reducer: {

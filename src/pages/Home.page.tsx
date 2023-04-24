@@ -3,7 +3,6 @@ import { Layout } from '@c/Layout/Layout';
 import { Tutorial } from '@c/Layout/Tutorial/Tutorial';
 import { Loader } from '@ui';
 import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
 
 import { MobileTurnMessage } from '@/components/Modal';
 

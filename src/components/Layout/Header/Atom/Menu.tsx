@@ -1,5 +1,4 @@
 import { SpriteIcon } from '@ui';
-import { Link, NavLink } from 'react-router-dom';
 
 export const Menu = () => {
   const { t, i18n } = useTranslation('header');

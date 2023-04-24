@@ -2,7 +2,8 @@ import { Countdown } from '@ui';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
 import { Trans } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+
+
 export const PromoByBit = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const { t, i18n } = useTranslation('promo', { keyPrefix: 'bybit' });

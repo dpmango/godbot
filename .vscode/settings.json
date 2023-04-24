@@ -4,10 +4,10 @@
   },
   "search.exclude": {
     "**/node_modules": true,
-    "**/.nuxt": true,
-    "**/.output": true,
+    "**/build": true,
     "yarn.lock": true,
-    "public/img/**": true
+    "public/img/**": true,
+    "auto-imports.d.ts": true
   },
   "editor.formatOnSave": true
 }

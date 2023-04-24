@@ -1,5 +1,6 @@
 import { Trans } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+
+
 export const PartnerBalance = () => {
   const { partner } = useAppSelector((state) => state.userState);
 

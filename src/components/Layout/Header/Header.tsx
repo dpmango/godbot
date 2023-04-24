@@ -1,6 +1,5 @@
 import { Languages, Menu, UserCard } from '@c/Layout/Header/Atom';
 import { DevBadge } from '@ui';
-import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const [menu, setMenu] = useState(false);

@@ -1,7 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { createContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { YMInitializer } from 'react-yandex-metrika';
 

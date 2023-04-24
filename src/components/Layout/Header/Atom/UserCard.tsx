@@ -1,7 +1,6 @@
 import { Menu, Socials } from '@c/Layout/Header';
 import { SpriteIcon } from '@ui';
 import AES from 'crypto-js/aes';
-import { Link, useLocation } from 'react-router-dom';
 
 import { ThemeContext } from '@/App';
 

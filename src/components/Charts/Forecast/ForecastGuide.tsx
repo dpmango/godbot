@@ -1,6 +1,5 @@
 import { Modal } from '@ui';
 import { Helmet } from 'react-helmet';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 export const ForecastGuide = () => {
   const { pathname } = useLocation();

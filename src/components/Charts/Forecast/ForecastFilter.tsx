@@ -1,5 +1,4 @@
 import { ISelectOption, Select, SpriteIcon } from '@ui';
-import { Link, useSearchParams } from 'react-router-dom';
 
 interface IForecastFilterProps {
   lastUpdate?: string;

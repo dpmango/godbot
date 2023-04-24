@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 
 export const LayoutEmpty = () => {
   const { t } = useTranslation('error');

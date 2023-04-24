@@ -1,6 +1,6 @@
 import { Toast } from '@ui';
 import Cookies from 'js-cookie';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+
 
 const useTariff = () => {
   const { isProUser, userData } = useAppSelector((state) => state.userState);

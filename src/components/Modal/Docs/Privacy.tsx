@@ -2,7 +2,6 @@
 
 import { Modal } from '@ui';
 import { Helmet } from 'react-helmet';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export const DocsPrivacy = () => {
   const { pathname } = useLocation();

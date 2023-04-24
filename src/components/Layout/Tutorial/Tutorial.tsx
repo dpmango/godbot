@@ -1,6 +1,5 @@
 import './tutorial.scss';
 
-import { useNavigate, useSearchParams } from 'react-router-dom';
 // @ts-ignore
 import Tour from 'reactour';
 

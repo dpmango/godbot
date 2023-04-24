@@ -3,7 +3,7 @@ import { IPeriodObj } from '@interface/Tarif';
 import { IPlan, ITarifDto, ITarifMetaData } from '@interface/Tarif';
 import { Modal, Toast } from '@ui';
 import { Helmet } from 'react-helmet';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 
 // import './tarifes.sass';
 

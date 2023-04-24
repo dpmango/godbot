@@ -2,7 +2,6 @@ import { Socials } from '@c/Layout/Header';
 import { Modal } from '@ui';
 import { Helmet } from 'react-helmet';
 import { Trans } from 'react-i18next';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 interface IModalInfoProps {
   name: string;

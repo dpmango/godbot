@@ -1,7 +1,6 @@
 import { IUserDto } from '@interface/User';
 import * as Sentry from '@sentry/browser';
 import { Toast } from '@ui';
-import { useNavigate } from 'react-router-dom';
 import { Id, toast } from 'react-toastify';
 
 const useProfile = () => {

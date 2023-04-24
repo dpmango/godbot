@@ -49,5 +49,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    'react/jsx-no-undef': 'off',
   },
 };

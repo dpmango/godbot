@@ -38,12 +38,13 @@ export default ({ mode }) => {
         ],
         imports: [
           'react',
+          'react-router-dom',
           {
             'react-i18next': ['useTranslation'],
             classnames: [['default', 'cns']],
           },
         ],
-        dirs: ['./src/core/**', './src/store/**'],
+        dirs: ['./src/core/**'],
         dts: true,
         eslintrc: {
           enabled: true,

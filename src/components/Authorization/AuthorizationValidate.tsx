@@ -1,7 +1,6 @@
 import { Toast } from '@ui';
 import Cookies from 'js-cookie';
 import { Helmet } from 'react-helmet';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const enLettersRegex = /^[a-zA-Z]+$/;
 const allowLetters = false;

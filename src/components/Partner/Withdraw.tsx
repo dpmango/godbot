@@ -1,7 +1,6 @@
 import { Modal, SpriteIcon } from '@ui';
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
 import { Helmet } from 'react-helmet';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 interface IFormValues {
   address: string;
