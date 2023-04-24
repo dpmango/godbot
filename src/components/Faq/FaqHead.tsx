@@ -1,7 +1,3 @@
-import React, { ChangeEvent, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
 import { SpriteIcon } from '@ui';
 
 interface IFaqHeadProps {
@@ -29,7 +25,9 @@ export const FaqHead: React.FC<IFaqHeadProps> = ({ search, setSearch, onSearch }
             className="search__input"
             type="text"
             placeholder={t('placeholder') as string}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearchChange(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleSearchChange(e.target.value)
+            }
             value={search}
           />
           <SpriteIcon name="search" width="20" height="20" />

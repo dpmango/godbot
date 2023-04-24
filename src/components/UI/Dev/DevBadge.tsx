@@ -1,10 +1,4 @@
-import { useState } from 'react';
-import cns from 'classnames';
-
-import { isDevelopmentSite } from '@utils';
-import { VERSION } from '@utils/dev';
-
-export const DevBadge: React.FC<{}> = () => {
+export const DevBadge = () => {
   if (!isDevelopmentSite) return null;
 
   return (

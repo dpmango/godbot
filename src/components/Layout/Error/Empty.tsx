@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
-export const LayoutEmpty: React.FC<{}> = () => {
+export const LayoutEmpty = () => {
   const { t } = useTranslation('error');
 
   return (

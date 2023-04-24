@@ -1,8 +1,7 @@
+import { LayoutEmpty } from '@c/Layout/Error';
 import { Helmet } from 'react-helmet';
 
-import { LayoutEmpty } from '@c/Layout/Error';
-
-export const NotFound: React.FC<{}> = () => {
+export const NotFound = () => {
   return (
     <>
       <Helmet>

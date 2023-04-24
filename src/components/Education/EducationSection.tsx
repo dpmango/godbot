@@ -1,11 +1,6 @@
-import { useState } from 'react';
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
-
-import { SpriteIcon } from '@ui';
-import { IEducationDto } from '@core/interface/Education';
-
 import { EducationCard } from '@c/Education';
+import { IEducationDto } from '@interface/Education';
+import { SpriteIcon } from '@ui';
 
 export const EducationSection: React.FC<IEducationDto> = ({
   access_level,

@@ -1,28 +1,25 @@
-import { FC, useEffect, useRef, useMemo, useState, useLayoutEffect, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
+import { IGraphPoint, IGraphPointKeys, IInvestingGrafDto } from '@interface/Investor';
+import dayjs from 'dayjs';
 import {
-  createChart,
   ColorType,
-  LineStyle,
-  LineWidth,
+  createChart,
   CrosshairMode,
   IChartApi,
   ISeriesApi,
+  LineStyle,
+  LineWidth,
   UTCTimestamp,
 } from 'lightweight-charts';
-import dayjs from 'dayjs';
 
 import { ThemeContext } from '@/App';
-import { timeToTz, localizeKeys, formatPrice } from '@utils';
-import { IGraphPoint, IGraphPointKeys, IInvestingGrafDto } from '@core/interface/Investor';
-import { api } from '@core';
+
 import { graphColors } from '../Forecast/Forecast';
 
 interface IInvestingChartProps {
   id: number;
 }
 
-export const InvestingChart: FC<IInvestingChartProps> = ({ id }) => {
+export const InvestingChart: React.FC<IInvestingChartProps> = ({ id }) => {
   const chart = useRef<IChartApi | null>(null);
   const [stats, setStats] = useState<{ min: number; max: number; length: number }>({
     min: 0,

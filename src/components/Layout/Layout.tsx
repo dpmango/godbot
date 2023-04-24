@@ -1,24 +1,21 @@
-import { useContext } from 'react';
-import { ThemeContext } from '@/App';
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
-import cns from 'classnames';
-
-import { useAppSelector } from '@core';
-import { isDevelopmentSite } from '@/core/utils';
-
+import { ForecastGuide } from '@c/Charts';
 import { Header } from '@c/Layout/Header';
+import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
 import {
-  TarifWindow,
-  ModalInfo,
-  DocsPrivacy,
-  DocsTerms,
   DocsCookies,
   DocsDisclaimer,
+  DocsPrivacy,
+  DocsTerms,
+  ModalInfo,
+  TarifWindow,
 } from '@c/Modal';
-import { ForecastGuide } from '@c/Charts';
-import { PromoDiscount, PromoByBit, Promocode } from '@c/Promo';
-import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
 import { Withdraw } from '@c/Partner';
+import { PromoByBit, Promocode, PromoDiscount } from '@c/Promo';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+
+import { ThemeContext } from '@/App';
+import { isDevelopmentSite } from '@/core/utils';
+
 import { SignalsGuide } from '../Signal';
 
 interface ILayout {
@@ -26,9 +23,9 @@ interface ILayout {
 }
 
 export const Layout: React.FC<ILayout> = ({ children }) => {
-  let ctx = useContext(ThemeContext);
+  const ctx = useContext(ThemeContext);
   const { pathname } = useLocation();
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <>

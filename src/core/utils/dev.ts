@@ -5,12 +5,12 @@ export const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-export const VERSION = '0.4.2';
+export const VERSION = '0.5.0';
 
 export const LOG = {
   log: (...args: any) => {
     const isDev =
-      process.env.NODE_ENV === 'development' || window.location.search.includes('console');
+      import.meta.env.NODE_ENV === 'development' || window.location.search.includes('console');
 
     if (isDev) console.log(...args);
   },

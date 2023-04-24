@@ -1,13 +1,10 @@
-import { useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
+/* eslint-disable react/no-unescaped-entities */
 
 import { Modal } from '@ui';
-import { useClickOutside } from '@hooks';
+import { Helmet } from 'react-helmet';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-export const DocsCookies: React.FC<{}> = () => {
+export const DocsCookies = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('ui', { keyPrefix: 'modal' });
@@ -105,31 +102,39 @@ export const DocsCookies: React.FC<{}> = () => {
                 pages:
                 <ul>
                   <li>
-                    <a href="https://support.google.com/chrome/answer/95647" target="_blank">
+                    <a
+                      href="https://support.google.com/chrome/answer/95647"
+                      target="_blank"
+                      rel="noreferrer">
                       Google Chrome
                     </a>
                   </li>
                   <li>
                     <a
                       href="https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer"
-                      target="_blank">
+                      target="_blank"
+                      rel="noreferrer">
                       Mozilla Firefox
                     </a>
                   </li>
                   <li>
                     <a
                       href="https://support.microsoft.com/help/4027947/windows-delete-cookies"
-                      target="_blank">
+                      target="_blank"
+                      rel="noreferrer">
                       Microsoft Edge
                     </a>
                   </li>
                   <li>
-                    <a href="https://support.apple.com/guide/safari/sfri11471/mac" target="_blank">
+                    <a
+                      href="https://support.apple.com/guide/safari/sfri11471/mac"
+                      target="_blank"
+                      rel="noreferrer">
                       Safari (macOS)
                     </a>
                   </li>
                   <li>
-                    <a href="https://support.apple.com/HT201265" target="_blank">
+                    <a href="https://support.apple.com/HT201265" target="_blank" rel="noreferrer">
                       Safari (iOS)
                     </a>
                   </li>
@@ -154,11 +159,14 @@ export const DocsCookies: React.FC<{}> = () => {
               information of users’ actions on the GodBot Site and it will be collected by Google
               services. For more information on Google’s use of data for marketing and analytics
               purposes, please see{' '}
-              <a href="https://www.google.com/policies/technologies/ads" target="_blank">
+              <a
+                href="https://www.google.com/policies/technologies/ads"
+                target="_blank"
+                rel="noreferrer">
                 Advertising – Privacy &amp; Terms
               </a>{' '}
               and{' '}
-              <a href="https://policies.google.com/privacy" target="_blank">
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
                 Google’s Privacy Policy
               </a>
               .

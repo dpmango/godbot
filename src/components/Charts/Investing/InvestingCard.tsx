@@ -1,16 +1,10 @@
-import { FC, useMemo, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
-import { useAppDispatch, useAppSelector } from '@core';
-import { LockScreen } from '@ui';
-
 import { InvestingChart } from '@c/Charts';
-import { IInvesting } from '@core/interface/Investor';
+import { IInvesting } from '@interface/Investor';
+import { LockScreen } from '@ui';
 
 interface ICardProps extends IInvesting {}
 
-export const InvestingCard: FC<ICardProps> = ({
+export const InvestingCard: React.FC<ICardProps> = ({
   invest_id,
   currency,
   currency_icon,

@@ -1,14 +1,7 @@
-import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
+import { Toast } from '@ui';
 import Cookies from 'js-cookie';
 import { Helmet } from 'react-helmet';
-import { useNavigate, useLocation } from 'react-router-dom';
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
-
-import { api, useAppDispatch } from '@core';
-import { getCurrentUser } from '@store';
-import { secondsToStamp, localStorageGet, localStorageSet, reachGoal } from '@utils';
-import { Toast } from '@ui';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const enLettersRegex = /^[a-zA-Z]+$/;
 const allowLetters = false;
@@ -16,7 +9,7 @@ const allowLetters = false;
 const initialDigits: string[] = Array.from<string>({ length: 6 }).fill('');
 const initialInputs: HTMLInputElement[] = Array.from({ length: 6 });
 
-export const AuthorizationValidate: React.FC<{}> = ({}) => {
+export const AuthorizationValidate = () => {
   const lastEmailRest = useMemo(() => {
     const last = localStorageGet('lastEmailSend') as number;
     if (!last) return 60;
@@ -79,7 +72,7 @@ export const AuthorizationValidate: React.FC<{}> = ({}) => {
 
       if (clearedStr.length > 1) {
         const newDigits = [...initialDigits];
-        for (var i = 0; i < clearedStr.length; i++) {
+        for (let i = 0; i < clearedStr.length; i++) {
           newDigits[i] = clearedStr.charAt(i);
         }
 

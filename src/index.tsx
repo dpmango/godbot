@@ -1,23 +1,22 @@
-import { createRoot } from 'react-dom/client';
-import App from '@/App';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import '@styles/index.sass';
+useI18n();
+
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
-import { store } from '@core';
-import { VERSION } from '@utils/dev';
-import '@core/i18n';
-import '@styles/index.sass';
+import App from '@/App';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 
 // eslint-disable-next-line no-console
 console.info(`app version: ${VERSION}`);
 
-if (process.env.REACT_APP_SENTRY_DSN) {
+if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
+    dsn: import.meta.env.VITE_SENTRY_DSN,
     integrations: [
       new BrowserTracing(),
       new Sentry.Replay(),
@@ -27,7 +26,7 @@ if (process.env.REACT_APP_SENTRY_DSN) {
     ],
     tracesSampleRate: 1.0,
     beforeSend: (event) => {
-      if (process.env.NODE_ENV === 'development') return null;
+      if (import.meta.env.NODE_ENV === 'development') return null;
       return event;
     },
   });

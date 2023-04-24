@@ -1,14 +1,9 @@
-import React, { ChangeEvent, useState, useMemo } from 'react';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
+import { FaqCard, FaqHead, FaqSidebar } from '@c/Faq';
 import { Layout } from '@c/Layout/Layout';
-import { FaqSidebar, FaqHead, FaqCard } from '@c/Faq';
-import { IFaqCard } from '@core/interface/Faq';
-import { prepareSmartSearchRegexp, clearMorphologyInSearchTerm } from '@utils';
+import { IFaqCard } from '@interface/Faq';
+import { Helmet } from 'react-helmet';
 
-export const FaqPage: React.FC<{}> = () => {
+export const FaqPage = () => {
   const { t, i18n } = useTranslation('faq');
   const [search, setSearch] = useState<string>('');
   const [category, setCategory] = useState<string>('start');

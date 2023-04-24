@@ -1,14 +1,8 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { toast, Id } from 'react-toastify';
+import { IUserDto } from '@interface/User';
 import * as Sentry from '@sentry/browser';
-
-import { useAppSelector, useAppDispatch, api } from '@core';
-import { getCurrentUser, resetUser } from '@store';
-import { IUserDto } from '@core/interface/User';
-import { localStorageGet, getTimezone } from '@utils';
 import { Toast } from '@ui';
+import { useNavigate } from 'react-router-dom';
+import { Id, toast } from 'react-toastify';
 
 const useProfile = () => {
   const { userData } = useAppSelector((state) => state.userState);

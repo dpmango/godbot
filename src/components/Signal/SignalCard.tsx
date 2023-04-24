@@ -1,8 +1,3 @@
-import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
-import { formatPrice, formatDate, isValidNumber } from '@utils';
 import { ISignal } from '@interface/Signal';
 
 interface ISignalCard {

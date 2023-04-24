@@ -1,12 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
-import { UserCard, Languages, Menu } from '@c/Layout/Header/Atom';
+import { Languages, Menu, UserCard } from '@c/Layout/Header/Atom';
 import { DevBadge } from '@ui';
+import { Link } from 'react-router-dom';
 
-export const Header: React.FC<{}> = () => {
+export const Header = () => {
   const [menu, setMenu] = useState(false);
 
   const { t } = useTranslation('header');

@@ -1,9 +1,8 @@
-import { Helmet } from 'react-helmet';
-
 import { Layout } from '@c/Layout/Layout';
 import { Toast } from '@ui';
+import { Helmet } from 'react-helmet';
 
-export const UiPage: React.FC<{}> = () => {
+export const UiPage = () => {
   return (
     <Layout>
       <Helmet>

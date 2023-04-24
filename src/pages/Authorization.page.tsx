@@ -1,14 +1,9 @@
 import Cookies from 'js-cookie';
-import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-
-import { useAppSelector, useAppDispatch } from '@core';
-import { getCurrentUser } from '@store';
-import { reachGoal } from '@utils';
 
 // import '@c/Authorization/login.sass';
 
-export const Authorization: React.FC<{}> = () => {
+export const Authorization = () => {
   const { search } = useLocation();
   const { userData } = useAppSelector((state) => state.userState);
 

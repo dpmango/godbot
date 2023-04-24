@@ -1,8 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
 import { Modal, SpriteIcon } from '@ui';
-import { useClickOutside } from '@hooks';
 
 interface IModalTurnMessageProps {}
 

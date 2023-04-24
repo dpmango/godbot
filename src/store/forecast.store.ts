@@ -1,9 +1,8 @@
+import type { RootState } from '@core/store';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { api } from '@core';
-import { buildParams, PerformanceLog, timeToTz } from '@utils';
-import { IGraphTickDto, ICoinDto } from '@/core/interface/Forecast';
-import { RootState } from '@core';
 import { UTCTimestamp } from 'lightweight-charts';
+
+import { ICoinDto, IGraphTickDto } from '@/core/interface/Forecast';
 //import { stat } from 'fs';
 
 export const getCoins = createAsyncThunk('chart/coinData', async () => {
@@ -19,7 +18,7 @@ interface IGraphRequest {
 export const getChart = createAsyncThunk(
   'chart/chartData',
   async ({ page = 1, per }: IGraphRequest, { getState }) => {
-    let paginationParams = buildParams({ page, paginated_by: per });
+    const paginationParams = buildParams({ page, paginated_by: per });
     const {
       forecastState: { currentCoin, currentTime },
     } = getState() as RootState;

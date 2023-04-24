@@ -1,12 +1,7 @@
-import { useCallback, useMemo, useRef } from 'react';
-import cns from 'classnames';
-import { useTranslation, Trans } from 'react-i18next';
-
-import { useAppSelector } from '@core';
-import { copyToClipboard } from '@utils';
 import { Toast } from '@ui';
+import { Trans } from 'react-i18next';
 
-export const PartnerSide: React.FC<{}> = () => {
+export const PartnerSide = () => {
   const { partner } = useAppSelector((state) => state.userState);
   const inputRef = useRef(null);
 

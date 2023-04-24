@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useClickOutside } from '@hooks';
-import { useAppSelector } from '@/core';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
+
+import { useAppSelector } from '@/core';
 
 interface IModalTurnMessageProps {
   pointX?: number;

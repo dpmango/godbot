@@ -1,12 +1,7 @@
-import { useMemo } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
 import { SpriteIcon } from '@ui';
-import { isDevelopmentSite } from '@utils';
+import { Link, NavLink } from 'react-router-dom';
 
-export const Menu: React.FC<{}> = () => {
+export const Menu = () => {
   const { t, i18n } = useTranslation('header');
 
   const educationEnabledTmp = useMemo(() => {
@@ -14,7 +9,7 @@ export const Menu: React.FC<{}> = () => {
   }, [i18n.language]);
 
   const availableLinks = useMemo(() => {
-    let menuList = {
+    const menuList = {
       partner: true,
       education: educationEnabledTmp,
       faq: true,

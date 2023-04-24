@@ -1,15 +1,10 @@
-import { FC, useMemo, useEffect, useRef } from 'react';
-
-import { useAppDispatch, useAppSelector } from '@core';
-import { useProfile } from '@hooks';
-import { getInvesting } from '@store';
-
 import { InvestingCard } from '@c/Charts';
+
 import { placeholderInvesting } from './placeholderData';
 
 interface IInvestingProps {}
 
-export const Investing: FC<IInvestingProps> = () => {
+export const Investing: React.FC<IInvestingProps> = () => {
   const { graphs } = useAppSelector((state) => state.investorState);
   const { userData } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();

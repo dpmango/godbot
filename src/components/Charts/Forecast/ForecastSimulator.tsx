@@ -1,29 +1,18 @@
-import { useEffect, useRef, useState, useContext, useCallback, useLayoutEffect } from 'react';
+import { Logo } from '@c/Layout/Header';
+import { utcToZonedTime } from 'date-fns-tz';
+import dayjs from 'dayjs';
 import {
   createChart,
-  LineStyle,
-  LineWidth,
   CrosshairMode,
   IChartApi,
   ISeriesApi,
-  UTCTimestamp,
+  LineStyle,
+  LineWidth,
   LogicalRange,
+  UTCTimestamp,
 } from 'lightweight-charts';
-import { useTranslation } from 'react-i18next';
-
-import cns from 'classnames';
-import dayjs from 'dayjs';
-import { utcToZonedTime } from 'date-fns-tz';
-
-import { ThemeContext } from '@/App';
-import { useProfile, useDebounce, useChart } from '@hooks';
-import { getChart, getCoins } from '@store';
-import { useAppSelector, useAppDispatch } from '@core';
-import { timeToTz, formatPrice, formatUnixDate, formatDate, LOG, PerformanceLog } from '@utils';
 
 import { IGraphTickDto } from '@/core/interface/Forecast';
-
-import { Logo } from '@c/Layout/Header';
 
 export interface IChartLines {
   id: string;
@@ -32,7 +21,7 @@ export interface IChartLines {
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
 
-export const ForecastSimulator: React.FC<{}> = () => {
+export const ForecastSimulator = () => {
   // внутренние стейты
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -58,6 +47,8 @@ export const ForecastSimulator: React.FC<{}> = () => {
 
   const { allowedFunctions } = useProfile();
   const { t } = useTranslation('forecast');
+  const paginatePer = 200;
+  const viewLocked = !tariffActive;
 
   // Хук с утилитами (data-blind)
   const {
@@ -74,10 +65,6 @@ export const ForecastSimulator: React.FC<{}> = () => {
     tooltipRef,
   });
 
-  const colors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
-  const paginatePer = 200;
-  const viewLocked = !tariffActive;
-
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
     // подготовка (маппинг) данных
@@ -88,7 +75,7 @@ export const ForecastSimulator: React.FC<{}> = () => {
 
     // точки обновленный прогноза
     const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
-    let updateMarkers = createUpdateMarkers(updateDates);
+    const updateMarkers = createUpdateMarkers(updateDates);
 
     setSeries([...currentSeries]);
     PerformanceLog(PERF_TIME_SERIES, 'creating series data');
@@ -145,7 +132,11 @@ export const ForecastSimulator: React.FC<{}> = () => {
       });
 
       // отрисовка Series Types
-      let newChartLines = createChartLines({ chart: chartInstance, updateMarkers, currentSeries });
+      const newChartLines = createChartLines({
+        chart: chartInstance,
+        updateMarkers,
+        currentSeries,
+      });
       setChartLines([...newChartLines]);
 
       // навигация по графику
@@ -206,13 +197,7 @@ export const ForecastSimulator: React.FC<{}> = () => {
   };
 
   // инициализация запросов
-  const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
-    let updateIntervalMin = 1;
-    if (currentTime === '15m') {
-      updateIntervalMin = 1;
-    }
-
     const requestChart = async () => {
       if (currentCoin && currentTime) {
         dispatch(getChart({ page: 10, per: paginatePer }));
@@ -221,19 +206,8 @@ export const ForecastSimulator: React.FC<{}> = () => {
 
     if (allowedFunctions.forecast) {
       requestChart();
-      timerConfirm.current = setInterval(requestChart, updateIntervalMin * (60 / 6) * 1000);
     }
-
-    return () => {
-      clearInterval(timerConfirm.current as NodeJS.Timeout);
-    };
   }, [allowedFunctions.forecast, currentCoin, currentTime]);
-
-  useEffect(() => {
-    if (allowedFunctions.forecast) {
-      dispatch(getCoins());
-    }
-  }, [allowedFunctions.forecast]);
 
   // обновление данных
   useEffect(() => {

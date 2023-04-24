@@ -1,21 +1,13 @@
-import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
-//import xorBy from 'lodash/xorBy';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
-import { useAppDispatch, useAppSelector, api } from '@core';
-import { getSignals, setFilter } from '@store';
-import { Loader, Pagination, Select, Toast, LockScreen } from '@ui';
-import { useProfile } from '@hooks';
-import { getPluralKey, isValidNumber, clearString, localStorageGet, localStorageSet } from '@utils';
-
-import { SignalCard } from '@c/Signal';
-import { SpriteIcon } from '@ui';
-import { placeholderSignals } from './placeholderData';
 import audioNotify from '@assets/audio/notify.mp3';
+import { SignalCard } from '@c/Signal';
+import { Loader, LockScreen, Pagination, Select, Toast } from '@ui';
+import { SpriteIcon } from '@ui';
+//import xorBy from 'lodash/xorBy';
 import { useNavigate } from 'react-router-dom';
 
-export const Signals: React.FC<{}> = ({}) => {
+import { placeholderSignals } from './placeholderData';
+
+export const Signals = () => {
   const dispatch = useAppDispatch();
   const { data, filter, metadata } = useAppSelector((state) => state.signalState);
 
@@ -111,6 +103,7 @@ export const Signals: React.FC<{}> = ({}) => {
         try {
           const notify = new Audio(audioNotify);
           notify.play();
+          // eslint-disable-next-line no-empty
         } catch {}
       }
     };

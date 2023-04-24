@@ -1,5 +1,6 @@
-import { toast, ToastOptions } from 'react-toastify';
 import './toast.scss';
+
+import { toast, ToastOptions } from 'react-toastify';
 
 export const Toast = (
   type: 'success' | 'error' | 'info',

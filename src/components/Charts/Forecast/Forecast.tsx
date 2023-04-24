@@ -1,30 +1,22 @@
-import { useEffect, useRef, useState, useContext, useCallback, useLayoutEffect } from 'react';
+import { ForecastFilter, ForecastLegend, ForecastSimulator } from '@c/Charts';
+import { Logo } from '@c/Layout/Header';
+import { LockScreen } from '@ui';
+import { utcToZonedTime } from 'date-fns-tz';
+import dayjs from 'dayjs';
 import {
   createChart,
-  LineStyle,
-  LineWidth,
   CrosshairMode,
   IChartApi,
   ISeriesApi,
-  UTCTimestamp,
+  LineStyle,
+  LineWidth,
   LogicalRange,
   MouseEventParams,
+  UTCTimestamp,
 } from 'lightweight-charts';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-import dayjs from 'dayjs';
-import { utcToZonedTime } from 'date-fns-tz';
 
-import { useProfile, useDebounce, useChart } from '@hooks';
-import { getChart, getCoins } from '@store';
-import { useAppSelector, useAppDispatch } from '@core';
-import { timeToTz, formatPrice, formatDate, LOG, PerformanceLog } from '@utils';
-import { LockScreen } from '@ui';
-import { IGraphTickDto } from '@/core/interface/Forecast';
-
-import { ForecastFilter, ForecastLegend, ForecastSimulator } from '@c/Charts';
-import { Logo } from '@c/Layout/Header';
 import { BlockGraphPopup } from '@/components/Modal';
+import { IGraphTickDto } from '@/core/interface/Forecast';
 
 export interface IChartLines {
   id: string;
@@ -34,9 +26,9 @@ export interface IChartLines {
 }
 
 export const graphColors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
-export const graphColorInvisible: string = '#00000000';
+export const graphColorInvisible = '#00000000';
 
-export const Forecast: React.FC<{}> = () => {
+export const Forecast = () => {
   // внутренние стейты
   const [loading, setLoading] = useState<boolean>(true);
   const [legendActive, setLegendActive] = useState(false);
@@ -102,7 +94,7 @@ export const Forecast: React.FC<{}> = () => {
 
     // точки обновленный прогноза
     const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
-    let updateMarkers = createUpdateMarkers(updateDates);
+    const updateMarkers = createUpdateMarkers(updateDates);
 
     // Определение "график обновиться"
     const lastTick = coinData[coinData.length - 1].timestamp;
@@ -172,7 +164,11 @@ export const Forecast: React.FC<{}> = () => {
       });
 
       // отрисовка Series Types
-      let newChartLines = createChartLines({ chart: chartInstance, updateMarkers, currentSeries });
+      const newChartLines = createChartLines({
+        chart: chartInstance,
+        updateMarkers,
+        currentSeries,
+      });
       setChartLines([...newChartLines]);
 
       // навигация по графику

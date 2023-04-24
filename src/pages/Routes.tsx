@@ -1,26 +1,24 @@
-import { useEffect, useState, useRef } from 'react';
-import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import { useTranslation } from 'react-i18next';
-
-import { useProfile } from '@hooks';
-import { Toast } from '@ui';
-import { reachGoal } from '@/core/utils';
-
-import { HomePage } from '@/pages/Home.page';
-import { Authorization } from '@/pages/Authorization.page';
 import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
-import { Partner } from '@/pages/Partner.page';
+import { Toast } from '@ui';
+import Cookies from 'js-cookie';
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+
+import { Authorization } from '@/pages/Authorization.page';
 import { Education } from '@/pages/Education.page';
 import { FaqPage } from '@/pages/Faq.page';
+import { HomePage } from '@/pages/Home.page';
 import { NotFound } from '@/pages/NotFound.page';
+import { Partner } from '@/pages/Partner.page';
 import { UiPage } from '@/pages/Ui.page';
 
 declare global {
   interface Window {
     gtag?: (key: string, trackingId: string, config?: { page_path: string }) => void;
     ym?: (key: number, action: string, params: string) => void;
+  }
+  interface _teletypeWidget {
+    init: any;
   }
 }
 
@@ -72,14 +70,14 @@ const ProtectedRoute = () => {
 };
 
 const Router = () => {
-  let location = useLocation();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
     window;
-    if (!window.gtag || !process.env.REACT_APP_GTM_ID) return;
+    if (!window.gtag || !import.meta.env.VITE_GTM_ID) return;
 
-    window.gtag('config', process.env.REACT_APP_GTM_ID, { page_path: location.pathname });
+    window.gtag('config', import.meta.env.VITE_GTM_ID, { page_path: location.pathname });
   }, [location]);
 
   return (

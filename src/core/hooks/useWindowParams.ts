@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 interface WindowSizeDemensions {
   width: number;
   height: number;

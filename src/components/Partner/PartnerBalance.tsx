@@ -1,11 +1,6 @@
-import cns from 'classnames';
-import { useTranslation, Trans } from 'react-i18next';
+import { Trans } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-
-import { useAppSelector } from '@core';
-import { formatPrice } from '@utils';
-
-export const PartnerBalance: React.FC<{}> = () => {
+export const PartnerBalance = () => {
   const { partner } = useAppSelector((state) => state.userState);
 
   const { t } = useTranslation('partner', { keyPrefix: 'balance' });

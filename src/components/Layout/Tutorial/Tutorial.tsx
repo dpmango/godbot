@@ -1,14 +1,8 @@
-import { FC, useState, useMemo } from 'react';
+import './tutorial.scss';
+
+import { useNavigate, useSearchParams } from 'react-router-dom';
 // @ts-ignore
 import Tour from 'reactour';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-
-import { useAppDispatch, useAppSelector } from '@core';
-import { isModalOpened } from '@utils';
-import { setTutorialComplete } from '@store/user.store';
-
-import './tutorial.scss';
 
 const svgInfo = (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,11 +18,11 @@ const svgInfo = (
   </svg>
 );
 
-export const Tutorial: FC<any> = () => {
+export const Tutorial: React.FC<any> = () => {
   const { userData } = useAppSelector((state) => state.userState);
   const [step, setStep] = useState();
 
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -1,12 +1,7 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { useTranslation, Trans } from 'react-i18next';
-import { Formik, FormikProps, Form, Field, FieldProps } from 'formik';
 import { Modal, SpriteIcon } from '@ui';
-import { api, useAppSelector } from '@core';
-import { useClickOutside } from '@hooks';
-import cns from 'classnames';
+import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
+import { Helmet } from 'react-helmet';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 interface IFormValues {
   address: string;
@@ -24,7 +19,7 @@ export const Withdraw = () => {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { partner } = useAppSelector((state) => state.userState);
 
   const { t } = useTranslation('partner', { keyPrefix: 'withdraw' });

@@ -1,11 +1,5 @@
-import { FC, useCallback, useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
-import { useAppSelector } from '@core';
 import { SpriteIcon } from '@ui';
-import { useTariff } from '@hooks';
+import { Link, useSearchParams } from 'react-router-dom';
 
 // import './fader.sass';
 
@@ -16,7 +10,7 @@ interface ILockScreenProps {
   postText?: string;
 }
 
-export const LockScreen: FC<ILockScreenProps> = ({
+export const LockScreen: React.FC<ILockScreenProps> = ({
   section,
   textModifier,
   sizeModifier,

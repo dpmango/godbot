@@ -19,7 +19,7 @@ export const copyToClipboard = (textToCopy: string, focusRef?: HTMLElement | nul
   }
 
   function selectText(node: HTMLElement) {
-    let documentBody = <any>document.body;
+    const documentBody = <any>document.body;
     if (documentBody.createTextRange) {
       const range = documentBody.createTextRange();
       range.moveToElementText(node);
@@ -39,6 +39,7 @@ export const copyToClipboard = (textToCopy: string, focusRef?: HTMLElement | nul
     if (focusRef) {
       try {
         selectText(focusRef);
+        // eslint-disable-next-line no-empty
       } catch {}
     }
 

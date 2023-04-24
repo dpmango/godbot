@@ -1,11 +1,5 @@
-import { useMemo } from 'react';
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
-
-import { useAppSelector, useAppDispatch } from '@core';
-import { setVideoModal } from '@store';
+import { IVideoDto } from '@interface/Education';
 import { LockScreen } from '@ui';
-import { IVideoDto } from '@core/interface/Education';
 
 interface IEducationCardProps extends IVideoDto {
   access_level: number;
@@ -50,7 +44,7 @@ export const EducationCard: React.FC<IEducationCardProps> = ({
         href={link || '#'}
         target={link ? '_blank' : ''}
         onClick={(e) => handleVideoOpen(e)}
-        rel="noopener">
+        rel="noopener noreferrer">
         <img src={preview_image} alt="" />
         <span className="education__block-play">
           <img src="/img/play.svg" alt="" />

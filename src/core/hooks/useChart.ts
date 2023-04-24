@@ -1,22 +1,18 @@
-import React, { useEffect, useCallback, useRef, useContext, useLayoutEffect } from 'react';
 import {
-  IChartApi,
-  UTCTimestamp,
-  MouseEventParams,
   DeepPartial,
+  IChartApi,
+  LineStyle,
+  LineWidth,
+  MouseEventParams,
   PriceFormat,
-  Time,
   SeriesMarker,
   SeriesMarkerPosition,
   SeriesMarkerShape,
-  LineWidth,
-  LineStyle,
+  Time,
+  UTCTimestamp,
 } from 'lightweight-charts';
-import { useTranslation } from 'react-i18next';
 
 import { ThemeContext } from '@/App';
-import { formatPrice, formatUnixDate, formatDate } from '@utils';
-import { useAppSelector, useAppDispatch } from '@core';
 import { IChartLines } from '@/components/Charts/Forecast/Forecast';
 import { IGraphTickDto } from '@/core/interface/Forecast';
 
@@ -28,7 +24,7 @@ interface IUseChartProps {
 
 export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
   const graphColors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
-  const graphColorInvisible: string = '#00000000';
+  const graphColorInvisible = '#00000000';
 
   const { t } = useTranslation('forecast');
   const ctx = useContext(ThemeContext);
@@ -81,7 +77,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
   // опциональные функции
   // точки обновленный прогноза
   const createUpdateMarkers = (updateDates: UTCTimestamp[]) => {
-    let updateMarkers: SeriesMarker<Time>[] = [];
+    const updateMarkers: SeriesMarker<Time>[] = [];
     updateDates.forEach((x) => {
       updateMarkers.push({
         id: `update-${x}`,
@@ -184,7 +180,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     //const realLineTime = chartsData.RealLine[chartsData.RealLine.length - 1].time;
     //chartsData.Forecast = chartsData.Forecast.filter(({ time }) => time < realLineTime);
 
-    let series = [] as ISeriesData[];
+    const series = [] as ISeriesData[];
     whitelist.forEach((key) => {
       if (key === 'RealCandle') {
         series.push({
@@ -273,7 +269,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     currentSeries: any[];
     updateMarkers: SeriesMarker<Time>[];
   }) => {
-    let newChartLines: IChartLines[] = [];
+    const newChartLines: IChartLines[] = [];
 
     currentSeries.forEach((s, idx) => {
       let lineSeriesInstance;
@@ -366,7 +362,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     const dateStr = formatUnixDate(param.time as UTCTimestamp);
     let pricesHtml = '';
     newChartLines.forEach((ser, idx) => {
-      let priceInstance = param.seriesData.get(ser.instance) as {
+      const priceInstance = param.seriesData.get(ser.instance) as {
         value: number;
         time: number;
         close?: number;

@@ -1,5 +1,3 @@
-import { useCallback, useLayoutEffect } from 'react';
-
 export const useScrollLock = () => {
   const lockScroll = useCallback(() => {
     document.body.dataset.scrollLock = 'true';

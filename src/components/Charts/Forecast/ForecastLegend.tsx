@@ -1,7 +1,3 @@
-import { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
 import { IChartLines } from './Forecast';
 
 export const ForecastLegend: React.FC<{

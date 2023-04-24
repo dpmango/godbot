@@ -1,12 +1,6 @@
-import { useState, useCallback, useEffect } from 'react';
+import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
 import { Helmet } from 'react-helmet';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Formik, FormikProps, Form, Field, FieldProps } from 'formik';
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
-
-import { api } from '@core';
-import { validEmail, localStorageSet, localStorageGet, reachGoal } from '@utils';
 
 interface IFormValues {
   email: string;
@@ -15,7 +9,7 @@ const formInitial: IFormValues = {
   email: localStorageGet('email') || '',
 };
 
-export const AuthorizationForm: React.FC<{}> = () => {
+export const AuthorizationForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [focused, setFocused] = useState(false);

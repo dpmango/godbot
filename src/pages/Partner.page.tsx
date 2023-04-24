@@ -1,14 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet';
-
-import { useAppDispatch } from '@core';
-import { getPartnership } from '@store';
-import { useProfile } from '@hooks';
-
 import { Layout } from '@c/Layout/Layout';
 import { PartnerBalance, PartnerList, PartnerSide } from '@c/Partner';
+import { Helmet } from 'react-helmet';
 
-export const Partner: React.FC<{}> = () => {
+export const Partner = () => {
   const { allowedFunctions } = useProfile();
   const dispatch = useAppDispatch();
 

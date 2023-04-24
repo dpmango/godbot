@@ -1,19 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
+import { ChartsRouter } from '@c/Charts';
+import { Layout } from '@c/Layout/Layout';
+import { Tutorial } from '@c/Layout/Tutorial/Tutorial';
+import { Loader } from '@ui';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
-import cns from 'classnames';
 
-import { useAppSelector } from '@core';
-import { useProfile, useScrollLock, useWindowParams } from '@/core/hooks';
-import { Loader } from '@ui';
-
-import { Layout } from '@c/Layout/Layout';
-import { ChartsRouter } from '@c/Charts';
-import { Signals } from '@c/Signal';
-import { Tutorial } from '@c/Layout/Tutorial/Tutorial';
 import { MobileTurnMessage } from '@/components/Modal';
+import { useProfile, useScrollLock, useWindowParams } from '@/core/hooks';
 
-export const HomePage: React.FC<{}> = () => {
+export const HomePage = () => {
   const [loaderShown, setLoaderShown] = useState<boolean>(false);
   const { userData } = useAppSelector((state) => state.userState);
   const { data, currentCoin, currentTime } = useAppSelector((state) => state.forecastState);

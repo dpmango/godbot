@@ -1,3 +1,3 @@
-export { FaqSidebar } from './FaqSidebar';
-export { FaqHead } from './FaqHead';
 export { FaqCard } from './FaqCard';
+export { FaqHead } from './FaqHead';
+export { FaqSidebar } from './FaqSidebar';

@@ -1,9 +1,9 @@
-export { TarifWindow } from './Tarif/TarifWindow';
-export { TarifCard } from './Tarif/TarifCard';
-export { ModalInfo } from './ModalInfo';
-export { DocsPrivacy } from './Docs/Privacy';
-export { DocsTerms } from './Docs/Terms';
+export { BlockGraphPopup } from './BlockGraphPopup';
 export { DocsCookies } from './Docs/Cookies';
 export { DocsDisclaimer } from './Docs/Disclaimer';
+export { DocsPrivacy } from './Docs/Privacy';
+export { DocsTerms } from './Docs/Terms';
 export { MobileTurnMessage } from './MobileTurnMessage';
-export { BlockGraphPopup } from './BlockGraphPopup';
+export { ModalInfo } from './ModalInfo';
+export { TarifCard } from './Tarif/TarifCard';
+export { TarifWindow } from './Tarif/TarifWindow';

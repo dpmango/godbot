@@ -1,6 +1,3 @@
-import { useMemo, useCallback } from 'react';
-import cns from 'classnames';
-
 import { SpriteIcon } from '@ui';
 
 // import './pagination.sass';

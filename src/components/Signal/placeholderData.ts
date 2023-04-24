@@ -1,4 +1,4 @@
-import { ISignal } from '@core/interface/Signal';
+import { ISignal } from '@interface/Signal';
 
 export const placeholderSignals: ISignal[] = [
   {

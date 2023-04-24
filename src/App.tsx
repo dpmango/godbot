@@ -1,11 +1,10 @@
-import { createContext, useState, useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
-import { useSearchParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { createContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { YMInitializer } from 'react-yandex-metrika';
 
-import { localStorageGet, localStorageSet } from '@utils';
-import { useProfile } from '@hooks';
 import Router from '@/pages/Routes';
 
 interface IThemeContext {
@@ -16,7 +15,7 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext | null>(null);
 
 function App() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { fetchProfileWithLogout, setUserSettings } = useProfile();
 
@@ -45,12 +44,13 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
       <Router />
+
       <ToastContainer
       // hideProgressBar={true}
       />
-      {process.env.REACT_APP_YM_ID && (
+      {import.meta.env.VITE_YM_ID && (
         <YMInitializer
-          accounts={[+process.env.REACT_APP_YM_ID]}
+          accounts={[+import.meta.env.VITE_YM_ID]}
           options={{ webvisor: true }}
           version="2"
         />

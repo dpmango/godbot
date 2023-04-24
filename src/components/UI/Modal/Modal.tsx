@@ -1,6 +1,4 @@
 import { useScrollLock } from '@/core/hooks';
-import cns from 'classnames';
-import { useEffect } from 'react';
 
 // import './modal.sass';
 

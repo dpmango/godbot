@@ -1,23 +1,16 @@
-import { useContext, useState, useRef, useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-import AES from 'crypto-js/aes';
-
-import { useAppSelector } from '@core';
-import { useClickOutside } from '@hooks';
-import { formatDate } from '@utils';
+import { Menu, Socials } from '@c/Layout/Header';
 import { SpriteIcon } from '@ui';
+import AES from 'crypto-js/aes';
+import { Link, useLocation } from 'react-router-dom';
+
 import { ThemeContext } from '@/App';
 
-import { Menu, Socials } from '@c/Layout/Header';
-
-export const UserCard: React.FC<{}> = () => {
+export const UserCard = () => {
   const [userOpened, setUserOpened] = useState(false);
   const { userData, isProUser, tariffActive } = useAppSelector((state) => state.userState);
   const { pathname } = useLocation();
 
-  let ctx = useContext(ThemeContext);
+  const ctx = useContext(ThemeContext);
 
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => setUserOpened(false));
@@ -25,12 +18,12 @@ export const UserCard: React.FC<{}> = () => {
   const { t } = useTranslation('header');
 
   const botLinkWithKey = useMemo(() => {
-    const base = process.env.REACT_APP_BOT_HREF || 'https://t.me/godbotpro_bot?start=';
+    const base = import.meta.env.VITE_BOT_HREF || 'https://t.me/godbotpro_bot?start=';
 
     const ID = userData?.id || '';
-    const SECRET = process.env.REACT_APP_BOT_SECRET || '';
+    const SECRET = import.meta.env.VITE_BOT_SECRET || '';
 
-    var encrypted = AES.encrypt(ID.toString(), SECRET).toString();
+    const encrypted = AES.encrypt(ID.toString(), SECRET).toString();
     const startKey = encrypted
       .replace('=', '_EQ')
       .replace('/', '_SL')
@@ -84,11 +77,16 @@ export const UserCard: React.FC<{}> = () => {
           <a
             className={cns('header__user-link', !isProUser && 'header__user-link--disabled')}
             href={isProUser ? 'https://t.me/+aeBQzpHS3G8xZTVi' : ''}
-            target="_blank">
+            target="_blank"
+            rel="noreferrer">
             <SpriteIcon name="telegram" width="16" height="16" />
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
           </a>
-          <a className={cns('header__user-link')} href={botLinkWithKey} target="_blank">
+          <a
+            className={cns('header__user-link')}
+            href={botLinkWithKey}
+            target="_blank"
+            rel="noreferrer">
             <SpriteIcon name="bot" width="16" height="16" />
             {t('actions.connectBot')}
           </a>

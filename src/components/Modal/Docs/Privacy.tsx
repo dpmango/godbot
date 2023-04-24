@@ -1,13 +1,10 @@
-import { useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
+/* eslint-disable react/no-unescaped-entities */
 
 import { Modal } from '@ui';
-import { useClickOutside } from '@hooks';
+import { Helmet } from 'react-helmet';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-export const DocsPrivacy: React.FC<{}> = () => {
+export const DocsPrivacy = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('ui', { keyPrefix: 'modal' });

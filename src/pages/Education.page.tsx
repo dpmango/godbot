@@ -1,16 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import ModalVideo from 'react-modal-video';
 import 'react-modal-video/scss/modal-video.scss';
 
-import { useAppDispatch, api, useAppSelector } from '@core';
-import { setVideoModal } from '@store';
-import { IEducationDto } from '@core/interface/Education';
-
-import { Layout } from '@c/Layout/Layout';
 import { EducationSection } from '@c/Education';
+import { Layout } from '@c/Layout/Layout';
+import { IEducationDto } from '@interface/Education';
+import { Helmet } from 'react-helmet';
+import ModalVideo from 'react-modal-video';
 
-export const Education: React.FC<{}> = () => {
+export const Education = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [sections, setSections] = useState<IEducationDto[]>([]);
   const dispatch = useAppDispatch();

@@ -1,10 +1,4 @@
-import { useLayoutEffect, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-
-import { useAppDispatch, useAppSelector } from '@core';
-import { setTeletypeReady } from '@store';
-import { getTimezone } from '@utils';
-
+// @ts-nocheck
 export const TeletypeWidget = () => {
   const { teletypeReady } = useAppSelector((state) => state.uiState);
   const { userData } = useAppSelector((state) => state.userState);
@@ -16,10 +10,10 @@ export const TeletypeWidget = () => {
     if (!window._teletypeWidget) {
       window._teletypeWidget = window._teletypeWidget || {};
       !(function () {
-        var t = document.getElementsByTagName('app-teletype-root');
-        if (t.length > 0 && _teletypeWidget.init) return;
-        var d = new Date().getTime();
-        var n = document.createElement('script'),
+        const t = document.getElementsByTagName('app-teletype-root');
+        if (t.length > 0 && window._teletypeWidget.init) return;
+        const d = new Date().getTime();
+        const n = document.createElement('script'),
           c = document.getElementsByTagName('script')[0];
         (n.id = 'teletype-widget-embed'),
           (n.src = 'https://widget.teletype.app/init.js?_=' + d),
@@ -32,7 +26,7 @@ export const TeletypeWidget = () => {
         dispatch(setTeletypeReady(true));
       });
 
-      window.teletypeExternalId = process.env.REACT_APP_TELETYPE_KEY;
+      window.teletypeExternalId = import.meta.env.VITE_TELETYPE_KEY;
     }
   });
 

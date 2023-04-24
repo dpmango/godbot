@@ -1,39 +1,39 @@
 @charset "UTF-8";
 .main-input__wrap {
-		position: relative;
+  position: relative;
 }
 .main-input {
-		flex: 0 0 auto;
-		font-weight: normal;
-		line-height: normal;
-		font-family: var(--font);
-		color: var(--text);
-		text-align: left;
-		height: 40px;
-		border-radius: 10px;
-		-webkit-appearance: none;
-		width: 100%;
-		display: block;
-		border: 1px solid var(--block-border2);
-		background: var(--block-bg);
-		outline: none;
+  flex: 0 0 auto;
+  font-weight: normal;
+  line-height: normal;
+  font-family: var(--font);
+  color: var(--text);
+  text-align: left;
+  height: 40px;
+  border-radius: 10px;
+  -webkit-appearance: none;
+  width: 100%;
+  display: block;
+  border: 1px solid var(--block-border2);
+  background: var(--block-bg);
+  outline: none;
 }
 @media only screen and (max-width: 767px) {
-		.main-input {
-				padding: 0 10px;
-				font-size: 12px;
-		}
+  .main-input {
+    padding: 0 10px;
+    font-size: 12px;
+  }
 }
 @media only screen and (min-width: 768px) {
-		.main-input {
-				padding: 0 20px;
-				font-size: 16px;
-		}
+  .main-input {
+    padding: 0 20px;
+    font-size: 16px;
+  }
 }
 .btn--input {
-		position: absolute;
-		top: 0;
-		right: 0;
-		height: 100%;
-		border-radius: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border-radius: 10px;
 }

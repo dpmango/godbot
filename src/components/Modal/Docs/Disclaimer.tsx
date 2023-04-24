@@ -1,13 +1,8 @@
-import { useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
 import { Modal } from '@ui';
-import { useClickOutside } from '@hooks';
+import { Helmet } from 'react-helmet';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-export const DocsDisclaimer: React.FC<{}> = () => {
+export const DocsDisclaimer = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('ui', { keyPrefix: 'modal' });

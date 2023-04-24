@@ -1,8 +1,3 @@
-import { useState, useRef, useMemo } from 'react';
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
-
-import { useClickOutside } from '@hooks';
 import { SpriteIcon } from '@ui';
 
 // import './select.sass';

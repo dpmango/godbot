@@ -1,13 +1,12 @@
+import { toDate, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-import isToday from 'dayjs/plugin/isToday';
 import locale_ru from 'dayjs/locale/ru';
 import locale_tr from 'dayjs/locale/tr';
-import { toDate, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
-import { UTCTimestamp, BusinessDay } from 'lightweight-charts';
-import { getLanguageByKey } from '@utils';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import isToday from 'dayjs/plugin/isToday';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+import { BusinessDay, UTCTimestamp } from 'lightweight-charts';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -18,7 +17,7 @@ const lang = getLanguageByKey(localStorage.getItem('i18nextLng'))?.key || 'en';
 dayjs.locale(lang);
 
 export const timeDiff = (date: any) => {
-  let now: any = new Date();
+  const now: any = new Date();
 
   return Math.round((date - now) / 1000);
 };

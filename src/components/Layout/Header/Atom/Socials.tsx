@@ -1,7 +1,3 @@
-import cns from 'classnames';
-import { reachGoal } from '@utils';
-import { useTranslation } from 'react-i18next';
-
 interface ISocialsProps {
   className?: string;
 }
@@ -15,14 +11,16 @@ export const Socials: React.FC<ISocialsProps> = ({ className }) => {
         href={'https://twitter.com/godbot_pro'}
         target="_blank"
         title="Twitter"
-        onClick={() => reachGoal('twitter', 'Переход в Твиттер')}>
+        onClick={() => reachGoal('twitter', 'Переход в Твиттер')}
+        rel="noreferrer">
         <img src="/img/social/twitter.svg" alt="Twitter" />
       </a>
       <a
         href={'https://discord.com/invite/Jnptpsmcmx'}
         target="_blank"
         title="Discord"
-        onClick={() => reachGoal('discordd', 'Переход в Дискорд')}>
+        onClick={() => reachGoal('discordd', 'Переход в Дискорд')}
+        rel="noreferrer">
         <img src="/img/social/discord.svg" alt="Discord" />
       </a>
       {i18n.language === 'ru-RU' && (
@@ -30,7 +28,8 @@ export const Socials: React.FC<ISocialsProps> = ({ className }) => {
           href={'https://t.me/godbot_pro'}
           target="_blank"
           title="Telegram"
-          onClick={() => reachGoal('telegram', 'Переход в телеграмм')}>
+          onClick={() => reachGoal('telegram', 'Переход в телеграмм')}
+          rel="noreferrer">
           <img src="/img/social/telegram.svg" alt="Telegram" />
         </a>
       )}

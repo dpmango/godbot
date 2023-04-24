@@ -1,4 +1,4 @@
 export { PartnerBalance } from './PartnerBalance';
-export { PartnerSide } from './PartnerSide';
 export { PartnerList } from './PartnerList';
+export { PartnerSide } from './PartnerSide';
 export { Withdraw } from './Withdraw';

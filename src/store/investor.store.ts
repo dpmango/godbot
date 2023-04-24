@@ -1,6 +1,5 @@
+import { IInvesting } from '@interface/Investor';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { api } from '@core';
-import { IInvesting } from '@core/interface/Investor';
 
 export const getInvesting = createAsyncThunk('investor/investorData', async () => {
   const { data, message } = await api('get_investing/', {});
@@ -55,6 +54,6 @@ export const investorState = createSlice({
   },
 });
 
-export const {} = investorState.actions;
+// export const {} = investorState.actions;
 
 export default investorState.reducer;

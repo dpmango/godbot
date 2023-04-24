@@ -21,8 +21,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Прокси работает только в dev режиме
 
 ```
-REACT_APP_API_URL=/api/
-REACT_APP_API_PROXY=https://app.devgodbot.ru/
+VITE_API_URL=/api/
+VITE_API_PROXY=https://app.devgodbot.ru/
 ```
 
 ## Available Scripts

@@ -1,12 +1,5 @@
-import { useEffect, useMemo, useCallback } from 'react';
+import { ISelectOption, Select, SpriteIcon } from '@ui';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
-import { useAppDispatch, useAppSelector } from '@core';
-import { localizeKeys } from '@utils';
-import { setStateCoin, setStateTime, setSimulator } from '@store';
-import { Select, SpriteIcon, ISelectOption } from '@ui';
 
 interface IForecastFilterProps {
   lastUpdate?: string;
@@ -27,18 +20,18 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   );
   const dispatch = useAppDispatch();
 
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t, i18n } = useTranslation('forecast');
   const { t: tUnits } = useTranslation('forecast', { keyPrefix: 'willUpdate' });
 
   // minutes to update
   const minutesToUpdateVerbose = useMemo(() => {
-    let minute = Math.ceil(minutesToUpdate);
+    const minute = Math.ceil(minutesToUpdate);
     let displayUnit = minute;
     let unitKey = 'minute';
 
     if (minute >= 60) {
-      let hour = Math.ceil(minute / 60);
+      const hour = Math.ceil(minute / 60);
       displayUnit = hour;
       unitKey = 'hour';
     } else if (minute <= 0) {
@@ -80,7 +73,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       const newCoinKey = opt.value as string;
       dispatch(setStateCoin(newCoinKey));
 
-      let newParams = searchParams;
+      const newParams = searchParams;
       newParams.set('coin', newCoinKey);
       setSearchParams(newParams);
     },
@@ -109,7 +102,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       const newTimeKey = opt.value as string;
       dispatch(setStateTime(newTimeKey));
 
-      let newParams = searchParams;
+      const newParams = searchParams;
       newParams.set('time', newTimeKey);
       setSearchParams(newParams);
     },

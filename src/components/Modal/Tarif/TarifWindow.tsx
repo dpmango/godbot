@@ -1,22 +1,14 @@
-import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
-import { api } from '@core';
-import { localizeKeys, reachGoal, removeQueryParam } from '@utils';
-import { Modal } from '@ui';
-import { useClickOutside } from '@hooks';
-import { IPeriodObj } from '@core/interface/Tarif';
 import { TarifCard } from '@c/Modal';
-import { Toast } from '@ui';
+import { IPeriodObj } from '@interface/Tarif';
 import { IPlan, ITarifDto, ITarifMetaData } from '@interface/Tarif';
-import { useAppSelector } from '@core';
+import { Modal } from '@ui';
+import { Toast } from '@ui';
+import { Helmet } from 'react-helmet';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 // import './tarifes.sass';
 
-export const TarifWindow: React.FC<{}> = () => {
+export const TarifWindow = () => {
   const [data, setData] = useState<ITarifDto[]>([]);
   const [metaData, setMetaData] = useState<ITarifMetaData>({
     pro_free_space: 0,
@@ -90,7 +82,7 @@ export const TarifWindow: React.FC<{}> = () => {
       return;
     }
 
-    let updateData: ITarifDto[] = data.map((x: ITarifDto) => ({
+    const updateData: ITarifDto[] = data.map((x: ITarifDto) => ({
       ...x,
       plans: x.plans.sort((planA: IPlan, planB: IPlan) => {
         return planA.period.main_period.number - planB.period.main_period.number;

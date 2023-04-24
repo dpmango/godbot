@@ -1,4 +1,4 @@
-import { IInvesting } from '@core/interface/Investor';
+import { IInvesting } from '@interface/Investor';
 
 export const placeholderInvesting: IInvesting[] = [...Array(8)].map((_, idx) => ({
   access_level: 0,

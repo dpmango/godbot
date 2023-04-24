@@ -1,9 +1,7 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-import cns from 'classnames';
-
+import { IFaqCard } from '@interface/Faq';
 import { SpriteIcon } from '@ui';
-import { IFaqCard } from '@core/interface/Faq';
+import React from 'react';
+import { Trans } from 'react-i18next';
 
 interface IFaqCardProps extends IFaqCard {}
 
@@ -38,7 +36,7 @@ export const FaqCard: React.FC<IFaqCardProps> = ({ title, body, category }) => {
                 {isList && (
                   <ul>
                     {(obj[key] as string[]).map((li, idx) => (
-                      <li>
+                      <li key={idx}>
                         <Trans t={t}>{li}</Trans>
                       </li>
                     ))}

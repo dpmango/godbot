@@ -1,14 +1,7 @@
-import { useState, useMemo, useRef, MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
-import cns from 'classnames';
-
 import { SpriteIcon } from '@ui';
-import { languageList, ILangSelect } from '@utils';
-import { useClickOutside, useProfile } from '@hooks';
+import dayjs from 'dayjs';
 
-export const Languages: React.FC<{}> = () => {
+export const Languages = () => {
   const [opened, setOpened] = useState(false);
 
   const { t, i18n } = useTranslation();

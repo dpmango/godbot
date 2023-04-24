@@ -1,11 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IPartnerDto, IUserDto } from '@interface/User';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import Cookies from 'js-cookie';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
-
-import { api } from '@core';
-import { IUserDto, IPartnerDto } from '@core/interface/User';
-import { timeDiff } from '@utils';
+import Cookies from 'js-cookie';
 
 export interface IUser {
   loading: boolean | null;

@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
-import { ofetch, FetchError, FetchOptions } from 'ofetch';
-import { LOG } from '@utils';
+import { FetchError, FetchOptions, ofetch } from 'ofetch';
 
 interface IRequestOptions {
   method?: string;
@@ -20,7 +19,7 @@ export const api = async (
   { method = 'GET', body, params, headers }: IRequestOptions
 ) => {
   try {
-    let requestOptions = {
+    const requestOptions = {
       method,
       headers: {
         'Content-Type': 'application/json' as string,
@@ -46,7 +45,7 @@ export const api = async (
       };
     }
 
-    let requestUrl = `${process.env.REACT_APP_API_URL}${url}`;
+    let requestUrl = `${import.meta.env.VITE_API_URL}${url}`;
 
     if (url.startsWith('http')) {
       requestUrl = url;
@@ -71,7 +70,7 @@ export const api = async (
       }
     }
 
-    let error: IError = { status: err?.status || 500, message: errMessage, raw: err };
+    const error: IError = { status: err?.status || 500, message: errMessage, raw: err };
 
     LOG.log('❌ Request Error', error);
 

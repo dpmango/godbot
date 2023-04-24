@@ -1,12 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { useTranslation, Trans } from 'react-i18next';
-
-import { Modal } from '@ui';
-import { useClickOutside } from '@hooks';
 import { Socials } from '@c/Layout/Header';
-import { reachGoal } from '@/core/utils';
+import { Modal } from '@ui';
+import { Helmet } from 'react-helmet';
+import { Trans } from 'react-i18next';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 interface IModalInfoProps {
   name: string;
@@ -15,7 +11,7 @@ interface IModalInfoProps {
 export const ModalInfo: React.FC<IModalInfoProps> = ({ name }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { t } = useTranslation(name);
 

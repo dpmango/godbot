@@ -1,12 +1,8 @@
-import { useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-
 import { Modal } from '@ui';
-import { useClickOutside } from '@hooks';
+import { Helmet } from 'react-helmet';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export const ForecastGuide: React.FC<{}> = () => {
+export const ForecastGuide = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('forecast', { keyPrefix: 'guide.modal' });

@@ -1,7 +1,3 @@
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
 import { SpriteIcon } from '@ui';
 
 interface IFaqSidebarProps {

@@ -26,3 +26,5 @@ yarn-error.log*
 .rar
 .idea
 .env
+
+.eslintrc-auto-import.json

@@ -1,10 +1,4 @@
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
-
-import { useAppSelector } from '@core';
-import { formatPrice, formatDate } from '@utils';
-
-export const PartnerList: React.FC<{}> = () => {
+export const PartnerList = () => {
   const { partner } = useAppSelector((state) => state.userState);
 
   const { t } = useTranslation('partner', { keyPrefix: 'list' });

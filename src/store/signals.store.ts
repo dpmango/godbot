@@ -1,8 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { api } from '@core';
 import { ISignal, ISignalMetaDto } from '@interface/Signal';
-import { buildParams } from '@utils';
-import { RootState } from '@core';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import type { RootState } from '@/core/store';
 
 interface ISignalsRequest {
   page?: number;
@@ -16,7 +15,7 @@ export const getSignals = createAsyncThunk(
       signalState: { filter, metadata: storeMetadata },
     } = getState() as RootState;
 
-    let paginationParams = buildParams({
+    const paginationParams = buildParams({
       status: filter,
       page: page || storeMetadata?.current_page,
       paginated_by: per,

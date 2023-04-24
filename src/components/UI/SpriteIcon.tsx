@@ -1,5 +1,3 @@
-import cns from 'classnames';
-
 interface ISpriteIconProps {
   name: string;
   width?: number | string;

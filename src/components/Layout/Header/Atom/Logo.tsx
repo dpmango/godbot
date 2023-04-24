@@ -1,6 +1,6 @@
 import { SpriteIcon } from '@ui';
 
-export const Logo: React.FC<{}> = () => {
+export const Logo = () => {
   return (
     <div className="header__logo">
       <svg width="25" height="32">

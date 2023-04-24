@@ -1,7 +1,3 @@
-import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
 export const PromoStream = () => {
   const { t, i18n } = useTranslation('signal');
 

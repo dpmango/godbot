@@ -1,7 +1,3 @@
-import { FC, useEffect, useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
-
 import st from './Loader.module.scss';
 
 interface ILoaderProps {
@@ -10,7 +6,7 @@ interface ILoaderProps {
   threshold?: number;
 }
 
-export const Loader: FC<ILoaderProps> = ({ theme = 'inline', active, threshold = 300 }) => {
+export const Loader: React.FC<ILoaderProps> = ({ theme = 'inline', active, threshold = 300 }) => {
   const [loadingState, setLoadingState] = useState<boolean>(true);
 
   const { t } = useTranslation('ui', { keyPrefix: 'loader' });

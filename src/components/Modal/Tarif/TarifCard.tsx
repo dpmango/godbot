@@ -1,20 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
+import { IPeriodObj, ITarifDto, ITarifMetaData } from '@interface/Tarif';
+import { Toast } from '@ui';
 import dayjs from 'dayjs';
 import ym from 'react-yandex-metrika';
-
-import { Toast } from '@ui';
-import {
-  formatPrice,
-  localizeKeys,
-  openExternalLink,
-  reachGoal,
-  clearString,
-  getSalesTime,
-} from '@utils';
-import { api, useAppSelector } from '@core';
-import { ITarifDto, IPeriodObj, ITarifMetaData } from '@interface/Tarif';
 
 interface ITarifCard extends ITarifDto {
   activePeriodIdx: number;
@@ -117,10 +104,10 @@ export const TarifCard: React.FC<ITarifCard> = ({
     if (title === 'PRO Trader') {
       const now = new Date();
       const curDayInMonth = now.getDate();
-      let nextDayForStart = null;
+      const nextDayForStart = null;
 
-      let startSales = active_days?.start ? +active_days?.start : 0;
-      let endSales = active_days?.end ? +active_days?.end : 0;
+      const startSales = active_days?.start ? +active_days?.start : 0;
+      const endSales = active_days?.end ? +active_days?.end : 0;
 
       if (curDayInMonth >= startSales && curDayInMonth <= endSales) {
         return metaData.pro_free_space;
@@ -187,7 +174,7 @@ export const TarifCard: React.FC<ITarifCard> = ({
     });
 
     // @ts-ignore
-    if (ym && process.env.REACT_APP_YM_ID) {
+    if (ym && import.meta.env.VITE_YM_ID) {
       let tariff = '';
       const month = currentPlan.period.main_period.number;
 
@@ -243,8 +230,10 @@ export const TarifCard: React.FC<ITarifCard> = ({
     (numList: Array<number>, text: string) =>
       Array.isArray(numList) && numList.length > 0 ? (
         <>
-          {numList.map((num) => (
-            <span className="tarifes__sales-num">{num}</span>
+          {numList.map((num, idx) => (
+            <span className="tarifes__sales-num" key={idx}>
+              {num}
+            </span>
           ))}
           <span className="tarifes__sales-label">{text}</span>
         </>

@@ -1,16 +1,9 @@
-import { useState, useEffect } from 'react';
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
-
-import { useAppSelector } from '@core';
-import { useProfile } from '@hooks';
-
 import { Forecast, Investing } from '@c/Charts';
+
 import { Signals } from '../Signal';
-import { useWindowParams } from '@/core/hooks';
 
 // TODO - переделать табы на роутер
-export const ChartsRouter: React.FC<{}> = () => {
+export const ChartsRouter = () => {
   const { isTablet } = useWindowParams();
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
   const { data } = useAppSelector((state) => state.forecastState);

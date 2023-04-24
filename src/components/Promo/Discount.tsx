@@ -1,13 +1,8 @@
-import { useMemo, useEffect, useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
-import cns from 'classnames';
-import Cookies from 'js-cookie';
-import dayjs from 'dayjs';
-
-import { useAppSelector } from '@core';
 import { Countdown } from '@ui';
-import { timeDiff } from '@utils';
+import dayjs from 'dayjs';
+import Cookies from 'js-cookie';
+import { Trans } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 
 export const PromoDiscount = () => {
   const [visible, setVisible] = useState<boolean>(false);

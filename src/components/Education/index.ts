@@ -1,2 +1,2 @@
-export { EducationSection } from './EducationSection';
 export { EducationCard } from './EducationCard';
+export { EducationSection } from './EducationSection';

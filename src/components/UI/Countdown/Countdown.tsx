@@ -1,14 +1,10 @@
-import { FC, useEffect, useState, useRef, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import cns from 'classnames';
 import dayjs from 'dayjs';
-import { timeDiff, pad } from '@utils';
 
 interface ICountdownProps {
   toDate?: Date;
 }
 
-export const Countdown: FC<ICountdownProps> = ({ toDate }) => {
+export const Countdown: React.FC<ICountdownProps> = ({ toDate }) => {
   const [secondsLeft, setSecondsLeft] = useState<number>(0);
 
   const timerUpdates: { current: NodeJS.Timeout | null } = useRef(null);
