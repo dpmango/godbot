@@ -433,9 +433,9 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     graphColors,
     theme: ctx?.theme,
 
+    createSeriesData,
     createChartLines,
     createUpdateMarkers,
-    createSeriesData,
     setTooltipOnCrosshairMove,
   };
 }

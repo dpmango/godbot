@@ -52,10 +52,9 @@ export const Forecast: React.FC<{}> = () => {
   const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 250);
   const [blockPointX, setBlockPointX] = useState(500);
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   // стор
-  const { data, dataNav, currentCoin, currentTime, prolongation } = useAppSelector(
+  const { data, dataNav, currentCoin, currentTime, prolongation, simulator } = useAppSelector(
     (state) => state.forecastState
   );
   const { tariffActive } = useAppSelector((state) => state.userState);
@@ -72,11 +71,12 @@ export const Forecast: React.FC<{}> = () => {
   // Хук с утилитами (data-blind)
   const {
     theme,
-    setTooltipOnCrosshairMove,
-    createUpdateMarkers,
-    createChartLines,
-    createSeriesData,
     graphColors,
+
+    createSeriesData,
+    createChartLines,
+    createUpdateMarkers,
+    setTooltipOnCrosshairMove,
   } = useChart({
     chart,
     containerRef,
@@ -236,16 +236,6 @@ export const Forecast: React.FC<{}> = () => {
     };
   };
 
-  useEffect(() => {
-    /* 
-     Если сбросили точки на графике, значит поменяли currentRange/currentCoin
-     И возможно нужно будет выравнивать график при блокировке
-     */
-    if (data.length === 0 && dataNav.points === 0 && !isFirstLoad) {
-      setIsFirstLoad(true);
-    }
-  }, [data.length, dataNav.points, isFirstLoad]);
-
   // Проверка на блокировку скрола для пользователя
   const checkForBlockScroll = useCallback(
     ({ from, to }: { from: number; to: number }) => {
@@ -289,33 +279,20 @@ export const Forecast: React.FC<{}> = () => {
     [prolongation.required, dataNav.points, dataSeries.length, chart.current]
   );
 
-  const checkLogicalRange = useCallback(
-    (range: LogicalRange | null) => {
-      if (!range) {
-        return;
-      }
+  const checkLogicalRange = useCallback((range: LogicalRange | null) => {
+    if (!range) {
+      return;
+    }
 
-      if (checkForBlockScroll(range)) {
-        setScrollRange(range);
-      }
-    },
-    [checkForBlockScroll]
-  );
+    if (checkForBlockScroll(range)) {
+      setScrollRange(range);
+    }
+  }, []);
 
   useEffect(() => {
     if (chart.current) {
       // Подписываемся на проверку обновления VisibleRange графика
       chart.current.timeScale().subscribeVisibleLogicalRangeChange(checkLogicalRange);
-
-      // Force scale graph on init if blocked view
-      const currentRange = chart.current.timeScale().getVisibleLogicalRange();
-      if (currentRange && isFirstLoad) {
-        setIsFirstLoad(false);
-
-        chart.current
-          ?.timeScale()
-          .setVisibleLogicalRange({ from: currentRange.from - 0.1, to: currentRange.to - 0.1 });
-      }
     }
 
     return () => {
@@ -323,7 +300,7 @@ export const Forecast: React.FC<{}> = () => {
       chart.current &&
         chart.current.timeScale().unsubscribeVisibleLogicalRangeChange(checkLogicalRange);
     };
-  }, [chart.current, checkLogicalRange, isFirstLoad]);
+  }, [chart.current]);
 
   // пульсирующая точка
   useEffect(() => {
@@ -374,7 +351,6 @@ export const Forecast: React.FC<{}> = () => {
 
     if (allowedFunctions.forecast) {
       requestChart();
-      // remove / 2
       timerConfirm.current = setInterval(requestChart, updateIntervalMin * (60 / 6) * 1000);
     }
 
@@ -476,91 +452,96 @@ export const Forecast: React.FC<{}> = () => {
 
         <ForecastLegend active={legendActive} chartLines={chartLines} />
 
-        {viewLocked ? (
-          <img className="fader--size-big" src="/img/temp/chart.png" width="100%" alt="" />
+        {simulator.enabled ? (
+          <ForecastSimulator />
         ) : (
-          <div
-            ref={containerRef}
-            className="chart-container"
-            style={{
-              opacity: loading ? '0' : '1',
-            }}>
-            <div className="chart-info" ref={tooltipRef} />
-            <div className="chart-pulse" ref={pulseRef}>
-              <span></span>
-            </div>
+          <>
+            {viewLocked ? (
+              <img className="fader--size-big" src="/img/temp/chart.png" width="100%" alt="" />
+            ) : (
+              <div
+                ref={containerRef}
+                className="chart-container"
+                style={{
+                  opacity: loading ? '0' : '1',
+                }}>
+                <div className="chart-info" ref={tooltipRef} />
+                <div className="chart-pulse" ref={pulseRef}>
+                  <span></span>
+                </div>
 
-            <div className="chart-watermark">
-              {[1, 2, 1, 2].map((num, index) => (
-                <div key={index} className="chart-watermark__col">
-                  {[...Array(num)].map((_, i) => (
-                    <Logo key={i} />
+                <div className="chart-watermark">
+                  {[1, 2, 1, 2].map((num, index) => (
+                    <div key={index} className="chart-watermark__col">
+                      {[...Array(num)].map((_, i) => (
+                        <Logo key={i} />
+                      ))}
+                    </div>
                   ))}
                 </div>
-              ))}
-            </div>
-            <div className="chart-legend-tw">
-              <label className="chart__legend-item">
-                <span
-                  className="chart__settings-line"
-                  style={{ borderColor: 'rgb(205, 29, 21)' }}
-                />
-                Forecast
-              </label>
-              <label className="chart__legend-item">
-                <span
-                  className="chart__settings-line"
-                  style={{ borderColor: 'rgb(41, 98, 255)' }}
-                />
-                Real
-              </label>
-              <label className="chart__legend-item">
-                <span className="chart__settings-circle" style={{ backgroundColor: '#F5840F' }} />
-                Update
-              </label>
-            </div>
-            <div
-              className={cns('chart-return', returnVisible && '_visible')}
-              onClick={handleReturnToLive}>
-              <img src="/img/next-tw.svg" alt="" />
-            </div>
-
-            {/* Нет актуальных предсказаний на графике, выводим предупреждение */}
-            {!isForceGraph && isForecastOutdated && (
-              <>
-                <div className={'fader fader--active chart-popup'}>
-                  <div className="fader__text fader__text--big">
-                    <svg width="32" height="32">
-                      <use xlinkHref="/img/icons-tea.svg#tea"></use>
-                    </svg>
-
-                    <div
-                      dangerouslySetInnerHTML={{ __html: t('forecastOutdated.text') as string }}
+                <div className="chart-legend-tw">
+                  <label className="chart__legend-item">
+                    <span
+                      className="chart__settings-line"
+                      style={{ borderColor: 'rgb(205, 29, 21)' }}
                     />
-
-                    <button className="btn fader__btn-min" onClick={() => setIsForceGraph(true)}>
-                      {t('forecastOutdated.action')}
-                    </button>
-                  </div>
+                    Forecast
+                  </label>
+                  <label className="chart__legend-item">
+                    <span
+                      className="chart__settings-line"
+                      style={{ borderColor: 'rgb(41, 98, 255)' }}
+                    />
+                    Real
+                  </label>
+                  <label className="chart__legend-item">
+                    <span
+                      className="chart__settings-circle"
+                      style={{ backgroundColor: '#F5840F' }}
+                    />
+                    Update
+                  </label>
                 </div>
-              </>
-            )}
+                <div
+                  className={cns('chart-return', returnVisible && '_visible')}
+                  onClick={handleReturnToLive}>
+                  <img src="/img/next-tw.svg" alt="" />
+                </div>
 
-            {containerRef?.current && (
-              <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />
+                {/* Нет актуальных предсказаний на графике, выводим предупреждение */}
+                {!isForceGraph && isForecastOutdated && (
+                  <>
+                    <div className={'fader fader--active chart-popup'}>
+                      <div className="fader__text fader__text--big">
+                        <svg width="32" height="32">
+                          <use xlinkHref="/img/icons-tea.svg#tea"></use>
+                        </svg>
+
+                        <div
+                          dangerouslySetInnerHTML={{ __html: t('forecastOutdated.text') as string }}
+                        />
+
+                        <button
+                          className="btn fader__btn-min"
+                          onClick={() => setIsForceGraph(true)}>
+                          {t('forecastOutdated.action')}
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {containerRef?.current && (
+                  <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
 
         <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
 
         {viewLocked && <LockScreen sizeModifier="big" section={t('lock')} textModifier={'big'} />}
-
-        {/* {loading && (
-        <div className="chart__load">
-          <Loader />
-        </div>
-      )} */}
       </div>
       {/* <div className="chart__undertext">{t('under-text')}</div> */}
     </>

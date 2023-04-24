@@ -49,13 +49,12 @@ export const ForecastSimulator: React.FC<{}> = () => {
     currentTime,
     loading: storeLoading,
   } = useAppSelector((state) => state.forecastState);
-  const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  const { tariffActive } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
   // рефы
   const containerRef: any = useRef();
   const tooltipRef: any = useRef();
-  const ctx = useContext(ThemeContext);
 
   const { allowedFunctions } = useProfile();
   const { t } = useTranslation('forecast');
@@ -63,11 +62,12 @@ export const ForecastSimulator: React.FC<{}> = () => {
   // Хук с утилитами (data-blind)
   const {
     theme,
-    setTooltipOnCrosshairMove,
-    createUpdateMarkers,
-    createChartLines,
-    createSeriesData,
     graphColors,
+
+    createSeriesData,
+    createChartLines,
+    createUpdateMarkers,
+    setTooltipOnCrosshairMove,
   } = useChart({
     chart,
     containerRef,
@@ -215,13 +215,12 @@ export const ForecastSimulator: React.FC<{}> = () => {
 
     const requestChart = async () => {
       if (currentCoin && currentTime) {
-        dispatch(getChart({ page: 1, per: paginatePer }));
+        dispatch(getChart({ page: 10, per: paginatePer }));
       }
     };
 
     if (allowedFunctions.forecast) {
       requestChart();
-      // remove / 2
       timerConfirm.current = setInterval(requestChart, updateIntervalMin * (60 / 6) * 1000);
     }
 
