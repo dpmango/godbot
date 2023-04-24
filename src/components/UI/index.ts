@@ -7,4 +7,5 @@ export { Pagination } from './Pagination/Pagination';
 export type { ISelectOption } from './Select/Select';
 export { Select } from './Select/Select';
 export { SpriteIcon } from './SpriteIcon';
+export { SvgIcon } from './SvgIcon/SvgIcon';
 export { Toast } from './Toast/Toast';

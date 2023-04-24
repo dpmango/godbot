@@ -81,6 +81,22 @@ export default ({ mode }) => {
       },
     },
 
+    build: {
+      outDir: 'build',
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('node_modules/react')) {
+              return 'vendor-react';
+            } else if (id.includes('node_modules/i18n')) {
+              return 'vendor-i18n';
+            } else if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          },
+        },
+      },
+    },
     // css: {
     //   preprocessorOptions: {
     //     scss: {

@@ -580,8 +580,8 @@
   position: relative;
   border: 1px solid var(--menu-theme-border);
   background-color: var(--menu-theme-bg);
-  background-image: url('/assets/images/theme-icons/sun.svg'),
-    url('/assets/images/theme-icons/moon.svg');
+  background-image: url('@/assets/images/theme-icons/sun.svg'),
+    url('@/assets/images/theme-icons/moon.svg');
   background-repeat: no-repeat;
   background-size: auto 20px;
   background-position: 7px 50%, calc(100% - 7px) 50%;

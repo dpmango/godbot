@@ -1,4 +1,5 @@
 import '@styles/index.sass';
+import 'virtual:svg-icons-register';
 useI18n();
 
 import * as Sentry from '@sentry/react';
@@ -19,7 +20,7 @@ if (import.meta.env.VITE_SENTRY_DSN) {
     dsn: import.meta.env.VITE_SENTRY_DSN,
     integrations: [
       new BrowserTracing(),
-      new Sentry.Replay(),
+      // new Sentry.Replay(),
       // new Sentry.Integrations.Breadcrumbs({
       //   console: false,
       // }),

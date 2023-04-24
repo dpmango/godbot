@@ -261,7 +261,7 @@
   width: 20px;
   height: 20px;
   margin: -10px 0;
-  background: url('/assets/images/TickCircle.svg') no-repeat 50% 50%;
+  background: url('@/assets/images/TickCircle.svg') no-repeat 50% 50%;
   background-size: cover;
   border-radius: 50%;
 }
