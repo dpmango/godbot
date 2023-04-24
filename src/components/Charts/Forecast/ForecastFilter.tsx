@@ -5,7 +5,7 @@ import cns from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@core';
 import { localizeKeys } from '@utils';
-import { setStateCoin, setStateTime } from '@store';
+import { setStateCoin, setStateTime, setSimulator } from '@store';
 import { Select, SpriteIcon, ISelectOption } from '@ui';
 
 interface IForecastFilterProps {
@@ -22,7 +22,9 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
 }) => {
   const { isProUser, userData } = useAppSelector((state) => state.userState);
 
-  const { currentCoin, currentTime, coins } = useAppSelector((state) => state.forecastState);
+  const { currentCoin, currentTime, coins, simulator } = useAppSelector(
+    (state) => state.forecastState
+  );
   const dispatch = useAppDispatch();
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -156,11 +158,12 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         <Select value={currentCoin} options={coinOptions} onSelect={handleCoinChange} />
         <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
       </div>
-
       {isTestGraph && (
-        <div className="chart__testing" dangerouslySetInnerHTML={{ __html: t('testMode') }} />
+        <div
+          className="chart__testing"
+          dangerouslySetInnerHTML={{ __html: t('testMode') as string }}
+        />
       )}
-
       {minutesToUpdate && (
         <div className="chart__head-time">
           {minutesToUpdateVerbose ? (
@@ -172,13 +175,17 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           )}
         </div>
       )}
-
       {i18n.language === 'ru-RU' && (
         <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
           <img src="/img/play.png" alt="play" />
           <span>{t('guide.title')}</span>
         </Link>
       )}
+      <div
+        className="btn chart__head-btn chart-simulator"
+        onClick={() => dispatch(setSimulator({ enabled: !simulator.enabled }))}>
+        <span>Симулятор рынка</span>
+      </div>
 
       <div
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}

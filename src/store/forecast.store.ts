@@ -37,6 +37,11 @@ export const getChart = createAsyncThunk(
   }
 );
 
+interface ISimulator {
+  enabled: boolean;
+  data: IGraphTickDto[];
+}
+
 interface IForecastState {
   requestId: string;
   loading: boolean | null;
@@ -55,6 +60,7 @@ interface IForecastState {
     blockFromTimestamp: number | null;
     required: number;
   };
+  simulator: ISimulator;
 }
 
 const initialState: IForecastState = {
@@ -72,6 +78,10 @@ const initialState: IForecastState = {
   prolongation: {
     blockFromTimestamp: null,
     required: 0,
+  },
+  simulator: {
+    enabled: false,
+    data: [],
   },
 };
 
@@ -96,6 +106,9 @@ export const forecastState = createSlice({
       state.dataNav.points = 0;
       state.prolongation.blockFromTimestamp = null;
       state.prolongation.required = 0;
+    },
+    setSimulator(state, action: PayloadAction<Partial<ISimulator>>) {
+      state.simulator = { ...state.simulator, ...action.payload };
     },
   },
   extraReducers: (builder) => {
@@ -223,6 +236,6 @@ export const forecastState = createSlice({
   },
 });
 
-export const { setStateCoin, setStateTime } = forecastState.actions;
+export const { setStateCoin, setStateTime, setSimulator } = forecastState.actions;
 
 export default forecastState.reducer;
