@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
 import { Trans } from 'react-i18next';
 
-
 export const PromoByBit = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const { t, i18n } = useTranslation('promo', { keyPrefix: 'bybit' });

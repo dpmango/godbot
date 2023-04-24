@@ -1,4 +1,3 @@
-
 export const LayoutEmpty = () => {
   const { t } = useTranslation('error');
 

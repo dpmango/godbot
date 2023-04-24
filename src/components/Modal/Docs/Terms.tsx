@@ -3,7 +3,6 @@
 import { Modal } from '@ui';
 import { Helmet } from 'react-helmet';
 
-
 export const DocsTerms = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();

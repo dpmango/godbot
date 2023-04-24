@@ -1,7 +1,6 @@
 import { Modal } from '@ui';
 import { Helmet } from 'react-helmet';
 
-
 export const DocsDisclaimer = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();

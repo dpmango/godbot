@@ -1,7 +1,6 @@
 import { Toast } from '@ui';
 import Cookies from 'js-cookie';
 
-
 const useTariff = () => {
   const { isProUser, userData } = useAppSelector((state) => state.userState);
 

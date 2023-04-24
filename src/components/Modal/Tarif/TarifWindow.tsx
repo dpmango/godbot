@@ -4,7 +4,6 @@ import { IPlan, ITarifDto, ITarifMetaData } from '@interface/Tarif';
 import { Modal, Toast } from '@ui';
 import { Helmet } from 'react-helmet';
 
-
 // import './tarifes.sass';
 
 export const TarifWindow = () => {

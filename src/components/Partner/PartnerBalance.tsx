@@ -1,6 +1,5 @@
 import { Trans } from 'react-i18next';
 
-
 export const PartnerBalance = () => {
   const { partner } = useAppSelector((state) => state.userState);
 

@@ -1,4 +1,3 @@
-
 interface IModalTurnMessageProps {
   pointX?: number;
   graphRef: any;

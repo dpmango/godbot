@@ -2,7 +2,6 @@ import { Modal, SpriteIcon } from '@ui';
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
 import { Helmet } from 'react-helmet';
 
-
 interface IFormValues {
   promocode: string;
 }

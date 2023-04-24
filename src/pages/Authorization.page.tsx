@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 
-
 // import '@c/Authorization/login.sass';
 
 export const Authorization = () => {
