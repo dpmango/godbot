@@ -9,22 +9,26 @@ import mkcert from 'vite-plugin-mkcert';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import svgLoader from 'vite-svg-loader';
 
-export default () => {
+export default ({ mode }) => {
+  // Load app-level env vars to node-level env vars.
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+
   return defineConfig({
     publicDir: 'public',
     server: {
       host: 'local.devgodbot.ru',
       https: true,
       port: 443,
-      // proxy: {
-      //   '/api': {
-      //     target: process.env.VITE_API_PROXY,
-      //     changeOrigin: true,
-      //     // configure: (proxy, options) => {
-      //     //   // proxy will be an instance of 'http-proxy'
-      //     // },
-      //   },
-      // },
+      proxy: {
+        '/api': {
+          target: process.env.VITE_API_PROXY,
+          changeOrigin: true,
+          // rewrite: (path) => path.replace(/^\/api/, ''),
+          // configure: (proxy, options) => {
+          //   // proxy will be an instance of 'http-proxy'
+          // },
+        },
+      },
     },
     plugins: [
       mkcert(),
