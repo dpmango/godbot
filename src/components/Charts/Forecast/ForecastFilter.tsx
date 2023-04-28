@@ -1,4 +1,4 @@
-import { ISelectOption, Select, SpriteIcon } from '@ui';
+import { ISelectOption, Select, SpriteIcon, SvgIcon } from '@ui';
 
 interface IForecastFilterProps {
   lastUpdate?: string;
@@ -156,7 +156,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           dangerouslySetInnerHTML={{ __html: t('testMode') as string }}
         />
       )}
-      {minutesToUpdate && (
+      {minutesToUpdate > 0 && (
         <div className="chart__head-time">
           {minutesToUpdateVerbose ? (
             <>
@@ -174,8 +174,9 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         </Link>
       )}
       <div
-        className="btn chart__head-btn chart-simulator"
+        className="btn chart__head-btn"
         onClick={() => dispatch(setSimulator({ enabled: !simulator.enabled }))}>
+        <SvgIcon name="replay" />
         <span>Симулятор рынка</span>
       </div>
 

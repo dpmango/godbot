@@ -4,6 +4,8 @@
   height: calc(100vh - 290px)
   overflow: hidden
   z-index: 1
+  &._simulator
+    margin-bottom: 70px
 
 @media only screen and (max-width: 767px)
   .chart-container
@@ -211,3 +213,42 @@
 
   svg
     fill: var(--text)
+
+
+.chart-simulator
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 2
+  background: var(--bg)
+  border-top: 1px solid var(--border)
+
+.sim
+  &__wrapper
+    display: flex
+    align-items: center
+    padding: 16px 20px
+  &__bets
+    flex: 0 0 auto
+    margin-left: auto
+    display: flex
+    align-items: center
+    font-size: 14px
+  &__bet
+    margin-left: 16px
+    margin-right: 16px 
+  &__short, &__long
+    padding: 10px
+  &__short
+    background-color: var(--red)
+    border-color: var(--red)
+  &__long
+    background-color: var(--green)
+    border-color: var(--green)
+  &__position
+    margin-right: 12px
+    &._profit
+      color: var(--green)
+    &._loss
+      color: var(--red)

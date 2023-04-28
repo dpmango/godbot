@@ -9,5 +9,6 @@
     "public/img/**": true,
     "auto-imports.d.ts": true
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "svn.ignoreMissingSvnWarning": true
 }

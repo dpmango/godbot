@@ -1,16 +1,7 @@
 import { Logo } from '@c/Layout/Header';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
-import {
-  createChart,
-  CrosshairMode,
-  IChartApi,
-  ISeriesApi,
-  LineStyle,
-  LineWidth,
-  LogicalRange,
-  UTCTimestamp,
-} from 'lightweight-charts';
+import { createChart, IChartApi, ISeriesApi, LogicalRange, UTCTimestamp } from 'lightweight-charts';
 
 import { IGraphTickDto } from '@/core/interface/Forecast';
 
@@ -38,23 +29,59 @@ export const ForecastSimulator = () => {
     currentTime,
     loading: storeLoading,
   } = useAppSelector((state) => state.forecastState);
-  const { tariffActive } = useAppSelector((state) => state.userState);
+
   const dispatch = useAppDispatch();
 
   // рефы
-  const containerRef: any = useRef();
-  const tooltipRef: any = useRef();
+  const containerRef: any = useRef(null);
+  const tooltipRef: any = useRef(null);
 
   const { allowedFunctions } = useProfile();
   const { t } = useTranslation('forecast');
   const paginatePer = 200;
-  const viewLocked = !tariffActive;
+
+  interface IStakeElement {
+    type: string;
+    enter: number;
+    exit?: number;
+    quantity: number;
+  }
+
+  // Логика эмулятора
+  const [currentPrice, setCurrentPrice] = useState<number>(100);
+  const [simulatorStake, setSimulatorStake] = useState<IStakeElement[]>([]);
+  const [simulatorPaused, setSimulatorPaused] = useState<boolean>(false);
+  const [simulatorBet, setsimulatorBet] = useState<number>(1000);
+
+  const addShort = useCallback(() => {
+    setSimulatorStake([
+      ...simulatorStake,
+      ...[{ type: 'short', enter: currentPrice, quantity: simulatorBet }],
+    ]);
+    setSimulatorPaused(false);
+  }, [simulatorStake]);
+
+  const addLong = () => {
+    setSimulatorStake([
+      ...simulatorStake,
+      ...[{ type: 'long', enter: currentPrice, quantity: simulatorBet }],
+    ]);
+    setSimulatorPaused(false);
+  };
+
+  const positionPL = useMemo(() => {
+    return simulatorStake.reduce((acc, x) => {
+      acc = acc + (x.enter - currentPrice) * x.quantity;
+      return acc;
+    }, 0);
+  }, [simulatorStake, currentPrice]);
 
   // Хук с утилитами (data-blind)
   const {
     theme,
     graphColors,
 
+    getChartDefaults,
     createSeriesData,
     createChartLines,
     createUpdateMarkers,
@@ -67,69 +94,21 @@ export const ForecastSimulator = () => {
 
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
-    // подготовка (маппинг) данных
-    const PERF_TIME_SERIES = performance.now();
-
     // Создание данных по ответу forecast (указываются id для отрисовки)
-    const currentSeries = createSeriesData(coinData, ['RealLine', 'Forecast']);
+    const currentSeries = createSeriesData(coinData, ['RealLine']);
+    setSeries([...currentSeries]);
 
     // точки обновленный прогноза
     const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
     const updateMarkers = createUpdateMarkers(updateDates);
 
-    setSeries([...currentSeries]);
-    PerformanceLog(PERF_TIME_SERIES, 'creating series data');
-
     if (!chart.current) {
       // Создание инстанса графика
-      const chartInstance = createChart(containerRef.current, {
-        width: containerRef.current.clientWidth,
-        height: containerRef.current.clientHeight,
-        leftPriceScale: {
-          visible: true,
-          borderVisible: false,
-          // scaleMargins: { bottom: 0.1, top: 0.2 },
-        },
-        rightPriceScale: {
-          visible: false,
-        },
-        // watermark: {
-        //   visible: true,
-        //   text: 'GODBOT-PRO',
-        //   fontSize: window.innerWidth < 576 ? 34 : 56,
-        //   fontFamily: 'GilroyWeb, sans-serif',
-        //   // fontStyle: 'font-weight: 700',
-        //   color: '#E2E2E2',
-        // },
-        layout: {
-          textColor: !theme ? '#262628' : '#FFFFFF',
-          fontSize: window.innerWidth < 576 ? 9 : 12,
-          fontFamily: 'GilroyWeb, sans-serif',
-          background: { color: 'transparent' },
-        },
-        grid: {
-          vertLines: { visible: false },
-          horzLines: { color: !theme ? '#AFCDEB' : '#5F636A', style: LineStyle.Dashed },
-        },
-        crosshair: {
-          mode: CrosshairMode.Magnet,
-          vertLine: {
-            visible: false,
-            labelVisible: false,
-          },
-        },
-        timeScale: {
-          rightOffset: 20,
-          // fixLeftEdge: true
-          fixRightEdge: true,
-          borderVisible: false,
-          timeVisible: true,
-          secondsVisible: false,
-        },
-        localization: {
-          priceFormatter: (price: number) => formatPrice(price),
-        },
-      });
+
+      const chartInstance = createChart(
+        containerRef.current,
+        getChartDefaults(containerRef.current)
+      );
 
       // отрисовка Series Types
       const newChartLines = createChartLines({
@@ -185,8 +164,6 @@ export const ForecastSimulator = () => {
           }
         });
       }
-
-      PerformanceLog(PERF_TIME, 'updating chart series');
     }
 
     setLoading(false);
@@ -200,7 +177,7 @@ export const ForecastSimulator = () => {
   useEffect(() => {
     const requestChart = async () => {
       if (currentCoin && currentTime) {
-        dispatch(getChart({ page: 10, per: paginatePer }));
+        dispatch(getChart({ page: 20, per: paginatePer }));
       }
     };
 
@@ -211,36 +188,58 @@ export const ForecastSimulator = () => {
 
   // обновление данных
   useEffect(() => {
-    if (data && !viewLocked) {
+    if (data) {
       if (data.length) initOrUpdateChart(data);
-    } else if (viewLocked) {
+    } else {
       chart.current?.remove();
       chart.current = null;
     }
-  }, [data, viewLocked]);
+  }, [data]);
 
   return (
-    <div className={cns('chart', viewLocked && 'chart--locked')}>
+    <div className={cns('chart')}>
       <div
         ref={containerRef}
-        className="chart-container"
+        className="chart-container _simulator"
         style={{
           opacity: loading ? '0' : '1',
         }}>
         <div className="chart-info" ref={tooltipRef} />
         <span></span>
       </div>
+      <div className="chart-simulator sim">
+        <div className="sim__wrapper">
+          <div className="sim__bets">
+            {positionPL !== 0 && (
+              <div
+                className={cns(
+                  'sim__position',
+                  positionPL < 0 && '_loss',
+                  positionPL > 0 && '_profit'
+                )}>
+                {formatPrice(positionPL, 0)} $
+              </div>
+            )}
+
+            <div className="btn sim__short" onClick={addShort}>
+              SHORT
+            </div>
+            <div className="sim__bet" contentEditable={true}>
+              {simulatorBet}
+            </div>
+            <div className="btn sim__long" onClick={addLong}>
+              LONG
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="chart-watermark">
-        {[0, 1, 2, 3].map((x) => (
-          <>
-            <div className="chart-watermark__col">
-              <Logo />
-            </div>
-            <div className="chart-watermark__col">
-              <Logo />
-              <Logo />
-            </div>
-          </>
+        {[1, 2, 3, 4].map((num, index) => (
+          <div key={index} className="chart-watermark__col">
+            {[...Array(num)].map((_, i) => (
+              <Logo key={`${index}_${i}`} />
+            ))}
+          </div>
         ))}
       </div>
     </div>

@@ -5,11 +5,8 @@ import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
 import {
   createChart,
-  CrosshairMode,
   IChartApi,
   ISeriesApi,
-  LineStyle,
-  LineWidth,
   LogicalRange,
   MouseEventParams,
   UTCTimestamp,
@@ -62,9 +59,7 @@ export const Forecast = () => {
 
   // Хук с утилитами (data-blind)
   const {
-    theme,
-    graphColors,
-
+    getChartDefaults,
     createSeriesData,
     createChartLines,
     createUpdateMarkers,
@@ -91,6 +86,7 @@ export const Forecast = () => {
       'Upper',
       'Lower',
     ]);
+    setSeries([...currentSeries]);
 
     // точки обновленный прогноза
     const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
@@ -103,65 +99,14 @@ export const Forecast = () => {
     const minutesToUpdate = (lastTime.unix() - currentTime.unix()) / 60;
     setMinutesToUpdate(minutesToUpdate || 0);
 
-    // watch changes in data
-    // let forecastChanges: ISeriesData[] = [];
-    // if (series.length && currentSeries[1].data) {
-    //   forecastChanges = xorBy(series[1].data, currentSeries[1].data, 'value');
-    // }
-
-    setSeries([...currentSeries]);
     PerformanceLog(PERF_TIME_SERIES, 'creating series data');
 
     if (!chart.current) {
       // Создание инстанса графика
-      const chartInstance = createChart(containerRef.current, {
-        width: containerRef.current.clientWidth,
-        height: containerRef.current.clientHeight,
-        leftPriceScale: {
-          visible: true,
-          borderVisible: false,
-          scaleMargins: { bottom: 0, top: 0 },
-        },
-        rightPriceScale: {
-          visible: false,
-        },
-        // watermark: {
-        //   visible: true,
-        //   text: 'GODBOT-PRO',
-        //   fontSize: window.innerWidth < 576 ? 34 : 56,
-        //   fontFamily: 'GilroyWeb, sans-serif',
-        //   // fontStyle: 'font-weight: 700',
-        //   color: '#E2E2E2',
-        // },
-        layout: {
-          textColor: !theme ? '#262628' : '#FFFFFF',
-          fontSize: window.innerWidth < 576 ? 9 : 12,
-          fontFamily: 'GilroyWeb, sans-serif',
-          background: { color: 'transparent' },
-        },
-        grid: {
-          vertLines: { visible: false },
-          horzLines: { color: !theme ? '#AFCDEB' : '#5F636A', style: LineStyle.Dashed },
-        },
-        crosshair: {
-          mode: CrosshairMode.Magnet,
-          vertLine: {
-            visible: false,
-            labelVisible: false,
-          },
-        },
-        timeScale: {
-          rightOffset: 20,
-          // fixLeftEdge: true
-          fixRightEdge: true,
-          borderVisible: false,
-          timeVisible: true,
-          secondsVisible: false,
-        },
-        localization: {
-          priceFormatter: (price: number) => formatPrice(price),
-        },
-      });
+      const chartInstance = createChart(
+        containerRef.current,
+        getChartDefaults(containerRef.current)
+      );
 
       // отрисовка Series Types
       const newChartLines = createChartLines({
@@ -173,12 +118,6 @@ export const Forecast = () => {
 
       // навигация по графику
       const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
-
-      // на основе таймфрейма
-      // let timeDisplay = 12;
-      // if (currentTime === '1m') {
-      //   timeDisplay = 3;
-      // }
 
       let from = lastTime.subtract(3, 'hour');
       if (lastUpdateMarker) {
@@ -207,10 +146,6 @@ export const Forecast = () => {
       const PERF_TIME = performance.now();
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData([...currentSeries[idx].data]);
-
-        // currentSeries[idx].data.forEach((tick) => {
-        //   lineSeries.instance.update(tick);
-        // });
       });
 
       if (updateMarkers.length) {
@@ -334,6 +269,7 @@ export const Forecast = () => {
   // инициализация запросов
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
+    if (simulator) return;
     let updateIntervalMin = 1;
     if (currentTime === '15m') {
       updateIntervalMin = 1;
@@ -410,13 +346,13 @@ export const Forecast = () => {
 
   // обновление данных
   useEffect(() => {
-    if (data && !viewLocked) {
+    if (data && !viewLocked && !simulator) {
       if (data.length) initOrUpdateChart(data);
     } else if (viewLocked) {
       chart.current?.remove();
       chart.current = null;
     }
-  }, [data, viewLocked]);
+  }, [data, viewLocked, simulator]);
 
   // Проверка на устаревшие Forecast данные
   useEffect(() => {
@@ -467,10 +403,10 @@ export const Forecast = () => {
                 </div>
 
                 <div className="chart-watermark">
-                  {[1, 2, 1, 2].map((num, index) => (
+                  {[1, 2, 3, 4].map((num, index) => (
                     <div key={index} className="chart-watermark__col">
                       {[...Array(num)].map((_, i) => (
-                        <Logo key={i} />
+                        <Logo key={`${index}_${i}`} />
                       ))}
                     </div>
                   ))}

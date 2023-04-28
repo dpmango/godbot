@@ -3,6 +3,7 @@
   background: var(--block-bg);
   box-shadow: var(--block-shadow);
   position: relative;
+  overflow: hidden;
   border-radius: 10px;
 }
 .chart--hidden {

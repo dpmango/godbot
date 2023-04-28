@@ -1,4 +1,6 @@
 import {
+  ChartOptions,
+  CrosshairMode,
   DeepPartial,
   IChartApi,
   LineStyle,
@@ -73,6 +75,50 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // дефолт опции
+  const getChartDefaults = (ref: any): DeepPartial<ChartOptions> => {
+    return {
+      width: ref?.clientWidth,
+      height: ref?.clientHeight,
+      leftPriceScale: {
+        visible: true,
+        borderVisible: false,
+        scaleMargins: { bottom: 0, top: 0 },
+      },
+      rightPriceScale: {
+        visible: false,
+      },
+      layout: {
+        textColor: !ctx?.theme ? '#262628' : '#FFFFFF',
+        fontSize: window.innerWidth < 576 ? 9 : 12,
+        fontFamily: 'GilroyWeb, sans-serif',
+        background: { color: 'transparent' },
+      },
+      grid: {
+        vertLines: { visible: false },
+        horzLines: { color: !ctx?.theme ? '#AFCDEB' : '#5F636A', style: LineStyle.Dashed },
+      },
+      crosshair: {
+        mode: CrosshairMode.Magnet,
+        vertLine: {
+          visible: false,
+          labelVisible: false,
+        },
+      },
+      timeScale: {
+        rightOffset: 20,
+        // fixLeftEdge: true
+        fixRightEdge: true,
+        borderVisible: false,
+        timeVisible: true,
+        secondsVisible: false,
+      },
+      localization: {
+        priceFormatter: (price: number) => formatPrice(price),
+      },
+    };
+  };
 
   // опциональные функции
   // точки обновленный прогноза
@@ -429,6 +475,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     graphColors,
     theme: ctx?.theme,
 
+    getChartDefaults,
     createSeriesData,
     createChartLines,
     createUpdateMarkers,

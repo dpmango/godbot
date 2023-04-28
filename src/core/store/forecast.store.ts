@@ -79,7 +79,7 @@ const initialState: IForecastState = {
     required: 0,
   },
   simulator: {
-    enabled: false,
+    enabled: true,
     data: [],
   },
 };
