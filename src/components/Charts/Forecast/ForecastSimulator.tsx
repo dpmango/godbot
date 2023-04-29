@@ -3,7 +3,8 @@ import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
 import { createChart, IChartApi, ISeriesApi, LogicalRange, UTCTimestamp } from 'lightweight-charts';
 
-import { IGraphTickDto } from '@/core/interface/Forecast';
+import { SvgIcon } from '@/components/UI';
+import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
 
 export interface IChartLines {
   id: string;
@@ -11,16 +12,20 @@ export interface IChartLines {
   showChanges: boolean;
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
+interface IPositionElement {
+  dir: 'long' | 'short';
+  quantity: number;
+  avarage: number;
+  savedProfit: number;
+}
 
 export const ForecastSimulator = () => {
   // внутренние стейты
   const [loading, setLoading] = useState<boolean>(true);
 
   const chart = useRef<IChartApi | null>(null);
-  const [dataSeries, setSeries] = useState<any>([]);
+  const [dataSeries, setSeries] = useState<ISeriesData[]>([]);
   const [chartLines, setChartLines] = useState<IChartLines[]>([]);
-  const [scrollRange, setScrollRange] = useState<LogicalRange>();
-  const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 500);
 
   // стор
   const {
@@ -40,41 +45,83 @@ export const ForecastSimulator = () => {
   const { t } = useTranslation('forecast');
   const paginatePer = 200;
 
-  interface IStakeElement {
-    type: string;
-    enter: number;
-    exit?: number;
-    quantity: number;
-  }
-
   // Логика эмулятора
-  const [currentPrice, setCurrentPrice] = useState<number>(100);
-  const [simulatorStake, setSimulatorStake] = useState<IStakeElement[]>([]);
   const [simulatorPaused, setSimulatorPaused] = useState<boolean>(false);
-  const [simulatorBet, setsimulatorBet] = useState<number>(1000);
+  const [simulatorSpeed, setSimulatorSpeed] = useState<number>(10);
+  const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(100);
+  const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
+  const [simulatorPosition, setSimulatorPosition] = useState<IPositionElement>({
+    dir: 'short',
+    quantity: 0,
+    avarage: 0,
+    savedProfit: 0,
+  });
+  const [simulatorBet, setsimulatorBet] = useState<number>(5);
 
-  const addShort = useCallback(() => {
-    setSimulatorStake([
-      ...simulatorStake,
-      ...[{ type: 'short', enter: currentPrice, quantity: simulatorBet }],
-    ]);
-    setSimulatorPaused(false);
-  }, [simulatorStake]);
+  const changePosition = useCallback(
+    (type: 'long' | 'short') => {
+      setSimulatorPosition((position) => {
+        const curentPositionTotal = position.quantity * position.avarage;
+        const incomingPositionTotal = simulatorBet * simulatorCurrentPrice;
 
-  const addLong = () => {
-    setSimulatorStake([
-      ...simulatorStake,
-      ...[{ type: 'long', enter: currentPrice, quantity: simulatorBet }],
-    ]);
-    setSimulatorPaused(false);
-  };
+        const newAverage =
+          (curentPositionTotal + incomingPositionTotal) / (position.quantity + simulatorBet);
+        let newQuantity = position.quantity;
+        let newDir = position.dir;
+        const newSavedProfit = position.savedProfit;
+
+        if (position.dir === 'short') {
+          if (type === 'short') {
+            newQuantity = position.quantity + simulatorBet;
+          } else if (type === 'long') {
+            const incomingQuantity = position.quantity - simulatorBet;
+            if (incomingQuantity >= 0) {
+              newQuantity = incomingQuantity;
+            } else {
+              newDir = 'long';
+              newQuantity = incomingQuantity * -1;
+            }
+          }
+        } else if (position.dir === 'long') {
+          if (type === 'long') {
+            newQuantity = position.quantity + simulatorBet;
+          } else if (type === 'short') {
+            const incomingQuantity = position.quantity - simulatorBet;
+            if (incomingQuantity >= 0) {
+              newQuantity = incomingQuantity;
+            } else {
+              newDir = 'short';
+              newQuantity = incomingQuantity * -1;
+            }
+          }
+        }
+
+        // TODO отслеживать закрытие позици в savedProfit
+
+        return {
+          dir: newDir,
+          avarage: newAverage,
+          quantity: newQuantity,
+          savedProfit: newSavedProfit,
+        };
+      });
+
+      setSimulatorPaused(false);
+    },
+    [simulatorPosition, simulatorCurrentPrice, simulatorBet]
+  );
 
   const positionPL = useMemo(() => {
-    return simulatorStake.reduce((acc, x) => {
-      acc = acc + (x.enter - currentPrice) * x.quantity;
-      return acc;
-    }, 0);
-  }, [simulatorStake, currentPrice]);
+    const { dir, avarage, quantity } = simulatorPosition;
+
+    if (dir === 'long') {
+      return (simulatorCurrentPrice - avarage) * quantity;
+    } else if (dir === 'short') {
+      return (avarage - simulatorCurrentPrice) * quantity;
+    }
+
+    return 0;
+  }, [simulatorPosition, simulatorCurrentPrice]);
 
   // Хук с утилитами (data-blind)
   const {
@@ -107,7 +154,15 @@ export const ForecastSimulator = () => {
 
       const chartInstance = createChart(
         containerRef.current,
-        getChartDefaults(containerRef.current)
+        getChartDefaults(containerRef.current, {
+          timeScale: {
+            fixLeftEdge: true,
+            fixRightEdge: true,
+            borderVisible: false,
+            timeVisible: true,
+            secondsVisible: false,
+          },
+        })
       );
 
       // отрисовка Series Types
@@ -119,24 +174,15 @@ export const ForecastSimulator = () => {
       setChartLines([...newChartLines]);
 
       // навигация по графику
-      const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
+      // const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
       const lastTick = coinData[coinData.length - 1].timestamp;
       const lastTime = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
-
-      let from = lastTime.subtract(3, 'hour');
-      if (lastUpdateMarker) {
-        from = dayjs(utcToZonedTime(lastUpdateMarker * 1000, 'Etc/UTC'));
-      }
+      const firstTick = coinData[0].timestamp;
+      const firstTime = dayjs(utcToZonedTime(firstTick * 1000, 'Etc/UTC'));
 
       chartInstance.timeScale().setVisibleRange({
-        from: timeToTz((from.unix() * 1000) as UTCTimestamp),
+        from: timeToTz((firstTime.unix() * 1000) as UTCTimestamp),
         to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
-      });
-
-      chartInstance.timeScale().subscribeVisibleLogicalRangeChange((range) => {
-        if (!range) return;
-
-        setScrollRange(range);
       });
 
       // тултипы
@@ -150,20 +196,21 @@ export const ForecastSimulator = () => {
       });
 
       chart.current = chartInstance;
-    } else {
-      // обновление данных
-      const PERF_TIME = performance.now();
-      chartLines.forEach((lineSeries, idx) => {
-        lineSeries.instance.setData([...currentSeries[idx].data]);
-      });
 
-      if (updateMarkers.length) {
-        chartLines.forEach((lineSeries, idx) => {
-          if (lineSeries.showChanges) {
-            lineSeries.instance.setMarkers(updateMarkers);
+      newChartLines.forEach((lineSeries, idx) => {
+        const initialSimulatorData = currentSeries[idx].data.slice(0, 20);
+
+        lineSeries.instance.setData([...initialSimulatorData]);
+
+        if (lineSeries.id === 'RealLine') {
+          const initialTick = initialSimulatorData[initialSimulatorData.length - 1];
+
+          if (initialTick.value) {
+            setSimulatorCurrentTime(initialTick.time);
+            setSimulatorCurrentPrice(initialTick.value);
           }
-        });
-      }
+        }
+      });
     }
 
     setLoading(false);
@@ -172,6 +219,45 @@ export const ForecastSimulator = () => {
       chart.current?.remove();
     };
   };
+
+  const handleSimualtorUpdate = useCallback(() => {
+    chartLines.forEach((lineSeries, idx) => {
+      if (lineSeries.id === 'RealLine') {
+        const currentTickIndex = dataSeries[idx].data.findIndex(
+          (x) => x.time === simulatorCurrentTime
+        );
+
+        const nextTick = dataSeries[idx].data[currentTickIndex + 1];
+        if (nextTick?.value) {
+          lineSeries.instance.update(nextTick);
+
+          setSimulatorCurrentTime(nextTick.time);
+          setSimulatorCurrentPrice(nextTick.value);
+        } else {
+          alert('end');
+        }
+      }
+    });
+
+    // if (currentIndex === 5000) {
+    //   reset();
+    //   return;
+    // }
+  }, [chartLines, dataSeries, simulatorCurrentPrice, simulatorCurrentTime]);
+
+  const timerSimulator: { current: NodeJS.Timeout | null } = useRef(null);
+
+  useEffect(() => {
+    if (timerSimulator.current) {
+      clearTimeout(timerSimulator.current);
+    }
+
+    if (simulatorCurrentTime && simulatorCurrentPrice && !simulatorPaused) {
+      timerSimulator.current = setTimeout(() => {
+        handleSimualtorUpdate();
+      }, 10 * (1000 / simulatorSpeed));
+    }
+  }, [simulatorCurrentPrice, simulatorCurrentTime, simulatorPaused]);
 
   // инициализация запросов
   useEffect(() => {
@@ -209,6 +295,19 @@ export const ForecastSimulator = () => {
       </div>
       <div className="chart-simulator sim">
         <div className="sim__wrapper">
+          <div className="sim__timeline">
+            <div
+              className={cns('sim__timeline-action sim__play', simulatorPaused && '_active')}
+              onClick={() => setSimulatorPaused(!simulatorPaused)}>
+              <SvgIcon name="play" />
+              {simulatorPaused && 'paused'}
+            </div>
+            <div
+              className="sim__timeline-action sim__speed"
+              onClick={() => setSimulatorSpeed(simulatorSpeed === 10 ? 20 : 10)}>
+              {simulatorSpeed}x
+            </div>
+          </div>
           <div className="sim__bets">
             {positionPL !== 0 && (
               <div
@@ -217,19 +316,30 @@ export const ForecastSimulator = () => {
                   positionPL < 0 && '_loss',
                   positionPL > 0 && '_profit'
                 )}>
-                {formatPrice(positionPL, 0)} $
+                {positionPL > 0 ? '+' : ''}
+                {formatPrice(positionPL, 0)} $ ({simulatorPosition.dir} {simulatorPosition.quantity}
+                )
               </div>
             )}
 
-            <div className="btn sim__short" onClick={addShort}>
+            <div className="btn sim__short" onClick={() => changePosition('short')}>
               SHORT
             </div>
-            <div className="sim__bet" contentEditable={true}>
-              {simulatorBet}
+            <div className="sim__bet">
+              <input
+                type="number"
+                value={simulatorBet}
+                max="999"
+                min="1"
+                onChange={(e) => setsimulatorBet(+e.target.value)}
+              />
             </div>
-            <div className="btn sim__long" onClick={addLong}>
+            <div className="btn sim__long" onClick={() => changePosition('long')}>
               LONG
             </div>
+          </div>
+          <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>
+            <SvgIcon name="close" />
           </div>
         </div>
       </div>

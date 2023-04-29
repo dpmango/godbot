@@ -5,6 +5,7 @@
   overflow: hidden
   z-index: 1
   &._simulator
+    height: calc(100vh - 290px - 70px)
     margin-bottom: 70px
 
 @media only screen and (max-width: 767px)
@@ -221,23 +222,56 @@
   left: 0
   right: 0
   z-index: 2
-  background: var(--bg)
+  background: var(--block-bg)
   border-top: 1px solid var(--border)
+  border-bottom: 1px solid var(--border)
 
 .sim
   &__wrapper
     display: flex
     align-items: center
-    padding: 16px 20px
+    padding: 8px 20px
+  &__timeline
+    flex: 1 0 auto
+    display: flex
+    align-items: center
+    justify-content: center
+  &__timeline-action
+    font-size: 0
+    border-radius: 4px
+    padding: 4px
+    border: 1px solid transparent
+    cursor: pointer
+    transition: border .25s ease-in-out
+    &:not(:last-child)
+      margin-right: 12px
+    &:hover, &._active
+      border-color: var(--input-border)
+    .svg-icon
+      font-size: 24px
+  // &__play
+  &__speed
+    font-weight: 600
+    font-size: 16px
+
   &__bets
     flex: 0 0 auto
     margin-left: auto
+    margin-right: 24px
     display: flex
     align-items: center
     font-size: 14px
   &__bet
     margin-left: 16px
     margin-right: 16px 
+    input
+      border: 0
+      padding: 4px 8px
+      font-size: 14px
+      background: transparent
+      max-width: 100px
+      color: var(--text)
+      text-align: center
   &__short, &__long
     padding: 10px
   &__short
@@ -252,3 +286,12 @@
       color: var(--green)
     &._loss
       color: var(--red)
+  &__close
+    margin-right: 32px
+    padding: 4px
+    cursor: pointer
+    transition: color .25s ease-in-out
+    &:hover
+      color: var(--red)
+    .svg-icon
+      font-size: 18px

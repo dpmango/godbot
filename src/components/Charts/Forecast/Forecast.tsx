@@ -105,7 +105,7 @@ export const Forecast = () => {
       // Создание инстанса графика
       const chartInstance = createChart(
         containerRef.current,
-        getChartDefaults(containerRef.current)
+        getChartDefaults(containerRef.current, {})
       );
 
       // отрисовка Series Types

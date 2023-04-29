@@ -16,7 +16,7 @@ import {
 
 import { ThemeContext } from '@/App';
 import { IChartLines } from '@/components/Charts/Forecast/Forecast';
-import { IGraphTickDto } from '@/core/interface/Forecast';
+import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
 
 interface IUseChartProps {
   chart: React.MutableRefObject<IChartApi | null>;
@@ -77,7 +77,10 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
   }, []);
 
   // дефолт опции
-  const getChartDefaults = (ref: any): DeepPartial<ChartOptions> => {
+  const getChartDefaults = (
+    ref: any,
+    overideParams?: DeepPartial<ChartOptions>
+  ): DeepPartial<ChartOptions> => {
     return {
       width: ref?.clientWidth,
       height: ref?.clientHeight,
@@ -108,7 +111,6 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
       },
       timeScale: {
         rightOffset: 20,
-        // fixLeftEdge: true
         fixRightEdge: true,
         borderVisible: false,
         timeVisible: true,
@@ -117,6 +119,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
       localization: {
         priceFormatter: (price: number) => formatPrice(price),
       },
+      ...overideParams,
     };
   };
 
@@ -137,32 +140,6 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
 
     return updateMarkers;
   };
-
-  interface ISeriesData {
-    id: string;
-    displayName?: string;
-    type: string;
-    candleStyle?: {
-      color: string;
-      visible?: boolean;
-    };
-    lineStyle?: {
-      color: string;
-      lineWidth: LineWidth;
-      visible?: boolean;
-      lineStyle?: LineStyle;
-      crosshairMarkerVisible?: boolean;
-    };
-    showChanges?: boolean;
-    data: {
-      time: UTCTimestamp;
-      open?: number;
-      close?: number;
-      high?: number;
-      low?: number;
-      value?: number;
-    }[];
-  }
 
   // Создание и маппинг данных
   const createSeriesData = (coinData: IGraphTickDto[], whitelist: string[]) => {
