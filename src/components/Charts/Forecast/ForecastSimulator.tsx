@@ -1,7 +1,14 @@
 import { Logo } from '@c/Layout/Header';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
-import { createChart, IChartApi, ISeriesApi, LogicalRange, UTCTimestamp } from 'lightweight-charts';
+import {
+  createChart,
+  IChartApi,
+  ISeriesApi,
+  LogicalRange,
+  Time,
+  UTCTimestamp,
+} from 'lightweight-charts';
 
 import { SvgIcon } from '@/components/UI';
 import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
@@ -17,6 +24,12 @@ interface IPositionElement {
   quantity: number;
   avarage: number;
   savedProfit: number;
+}
+
+interface ISimulatorTimeline {
+  paused: boolean;
+  speed: number;
+  intervals: { from: Time; to: Time }[];
 }
 
 export const ForecastSimulator = () => {
@@ -46,44 +59,63 @@ export const ForecastSimulator = () => {
   const paginatePer = 200;
 
   // Логика эмулятора
-  const [simulatorPaused, setSimulatorPaused] = useState<boolean>(false);
-  const [simulatorSpeed, setSimulatorSpeed] = useState<number>(10);
   const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(0);
   const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
+  const [simulatorTimeline, setSimulatorTimeline] = useState<ISimulatorTimeline>({
+    paused: false,
+    speed: 10,
+    intervals: [],
+  });
   const [simulatorPosition, setSimulatorPosition] = useState<IPositionElement>({
-    dir: 'short',
+    dir: 'long',
     quantity: 0,
     avarage: 0,
     savedProfit: 0,
   });
-  const [simulatorBet, setsimulatorBet] = useState<number>(5);
+  const [simulatorBet, setsimulatorBet] = useState<number>(1);
 
   const changePosition = useCallback(
     (type: 'long' | 'short') => {
       setSimulatorPosition((position) => {
-        const curentPositionTotal = position.quantity * position.avarage;
-        const incomingPositionTotal = simulatorBet * simulatorCurrentPrice;
-
-        const newAverage =
-          (curentPositionTotal + incomingPositionTotal) / (position.quantity + simulatorBet);
+        let newAverage = position.avarage || simulatorCurrentPrice;
         let newQuantity = position.quantity;
         let newDir = position.dir;
-        const newSavedProfit = position.savedProfit;
+        let newSavedProfit = position.savedProfit;
 
         // если направление позиции совпадает, управление только количеством
-
         const addPosition = () => {
+          const curentPositionTotal = position.quantity * position.avarage;
+          const incomingPositionTotal = simulatorBet * simulatorCurrentPrice;
+
           newQuantity = position.quantity + simulatorBet;
+          newAverage =
+            (curentPositionTotal + incomingPositionTotal) / (position.quantity + simulatorBet);
         };
 
+        // если позиция уменьшается, считать разницу и сохранять P/L
         const removePosition = () => {
+          let directionChanged = false;
+
           const incomingQuantity = position.quantity - simulatorBet;
           if (incomingQuantity >= 0) {
             newQuantity = incomingQuantity;
           } else {
             newDir = type;
+            directionChanged = true;
             newQuantity = incomingQuantity * -1;
           }
+
+          // установка PL
+          const diffPosition = position.quantity - incomingQuantity;
+          let diffValue = 0;
+
+          if (type === 'short') {
+            diffValue = (simulatorCurrentPrice - newAverage) * diffPosition;
+          } else if (type === 'long') {
+            diffValue = (newAverage - simulatorCurrentPrice) * diffPosition;
+          }
+
+          newSavedProfit = newSavedProfit + diffValue;
         };
 
         if (position.dir === 'short') {
@@ -113,10 +145,18 @@ export const ForecastSimulator = () => {
     [simulatorPosition, simulatorCurrentPrice, simulatorBet]
   );
 
+  // таймлайн
+  const handleSimulatorPausedClick = useCallback(() => {
+    setSimulatorTimeline((prev) => ({
+      ...prev,
+      paused: !prev.paused,
+    }));
+  }, []);
+
   const handleSimulatorSpeedClick = useCallback(() => {
     let newSpeed = 10;
 
-    switch (simulatorSpeed) {
+    switch (simulatorTimeline.speed) {
       case 10:
         newSpeed = 20;
         break;
@@ -127,9 +167,13 @@ export const ForecastSimulator = () => {
         newSpeed = 10;
     }
 
-    setSimulatorSpeed(newSpeed);
-  }, [simulatorSpeed]);
+    setSimulatorTimeline((prev) => ({
+      ...prev,
+      speed: newSpeed,
+    }));
+  }, [simulatorTimeline.speed]);
 
+  // мемо по позиции (калькуляции)
   const positionWeight = useMemo(() => {
     const { avarage, quantity } = simulatorPosition;
 
@@ -175,6 +219,15 @@ export const ForecastSimulator = () => {
     // точки обновленный прогноза
     const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
     const updateMarkers = createUpdateMarkers(updateDates);
+
+    // установка в эмулятор
+    setSimulatorTimeline((prev) => ({
+      ...prev,
+      intervals: updateMarkers.map((x, idx) => ({
+        from: x.time,
+        to: updateMarkers[idx + 1]?.time,
+      })),
+    }));
 
     if (!chart.current) {
       // Создание инстанса графика
@@ -279,12 +332,12 @@ export const ForecastSimulator = () => {
       clearTimeout(timerSimulator.current);
     }
 
-    if (simulatorCurrentTime && simulatorCurrentPrice && !simulatorPaused) {
+    if (simulatorCurrentTime && simulatorCurrentPrice && !simulatorTimeline.paused) {
       timerSimulator.current = setTimeout(() => {
         handleSimualtorUpdate();
-      }, 10 * (1000 / simulatorSpeed));
+      }, 10 * (1000 / simulatorTimeline.speed));
     }
-  }, [simulatorCurrentPrice, simulatorCurrentTime, simulatorPaused]);
+  }, [simulatorCurrentPrice, simulatorCurrentTime, simulatorTimeline]);
 
   // инициализация запросов
   useEffect(() => {
@@ -324,28 +377,39 @@ export const ForecastSimulator = () => {
         <div className="sim__wrapper">
           <div className="sim__timeline">
             <div
-              className={cns('sim__timeline-action sim__play', simulatorPaused && '_active')}
-              onClick={() => setSimulatorPaused(!simulatorPaused)}>
+              className={cns(
+                'sim__timeline-action sim__play',
+                simulatorTimeline.paused && '_active'
+              )}
+              onClick={handleSimulatorPausedClick}>
               <SvgIcon name="play" />
-              {simulatorPaused && 'paused'}
+              {simulatorTimeline.paused && 'paused'}
             </div>
             <div className="sim__timeline-action sim__speed" onClick={handleSimulatorSpeedClick}>
-              {simulatorSpeed}x
+              {simulatorTimeline.speed}x
             </div>
           </div>
           <div className="sim__bets">
-            {simulatorPosition.quantity !== 0 && (
-              <div
-                className={cns(
-                  'sim__position',
-                  positionPL < 0 && '_loss',
-                  positionPL > 0 && '_profit'
-                )}>
-                {positionPL > 0 ? '+' : ''}
-                {formatPrice(positionPL, 0)} $ ({simulatorPosition.dir.toUpperCase()} x
-                {simulatorPosition.quantity} ({formatPrice(positionWeight)}$){' '}
-                {formatPrice(simulatorPosition.avarage, 0)} $)
-              </div>
+            {(simulatorPosition.quantity !== 0 || positionPL !== 0) && (
+              <>
+                <div
+                  className={cns(
+                    'sim__position',
+                    positionPL < 0 && '_loss',
+                    positionPL > 0 && '_profit'
+                  )}>
+                  {positionPL > 0 ? '+' : ''}
+                  {formatPrice(positionPL, 0)} $
+                </div>
+                <div className="sim__stats">
+                  {simulatorPosition.dir === 'long' ? (
+                    <span className="c-green">LONG x{simulatorPosition.quantity}</span>
+                  ) : (
+                    <span className="c-red">SHORT x{simulatorPosition.quantity}</span>
+                  )}{' '}
+                  ({formatPrice(positionWeight)}$) avg {formatPrice(simulatorPosition.avarage, 0)} $
+                </div>
+              </>
             )}
 
             <div className="btn sim__short" onClick={() => changePosition('short')}>
