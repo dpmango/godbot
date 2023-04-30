@@ -48,7 +48,7 @@ export const ForecastSimulator = () => {
   // Логика эмулятора
   const [simulatorPaused, setSimulatorPaused] = useState<boolean>(false);
   const [simulatorSpeed, setSimulatorSpeed] = useState<number>(10);
-  const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(100);
+  const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(0);
   const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
   const [simulatorPosition, setSimulatorPosition] = useState<IPositionElement>({
     dir: 'short',
@@ -70,33 +70,35 @@ export const ForecastSimulator = () => {
         let newDir = position.dir;
         const newSavedProfit = position.savedProfit;
 
+        // если направление позиции совпадает, управление только количеством
+
+        const addPosition = () => {
+          newQuantity = position.quantity + simulatorBet;
+        };
+
+        const removePosition = () => {
+          const incomingQuantity = position.quantity - simulatorBet;
+          if (incomingQuantity >= 0) {
+            newQuantity = incomingQuantity;
+          } else {
+            newDir = type;
+            newQuantity = incomingQuantity * -1;
+          }
+        };
+
         if (position.dir === 'short') {
           if (type === 'short') {
-            newQuantity = position.quantity + simulatorBet;
+            addPosition();
           } else if (type === 'long') {
-            const incomingQuantity = position.quantity - simulatorBet;
-            if (incomingQuantity >= 0) {
-              newQuantity = incomingQuantity;
-            } else {
-              newDir = 'long';
-              newQuantity = incomingQuantity * -1;
-            }
+            removePosition();
           }
         } else if (position.dir === 'long') {
           if (type === 'long') {
-            newQuantity = position.quantity + simulatorBet;
+            addPosition();
           } else if (type === 'short') {
-            const incomingQuantity = position.quantity - simulatorBet;
-            if (incomingQuantity >= 0) {
-              newQuantity = incomingQuantity;
-            } else {
-              newDir = 'short';
-              newQuantity = incomingQuantity * -1;
-            }
+            removePosition();
           }
         }
-
-        // TODO отслеживать закрытие позици в savedProfit
 
         return {
           dir: newDir,
@@ -106,21 +108,46 @@ export const ForecastSimulator = () => {
         };
       });
 
-      setSimulatorPaused(false);
+      // setSimulatorPaused(false);
     },
     [simulatorPosition, simulatorCurrentPrice, simulatorBet]
   );
 
-  const positionPL = useMemo(() => {
-    const { dir, avarage, quantity } = simulatorPosition;
+  const handleSimulatorSpeedClick = useCallback(() => {
+    let newSpeed = 10;
 
-    if (dir === 'long') {
-      return (simulatorCurrentPrice - avarage) * quantity;
-    } else if (dir === 'short') {
-      return (avarage - simulatorCurrentPrice) * quantity;
+    switch (simulatorSpeed) {
+      case 10:
+        newSpeed = 20;
+        break;
+      case 20:
+        newSpeed = 5;
+        break;
+      case 5:
+        newSpeed = 10;
     }
 
-    return 0;
+    setSimulatorSpeed(newSpeed);
+  }, [simulatorSpeed]);
+
+  const positionWeight = useMemo(() => {
+    const { avarage, quantity } = simulatorPosition;
+
+    return avarage * quantity;
+  }, [simulatorPosition]);
+
+  const positionPL = useMemo(() => {
+    const { dir, avarage, quantity, savedProfit } = simulatorPosition;
+
+    let bank = 0;
+
+    if (dir === 'long') {
+      bank = (simulatorCurrentPrice - avarage) * quantity;
+    } else if (dir === 'short') {
+      bank = (avarage - simulatorCurrentPrice) * quantity;
+    }
+
+    return bank + savedProfit;
   }, [simulatorPosition, simulatorCurrentPrice]);
 
   // Хук с утилитами (data-blind)
@@ -302,14 +329,12 @@ export const ForecastSimulator = () => {
               <SvgIcon name="play" />
               {simulatorPaused && 'paused'}
             </div>
-            <div
-              className="sim__timeline-action sim__speed"
-              onClick={() => setSimulatorSpeed(simulatorSpeed === 10 ? 20 : 10)}>
+            <div className="sim__timeline-action sim__speed" onClick={handleSimulatorSpeedClick}>
               {simulatorSpeed}x
             </div>
           </div>
           <div className="sim__bets">
-            {positionPL !== 0 && (
+            {simulatorPosition.quantity !== 0 && (
               <div
                 className={cns(
                   'sim__position',
@@ -317,8 +342,9 @@ export const ForecastSimulator = () => {
                   positionPL > 0 && '_profit'
                 )}>
                 {positionPL > 0 ? '+' : ''}
-                {formatPrice(positionPL, 0)} $ ({simulatorPosition.dir} {simulatorPosition.quantity}
-                )
+                {formatPrice(positionPL, 0)} $ ({simulatorPosition.dir.toUpperCase()} x
+                {simulatorPosition.quantity} ({formatPrice(positionWeight)}$){' '}
+                {formatPrice(simulatorPosition.avarage, 0)} $)
               </div>
             )}
 
