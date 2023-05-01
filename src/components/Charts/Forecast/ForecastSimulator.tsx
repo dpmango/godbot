@@ -1,14 +1,7 @@
 import { Logo } from '@c/Layout/Header';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
-import {
-  createChart,
-  IChartApi,
-  ISeriesApi,
-  LogicalRange,
-  Time,
-  UTCTimestamp,
-} from 'lightweight-charts';
+import { createChart, IChartApi, ISeriesApi, LogicalRange, UTCTimestamp } from 'lightweight-charts';
 
 import { SvgIcon } from '@/components/UI';
 import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
@@ -29,7 +22,7 @@ interface IPositionElement {
 interface ISimulatorTimeline {
   paused: boolean;
   speed: number;
-  intervals: { from: Time; to: Time }[];
+  intervals: { from: UTCTimestamp; to: UTCTimestamp }[];
 }
 
 export const ForecastSimulator = () => {
@@ -134,7 +127,7 @@ export const ForecastSimulator = () => {
 
         return {
           dir: newDir,
-          avarage: newAverage,
+          avarage: newQuantity ? newAverage : 0,
           quantity: newQuantity,
           savedProfit: newSavedProfit,
         };
@@ -194,6 +187,31 @@ export const ForecastSimulator = () => {
     return bank + savedProfit;
   }, [simulatorPosition, simulatorCurrentPrice]);
 
+  // показ прогноза, логика стопов по интервалам и
+  const currentInterval = useMemo(() => {
+    if (simulatorTimeline.intervals.length > 0 && simulatorCurrentTime) {
+      return simulatorTimeline.intervals.find(
+        (x) => simulatorCurrentTime >= x.from && simulatorCurrentTime < x.to
+      );
+    }
+
+    return null;
+  }, [simulatorTimeline, simulatorCurrentTime]);
+
+  useEffect(() => {
+    if (currentInterval?.from) {
+      chartLines.forEach((lineSeries, idx) => {
+        if (lineSeries.id === 'Forecast') {
+          const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= currentInterval.to);
+          console.log({ forecastInterval });
+          if (forecastInterval?.length) {
+            lineSeries.instance.setData(forecastInterval);
+          }
+        }
+      });
+    }
+  }, [currentInterval]);
+
   // Хук с утилитами (data-blind)
   const {
     theme,
@@ -213,7 +231,7 @@ export const ForecastSimulator = () => {
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
     // Создание данных по ответу forecast (указываются id для отрисовки)
-    const currentSeries = createSeriesData(coinData, ['RealLine']);
+    const currentSeries = createSeriesData(coinData, ['RealLine', 'Forecast']);
     setSeries([...currentSeries]);
 
     // точки обновленный прогноза
@@ -224,8 +242,8 @@ export const ForecastSimulator = () => {
     setSimulatorTimeline((prev) => ({
       ...prev,
       intervals: updateMarkers.map((x, idx) => ({
-        from: x.time,
-        to: updateMarkers[idx + 1]?.time,
+        from: x.time as UTCTimestamp,
+        to: updateMarkers[idx + 1]?.time as UTCTimestamp,
       })),
     }));
 
@@ -248,7 +266,7 @@ export const ForecastSimulator = () => {
       // отрисовка Series Types
       const newChartLines = createChartLines({
         chart: chartInstance,
-        updateMarkers,
+        updateMarkers: [],
         currentSeries,
       });
       setChartLines([...newChartLines]);
@@ -441,6 +459,16 @@ export const ForecastSimulator = () => {
             ))}
           </div>
         ))}
+      </div>
+      <div className="chart-legend-tw">
+        <label className="chart__legend-item">
+          <span className="chart__settings-line" style={{ borderColor: 'rgb(205, 29, 21)' }} />
+          Forecast
+        </label>
+        <label className="chart__legend-item">
+          <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
+          Real
+        </label>
       </div>
     </div>
   );
