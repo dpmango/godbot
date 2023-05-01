@@ -35,8 +35,6 @@ export const Countdown: React.FC<ICountdownProps> = ({ toDate }) => {
       const minutesInt = Math.floor((secondsLeft % (60 * 60)) / 60);
       const secondsInt = Math.floor(secondsLeft % 60);
 
-      // console.log({ secondsLeft: secondsLeft / (60 * 60 * 24) }, { hoursInt });
-
       hours = pad(hoursInt);
       minutes = pad(minutesInt);
       seconds = pad(secondsInt);

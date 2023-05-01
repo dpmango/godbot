@@ -122,6 +122,32 @@
     },
     "under-text": "TradingView teknolojisini kullanıyoruz."
   },
+  "simulator": {
+    "actions": {
+      "short": "SHORT",
+      "long": "LONG"
+    },
+    "intervalModal": {
+      "neutral": {
+        "title": "Похожоже вы не открыли позицию",
+        "description": "Используйте кнопки LONG или SHORT, вводите количество лотов и управляйте позицией в соотвествии с прогнозом"
+      },
+      "profit": {
+        "title": "Хороший результат",
+        "description": "Промежуточный результат вашей торговли"
+      },
+      "loss": {
+        "title": "Не отчаивайтесь!",
+        "description": "Отрицательный результат тоже результат, попробуйте торговать по прогнозу"
+      },
+      "action": "Продолжить"
+    },
+    "totalModal": {
+      "title": "Результат торговли в эмуляторе",
+      "description": "По результатам вашей торговли получились следующие результаты",
+      "action": "Закрыть"
+    }
+  },
   "investing": {
     "lock": "Tahmin",
     "lockPost": "≥6 ay için",

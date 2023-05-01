@@ -3,6 +3,7 @@ import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
 import { createChart, IChartApi, ISeriesApi, LogicalRange, UTCTimestamp } from 'lightweight-charts';
 
+import { ForecastSimulatorModalInterval, ForecastSimulatorModalResult } from '@/components/Charts';
 import { SvgIcon } from '@/components/UI';
 import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
 
@@ -12,7 +13,7 @@ export interface IChartLines {
   showChanges: boolean;
   instance: ISeriesApi<'Line'> | ISeriesApi<'Candlestick'>;
 }
-interface IPositionElement {
+export interface IPositionElement {
   dir: 'long' | 'short';
   quantity: number;
   avarage: number;
@@ -48,7 +49,7 @@ export const ForecastSimulator = () => {
   const tooltipRef: any = useRef(null);
 
   const { allowedFunctions } = useProfile();
-  const { t } = useTranslation('forecast');
+  const { t } = useTranslation('simulator');
   const paginatePer = 200;
 
   // Логика эмулятора
@@ -65,7 +66,8 @@ export const ForecastSimulator = () => {
     avarage: 0,
     savedProfit: 0,
   });
-  const [simulatorBet, setsimulatorBet] = useState<number>(1);
+  const [simulatorBet, setSimulatorBet] = useState<number>(1);
+  const [modalManager, setModalManager] = useState<string | null>(null);
 
   const changePosition = useCallback(
     (type: 'long' | 'short') => {
@@ -198,19 +200,34 @@ export const ForecastSimulator = () => {
     return null;
   }, [simulatorTimeline, simulatorCurrentTime]);
 
+  const [intervalRun, setIntervalRun] = useState(0);
   useEffect(() => {
     if (currentInterval?.from) {
       chartLines.forEach((lineSeries, idx) => {
         if (lineSeries.id === 'Forecast') {
           const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= currentInterval.to);
-          console.log({ forecastInterval });
+
           if (forecastInterval?.length) {
             lineSeries.instance.setData(forecastInterval);
+            setIntervalRun((prev) => prev + 1);
           }
         }
       });
+
+      if (intervalRun >= 1) {
+        setSimulatorTimeline((prev) => ({
+          ...prev,
+          paused: true,
+        }));
+        setModalManager('interval');
+      }
     }
   }, [currentInterval]);
+
+  const handleModalClose = useCallback(() => {
+    setModalManager(null);
+    setSimulatorTimeline((prev) => ({ ...prev, paused: false }));
+  }, []);
 
   // Хук с утилитами (data-blind)
   const {
@@ -332,7 +349,7 @@ export const ForecastSimulator = () => {
           setSimulatorCurrentTime(nextTick.time);
           setSimulatorCurrentPrice(nextTick.value);
         } else {
-          alert('end');
+          setModalManager('total');
         }
       }
     });
@@ -361,7 +378,7 @@ export const ForecastSimulator = () => {
   useEffect(() => {
     const requestChart = async () => {
       if (currentCoin && currentTime) {
-        dispatch(getChart({ page: 20, per: paginatePer }));
+        dispatch(getChart({ page: 40, per: paginatePer }));
       }
     };
 
@@ -421,9 +438,13 @@ export const ForecastSimulator = () => {
                 </div>
                 <div className="sim__stats">
                   {simulatorPosition.dir === 'long' ? (
-                    <span className="c-green">LONG x{simulatorPosition.quantity}</span>
+                    <span className="c-green">
+                      {t('actions.long')} x{simulatorPosition.quantity}
+                    </span>
                   ) : (
-                    <span className="c-red">SHORT x{simulatorPosition.quantity}</span>
+                    <span className="c-red">
+                      {t('actions.short')} x{simulatorPosition.quantity}
+                    </span>
                   )}{' '}
                   ({formatPrice(positionWeight)}$) avg {formatPrice(simulatorPosition.avarage, 0)} $
                 </div>
@@ -431,7 +452,7 @@ export const ForecastSimulator = () => {
             )}
 
             <div className="btn sim__short" onClick={() => changePosition('short')}>
-              SHORT
+              {t('actions.short')}
             </div>
             <div className="sim__bet">
               <input
@@ -439,11 +460,11 @@ export const ForecastSimulator = () => {
                 value={simulatorBet}
                 max="999"
                 min="1"
-                onChange={(e) => setsimulatorBet(+e.target.value)}
+                onChange={(e) => setSimulatorBet(+e.target.value)}
               />
             </div>
             <div className="btn sim__long" onClick={() => changePosition('long')}>
-              LONG
+              {t('actions.long')}
             </div>
           </div>
           <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>
@@ -470,6 +491,24 @@ export const ForecastSimulator = () => {
           Real
         </label>
       </div>
+
+      {modalManager === 'interval' && (
+        <ForecastSimulatorModalInterval
+          positionWeight={positionWeight}
+          simulatorPosition={simulatorPosition}
+          positionPL={positionPL}
+          closeModal={handleModalClose}
+        />
+      )}
+
+      {modalManager === 'total' && (
+        <ForecastSimulatorModalResult
+          positionWeight={positionWeight}
+          simulatorPosition={simulatorPosition}
+          positionPL={positionPL}
+          closeModal={handleModalClose}
+        />
+      )}
     </div>
   );
 };
