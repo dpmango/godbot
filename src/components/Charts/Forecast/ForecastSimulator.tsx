@@ -78,6 +78,7 @@ export const ForecastSimulator = () => {
   const [simulatorBet, setSimulatorBet] = useState<number>(1);
   const [modalManager, setModalManager] = useState<string | null>(null);
   const [dealsMarkers, setDealsMarkers] = useState<SeriesMarker<Time>[]>([]);
+  const [endGame, setEndGame] = useState(false);
 
   // логика открытия / закрытия / изминения позиции симулятора
   const changePosition = useCallback(
@@ -224,6 +225,17 @@ export const ForecastSimulator = () => {
     return bank + savedProfit;
   }, [simulatorPosition, simulatorCurrentPrice]);
 
+  const gameEndsVerbose = useMemo(() => {
+    if (dataSeries.length > 1) {
+      const lastForecastTimestamp = dataSeries[1].data[dataSeries[1].data.length - 1].time;
+      if (lastForecastTimestamp) {
+        return formatUnixDate(lastForecastTimestamp);
+      }
+    }
+
+    return null;
+  }, [dataSeries]);
+
   // показ прогноза, логика стопов по интервалам
   const [intervalRun, setIntervalRun] = useState(0);
   const currentInterval = useMemo(() => {
@@ -353,7 +365,7 @@ export const ForecastSimulator = () => {
         getChartDefaults(containerRef.current, {
           timeScale: {
             fixLeftEdge: true,
-            fixRightEdge: true,
+            fixRightEdge: false,
             borderVisible: false,
             timeVisible: true,
             secondsVisible: false,
@@ -376,10 +388,11 @@ export const ForecastSimulator = () => {
       const firstTick = coinData[0].timestamp;
       const firstTime = dayjs(utcToZonedTime(firstTick * 1000, 'Etc/UTC'));
 
-      chartInstance.timeScale().setVisibleRange({
-        from: timeToTz((firstTime.unix() * 1000) as UTCTimestamp),
-        to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
-      });
+      // chartInstance.timeScale().setVisibleLogicalRange({ from: 0, to: lastTick });
+      // chartInstance.timeScale().setVisibleRange({
+      //   from: timeToTz((firstTime.unix() * 1000) as UTCTimestamp),
+      //   to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
+      // });
 
       // тултипы
       chartInstance.subscribeCrosshairMove((param) => {
@@ -407,6 +420,12 @@ export const ForecastSimulator = () => {
           }
         }
       });
+
+      // chartInstance.timeScale().setVisibleRange({
+      //   from: timeToTz((firstTime.unix() * 1000) as UTCTimestamp),
+      //   to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
+      // });
+      chartInstance.timeScale().setVisibleLogicalRange({ from: 0, to: coinData.length });
     }
 
     setLoading(false);
@@ -424,13 +443,19 @@ export const ForecastSimulator = () => {
         );
 
         const nextTick = dataSeries[idx].data[currentTickIndex + 1];
-        if (nextTick?.value) {
+        if (nextTick?.value && chart.current) {
           lineSeries.instance.update(nextTick);
+          chart.current
+            .timeScale()
+            .setVisibleLogicalRange({ from: 0, to: dataSeries[idx].data.length });
 
           setSimulatorCurrentTime(nextTick.time);
           setSimulatorCurrentPrice(nextTick.value);
         } else {
-          setModalManager('total');
+          if (!endGame) {
+            setModalManager('total');
+            setEndGame(true);
+          }
         }
       }
     });
@@ -504,6 +529,11 @@ export const ForecastSimulator = () => {
             <div className="sim__timeline-action sim__speed" onClick={handleSimulatorSpeedClick}>
               {simulatorTimeline.speed}x
             </div>
+            {simulatorCurrentTime && (
+              <div className="sim__time">
+                {formatUnixDate(simulatorCurrentTime, 'DD.MM HH:mm')} - {gameEndsVerbose}
+              </div>
+            )}
           </div>
           <div className="sim__bets">
             {(simulatorPosition.quantity !== 0 || positionPL !== 0) && (

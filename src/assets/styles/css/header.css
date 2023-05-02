@@ -520,6 +520,10 @@
   fill: var(--grey2);
   color: var(--grey2);
 }
+.header__user-link .svg-icon{
+  font-size: 20px;
+}
+
 @media (pointer: fine) {
   .header__user-link:hover {
     color: var(--blue);

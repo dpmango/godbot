@@ -26,8 +26,8 @@ export const formatDate = (d: Date | string, mask?: string) => {
   return dayjs(d).format(mask || 'DD.MM.YY HH:mm');
 };
 
-export const formatUnixDate = (d: UTCTimestamp) => {
-  return dayjs.unix(d).tz('Etc/UTC').format('DD.MM.YY HH:mm');
+export const formatUnixDate = (d: UTCTimestamp, mask = 'DD.MM.YY HH:mm') => {
+  return dayjs.unix(d).tz('Etc/UTC').format(mask);
 };
 
 export const dateToDDMMMM = (d: string) => {
