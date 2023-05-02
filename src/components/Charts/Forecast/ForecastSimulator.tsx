@@ -8,6 +8,8 @@ import {
   ISeriesApi,
   LineStyle,
   LogicalRange,
+  SeriesMarker,
+  Time,
   UTCTimestamp,
 } from 'lightweight-charts';
 
@@ -49,16 +51,15 @@ export const ForecastSimulator = () => {
     currentTime,
     loading: storeLoading,
   } = useAppSelector((state) => state.forecastState);
-
   const dispatch = useAppDispatch();
-
-  // рефы
-  const containerRef: any = useRef(null);
-  const tooltipRef: any = useRef(null);
 
   const { allowedFunctions } = useProfile();
   const { t } = useTranslation('simulator');
   const paginatePer = 200;
+
+  // рефы
+  const containerRef: any = useRef(null);
+  const tooltipRef: any = useRef(null);
 
   // Логика эмулятора
   const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(0);
@@ -76,7 +77,9 @@ export const ForecastSimulator = () => {
   });
   const [simulatorBet, setSimulatorBet] = useState<number>(1);
   const [modalManager, setModalManager] = useState<string | null>(null);
+  const [dealsMarkers, setDealsMarkers] = useState<SeriesMarker<Time>[]>([]);
 
+  // логика открытия / закрытия / изминения позиции симулятора
   const changePosition = useCallback(
     (type: 'long' | 'short') => {
       setSimulatorPosition((position) => {
@@ -84,6 +87,30 @@ export const ForecastSimulator = () => {
         let newQuantity = position.quantity;
         let newDir = position.dir;
         let newSavedProfit = position.savedProfit;
+
+        if (type === 'long') {
+          setDealsMarkers((prev) => [
+            ...prev,
+            {
+              time: simulatorCurrentTime as Time,
+              position: 'belowBar',
+              color: '#2196F3',
+              shape: 'arrowUp',
+              text: `Long @ ${simulatorBet} x ${formatPrice(simulatorCurrentPrice)}`,
+            },
+          ]);
+        } else if (type === 'short') {
+          setDealsMarkers((prev) => [
+            ...prev,
+            {
+              time: simulatorCurrentTime as Time,
+              position: 'aboveBar',
+              color: '#e91e63',
+              shape: 'arrowDown',
+              text: `Short @ ${simulatorBet} x ${formatPrice(simulatorCurrentPrice)}`,
+            },
+          ]);
+        }
 
         // если направление позиции совпадает, управление только количеством
         const addPosition = () => {
@@ -197,6 +224,18 @@ export const ForecastSimulator = () => {
     return bank + savedProfit;
   }, [simulatorPosition, simulatorCurrentPrice]);
 
+  // показ прогноза, логика стопов по интервалам
+  const [intervalRun, setIntervalRun] = useState(0);
+  const currentInterval = useMemo(() => {
+    if (simulatorTimeline.intervals.length > 0 && simulatorCurrentTime) {
+      return simulatorTimeline.intervals.find(
+        (x) => simulatorCurrentTime >= x.from && simulatorCurrentTime < x.to
+      );
+    }
+
+    return null;
+  }, [simulatorTimeline, simulatorCurrentTime]);
+
   // установка горизонтальных линиий с инофрмацией по позции
   const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
   useEffect(() => {
@@ -220,21 +259,29 @@ export const ForecastSimulator = () => {
           setLastPriceLine(priceLineInstance);
         }
       });
+    } else {
+      chartLines.forEach((lineSeries, idx) => {
+        if (lineSeries.id === 'Forecast') {
+          if (lastPriceLine) {
+            lineSeries.instance.removePriceLine(lastPriceLine);
+          }
+        }
+      });
     }
   }, [simulatorPosition.avarage]);
 
-  // показ прогноза, логика стопов по интервалам и
-  const currentInterval = useMemo(() => {
-    if (simulatorTimeline.intervals.length > 0 && simulatorCurrentTime) {
-      return simulatorTimeline.intervals.find(
-        (x) => simulatorCurrentTime >= x.from && simulatorCurrentTime < x.to
-      );
+  // отображение сделок на графике
+  useEffect(() => {
+    if (dealsMarkers.length) {
+      chartLines.forEach((lineSeries, idx) => {
+        if (lineSeries.id === 'RealLine') {
+          lineSeries.instance.setMarkers(dealsMarkers);
+        }
+      });
     }
+  }, [dealsMarkers]);
+  // показ прогноза, логика стопов по интервалам
 
-    return null;
-  }, [simulatorTimeline, simulatorCurrentTime]);
-
-  const [intervalRun, setIntervalRun] = useState(0);
   useEffect(() => {
     if (currentInterval?.from) {
       chartLines.forEach((lineSeries, idx) => {
@@ -480,7 +527,7 @@ export const ForecastSimulator = () => {
                       {t('actions.short')} x{simulatorPosition.quantity}
                     </span>
                   )}{' '}
-                  ({formatPrice(positionWeight)}$) avg {formatPrice(simulatorPosition.avarage, 0)} $
+                  ({formatPrice(positionWeight)}$)
                 </div>
               </>
             )}
