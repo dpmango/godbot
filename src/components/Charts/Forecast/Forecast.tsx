@@ -269,7 +269,7 @@ export const Forecast = () => {
   // инициализация запросов
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
-    if (simulator) return;
+    if (simulator.enabled) return;
     let updateIntervalMin = 1;
     if (currentTime === '15m') {
       updateIntervalMin = 1;
@@ -346,9 +346,9 @@ export const Forecast = () => {
 
   // обновление данных
   useEffect(() => {
-    if (data && !viewLocked && !simulator) {
+    if (data && !viewLocked && !simulator.enabled) {
       if (data.length) initOrUpdateChart(data);
-    } else if (viewLocked) {
+    } else if (viewLocked || simulator.enabled) {
       chart.current?.remove();
       chart.current = null;
     }
