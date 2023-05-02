@@ -1,7 +1,15 @@
 import { Logo } from '@c/Layout/Header';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
-import { createChart, IChartApi, ISeriesApi, LogicalRange, UTCTimestamp } from 'lightweight-charts';
+import {
+  createChart,
+  IChartApi,
+  IPriceLine,
+  ISeriesApi,
+  LineStyle,
+  LogicalRange,
+  UTCTimestamp,
+} from 'lightweight-charts';
 
 import { ForecastSimulatorModalInterval, ForecastSimulatorModalResult } from '@/components/Charts';
 import { SvgIcon } from '@/components/UI';
@@ -188,6 +196,32 @@ export const ForecastSimulator = () => {
 
     return bank + savedProfit;
   }, [simulatorPosition, simulatorCurrentPrice]);
+
+  // установка горизонтальных линиий с инофрмацией по позции
+  const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
+  useEffect(() => {
+    if (simulatorPosition.avarage) {
+      const avgPriceLine = {
+        price: simulatorPosition.avarage,
+        color: '#be1238',
+        lineWidth: 2 as any,
+        lineStyle: LineStyle.Solid,
+        axisLabelVisible: true,
+        title: 'average',
+      };
+
+      chartLines.forEach((lineSeries, idx) => {
+        if (lineSeries.id === 'Forecast') {
+          if (lastPriceLine) {
+            lineSeries.instance.removePriceLine(lastPriceLine);
+          }
+
+          const priceLineInstance = lineSeries.instance.createPriceLine(avgPriceLine);
+          setLastPriceLine(priceLineInstance);
+        }
+      });
+    }
+  }, [simulatorPosition.avarage]);
 
   // показ прогноза, логика стопов по интервалам и
   const currentInterval = useMemo(() => {

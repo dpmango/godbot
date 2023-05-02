@@ -173,12 +173,6 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           <span>{t('guide.title')}</span>
         </Link>
       )}
-      <div
-        className="btn chart__head-btn"
-        onClick={() => dispatch(setSimulator({ enabled: !simulator.enabled }))}>
-        <SvgIcon name="replay" />
-        <span>Симулятор рынка</span>
-      </div>
 
       <div
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}

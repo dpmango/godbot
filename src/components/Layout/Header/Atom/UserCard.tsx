@@ -1,5 +1,5 @@
 import { Menu, Socials } from '@c/Layout/Header';
-import { SpriteIcon } from '@ui';
+import { SpriteIcon, SvgIcon } from '@ui';
 import AES from 'crypto-js/aes';
 
 import { ThemeContext } from '@/App';
@@ -10,6 +10,8 @@ export const UserCard = () => {
   const { pathname } = useLocation();
 
   const ctx = useContext(ThemeContext);
+  const dispatch = useAppDispatch();
+  const { simulator } = useAppSelector((store) => store.forecastState);
 
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => setUserOpened(false));
@@ -97,6 +99,12 @@ export const UserCard = () => {
             <SpriteIcon name="coupon" width="16" height="16" />
             {t('actions.promo')}
           </Link>
+          <a
+            className="header__user-link"
+            onClick={() => dispatch(setSimulator({ enabled: !simulator.enabled }))}>
+            <SvgIcon name="replay" />
+            {t('actions.simulator')}
+          </a>
         </div>
 
         <Socials />

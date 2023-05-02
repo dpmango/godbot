@@ -518,6 +518,7 @@
   width: 16px;
   height: 16px;
   fill: var(--grey2);
+  color: var(--grey2);
 }
 @media (pointer: fine) {
   .header__user-link:hover {

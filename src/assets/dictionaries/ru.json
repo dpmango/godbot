@@ -39,7 +39,8 @@
       "payedChat": "Перейти в Telegram-чат",
       "bot": "Перейти в Telegram-бот",
       "tutorial": "Туториал по сайту",
-      "promo": "Ввести промокод"
+      "promo": "Ввести промокод",
+      "simulator": "Симулятор рынка"
     },
     "policies": {
       "confidentiality": "Конфиденциальность",
