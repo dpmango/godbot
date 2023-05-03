@@ -74,7 +74,7 @@ export default ({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
         '@c': fileURLToPath(new URL('./src/components', import.meta.url)),
 
-        '@ui': fileURLToPath(new URL('./src/components/Ui', import.meta.url)),
+        '@ui': fileURLToPath(new URL('./src/components/UI', import.meta.url)),
         '@core': fileURLToPath(new URL('./src/core', import.meta.url)),
         '@interface': fileURLToPath(new URL('./src/core/interface', import.meta.url)),
         '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
