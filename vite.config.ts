@@ -9,6 +9,17 @@ import mkcert from 'vite-plugin-mkcert';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import svgLoader from 'vite-svg-loader';
 
+//@ts-ignore
+import { dependencies } from './package.json';
+function renderChunks(deps: Record<string, string>) {
+  const chunks = {};
+  Object.keys(deps).forEach((key) => {
+    if (['react', 'react-router-dom', 'react-dom'].includes(key)) return;
+    chunks[key] = [key];
+  });
+  return chunks;
+}
+
 export default ({ mode }) => {
   // Load app-level env vars to node-level env vars.
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
@@ -84,16 +95,12 @@ export default ({ mode }) => {
 
     build: {
       outDir: 'build',
+      sourcemap: false,
       rollupOptions: {
         output: {
-          manualChunks: (id) => {
-            if (id.includes('node_modules/react')) {
-              return 'vendor-react';
-            } else if (id.includes('node_modules/i18n')) {
-              return 'vendor-i18n';
-            } else if (id.includes('node_modules')) {
-              return 'vendor';
-            }
+          manualChunks: {
+            vendor: ['react', 'react-router-dom', 'react-dom'],
+            ...renderChunks(dependencies),
           },
         },
       },

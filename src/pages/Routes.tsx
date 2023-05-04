@@ -2,15 +2,33 @@ import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 import { Toast } from '@ui';
 import Cookies from 'js-cookie';
+import React from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
-import { Authorization } from '@/pages/Authorization.page';
-import { Education } from '@/pages/Education.page';
-import { FaqPage } from '@/pages/Faq.page';
-import { HomePage } from '@/pages/Home.page';
-import { NotFound } from '@/pages/NotFound.page';
-import { Partner } from '@/pages/Partner.page';
-import { UiPage } from '@/pages/Ui.page';
+function lazyImport<
+  T extends React.ComponentType<any>,
+  I extends { [K2 in K]: T },
+  K extends keyof I
+>(factory: () => Promise<I>, name: K): I {
+  return Object.create({
+    [name]: React.lazy(() => factory().then((module) => ({ default: module[name] }))),
+  });
+}
+
+// import { Authorization } from '@/pages/Authorization.page';
+// import { Education } from '@/pages/Education.page';
+// import { FaqPage } from '@/pages/Faq.page';
+// import { HomePage } from '@/pages/Home.page';
+// import { NotFound } from '@/pages/NotFound.page';
+// import { Partner } from '@/pages/Partner.page';
+// import { UiPage } from '@/pages/Ui.page';
+const { Authorization } = lazyImport(() => import('./Authorization.page'), 'Authorization');
+const { Education } = lazyImport(() => import('./Education.page'), 'Education');
+const { FaqPage } = lazyImport(() => import('./Faq.page'), 'FaqPage');
+const { HomePage } = lazyImport(() => import('./Home.page'), 'HomePage');
+const { NotFound } = lazyImport(() => import('./NotFound.page'), 'NotFound');
+const { Partner } = lazyImport(() => import('./Partner.page'), 'Partner');
+const { UiPage } = lazyImport(() => import('./Ui.page'), 'UiPage');
 
 declare global {
   interface Window {
