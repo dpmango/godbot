@@ -2,7 +2,7 @@ import { AuthorizationForm } from '@c/Authorization/AuthorizationForm';
 import { AuthorizationValidate } from '@c/Authorization/AuthorizationValidate';
 import { Toast } from '@ui';
 import Cookies from 'js-cookie';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 function lazyImport<
@@ -99,22 +99,24 @@ const Router = () => {
   }, [location]);
 
   return (
-    <Routes>
-      <Route path="/auth" element={<Authorization />}>
-        <Route index element={<AuthorizationForm />} />
-        <Route path="validation" element={<AuthorizationValidate />} />
-        <Route path="*" element={<Navigate to="/auth" />} />
-      </Route>
-      <Route path="/" element={<ProtectedRoute />}>
-        <Route index element={<HomePage />} />
-        <Route path="partner" element={<Partner />} />
-        {i18n.language === 'ru-RU' && <Route path="education" element={<Education />} />}
-        <Route path="faq" element={<FaqPage />} />
-        <Route path="ui" element={<UiPage />} />
-      </Route>
+    <Suspense>
+      <Routes>
+        <Route path="/auth" element={<Authorization />}>
+          <Route index element={<AuthorizationForm />} />
+          <Route path="validation" element={<AuthorizationValidate />} />
+          <Route path="*" element={<Navigate to="/auth" />} />
+        </Route>
+        <Route path="/" element={<ProtectedRoute />}>
+          <Route index element={<HomePage />} />
+          <Route path="partner" element={<Partner />} />
+          {i18n.language === 'ru-RU' && <Route path="education" element={<Education />} />}
+          <Route path="faq" element={<FaqPage />} />
+          <Route path="ui" element={<UiPage />} />
+        </Route>
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
 
