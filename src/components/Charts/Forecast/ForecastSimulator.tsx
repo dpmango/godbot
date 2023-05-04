@@ -366,7 +366,7 @@ export const ForecastSimulator = () => {
         getChartDefaults(containerRef.current, {
           timeScale: {
             fixLeftEdge: true,
-            fixRightEdge: false,
+            fixRightEdge: true,
             borderVisible: false,
             timeVisible: true,
             secondsVisible: false,
@@ -426,7 +426,7 @@ export const ForecastSimulator = () => {
       //   from: timeToTz((firstTime.unix() * 1000) as UTCTimestamp),
       //   to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
       // });
-      chartInstance.timeScale().setVisibleLogicalRange({ from: 0, to: coinData.length });
+      chartInstance.timeScale().setVisibleLogicalRange({ from: 0, to: 20 });
     }
 
     setLoading(false);
@@ -446,9 +446,16 @@ export const ForecastSimulator = () => {
         const nextTick = dataSeries[idx].data[currentTickIndex + 1];
         if (nextTick?.value && chart.current) {
           lineSeries.instance.update(nextTick);
+
+          // timescale control
+          const timeToCheck = currentInterval?.to || dataSeries[idx].data.length;
+          const currentIntervalIndexLast = dataSeries[idx].data.findIndex(
+            (x) => x.time === timeToCheck
+          );
+
           chart.current
             .timeScale()
-            .setVisibleLogicalRange({ from: 0, to: dataSeries[idx].data.length });
+            .setVisibleLogicalRange({ from: 0, to: currentIntervalIndexLast });
 
           setSimulatorCurrentTime(nextTick.time);
           setSimulatorCurrentPrice(nextTick.value);
