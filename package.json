@@ -10,7 +10,8 @@
     "build": "vite build",
     "serve": "vite preview",
     "lint:js:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
-    "lint": "yarn lint:js:fix"
+    "lint": "yarn lint:js:fix",
+    "deploy": "bash deploy.sh"
   },
   "type": "module",
   "pre-commit": "lint",
