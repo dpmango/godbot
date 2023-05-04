@@ -24,6 +24,7 @@ declare global {
   const copyToClipboard: typeof import('./src/core/utils/clipboard')['copyToClipboard']
   const createRef: typeof import('react')['createRef']
   const dateToDDMMMM: typeof import('./src/core/utils/datetime')['dateToDDMMMM']
+  const flushDataState: typeof import('./src/core/store/forecast.store')['flushDataState']
   const forecastState: typeof import('./src/core/store/forecast.store')['forecastState']
   const forecastStore: typeof import('./src/core/store/forecast.store')['default']
   const formatDate: typeof import('./src/core/utils/datetime')['formatDate']

@@ -276,12 +276,13 @@ export const Forecast = () => {
     }
 
     const requestChart = async () => {
-      if (currentCoin && currentTime) {
+      if (currentCoin && currentTime && !simulator.enabled) {
         dispatch(getChart({ page: 1, per: paginatePer }));
       }
     };
 
     if (allowedFunctions.forecast) {
+      dispatch(flushDataState());
       requestChart();
       timerConfirm.current = setInterval(requestChart, updateIntervalMin * (60 / 6) * 1000);
     }
@@ -289,7 +290,7 @@ export const Forecast = () => {
     return () => {
       clearInterval(timerConfirm.current as NodeJS.Timeout);
     };
-  }, [allowedFunctions.forecast, currentCoin, currentTime]);
+  }, [allowedFunctions.forecast, currentCoin, currentTime, simulator.enabled]);
 
   useEffect(() => {
     if (allowedFunctions.forecast) {

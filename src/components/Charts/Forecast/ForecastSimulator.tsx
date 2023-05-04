@@ -62,6 +62,7 @@ export const ForecastSimulator = () => {
   const tooltipRef: any = useRef(null);
 
   // Логика эмулятора
+  const [simulatorDataLoaded, setSimulatorDataLoaded] = useState<boolean>(false);
   const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(0);
   const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
   const [simulatorTimeline, setSimulatorTimeline] = useState<ISimulatorTimeline>({
@@ -484,7 +485,9 @@ export const ForecastSimulator = () => {
   useEffect(() => {
     const requestChart = async () => {
       if (currentCoin && currentTime) {
-        dispatch(getChart({ page: 40, per: paginatePer }));
+        dispatch(flushDataState());
+        await dispatch(getChart({ page: 40, per: paginatePer }));
+        setSimulatorDataLoaded(true);
       }
     };
 
@@ -496,12 +499,12 @@ export const ForecastSimulator = () => {
   // обновление данных
   useEffect(() => {
     if (data) {
-      if (data.length) initOrUpdateChart(data);
+      if (data.length && simulatorDataLoaded) initOrUpdateChart(data);
     } else {
       chart.current?.remove();
       chart.current = null;
     }
-  }, [data]);
+  }, [data, simulatorDataLoaded]);
 
   return (
     <div className={cns('chart')}>
