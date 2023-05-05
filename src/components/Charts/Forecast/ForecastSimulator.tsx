@@ -83,12 +83,14 @@ export const ForecastSimulator = () => {
 
   // логика открытия / закрытия / изминения позиции симулятора
   const changePosition = useCallback(
-    (type: 'long' | 'short') => {
+    (type: 'long' | 'short', forcedQuantity?: number) => {
       setSimulatorPosition((position) => {
         let newAverage = position.avarage || simulatorCurrentPrice;
         let newQuantity = position.quantity;
         let newDir = position.dir;
         let newSavedProfit = position.savedProfit;
+
+        const positionQuantity = forcedQuantity || simulatorBet;
 
         if (type === 'long') {
           setDealsMarkers((prev) => [
@@ -98,7 +100,7 @@ export const ForecastSimulator = () => {
               position: 'belowBar',
               color: '#2196F3',
               shape: 'arrowUp',
-              text: `Long @ ${simulatorBet} x ${formatPrice(simulatorCurrentPrice)}`,
+              text: `Long @ ${positionQuantity} x ${formatPrice(simulatorCurrentPrice)}`,
             },
           ]);
         } else if (type === 'short') {
@@ -109,7 +111,7 @@ export const ForecastSimulator = () => {
               position: 'aboveBar',
               color: '#e91e63',
               shape: 'arrowDown',
-              text: `Short @ ${simulatorBet} x ${formatPrice(simulatorCurrentPrice)}`,
+              text: `Short @ ${positionQuantity} x ${formatPrice(simulatorCurrentPrice)}`,
             },
           ]);
         }
@@ -117,18 +119,18 @@ export const ForecastSimulator = () => {
         // если направление позиции совпадает, управление только количеством
         const addPosition = () => {
           const curentPositionTotal = position.quantity * position.avarage;
-          const incomingPositionTotal = simulatorBet * simulatorCurrentPrice;
+          const incomingPositionTotal = positionQuantity * simulatorCurrentPrice;
 
-          newQuantity = position.quantity + simulatorBet;
+          newQuantity = position.quantity + positionQuantity;
           newAverage =
-            (curentPositionTotal + incomingPositionTotal) / (position.quantity + simulatorBet);
+            (curentPositionTotal + incomingPositionTotal) / (position.quantity + positionQuantity);
         };
 
         // если позиция уменьшается, считать разницу и сохранять P/L
         const removePosition = () => {
           let directionChanged = false;
 
-          const incomingQuantity = position.quantity - simulatorBet;
+          const incomingQuantity = position.quantity - positionQuantity;
           if (incomingQuantity >= 0) {
             newQuantity = incomingQuantity;
           } else {
@@ -176,6 +178,14 @@ export const ForecastSimulator = () => {
     },
     [simulatorPosition, simulatorCurrentPrice, simulatorBet]
   );
+
+  const flattenPosition = useCallback(() => {
+    const { dir, quantity } = simulatorPosition;
+
+    if (quantity > 0) {
+      changePosition(dir === 'long' ? 'short' : 'long', quantity);
+    }
+  }, [simulatorPosition]);
 
   // таймлайн
   const handleSimulatorPausedClick = useCallback(() => {
@@ -539,11 +549,11 @@ export const ForecastSimulator = () => {
             <div className="sim__timeline-action sim__speed" onClick={handleSimulatorSpeedClick}>
               {simulatorTimeline.speed}x
             </div>
-            {simulatorCurrentTime && (
+            {/* {simulatorCurrentTime && (
               <div className="sim__time">
                 {formatUnixDate(simulatorCurrentTime, 'DD.MM HH:mm')} - {gameEndsVerbose}
               </div>
-            )}
+            )} */}
           </div>
           <div className="sim__bets">
             {(simulatorPosition.quantity !== 0 || positionPL !== 0) && (
@@ -573,19 +583,24 @@ export const ForecastSimulator = () => {
             )}
 
             <div className="btn sim__short" onClick={() => changePosition('short')}>
-              {t('actions.short')}
+              Sell
             </div>
-            <div className="sim__bet">
-              <input
+            <div className="sim__bet bet">
+              <div className="bet__current">{simulatorBet}</div>
+              <div className="bet__select"></div>
+              {/* <input
                 type="number"
                 value={simulatorBet}
                 max="999"
                 min="1"
                 onChange={(e) => setSimulatorBet(+e.target.value)}
-              />
+              /> */}
             </div>
             <div className="btn sim__long" onClick={() => changePosition('long')}>
-              {t('actions.long')}
+              Buy
+            </div>
+            <div className="btn sim__flatten" onClick={flattenPosition}>
+              Flatten
             </div>
           </div>
           <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>

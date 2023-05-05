@@ -234,7 +234,7 @@
   &__wrapper
     display: flex
     align-items: center
-    padding: 8px 20px
+    padding: 15px 20px
   &__timeline
     flex: 1 0 auto
     display: flex
@@ -267,26 +267,25 @@
     align-items: center
     font-size: 14px
   &__bet
-    margin-left: 16px
-    margin-right: 16px 
-    input
-      border: 0
-      padding: 4px 8px
-      font-size: 14px
-      background: transparent
-      max-width: 100px
-      color: var(--text)
-      text-align: center
-  &__short, &__long
-    padding: 8px 10px
-    font-size: 14px
+    margin-left: 5px
+    margin-right: 5px 
+
+  &__short, &__long, &__flatten
+    padding: 5px 20px
+    font-size: 10px
     font-weight: 500
+    border-radius: 10px
   &__short
     background-color: var(--red)
     border-color: var(--red)
   &__long
-    background-color: var(--green)
-    border-color: var(--green)
+    background-color: var(--blue)
+    border-color: var(--blue)
+    margin-right: 5px
+  &__flatten
+    background-color: #E2E2E2
+    border-color: #E2E2E2
+    color: #AEAEAE
   &__position
     font-size: 18px
     font-weight: 600
@@ -309,3 +308,26 @@
       color: var(--red)
     .svg-icon
       font-size: 18px
+  
+.bet
+  position: relative
+  &__current
+    background: var(--bg-blue)
+    border-radius: 10px
+    color: var(--text)
+    padding: 5px 10px
+    cursor: pointer
+    transition: background .25s ease
+    &:hover
+      background: var(--blue)
+      color: white
+  &__select
+    position: absolute
+    pointer-events: none
+    font-weight: 500
+    font-size: 10px
+    line-height: 14px
+    &._active
+      opacity: 1
+      transform: none
+      pointer-events: all
