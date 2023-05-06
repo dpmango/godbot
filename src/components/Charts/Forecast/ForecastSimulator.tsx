@@ -358,7 +358,11 @@ export const ForecastSimulator = () => {
             setIntervalRun((prev) => prev + 1);
             if (updateMarkers.length) {
               lineSeries.instance.setMarkers(
-                updateMarkers.filter((x) => x.time <= currentInterval.to || currentInterval.from)
+                updateMarkers.filter(
+                  (x) =>
+                    (x.time >= currentInterval.to || currentInterval.from) &&
+                    x.time <= currentInterval.from
+                )
               );
             }
           }
