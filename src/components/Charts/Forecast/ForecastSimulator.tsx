@@ -79,7 +79,9 @@ export const ForecastSimulator = () => {
   const [simulatorBet, setSimulatorBet] = useState<number>(1);
   const [modalManager, setModalManager] = useState<string | null>(null);
   const [dealsMarkers, setDealsMarkers] = useState<SeriesMarker<Time>[]>([]);
-  const [endGame, setEndGame] = useState(false);
+  const [endGame, setEndGame] = useState<boolean>(false);
+
+  const [updateMarkers, setUpdateMarkers] = useState<SeriesMarker<any>[]>([]);
 
   // логика открытия / закрытия / изминения позиции симулятора
   const changePosition = useCallback(
@@ -269,6 +271,36 @@ export const ForecastSimulator = () => {
     return null;
   }, [simulatorTimeline, simulatorCurrentTime]);
 
+  const handleSimulatorBackClick = useCallback(() => {
+    if (currentInterval?.from) {
+      updateSimulatorToTime(currentInterval?.from);
+    }
+  }, [currentInterval]);
+
+  const updateSimulatorToTime = useCallback((time: UTCTimestamp) => {
+    setSimulatorCurrentTime(time);
+    handleSimualtorUpdate(time);
+    setSimulatorTimeline((prev) => ({
+      ...prev,
+      paused: true,
+    }));
+  }, []);
+
+  const handleSimulatorForwardClick = useCallback(() => {
+    if (currentInterval?.to || currentInterval?.from) {
+      const newTime = currentInterval?.to || currentInterval?.from;
+      updateSimulatorToTime(newTime);
+    }
+
+    // chartLines.forEach((lineSeries, idx) => {
+    //   const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= currentInterval.to);
+
+    //   if (forecastInterval?.length) {
+    //     lineSeries.instance.setData(forecastInterval);
+    //   }
+    // });
+  }, [currentInterval]);
+
   // установка горизонтальных линиий с инофрмацией по позции
   const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
   useEffect(() => {
@@ -324,6 +356,11 @@ export const ForecastSimulator = () => {
           if (forecastInterval?.length) {
             lineSeries.instance.setData(forecastInterval);
             setIntervalRun((prev) => prev + 1);
+            if (updateMarkers.length) {
+              lineSeries.instance.setMarkers(
+                updateMarkers.filter((x) => x.time <= currentInterval.to || currentInterval.from)
+              );
+            }
           }
         }
       });
@@ -368,7 +405,7 @@ export const ForecastSimulator = () => {
     // точки обновленный прогноза
     const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
     const updateMarkers = createUpdateMarkers(updateDates);
-
+    setUpdateMarkers(updateMarkers);
     // установка в эмулятор
     setSimulatorTimeline((prev) => ({
       ...prev,
@@ -456,43 +493,46 @@ export const ForecastSimulator = () => {
     };
   };
 
-  const handleSimualtorUpdate = useCallback(() => {
-    chartLines.forEach((lineSeries, idx) => {
-      if (lineSeries.id === 'RealLine') {
-        const currentTickIndex = dataSeries[idx].data.findIndex(
-          (x) => x.time === simulatorCurrentTime
-        );
+  const handleSimualtorUpdate = useCallback(
+    (forcedTime?: UTCTimestamp) => {
+      const currentTime = forcedTime || simulatorCurrentTime;
 
-        const nextTick = dataSeries[idx].data[currentTickIndex + 1];
-        if (nextTick?.value && chart.current) {
-          lineSeries.instance.update(nextTick);
+      chartLines.forEach((lineSeries, idx) => {
+        if (lineSeries.id === 'RealLine') {
+          const currentTickIndex = dataSeries[idx].data.findIndex((x) => x.time === currentTime);
 
-          // timescale control
-          const timeToCheck = currentInterval?.to || dataSeries[idx].data.length;
-          const currentIntervalIndexLast = dataSeries[idx].data.findIndex(
-            (x) => x.time === timeToCheck
-          );
+          const nextTick = dataSeries[idx].data[currentTickIndex + 1];
+          if (nextTick?.value && chart.current) {
+            lineSeries.instance.update(nextTick);
 
-          chart.current
-            .timeScale()
-            .setVisibleLogicalRange({ from: 0, to: currentIntervalIndexLast });
+            // timescale control
+            const timeToCheck = currentInterval?.to || dataSeries[idx].data.length;
+            const currentIntervalIndexLast = dataSeries[idx].data.findIndex(
+              (x) => x.time === timeToCheck
+            );
 
-          setSimulatorCurrentTime(nextTick.time);
-          setSimulatorCurrentPrice(nextTick.value);
-        } else {
-          if (!endGame) {
-            setModalManager('total');
-            setEndGame(true);
+            chart.current
+              .timeScale()
+              .setVisibleLogicalRange({ from: 0, to: currentIntervalIndexLast });
+
+            setSimulatorCurrentTime(nextTick.time);
+            setSimulatorCurrentPrice(nextTick.value);
+          } else {
+            if (!endGame) {
+              setModalManager('total');
+              setEndGame(true);
+            }
           }
         }
-      }
-    });
+      });
 
-    // if (currentIndex === 5000) {
-    //   reset();
-    //   return;
-    // }
-  }, [chartLines, dataSeries, simulatorCurrentPrice, simulatorCurrentTime]);
+      // if (currentIndex === 5000) {
+      //   reset();
+      //   return;
+      // }
+    },
+    [chartLines, dataSeries, simulatorCurrentPrice, simulatorCurrentTime]
+  );
 
   const timerSimulator: { current: NodeJS.Timeout | null } = useRef(null);
 
@@ -548,6 +588,11 @@ export const ForecastSimulator = () => {
         <div className="sim__wrapper">
           <div className="sim__timeline">
             <div
+              className={cns('sim__timeline-action sim__back')}
+              onClick={handleSimulatorBackClick}>
+              <SvgIcon name="back" />
+            </div>
+            <div
               className={cns(
                 'sim__timeline-action sim__play',
                 simulatorTimeline.paused && '_active'
@@ -556,6 +601,12 @@ export const ForecastSimulator = () => {
               <SvgIcon name="play" />
               {simulatorTimeline.paused && 'paused'}
             </div>
+            <div
+              className={cns('sim__timeline-action sim__forward')}
+              onClick={handleSimulatorForwardClick}>
+              <SvgIcon name="forward" />
+            </div>
+
             <div className="sim__timeline-action sim__speed" onClick={handleSimulatorSpeedClick}>
               {simulatorTimeline.speed}x
             </div>

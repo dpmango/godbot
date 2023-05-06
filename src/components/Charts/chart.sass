@@ -236,23 +236,35 @@
     align-items: center
     padding: 15px 20px
   &__timeline
-    flex: 1 0 auto
+    flex: 0 0 auto
+    margin-left: auto
     display: flex
     align-items: center
   &__timeline-action
     font-size: 0
     border-radius: 4px
     padding: 4px
+    min-height: 26px
+    min-width: 26px
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 0
     border: 1px solid transparent
     cursor: pointer
     transition: border .25s ease-in-out
     &:not(:last-child)
-      margin-right: 12px
+      margin-right: 8px
     &:hover, &._active
       border-color: var(--input-border)
     .svg-icon
-      font-size: 24px
-  // &__play
+      font-size: 18px
+  &__play
+    .svg-icon
+      font-size: 15px
+  &__back, &__forward
+    .svg-icon
+      font-size: 17px
   &__time
     font-size: 14px
   &__speed
@@ -261,7 +273,7 @@
 
   &__bets
     flex: 0 0 auto
-    margin-left: auto
+    margin-left: 14px
     margin-right: 24px
     display: flex
     align-items: center
