@@ -52,7 +52,7 @@ export const HomePage = () => {
 
       <Tutorial />
 
-      <div className={cns('content', loading && 'content--loading')}>
+      <div className={cns('content _home', loading && 'content--loading')}>
         <div className="container">
           <Loader theme="page" active={loading} threshold={1} />
 
