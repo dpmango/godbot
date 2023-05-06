@@ -184,7 +184,7 @@ export const TarifCard: React.FC<ITarifCard> = ({
         tariff = 'traderpro';
       }
 
-      reachGoal(`${tariff}${month}`, `Инициализация оплаты ${tariff}${month}`);
+      reachGoal(``, `Инициализация оплаты ${tariff}${month}`);
     }
 
     if (error) {
