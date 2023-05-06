@@ -312,22 +312,98 @@
 .bet
   position: relative
   &__current
+    position: relative
+    z-index: 4
+    margin-top: 0px
     background: var(--bg-blue)
     border-radius: 10px
+    font-size: 10px
     color: var(--text)
     padding: 5px 10px
     cursor: pointer
-    transition: background .25s ease
+    border: 1px solid transparent
+    transition: background .25s ease, border .25s ease
     &:hover
       background: var(--blue)
       color: white
+    &._active
+      margin-top: -15px
+      padding-top: 15px
+      transform: translateY(4px)
+      border: 1px solid var(--blue)
+      border-top-left-radius: 0
+      border-top-right-radius: 0
+      border-top-color: transparent
   &__select
     position: absolute
+    z-index: 3
+    min-width: 80px
+    bottom: calc(100% + 10px)
+    left: 0
     pointer-events: none
     font-weight: 500
     font-size: 10px
     line-height: 14px
+    background: var(--bg-blue)
+    border: 1px solid var(--blue)
+    border-radius: 10px 10px 10px 0
+    overflow: hidden
+    opacity: 0
+    transform: translate(0,-10px)
+    transition: transform .25s ease, opacity .25s ease
     &._active
       opacity: 1
       transform: none
       pointer-events: all
+  &__select-list
+    display: flex
+    flex-wrap: wrap
+  &__select-current
+    flex: 0 0 100%
+    padding: 7px 10px 4px
+    text-align: center
+    font-weight: 500
+    font-size: 10px
+    line-height: 1.4
+  &__select-item
+    flex: 0 0 50%
+    min-width: 1px
+    font-weight: 400
+    font-size: 10px
+    line-height: 1.4
+    text-align: center
+    padding: 5px
+    cursor: pointer
+    border: 1px solid transparent
+    border-top-color: var(--input-border)
+    border-bottom: 0
+    transition: opacity .25s ease
+    &:nth-child(even)
+      border-right-color: var(--input-border)
+    &:nth-child(odd)
+      border-right-color: var(--input-border)
+
+    &:hover
+      opacity: 0.7
+
+    &._minus, &._plus
+      position: relative
+      min-height: 24px
+      &::before, &::after
+        position: absolute
+        display: inline-block
+        content: ' '
+        width: 8px
+        height: 1px
+        top: 50%
+        left: 50%
+        margin-left: -4px
+        margin-bottom: 0px
+        background: currentColor
+      &::before
+        transform: rotate(0deg) 
+      &::after
+        transform: rotate(-90deg)
+    &._minus
+      &::after
+        display: none

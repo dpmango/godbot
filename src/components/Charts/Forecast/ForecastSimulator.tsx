@@ -215,6 +215,16 @@ export const ForecastSimulator = () => {
     }));
   }, [simulatorTimeline.speed]);
 
+  // установка ставки (всплываюший диалог)
+  const [simulatorBetEnabled, setSimulatorBetEnabled] = useState(false);
+
+  const simulatorOptions = useMemo(() => {
+    return [1, 5, 25, 100, 500, 1000];
+  }, []);
+
+  const betSelectRef = useRef(null);
+  useClickOutside(betSelectRef, () => setSimulatorBetEnabled(false));
+
   // мемо по позиции (калькуляции)
   const positionWeight = useMemo(() => {
     const { avarage, quantity } = simulatorPosition;
@@ -586,15 +596,35 @@ export const ForecastSimulator = () => {
               Sell
             </div>
             <div className="sim__bet bet">
-              <div className="bet__current">{simulatorBet}</div>
-              <div className="bet__select"></div>
-              {/* <input
-                type="number"
-                value={simulatorBet}
-                max="999"
-                min="1"
-                onChange={(e) => setSimulatorBet(+e.target.value)}
-              /> */}
+              <div
+                className={cns('bet__current', simulatorBetEnabled && '_active')}
+                onClick={() => setSimulatorBetEnabled(!simulatorBetEnabled)}>
+                {simulatorBet}
+              </div>
+              <div
+                className={cns('bet__select', simulatorBetEnabled && '_active')}
+                ref={betSelectRef}>
+                <div className="bet__select-list">
+                  <div className="bet__select-current">{simulatorBet}</div>
+                  <span
+                    className="bet__select-item _minus"
+                    onClick={() => setSimulatorBet((prev) => prev - 1)}></span>
+                  <span
+                    className="bet__select-item _plus"
+                    onClick={() => setSimulatorBet((prev) => prev + 1)}></span>
+                  {simulatorOptions.map((opt) => (
+                    <span
+                      className="bet__select-item"
+                      key={opt}
+                      onClick={() => {
+                        setSimulatorBet(opt);
+                        setSimulatorBetEnabled(false);
+                      }}>
+                      {opt}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
             <div className="btn sim__long" onClick={() => changePosition('long')}>
               Buy
