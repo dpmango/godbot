@@ -66,7 +66,7 @@ export const ForecastSimulator = () => {
   const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(0);
   const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
   const [simulatorTimeline, setSimulatorTimeline] = useState<ISimulatorTimeline>({
-    paused: false,
+    paused: true,
     speed: 10,
     intervals: [],
   });
@@ -271,20 +271,43 @@ export const ForecastSimulator = () => {
     return null;
   }, [simulatorTimeline, simulatorCurrentTime]);
 
-  const handleSimulatorBackClick = useCallback(() => {
-    if (currentInterval?.from) {
-      updateSimulatorToTime(currentInterval?.from);
+  const prevInterval = useMemo(() => {
+    if (currentInterval && simulatorCurrentTime) {
+      const index = simulatorTimeline.intervals.findIndex(
+        (x) => simulatorCurrentTime >= x.from && simulatorCurrentTime < x.to
+      );
+
+      return simulatorTimeline.intervals[index - 1];
     }
+    return null;
   }, [currentInterval]);
 
-  const updateSimulatorToTime = useCallback((time: UTCTimestamp) => {
-    setSimulatorCurrentTime(time);
-    handleSimualtorUpdate(time);
-    setSimulatorTimeline((prev) => ({
-      ...prev,
-      paused: true,
-    }));
-  }, []);
+  const handleSimulatorBackClick = useCallback(() => {
+    console.log({ prevInterval });
+    if (prevInterval?.from) {
+      updateSimulatorToTime(prevInterval?.from);
+    }
+  }, [prevInterval]);
+
+  const updateSimulatorToTime = useCallback(
+    (time: UTCTimestamp) => {
+      setSimulatorCurrentTime(time);
+
+      chartLines.forEach((lineSeries, idx) => {
+        const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= time);
+        if (forecastInterval?.length) {
+          lineSeries.instance.setData(forecastInterval);
+        }
+      });
+
+      handleSimualtorUpdate(time);
+      setSimulatorTimeline((prev) => ({
+        ...prev,
+        paused: true,
+      }));
+    },
+    [chartLines, dataSeries]
+  );
 
   const handleSimulatorForwardClick = useCallback(() => {
     if (currentInterval?.to || currentInterval?.from) {
@@ -557,7 +580,7 @@ export const ForecastSimulator = () => {
     const requestChart = async () => {
       if (currentCoin && currentTime) {
         dispatch(flushDataState());
-        await dispatch(getChart({ page: 40, per: paginatePer }));
+        await dispatch(getChart({ page: 20, per: paginatePer }));
         setSimulatorDataLoaded(true);
       }
     };
