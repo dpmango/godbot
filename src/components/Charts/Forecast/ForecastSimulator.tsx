@@ -283,7 +283,6 @@ export const ForecastSimulator = () => {
   }, [currentInterval]);
 
   const handleSimulatorBackClick = useCallback(() => {
-    console.log({ prevInterval });
     if (prevInterval?.from) {
       updateSimulatorToTime(prevInterval?.from);
     }
