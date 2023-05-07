@@ -41,7 +41,7 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('withdraw') !== null && <Withdraw />}
 
         {/* {isDevelopmentSite && <PromoDiscount />}  */}
-        <PromoByBit />
+        {/* <PromoByBit /> */}
 
         <TeletypeWidget />
       </div>
