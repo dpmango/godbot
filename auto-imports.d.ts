@@ -37,6 +37,7 @@ declare global {
   const getCurrentUser: typeof import('./src/core/store/user.store')['getCurrentUser']
   const getInvesting: typeof import('./src/core/store/investor.store')['getInvesting']
   const getLanguageByKey: typeof import('./src/core/utils/lang')['getLanguageByKey']
+  const getNotifications: typeof import('./src/core/store/user.store')['getNotifications']
   const getPartnership: typeof import('./src/core/store/user.store')['getPartnership']
   const getPluralKey: typeof import('./src/core/utils/localize')['getPluralKey']
   const getRandomInt: typeof import('./src/core/utils/dev')['getRandomInt']

@@ -22,6 +22,21 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
   const ctx = useContext(ThemeContext);
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
+
+  const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
+  useEffect(() => {
+    const requestNotifications = async () => {
+      dispatch(getNotifications());
+    };
+
+    requestNotifications();
+    timerConfirm.current = setInterval(requestNotifications, 5 * 60 * 1000);
+
+    return () => {
+      clearInterval(timerConfirm.current as NodeJS.Timeout);
+    };
+  }, []);
 
   return (
     <>

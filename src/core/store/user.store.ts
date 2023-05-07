@@ -1,4 +1,4 @@
-import { IPartnerDto, IUserDto } from '@interface/User';
+import { INotificationDto, IPartnerDto, IUserDto } from '@interface/User';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
@@ -10,6 +10,7 @@ export interface IUser {
   isProUser: boolean;
   userData: IUserDto | null;
   partner: IPartnerDto | null;
+  notifications: INotificationDto[] | [];
 }
 
 export const getCurrentUser = createAsyncThunk('user/getCurrentUser', async () => {
@@ -36,12 +37,19 @@ export const getPartnership = createAsyncThunk('user/getPartnership', async () =
   return data;
 });
 
+export const getNotifications = createAsyncThunk('user/getNotifications', async () => {
+  const { data } = await api('get_notifications/', {});
+
+  return data;
+});
+
 const initialState: IUser = {
   loading: null,
   tariffActive: false,
   isProUser: false,
   userData: null,
   partner: null,
+  notifications: [],
 };
 
 export const userState = createSlice({
@@ -88,6 +96,17 @@ export const userState = createSlice({
         state.partner = action.payload;
       }
     });
+
+    builder.addCase(
+      getNotifications.fulfilled,
+      (state, action: PayloadAction<INotificationDto[]>) => {
+        state.loading = false;
+
+        if (action.payload) {
+          state.notifications = action.payload;
+        }
+      }
+    );
   },
 });
 

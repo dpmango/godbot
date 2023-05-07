@@ -24,3 +24,12 @@ export interface IPartnerDto {
   referral_count: number;
   total_earnings: number;
 }
+
+export interface INotificationDto {
+  type: string;
+  title?: string;
+  description: string;
+  datetime: string;
+  image?: string;
+  link: string;
+}
