@@ -1,188 +1,218 @@
 @charset "UTF-8";
+
 .wide-notification {
   position: fixed;
   left: 50%;
-  transform: translate3d(-50%, 0, 0);
   z-index: 200;
   width: calc(100% - 40px);
+  font-weight: normal;
+  line-height: 14px;
   color: var(--white);
-  background-color: var(--black);
   border-radius: 20px;
+  transform: translate3d(-50%, 0, 0);
+  background-color: var(--black);
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
-  font-weight: normal;
-  line-height: 14px;
-  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 4px rgb(0 0 0 / 40%);
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification {
     bottom: 16px;
-    padding: 17px 22px 13px 22px;
+    max-width: 280px;
+    padding: 17px 22px 13px;
     font-size: 11px;
     text-align: left;
-    max-width: 280px;
   }
+
   .wide-notification--simple {
     padding-bottom: 17px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification {
-    bottom: 40px;
     display: flex;
+    bottom: 40px;
     align-items: center;
-    padding: 0 124px 0 25px;
     height: 116px;
+    max-width: 710px;
+    padding: 0 124px 0 25px;
     font-size: 12px;
     text-align: center;
-    max-width: 710px;
   }
 }
+
 .wide-notification__close {
-  cursor: pointer;
-  user-select: none;
   position: absolute;
+  top: 0;
   height: 28px;
-  line-height: 28px;
+  padding: 0 14px 0 0;
   font-weight: 500;
   font-size: 10px;
-  padding: 0 14px 0 0;
-  text-shadow: none;
-  transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  line-height: 28px;
   color: var(--white);
-  top: 0;
+  transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  user-select: none;
+  text-shadow: none;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification__close {
+    overflow: hidden;
     right: 0;
     width: 28px;
     text-align: left;
     text-indent: -100vw;
-    overflow: hidden;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification__close {
-    text-align: right;
     right: 30px;
+    text-align: right;
   }
 }
+
 @media (pointer: fine) {
   .wide-notification__close:hover {
     opacity: 0.7;
   }
 }
-.wide-notification__close:before,
-.wide-notification__close:after {
-  content: '';
+
+.wide-notification__close::before,
+.wide-notification__close::after {
   position: absolute;
+  content: '';
   top: 50%;
-  height: 1.5px;
   width: 9px;
-  border-radius: 0.75px;
+  height: 1.5px;
   background: var(--white);
+  border-radius: 0.75px;
 }
-@media only screen and (max-width: 767px) {
-  .wide-notification__close:before,
-  .wide-notification__close:after {
+
+@media only screen and (width <= 767px) {
+  .wide-notification__close::before,
+  .wide-notification__close::after {
     right: 10px;
   }
 }
-@media only screen and (min-width: 768px) {
-  .wide-notification__close:before,
-  .wide-notification__close:after {
+
+@media only screen and (width >= 768px) {
+  .wide-notification__close::before,
+  .wide-notification__close::after {
     right: -3px;
   }
 }
-.wide-notification__close:before {
+
+.wide-notification__close::before {
   transform: translate3d(0, -50%, 0) rotate(45deg);
 }
-.wide-notification__close:after {
+
+.wide-notification__close::after {
   transform: translate3d(0, -50%, 0) rotate(-45deg);
 }
+
 .wide-notification__image {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification__image {
-    width: 66px;
-    height: 62px;
     position: absolute;
     top: 8px;
     right: 20px;
+    width: 66px;
+    height: 62px;
   }
+
   .wide-notification__image--gift {
     display: none;
   }
+
   .wide-notification--simple .wide-notification__image {
     display: none;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification__image {
     flex: 0 0 auto;
     width: 105px;
     height: 94px;
   }
+
   .wide-notification--simple .wide-notification__image {
     width: 118px;
     height: 112px;
   }
 }
+
 .wide-notification__text {
   display: flex;
   flex-direction: column;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification__text {
+    align-items: flex-start;
     padding-bottom: 2px;
     gap: 5px;
-    align-items: flex-start;
   }
+
   .wide-notification__text--stream {
     padding-right: 72px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification__text {
     flex: 1;
+    align-items: center;
     max-width: 185px;
     margin: 0 auto;
     gap: 6px;
-    align-items: center;
   }
+
   .wide-notification__text--gift {
     font-size: 11px;
   }
+
   .wide-notification--simple .wide-notification__text {
     max-width: 329px;
   }
 }
+
 .wide-notification__big {
   font-weight: 600;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification__big {
     font-size: 12px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification__big {
     font-size: 16px;
   }
 }
+
 .btn--wide-notification {
+  display: inline-block;
+  padding: 9px 15px;
   font-weight: 600;
   border-radius: 10px;
-  padding: 9px 15px;
-  display: inline-block;
   vertical-align: top;
   text-shadow: none;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .btn--wide-notification-gift {
     position: absolute;
     top: 20px;
@@ -192,82 +222,94 @@
     white-space: normal;
   }
 }
+
 .wide-notification__timer {
   display: flex;
   align-items: center;
   text-shadow: none;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification__timer {
-    padding: 15px 0 0 0;
+    padding: 15px 0 0;
     gap: 3px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification__timer {
     flex: 0 0 auto;
     width: 326px;
-    gap: 5px;
-    margin-right: -94px;
     margin-left: 28px;
+    margin-right: -94px;
+    gap: 5px;
   }
 }
+
 .wide-notification__num {
   flex: 1;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 10px;
-  color: var(--black);
   font-weight: 600;
+  text-align: center;
+  color: var(--black);
+  background: rgb(255 255 255 / 60%);
+  border-radius: 10px;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification__num {
     height: 34px;
-    line-height: 34px;
     font-size: 20px;
+    line-height: 34px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification__num {
     height: 58px;
-    line-height: 58px;
     font-size: 40px;
+    line-height: 58px;
   }
 }
+
 .wide-notification__dots {
-  flex: 0 0 auto;
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
   margin: 0 1px;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .wide-notification__dots {
     gap: 7px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .wide-notification__dots {
     gap: 8px;
   }
 }
-.wide-notification__dots:before,
-.wide-notification__dots:after {
+
+.wide-notification__dots::before,
+.wide-notification__dots::after {
   content: '';
   flex: 0 0 auto;
   background: var(--white);
   border-radius: 50%;
 }
-@media only screen and (max-width: 767px) {
-  .wide-notification__dots:before,
-  .wide-notification__dots:after {
+
+@media only screen and (width <= 767px) {
+  .wide-notification__dots::before,
+  .wide-notification__dots::after {
     width: 4px;
     height: 4px;
   }
 }
-@media only screen and (min-width: 768px) {
-  .wide-notification__dots:before,
-  .wide-notification__dots:after {
+
+@media only screen and (width >= 768px) {
+  .wide-notification__dots::before,
+  .wide-notification__dots::after {
     width: 6px;
     height: 6px;
   }

@@ -1,8 +1,10 @@
 .sim-modal {
   max-width: 640px;
+
   .c-green {
     color: var(--green);
   }
+
   .c-red {
     color: var(--red);
   }
@@ -10,26 +12,30 @@
   &__stats {
     display: flex;
     justify-content: space-between;
-    text-align: left;
     margin: 32px 0;
+    text-align: left;
   }
+
   &__stat {
-    font-size: 16px;
-    font-weight: 500;
     padding-left: 12px;
     padding-right: 12px;
+    font-weight: 500;
+    font-size: 16px;
+
     span {
       display: block;
       margin-top: 4px;
       font-weight: 600;
     }
   }
+
   &__pl {
-    font-size: 18px;
     font-weight: 600;
+    font-size: 18px;
   }
+
   &__position {
-    font-size: 16px;
     font-weight: 700;
+    font-size: 16px;
   }
 }

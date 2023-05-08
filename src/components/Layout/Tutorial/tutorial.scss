@@ -1,3 +1,4 @@
+/* stylelint-disable selector-id-pattern */
 #___reactour svg {
   opacity: 0.6;
 }
@@ -17,18 +18,18 @@
 }
 
 .tourNextBtn {
-  background-color: #4572ee;
+  width: 140px;
+  padding: 12px 23px;
   font-weight: 500;
   font-size: 12px;
   line-height: 14px;
-  padding: 12px 23px;
   color: #fff;
-  border-radius: 20px;
   border: none;
-  cursor: pointer;
+  border-radius: 20px;
   transition: 0.25s opacity;
+  background-color: #4572ee;
+  cursor: pointer;
   text-transform: uppercase;
-  width: 140px;
 }
 
 .tourNextBtn-white {
@@ -42,8 +43,8 @@
 }
 
 .tourStep {
-  font-size: 18px;
   font-weight: 500;
+  font-size: 18px;
 }
 
 .tourStepText {

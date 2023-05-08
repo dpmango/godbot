@@ -1,6 +1,6 @@
 import { ForecastFilter, ForecastLegend, ForecastSimulator } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
-import { LockScreen } from '@ui';
+import { LockScreen, SvgIcon } from '@ui';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
 import {
@@ -220,6 +220,41 @@ export const Forecast = () => {
     }
   }, []);
 
+  const handleVisibilityToggle = useCallback(
+    (id: string, isVisible: boolean) => {
+      const targetLine = chartLines.find((x) => x.id === id);
+
+      if (targetLine) {
+        // const { visible } = targetLine.instance.options();
+        targetLine.instance.applyOptions({
+          visible: isVisible,
+        });
+      }
+    },
+    [chartLines]
+  );
+
+  const [currentViewType, setCurrentViewType] = useState<'lines' | 'bars'>('lines');
+  const setLinesView = useCallback(() => {
+    if (currentViewType === 'lines') {
+      setBarsView();
+      return;
+    }
+    handleVisibilityToggle('RealCandle', false);
+    handleVisibilityToggle('RealLine', true);
+    setCurrentViewType('lines');
+  }, [handleVisibilityToggle, currentViewType]);
+
+  const setBarsView = useCallback(() => {
+    if (currentViewType === 'bars') {
+      setLinesView();
+      return;
+    }
+    handleVisibilityToggle('RealCandle', true);
+    handleVisibilityToggle('RealLine', false);
+    setCurrentViewType('bars');
+  }, [handleVisibilityToggle, currentViewType]);
+
   useEffect(() => {
     if (chart.current) {
       // Подписываемся на проверку обновления VisibleRange графика
@@ -413,6 +448,15 @@ export const Forecast = () => {
                   ))}
                 </div>
                 <div className="chart-legend-tw">
+                  <div
+                    className={cns('chart-legend-view', currentViewType === 'bars' && '_active')}>
+                    <div className="chart-legend-view__default" onClick={setLinesView}>
+                      <SvgIcon name="tw-lines" />
+                    </div>
+                    <div className="chart-legend-view__option" onClick={setBarsView}>
+                      <SvgIcon name="tw-bars" />
+                    </div>
+                  </div>
                   <label className="chart__legend-item">
                     <span
                       className="chart__settings-line"

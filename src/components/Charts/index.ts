@@ -9,4 +9,4 @@ export { ForecastSimulatorModalResult } from './Forecast/SimulatorModal/Result';
 export { Investing } from './Investing/Investing';
 export { InvestingCard } from './Investing/InvestingCard';
 export { InvestingChart } from './Investing/InvestingChart';
-import './chart.sass';
+import './chart.scss';

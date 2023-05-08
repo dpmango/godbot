@@ -1,16 +1,20 @@
 @charset "UTF-8";
+
 .modal__block--video {
   max-width: 800px;
 }
+
 .video {
   position: relative;
 }
-.video:before {
+
+.video::before {
   content: '';
   display: block;
   padding-top: 56.25%;
   pointer-events: none;
 }
+
 .video video,
 .video iframe {
   position: absolute;
@@ -23,13 +27,15 @@
   border: 0;
   outline: none;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .modal__block--video {
-    padding: 20px 10px 10px 10px;
+    padding: 20px 10px 10px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .modal__block {
-    padding: 30px 20px 20px 20px;
+    padding: 30px 20px 20px;
   }
 }

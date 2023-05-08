@@ -1,9 +1,10 @@
 .Toastify__toast-container {
   width: 244px;
   padding: 0;
+
   &--bottom-right {
-    bottom: 80px;
     right: 30px;
+    bottom: 80px;
   }
 }
 
@@ -25,8 +26,8 @@
 }
 
 .Toastify__toast-body {
-  padding: 0;
   height: 64px;
+  padding: 0;
 }
 
 .Toastify__toast-body > div {
@@ -42,9 +43,9 @@
 
 .close-wrap__close {
   position: absolute;
+  top: 14px;
   left: 0;
   right: 0;
-  top: 14px;
   margin: auto;
 }
 
@@ -75,18 +76,18 @@
 }
 
 .toast-wrap {
-  height: 100%;
   display: flex;
   align-items: center;
+  height: 100%;
   margin-left: 14px;
 }
 
 .toast-wrap__text {
+  margin-left: 20px;
+  font-weight: 600;
   font-size: 12px;
   text-align: left;
   color: #262628;
-  margin-left: 20px;
-  font-weight: 600;
 }
 
 .toast-wrap:hover .meter-1 {
@@ -97,6 +98,7 @@
   from {
     stroke-dashoffset: 360;
   }
+
   to {
     stroke-dashoffset: 0;
   }

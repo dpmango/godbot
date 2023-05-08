@@ -1,78 +1,91 @@
 @charset "UTF-8";
+
 .select {
   position: relative;
   flex: 0 0 auto;
+  font-weight: 500;
   text-align: left;
   text-transform: none;
-  font-weight: 500;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .select {
     min-width: 77px;
     font-size: 7px;
     line-height: 12px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .select {
+    min-width: 121px;
     font-size: 10px;
     line-height: 14px;
-    min-width: 121px;
   }
 }
+
 .select__opener {
-  cursor: pointer;
-  user-select: none;
   position: relative;
+  color: var(--text);
   background: var(--block-bg2);
   border: 1px solid var(--block-border2);
   border-radius: 10px;
-  color: var(--text);
+  cursor: pointer;
+  user-select: none;
   white-space: nowrap;
 }
+
 @media (pointer: fine) {
   .select__opener:hover {
     transition: border 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     border-color: var(--blue);
   }
 }
+
 .select__opener svg {
-  fill: var(--text);
   position: absolute;
   top: 50%;
-  transition: transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   transform: rotate(0deg);
+  transition: transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  fill: var(--text);
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .select__opener svg {
     width: 12px;
     height: 12px;
     margin: -6px 0;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .select__opener svg {
     width: 18px;
     height: 18px;
     margin: -9px 0;
   }
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .select__opener {
     padding: 3px 24px 3px 4px;
   }
+
   .select__opener svg {
     right: 4px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .select__opener {
     padding: 4px 32px 4px 8px;
   }
+
   .select__opener svg {
     right: 8px;
   }
 }
+
 .select__opener--active {
   border-color: transparent !important;
   background-color: transparent;
@@ -81,11 +94,14 @@
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
 .select__opener--active svg {
   transform: rotate(-180deg);
 }
+
 .select__dropdown {
   position: absolute;
+  overflow: hidden;
   top: 0;
   left: 0;
   right: 0;
@@ -94,77 +110,90 @@
   border: 1px solid var(--block-border2);
   border-radius: 10px;
   opacity: 0;
-  pointer-events: none;
-  overflow: hidden;
-  backface-visibility: hidden;
   transform: translateZ(0);
+  pointer-events: none;
+  backface-visibility: hidden;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .select__dropdown {
     padding-top: 20px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .select__dropdown {
     padding-top: 24px;
   }
 }
+
 .select__dropdown--active {
   opacity: 1;
   pointer-events: all;
   transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
 .select__dropdown-link {
-  cursor: pointer;
-  user-select: none;
   display: flex;
   align-items: center;
-  transition: background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   text-decoration: none;
+  transition: background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  user-select: none;
 }
+
 .select__dropdown-link .pro-label {
   margin-left: auto;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .select__dropdown-link {
     padding: 3px 4px;
   }
+
   .select__dropdown-link .pro-label {
     font: inherit;
     height: auto;
     padding: 0 3px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .select__dropdown-link {
     padding: 4px 8px;
   }
 }
+
 @media (pointer: fine) {
   .select__dropdown-link:hover {
     background-color: var(--bg-blue);
   }
 }
+
 .select__dropdown-link--blue {
   color: var(--blue);
 }
+
 .select__dropdown-link--disabled {
-  cursor: default;
-  pointer-events: none;
   color: var(--disabled);
+  pointer-events: none;
+  cursor: default;
 }
+
 .select__dropdown-link svg {
   flex: 0 0 auto;
   fill: var(--blue);
   margin-left: auto;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .select__dropdown-link svg {
     width: 8px;
     height: 8px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .select__dropdown-link svg {
     width: 12px;
     height: 12px;

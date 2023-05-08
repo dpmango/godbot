@@ -1,24 +1,28 @@
 @charset "UTF-8";
+
 .content--loading {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .loading-block {
-  text-align: center;
   font-weight: normal;
   font-size: 14px;
   line-height: 1.46;
+  text-align: center;
   color: var(--dark-grey);
 }
+
 .loading-block__pic {
   width: 70px;
   height: 70px;
-  margin: 0 auto 16px auto;
+  margin: 0 auto 16px;
 }
+
 .loading-block__big {
-  color: var(--text);
+  margin: 0 0 8px;
   font-weight: bold;
   font-size: 22px;
-  margin: 0 0 8px 0;
+  color: var(--text);
 }

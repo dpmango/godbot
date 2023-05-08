@@ -1,8 +1,9 @@
 @charset "UTF-8";
+
 :root {
-  --font: Gilroy, -apple-system, 'Open Sans', system-ui, 'sans-serif';
+  --font: gilroy, -apple-system, 'Open Sans', system-ui, 'sans-serif';
   --blue: #4572ee;
-  --blue-disabled: rgba(69, 114, 238, 0.5);
+  --blue-disabled: rgb(69 114 238 / 50%);
   --white: #fff;
   --black: #000;
   --red: #ca390c;
@@ -10,16 +11,17 @@
   --grey: #818184;
   --grey2: #909199;
   --yellow: #efad10;
-  --orange: rgba(202, 57, 12, 0.7);
+  --orange: rgb(202 57 12 / 70%);
   --pro: #ff6433;
 }
+
 .themeLight {
   --bg: #f8f9fb;
   --block-bg: #fff;
   --block-bg2: #fff;
   --block-border2: #ccc5ff;
-  --block-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
-  --block-shadow2: 0px 2px 20px rgba(9, 5, 183, 0.06);
+  --block-shadow: 0px 2px 20px rgb(9 5 183 / 6%);
+  --block-shadow2: 0px 2px 20px rgb(9 5 183 / 6%);
   --text: #262628;
   --border: #dddfe1;
   --bg-blue: #dde6ff;
@@ -35,7 +37,7 @@
   --tarifes-block1: var(--block-bg);
   --tarifes-block2: var(--block-bg);
   --investing-name: var(--grey);
-  --menu-soc-bg: rgba(42, 102, 255, 0.1);
+  --menu-soc-bg: rgb(42 102 255 / 10%);
   --menu-soc-border: #e9e9ea;
   --menu-minis: #818184;
   --menu-theme-border: #dddfe3;
@@ -44,75 +46,83 @@
   --btn-search-border: #fff;
   --btn-search-bg: transparent;
 }
+
 .themeDark {
   --bg: #141414;
   --block-bg: #1d2426;
   --block-bg2: #141414;
   --block-border2: #4572ee;
   --block-shadow: none;
-  --block-shadow2: 0px 2px 20px rgba(9, 5, 183, 0.06);
+  --block-shadow2: 0px 2px 20px rgb(9 5 183 / 6%);
   --text: #fff;
   --border: #272c37;
   --bg-blue: #181b1d;
-  --disabled: #666666;
+  --disabled: #666;
   --bg-disabled: #181b1d;
   --input-border: #858585;
   --link-border: #858585;
-  --bg-tabs: rgba(49, 96, 225, 0.4);
+  --bg-tabs: rgb(49 96 225 / 40%);
   --bg-tabs-active: var(--blue);
   --tabs-active: var(--white);
   --bg-violet: #eae7ff;
   --tarifes-bg: #000;
-  --tarifes-block1: linear-gradient(180deg, rgba(0, 199, 44, 0.1) 0%, rgba(80, 211, 0, 0) 100%);
-  --tarifes-block2: linear-gradient(180deg, rgba(69, 114, 238, 0.1) 0%, rgba(69, 114, 238, 0) 100%);
+  --tarifes-block1: linear-gradient(180deg, rgb(0 199 44 / 10%) 0%, rgb(80 211 0 / 0%) 100%);
+  --tarifes-block2: linear-gradient(180deg, rgb(69 114 238 / 10%) 0%, rgb(69 114 238 / 0%) 100%);
   --investing-name: var(--text);
-  --menu-soc-bg: rgba(42, 102, 255, 0.1);
+  --menu-soc-bg: rgb(42 102 255 / 10%);
   --menu-soc-border: #272c37;
-  --menu-minis: rgba(255, 255, 255, 0.3);
-  --menu-theme-border: rgba(255, 255, 255, 0.05);
-  --menu-theme-bg: rgba(255, 255, 255, 0.05);
-  --dark-grey: rgba(255, 255, 255, 0.5);
-  --blue-block-shadow: 0px 2px 20px rgba(9, 5, 183, 0.06);
+  --menu-minis: rgb(255 255 255 / 30%);
+  --menu-theme-border: rgb(255 255 255 / 5%);
+  --menu-theme-bg: rgb(255 255 255 / 5%);
+  --dark-grey: rgb(255 255 255 / 50%);
+  --blue-block-shadow: 0px 2px 20px rgb(9 5 183 / 6%);
   --btn-search-border: transparent;
   --btn-search-bg: #17191a;
 }
+
 html,
 body {
   height: 100%;
   box-sizing: border-box;
-  text-rendering: optimizeLegibility !important;
+  text-rendering: optimizelegibility !important;
   -webkit-font-smoothing: antialiased;
 }
+
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
-  -webkit-text-size-adjust: none;
-  display: flex;
-  flex-direction: column;
   font-family: var(--font);
   font-weight: normal;
+  text-size-adjust: none;
 }
+
 body > *:first-child {
-  flex: 1 0 auto;
-  width: 100%;
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
+  width: 100%;
   min-height: 100%;
 }
+
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: border-box;
 }
+
 form,
 fieldset {
   margin: 0;
   padding: 0;
   border: 0;
 }
+
 textarea {
   resize: none;
 }
+
 header,
 nav,
 section,
@@ -126,19 +136,23 @@ figcaption,
 main {
   display: block;
 }
+
 img,
 svg,
 picture {
   border: 0;
   vertical-align: top;
 }
+
 a {
   cursor: pointer;
   outline: none;
 }
+
 strong {
   font-weight: bold;
 }
+
 p,
 ol,
 ul,
@@ -146,62 +160,73 @@ li {
   margin: 0;
   padding: 0;
 }
+
 ol,
 ul,
 li {
   list-style: none;
 }
-li:before,
-li:after {
+
+li::before,
+li::after {
   display: none;
 }
+
 sup {
   vertical-align: top;
   font-size: 80%;
   line-height: 1;
 }
+
 .container {
-  padding: 0 20px;
-  flex: 0 0 auto;
-  margin: 0 auto;
   position: relative;
-  max-width: 1440px;
+  flex: 0 0 auto;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-@media only screen and (min-width: 768px) and (max-width: 1279px) {
+
+@media only screen and (width >= 768px) and (width <= 1279px) {
   .container {
     padding: 0 30px;
   }
 }
-@media only screen and (min-width: 1280px) {
+
+@media only screen and (width >= 1280px) {
   .container {
     padding: 0 40px;
   }
 }
+
 .mainwrap {
-  flex: 1 0 auto;
-  width: 100%;
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
+  width: 100%;
+  min-height: 100%;
   color: var(--text);
   background: var(--bg);
-  min-height: 100%;
 }
+
 .content {
   flex: 1 0 auto;
   order: 2;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .content {
     padding-bottom: 30px;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (width >= 768px) {
   .content {
     padding-bottom: 90px;
   }
 }
-@media only screen and (max-height: 575px) {
+
+@media only screen and (height <= 575px) {
   .content {
     padding-bottom: 30px;
   }
@@ -210,36 +235,42 @@ sup {
 .content._home{
   padding-bottom: 0;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .content._home {
     padding-bottom: 30px;
   }
 }
+
 .pro-label {
   flex: 0 0 auto;
+  height: 22px;
+  margin: -1px 0;
+  padding: 0 6px;
+  font-weight: 500;
   font-size: 12px;
   line-height: 22px;
-  height: 22px;
-  font-weight: 500;
   color: var(--white);
   background: var(--pro);
-  padding: 0 6px;
-  margin: -1px 0;
   border-radius: 11px;
 }
+
 .pro-label--small {
+  height: 12px;
+  padding: 0 3px;
   font-size: 8px;
   line-height: 12px;
-  height: 12px;
   border-radius: 6px;
-  padding: 0 3px;
 }
+
 .swiper {
   overflow: hidden;
 }
+
 .swiper-wrapper {
   display: flex;
 }
+
 .swiper-slide {
   flex: 0 0 auto;
 }
