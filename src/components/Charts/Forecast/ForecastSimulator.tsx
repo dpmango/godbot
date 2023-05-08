@@ -197,26 +197,6 @@ export const ForecastSimulator = () => {
     }));
   }, []);
 
-  const handleSimulatorSpeedClick = useCallback(() => {
-    let newSpeed = 10;
-
-    switch (simulatorTimeline.speed) {
-      case 10:
-        newSpeed = 20;
-        break;
-      case 20:
-        newSpeed = 5;
-        break;
-      case 5:
-        newSpeed = 10;
-    }
-
-    setSimulatorTimeline((prev) => ({
-      ...prev,
-      speed: newSpeed,
-    }));
-  }, [simulatorTimeline.speed]);
-
   // установка ставки (всплываюший диалог)
   const [simulatorBetEnabled, setSimulatorBetEnabled] = useState(false);
 
@@ -226,6 +206,23 @@ export const ForecastSimulator = () => {
 
   const betSelectRef = useRef(null);
   useClickOutside(betSelectRef, () => setSimulatorBetEnabled(false));
+
+  // установка скорости (всплывающий диалог)
+  const [simulatorSpeedEnabled, setSimulatorSpeedEnabled] = useState(false);
+
+  const simulatorSpeedOptions = useMemo(() => {
+    return [
+      { value: 10, label: '10 upd per 1 sec' },
+      { value: 3, label: '3 upd per 1 sec' },
+      { value: 1, label: '1 upd per 1 sec' },
+      { value: 0.5, label: '1 upd per 2 sec' },
+      { value: 0.3, label: '1 upd per 3 sec' },
+      { value: 0.1, label: '1 upd per 10 sec' },
+    ];
+  }, []);
+
+  const speedSelectRef = useRef(null);
+  useClickOutside(speedSelectRef, () => setSimulatorSpeedEnabled(false));
 
   // мемо по позиции (калькуляции)
   const positionWeight = useMemo(() => {
@@ -277,7 +274,7 @@ export const ForecastSimulator = () => {
         (x) => simulatorCurrentTime >= x.from && simulatorCurrentTime < x.to
       );
 
-      return simulatorTimeline.intervals[index - 1];
+      return simulatorTimeline.intervals[index - 1] || simulatorTimeline.intervals[0];
     }
     return null;
   }, [currentInterval]);
@@ -401,8 +398,11 @@ export const ForecastSimulator = () => {
     }
   }, [currentInterval]);
 
-  const handleModalClose = useCallback(() => {
+  const handleModalClose = useCallback((shouldBack?: boolean) => {
     setModalManager(null);
+    if (shouldBack) {
+      handleSimulatorBackClick();
+    }
     setSimulatorTimeline((prev) => ({ ...prev, paused: false }));
   }, []);
 
@@ -505,10 +505,6 @@ export const ForecastSimulator = () => {
         }
       });
 
-      // chartInstance.timeScale().setVisibleRange({
-      //   from: timeToTz((firstTime.unix() * 1000) as UTCTimestamp),
-      //   to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
-      // });
       chartInstance.timeScale().setVisibleLogicalRange({ from: 0, to: 20 });
     }
 
@@ -537,9 +533,14 @@ export const ForecastSimulator = () => {
               (x) => x.time === timeToCheck
             );
 
+            let fromIndexRange = 0;
+            if (currentIntervalIndexLast >= 60) {
+              fromIndexRange = currentIntervalIndexLast - 60;
+            }
+
             chart.current
               .timeScale()
-              .setVisibleLogicalRange({ from: 0, to: currentIntervalIndexLast });
+              .setVisibleLogicalRange({ from: fromIndexRange, to: currentIntervalIndexLast });
 
             setSimulatorCurrentTime(nextTick.time);
             setSimulatorCurrentPrice(nextTick.value);
@@ -551,11 +552,6 @@ export const ForecastSimulator = () => {
           }
         }
       });
-
-      // if (currentIndex === 5000) {
-      //   reset();
-      //   return;
-      // }
     },
     [chartLines, dataSeries, simulatorCurrentPrice, simulatorCurrentTime]
   );
@@ -633,8 +629,33 @@ export const ForecastSimulator = () => {
               <SvgIcon name="forward" />
             </div>
 
-            <div className="sim__timeline-action sim__speed" onClick={handleSimulatorSpeedClick}>
-              {simulatorTimeline.speed}x
+            <div className="sim__speed speed">
+              <div
+                className={cns('speed__current', simulatorSpeedEnabled && '_active')}
+                onClick={() => setSimulatorSpeedEnabled(!simulatorSpeedEnabled)}>
+                {simulatorTimeline.speed}x
+              </div>
+              <div
+                className={cns('speed__select', simulatorSpeedEnabled && '_active')}
+                ref={speedSelectRef}>
+                <div className="speed__select-list">
+                  {simulatorSpeedOptions.map((opt) => (
+                    <span
+                      className="speed__select-item"
+                      key={opt.value}
+                      onClick={() => {
+                        setSimulatorTimeline((prev) => ({
+                          ...prev,
+                          speed: opt.value,
+                        }));
+                        setSimulatorSpeedEnabled(false);
+                      }}>
+                      <span>{opt.value}x</span>
+                      {opt.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
             {/* {simulatorCurrentTime && (
               <div className="sim__time">

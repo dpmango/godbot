@@ -272,7 +272,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           )}
         </div>
       )}
-      {i18n.language === 'ru-RU' && (
+      {/* {i18n.language === 'ru-RU' && (
         <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
           <img src="/img/play.png" alt="play" />
           <span>{t('guide.title')}</span>
@@ -283,7 +283,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}
         onClick={() => setLegendActive(!legendActive)}>
         <SpriteIcon name="settings" width="20" height="20" />
-      </div>
+      </div> */}
 
       <div className="rec">
         {curCoinReccomendations.map((col, cidx) => (

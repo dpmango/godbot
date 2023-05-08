@@ -10,7 +10,7 @@ interface IProps {
   simulatorPosition: IPositionElement;
   positionPL: number;
   positionWeight: number;
-  closeModal: () => void;
+  closeModal: (shouldBack?: boolean) => void;
 }
 
 export const ForecastSimulatorModalInterval: React.FC<IProps> = ({
@@ -21,8 +21,12 @@ export const ForecastSimulatorModalInterval: React.FC<IProps> = ({
 }) => {
   const { t } = useTranslation('simulator');
 
+  const handleCloseModal = () => {
+    closeModal(transKeyByResult === 'loss');
+  };
+
   const modalRef = useRef(null);
-  useClickOutside(modalRef, closeModal);
+  useClickOutside(modalRef, handleCloseModal);
 
   const transKeyByResult = useMemo(() => {
     if (positionPL === 0) {
@@ -49,7 +53,7 @@ export const ForecastSimulatorModalInterval: React.FC<IProps> = ({
         />
 
         <div className="modal__btns">
-          <div className="btn btn--modal" onClick={closeModal}>
+          <div className="btn btn--modal" onClick={handleCloseModal}>
             {t('intervalModal.action')}
           </div>
         </div>
