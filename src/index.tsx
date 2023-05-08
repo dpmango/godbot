@@ -1,4 +1,4 @@
-import '@styles/index.sass';
+import '@styles/index.scss';
 import 'virtual:svg-icons-register';
 useI18n();
 
