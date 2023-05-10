@@ -1,7 +1,9 @@
 import { IPeriodObj, ITarifDto, ITarifMetaData } from '@interface/Tarif';
-import { Toast } from '@ui';
+import { SvgIcon, Toast } from '@ui';
 import dayjs from 'dayjs';
 import ym from 'react-yandex-metrika';
+
+import { TarifQueModal } from './QueModal';
 
 interface ITarifCard extends ITarifDto {
   activePeriodIdx: number;
@@ -195,7 +197,16 @@ export const TarifCard: React.FC<ITarifCard> = ({
     openExternalLink(data.url);
   }, [currentPlan]);
 
-  const handleQueue = useCallback(async () => {
+  interface IQueModal {
+    active: boolean;
+    phone: string;
+  }
+  const [queModalState, setQueModalState] = useState<IQueModal>({
+    active: false,
+    phone: '',
+  });
+
+  const standInQue = useCallback(async () => {
     const { data, error } = await api('stand_in_queue_to_tariff_pro/', {
       method: 'POST',
       body: {
@@ -207,6 +218,18 @@ export const TarifCard: React.FC<ITarifCard> = ({
       onRequestUpdate && onRequestUpdate();
     }
   }, [metaData, onRequestUpdate]);
+
+  const handleQueue = useCallback(async () => {
+    setQueModalState((prev) => ({ ...prev, active: true }));
+  }, []);
+
+  const handleQueModalClose = useCallback((isUpdatedContact?: boolean) => {
+    setQueModalState((prev) => ({ ...prev, active: false }));
+
+    if (isUpdatedContact) {
+      standInQue();
+    }
+  }, []);
 
   const [sales, setSales] = useState({ diff: 0, days: [0], hours: [0], minutes: [0] });
   useEffect(() => {
@@ -281,10 +304,14 @@ export const TarifCard: React.FC<ITarifCard> = ({
           <a
             className={cns(
               'btn btn--tarifes',
+              `_${buttonData.trans}`,
               !currentPlan.available && buttonData.trans !== 'queue' && 'btn--disabled'
             )}
             onClick={buttonData.trans === 'queue' ? handleQueue : handleActivate}>
             {t(buttonData.trans)}
+            <span className="btn-tarif-icon">
+              <SvgIcon name="checkmark" />
+            </span>
           </a>
         </>
       )}
@@ -297,6 +324,8 @@ export const TarifCard: React.FC<ITarifCard> = ({
             </li>
           ))}
       </ul>
+
+      {queModalState.active && <TarifQueModal closeModal={handleQueModalClose} />}
     </div>
   );
 };

@@ -207,8 +207,8 @@
     "pay": "Оплатить",
     "prolong": "Продлить тариф",
     "upgrade": "Улучшить тариф",
-    "queue": "Оставить заявку",
-    "queued": "Место забронировано",
+    "queue": "Telegram/Whatsapp",
+    "queued": "Спасибо! Заявка отправлена",
     "gift": "в подарок",
     "noGift": "без подарка",
     "discount": "Скидка {{percent}}% до {{date}}",
@@ -229,6 +229,25 @@
     },
     "activated": {
       "success": "Тариф {{tariff}} Оплачен"
+    },
+    "queModal": {
+      "title": "Заявка на подключение PRO Trader",
+      "description": "Введите номера телефона или логин в мессенджере",
+      "options": {
+        "phone": "Телефон",
+        "tg": "Telegram",
+        "wa": "WhatsApp"
+      },
+      "contact": {
+        "placeholder": "",
+        "validation": {
+          "empty": "Поле не может быть пустым"
+        }
+      },
+      "action": {
+        "close": "Отменить",
+        "send": "Отправить"
+      }
     }
   },
   "promo": {
