@@ -206,7 +206,7 @@
     "pay": "Öde",
     "prolong": "Tarife Yenile",
     "upgrade": "Tarife Geliştir",
-    "queue": "Başvurunuzu gönderin",
+    "queue": "Telegram/Whatsapp",
     "queued": "Yer rezerve edildi",
     "gift": "Hediye olarak",
     "noGift": "Hediye yok",
@@ -228,6 +228,26 @@
     },
     "activated": {
       "success": "{{tariff}} tarifesi ödendi"
+    },
+
+    "queModal": {
+      "title": "PRO Trader'ı bağlamak için başvuru",
+      "description": "Telefon numaralarını girin veya messenger'da oturum açın",
+      "options": {
+        "phone": "Telefon",
+        "tg": "Telegram",
+        "wa": "WhatsApp"
+      },
+      "contact": {
+        "placeholder": "",
+        "validation": {
+          "empty": "alan boş olamaz"
+        }
+      },
+      "action": {
+        "close": "İptal etmek",
+        "send": "Göndermek"
+      }
     }
   },
   "promo": {

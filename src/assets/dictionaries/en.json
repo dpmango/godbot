@@ -206,7 +206,7 @@
     "pay": "Pay",
     "prolong": "Renew plan",
     "upgrade": "Upgrade your plan",
-    "queue": "Submit your application",
+    "queue": "Telegram/Whatsapp",
     "queued": "The place is booked",
     "gift": "gift",
     "noGift": "no gift",
@@ -228,6 +228,26 @@
     },
     "activated": {
       "success": "{{tariff}} Plan activated"
+    },
+
+    "queModal": {
+      "title": "Application for connecting PRO Trader",
+      "description": "Enter phone numbers or login in the messenger",
+      "options": {
+        "phone": "Telephone",
+        "tg": "Telegram",
+        "wa": "WhatsApp"
+      },
+      "contact": {
+        "placeholder": "",
+        "validation": {
+          "empty": "The field cannot be empty"
+        }
+      },
+      "action": {
+        "close": "Cancel",
+        "send": "Send"
+      }
     }
   },
   "promo": {
