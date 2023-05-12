@@ -144,7 +144,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       switch (status) {
         case 'Продавать':
           return 'var(--red)';
-        case 'Активно Продавать':
+        case 'Активно продавать':
           return 'var(--red)';
         case 'Покупать':
           return 'var(--green)';

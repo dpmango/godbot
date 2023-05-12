@@ -12,6 +12,7 @@ import {
   Time,
   UTCTimestamp,
 } from 'lightweight-charts';
+import internal from 'stream';
 
 import { ForecastSimulatorModalInterval, ForecastSimulatorModalResult } from '@/components/Charts';
 import { SvgIcon } from '@/components/UI';
@@ -573,7 +574,40 @@ export const ForecastSimulator = () => {
   // инициализация запросов
   useEffect(() => {
     const requestChart = async () => {
+      const getIntervalMinues = (time: string) => {
+        switch (time) {
+          case '1m':
+            return 1;
+          case '15m':
+            return 15;
+          case '1h':
+            return 60;
+          case '1d':
+            return 60 * 24;
+          default:
+            return 1;
+        }
+      };
+      const getTickDistance = ({
+        targetTime,
+      }: {
+        targetTime: { from: dayjs.Dayjs; to: dayjs.Dayjs };
+      }) => {
+        const timeNow = dayjs();
+        const diff = timeNow.diff(targetTime.from);
+
+        return diff;
+      };
+
       if (currentCoin && currentTime) {
+        const interval = getIntervalMinues(currentTime);
+        const distance = getTickDistance({
+          targetTime: {
+            from: dayjs('2023-04-10 15:00', 'YYYY-MM-DD HH:mm'),
+            to: dayjs('2023-04-11 02:00', 'YYYY-MM-DD HH:mm'),
+          },
+        });
+
         dispatch(flushDataState());
         await dispatch(getChart({ page: 20, per: paginatePer }));
         setSimulatorDataLoaded(true);
