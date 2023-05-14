@@ -13,24 +13,29 @@ export const getCoins = createAsyncThunk('chart/coinData', async () => {
 interface IGraphRequest {
   page?: number;
   per?: number;
+  filterFunc?: (x: any) => void;
 }
 
 export const getChart = createAsyncThunk(
   'chart/chartData',
-  async ({ page = 1, per }: IGraphRequest, { getState }) => {
+  async ({ page = 1, per, filterFunc }: IGraphRequest, { getState }) => {
     const paginationParams = buildParams({ page, paginated_by: per });
     const {
       forecastState: { currentCoin, currentTime },
     } = getState() as RootState;
 
     // prevent double requests
-    const { data, metadata } = await api(`get_graph/${currentCoin}/${currentTime}/`, {
+    const res = await api(`get_graph/${currentCoin}/${currentTime}/`, {
       params: paginationParams,
     });
+    let data = res.data;
 
+    if (filterFunc) {
+      data = data.filter(filterFunc);
+    }
     return {
       data,
-      metadata,
+      metadata: res.metadata,
       meta: paginationParams,
     };
   }

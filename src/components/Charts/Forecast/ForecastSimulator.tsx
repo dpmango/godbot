@@ -56,7 +56,6 @@ export const ForecastSimulator = () => {
 
   const { allowedFunctions } = useProfile();
   const { t } = useTranslation('simulator');
-  const paginatePer = 200;
 
   // рефы
   const containerRef: any = useRef(null);
@@ -590,26 +589,52 @@ export const ForecastSimulator = () => {
       };
       const getTickDistance = ({
         targetTime,
+        interval,
       }: {
-        targetTime: { from: dayjs.Dayjs; to: dayjs.Dayjs };
+        targetTime: dayjs.Dayjs;
+        interval: number;
       }) => {
         const timeNow = dayjs();
-        const diff = timeNow.diff(targetTime.from);
+        const diff = timeNow.diff(targetTime, 'minutes');
 
-        return diff;
+        return Math.floor(diff / interval);
       };
+
+      const startSimulatorAt = dayjs('2023-04-10 15:00', 'YYYY-MM-DD HH:mm');
+      const endSimulatorAt = dayjs('2023-04-11 02:00', 'YYYY-MM-DD HH:mm');
 
       if (currentCoin && currentTime) {
         const interval = getIntervalMinues(currentTime);
-        const distance = getTickDistance({
-          targetTime: {
-            from: dayjs('2023-04-10 15:00', 'YYYY-MM-DD HH:mm'),
-            to: dayjs('2023-04-11 02:00', 'YYYY-MM-DD HH:mm'),
-          },
+        const intervalDistanceStart = getTickDistance({
+          targetTime: startSimulatorAt,
+          interval,
         });
+        const intervalDistanceEnd = getTickDistance({
+          targetTime: endSimulatorAt,
+          interval,
+        });
+        let intervalTotalTicks = intervalDistanceStart - intervalDistanceEnd;
+        if (intervalTotalTicks < 100) {
+          intervalTotalTicks = 100;
+        }
+
+        intervalTotalTicks = intervalTotalTicks * 2;
 
         dispatch(flushDataState());
-        await dispatch(getChart({ page: 20, per: paginatePer }));
+        await dispatch(
+          getChart({
+            page: Math.ceil(intervalDistanceStart / intervalTotalTicks),
+            per: intervalTotalTicks,
+            filterFunc: (x) => {
+              const timeTick = dayjs(x.timestamp);
+              return (
+                (timeTick.isAfter(startSimulatorAt) && timeTick.isBefore(endSimulatorAt)) ||
+                timeTick.isSame(startSimulatorAt) ||
+                timeTick.isSame(endSimulatorAt)
+              );
+            },
+          })
+        );
         setSimulatorDataLoaded(true);
       }
     };
