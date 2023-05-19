@@ -1,9 +1,17 @@
 import { IPeriodObj, ITarifDto, ITarifMetaData } from '@interface/Tarif';
 import { SvgIcon, Toast } from '@ui';
 import dayjs from 'dayjs';
+import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
 import ym from 'react-yandex-metrika';
 
 import { TarifQueModal } from './QueModal';
+
+interface IFormValues {
+  contact: string;
+}
+const formInitial: IFormValues = {
+  contact: '',
+};
 
 interface ITarifCard extends ITarifDto {
   activePeriodIdx: number;
@@ -21,6 +29,9 @@ export const TarifCard: React.FC<ITarifCard> = ({
   onRequestUpdate,
 }) => {
   const { userData, tariffActive } = useAppSelector((state) => state.userState);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const [focused, setFocused] = useState(false);
 
   const { t, i18n } = useTranslation('tariff');
   const { t: tUnits } = useTranslation('units');
@@ -132,6 +143,15 @@ export const TarifCard: React.FC<ITarifCard> = ({
     return `${number} ${plural}`;
   };
 
+  interface IQueModal {
+    active: boolean;
+    phone: string;
+  }
+  const [queModalState, setQueModalState] = useState<IQueModal>({
+    active: false,
+    phone: '',
+  });
+
   const buttonData = useMemo(() => {
     let translationKey = 'pay';
 
@@ -153,15 +173,17 @@ export const TarifCard: React.FC<ITarifCard> = ({
     if (title === 'PRO Trader' && userData?.tariff !== 'PRO Trader' && !!nextSaleData) {
       if (metaData.is_wanting_pro) {
         translationKey = 'queued';
-      } else if (typeof nextSaleData !== 'number') {
+      } else if (queModalState.active) {
         translationKey = 'queue';
+      } else if (typeof nextSaleData !== 'number') {
+        translationKey = 'queuestart';
       }
     }
 
     return {
       trans: translationKey,
     };
-  }, [userData?.tariff, title, metaData, nextSaleData]);
+  }, [userData?.tariff, title, metaData, nextSaleData, queModalState]);
 
   const handleActivate = useCallback(async () => {
     const { data, error } = await api('activate_tariff/', {
@@ -197,15 +219,6 @@ export const TarifCard: React.FC<ITarifCard> = ({
     openExternalLink(data.url);
   }, [currentPlan]);
 
-  interface IQueModal {
-    active: boolean;
-    phone: string;
-  }
-  const [queModalState, setQueModalState] = useState<IQueModal>({
-    active: false,
-    phone: '',
-  });
-
   const standInQue = useCallback(async () => {
     const { data, error } = await api('stand_in_queue_to_tariff_pro/', {
       method: 'POST',
@@ -219,9 +232,43 @@ export const TarifCard: React.FC<ITarifCard> = ({
     }
   }, [metaData, onRequestUpdate]);
 
-  const handleQueue = useCallback(async () => {
+  const handleQueue = useCallback(() => {
     setQueModalState((prev) => ({ ...prev, active: true }));
-  }, []);
+  }, [setQueModalState]);
+
+  const handleValidation = (values: IFormValues) => {
+    const errors: any = {};
+
+    if (!values.contact) {
+      errors.contact = t('contact.validation.empty');
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = useCallback(
+    async (values: IFormValues) => {
+      const errors = handleValidation(values);
+
+      if (loading && Object.keys(errors).length) return;
+      setLoading(true);
+
+      const { data, error } = await api('user_settings/', {
+        method: 'POST',
+        body: { contact: values.contact },
+      });
+
+      setLoading(false);
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      handleQueModalClose(true);
+    },
+    [loading]
+  );
 
   const handleQueModalClose = useCallback((isUpdatedContact?: boolean) => {
     setQueModalState((prev) => ({ ...prev, active: false }));
@@ -301,18 +348,66 @@ export const TarifCard: React.FC<ITarifCard> = ({
               /{t('pricePer')} {localizeUnits(currentPlan.scopedPeriod)}
             </span>
           </div>
-          <a
-            className={cns(
-              'btn btn--tarifes',
-              `_${buttonData.trans}`,
-              !currentPlan.available && buttonData.trans !== 'queue' && 'btn--disabled'
-            )}
-            onClick={buttonData.trans === 'queue' ? handleQueue : handleActivate}>
-            {t(buttonData.trans)}
-            <span className="btn-tarif-icon">
-              <SvgIcon name="checkmark" />
-            </span>
-          </a>
+          {queModalState.active ? (
+            <Formik
+              initialValues={formInitial}
+              validate={handleValidation}
+              validateForm={handleValidation}
+              onSubmit={handleSubmit}>
+              {({ isValid, dirty, errors, setFieldError }: FormikProps<IFormValues>) => (
+                <Form className={cns('btn btn-que', error && '_error')}>
+                  <Field type="text" name="contact">
+                    {({ field, form: { setFieldValue }, meta, ...props }: FieldProps) => (
+                      <input
+                        {...field}
+                        {...props}
+                        value={field.value}
+                        type="text"
+                        className={cns(!focused && (error || errors.contact) && '_invalid')}
+                        placeholder={t(buttonData.trans) as string}
+                        onChange={(v) => {
+                          setFieldValue(field.name, v.target.value);
+                          setFieldError(field.name, '');
+                          setError('');
+                        }}
+                        onFocus={() => {
+                          setFocused(true);
+                        }}
+                        onBlur={() => {
+                          setFocused(false);
+                        }}
+                      />
+                    )}
+                  </Field>
+
+                  {/* {!focused && (error || errors.contact) && (
+                    <div className="login__input-info login__input-info--invalid">
+                      {error || errors.contact}
+                    </div>
+                  )} */}
+
+                  <button
+                    type="submit"
+                    className={cns('btn-tarif-icon', (!isValid || !!error) && '--disabled')}>
+                    <SvgIcon name="checkmark" />
+                  </button>
+                </Form>
+              )}
+            </Formik>
+          ) : (
+            <a
+              className={cns(
+                'btn btn--tarifes',
+                `_${buttonData.trans}`,
+                !currentPlan.available && buttonData.trans !== 'queuestart' && 'btn--disabled'
+              )}
+              onClick={buttonData.trans === 'queuestart' ? handleQueue : handleActivate}>
+              {t(buttonData.trans)}
+              <span className="btn-tarif-icon">
+                <SvgIcon name="checkmark" />
+              </span>
+            </a>
+          )}
         </>
       )}
 
@@ -324,8 +419,6 @@ export const TarifCard: React.FC<ITarifCard> = ({
             </li>
           ))}
       </ul>
-
-      {queModalState.active && <TarifQueModal closeModal={handleQueModalClose} />}
     </div>
   );
 };
