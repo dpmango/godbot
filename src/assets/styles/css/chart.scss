@@ -10,22 +10,6 @@
   display: none;
 }
 
-.chart--fullscreen {
-  position: fixed;
-  z-index: 999;
-  font-size: 0;
-  inset: 0;
-  border-radius: 0;
-
-  .chart__head {
-    display: none;
-  }
-
-  .chart-container {
-    height: calc(100vh - 40px);
-  }
-}
-
 @media only screen and (width <= 767px) {
   .chart {
     padding: 12px 10px;

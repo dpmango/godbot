@@ -223,7 +223,7 @@
 .chart-legend-tw {
   position: absolute;
   display: flex;
-  top: 32px;
+  top: 0;
   right: 10px;
   z-index: 4;
   flex-direction: column;
@@ -722,16 +722,39 @@
   }
 }
 
+.investing-chart {
+  position: relative;
+
+  &--fullscreen {
+    position: fixed;
+    z-index: 999;
+    height: 100vh !important;
+    font-size: 0;
+    background: var(--bg);
+    border-radius: 0;
+    inset: 0;
+  }
+}
+
 .chart-fullscreen {
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 0;
   z-index: 3;
   color: var(--text);
   transition: color 0.25s ease;
   cursor: pointer;
 
+  &._fullscreen {
+    top: 10px;
+    right: 10px;
+
+    .svg-icon {
+      font-size: 18px;
+    }
+  }
+
   .svg-icon {
-    font-size: 16px;
+    font-size: 14px;
   }
 }

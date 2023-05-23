@@ -301,9 +301,6 @@ export const Forecast = () => {
     setReturnVisible(false);
   }, []);
 
-  // фуллскрин режим
-  const [fullscreen, setFullscreen] = useState<boolean>(false);
-
   // инициализация запросов
   const timerConfirm: { current: NodeJS.Timeout | null } = useRef(null);
   useEffect(() => {
@@ -411,17 +408,9 @@ export const Forecast = () => {
     setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
   }, [dataSeries, chartLines, setIsForecastOutdated]);
 
-  useEffect(() => {
-    chart.current?.applyOptions({
-      width: containerRef.current.clientWidth,
-      height: containerRef.current.clientHeight,
-    });
-  }, [fullscreen]);
-
   return (
     <>
-      <div
-        className={cns('chart', viewLocked && 'chart--locked', fullscreen && 'chart--fullscreen')}>
+      <div className={cns('chart', viewLocked && 'chart--locked')}>
         <ForecastFilter
           legendActive={legendActive}
           setLegendActive={(x) => setLegendActive(x)}
@@ -494,11 +483,6 @@ export const Forecast = () => {
                   className={cns('chart-return', returnVisible && '_visible')}
                   onClick={handleReturnToLive}>
                   <img src="/img/next-tw.svg" alt="" />
-                </div>
-                <div
-                  className={cns('chart-fullscreen', fullscreen && '_fullscreen')}
-                  onClick={() => setFullscreen(!fullscreen)}>
-                  <SvgIcon name="fullscreen" />
                 </div>
 
                 {/* Нет актуальных предсказаний на графике, выводим предупреждение */}

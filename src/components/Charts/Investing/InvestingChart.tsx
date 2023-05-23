@@ -1,4 +1,5 @@
 import { IGraphPoint, IGraphPointKeys, IInvestingGrafDto } from '@interface/Investor';
+import { SvgIcon } from '@ui';
 import dayjs from 'dayjs';
 import {
   ColorType,
@@ -28,6 +29,9 @@ export const InvestingChart: React.FC<IInvestingChartProps> = ({ id }) => {
   });
   const containerRef: any = useRef();
   const ctx = useContext(ThemeContext);
+
+  // фуллскрин режим
+  const [fullscreen, setFullscreen] = useState<boolean>(false);
 
   const { t, i18n } = useTranslation('investing');
   const { t: tUnits } = useTranslation('units');
@@ -241,9 +245,27 @@ export const InvestingChart: React.FC<IInvestingChartProps> = ({ id }) => {
     };
   }, []);
 
+  useEffect(() => {
+    chart.current?.applyOptions({
+      width: containerRef.current.clientWidth,
+      height: containerRef.current.clientHeight,
+    });
+  }, [fullscreen]);
+
   return (
     <>
-      <div data-id={id} ref={containerRef} style={{ height: 140 }} />
+      <div
+        className={cns('investing-chart', fullscreen && 'investing-chart--fullscreen')}
+        data-id={id}
+        ref={containerRef}
+        style={{ height: 140 }}>
+        <div
+          className={cns('chart-fullscreen', fullscreen && '_fullscreen')}
+          onClick={() => setFullscreen(!fullscreen)}
+          title="Full Screen mode">
+          <SvgIcon name="fullscreen" />
+        </div>
+      </div>
 
       <ul className="investing__info">
         {displayStats.map((stat, idx) => (
