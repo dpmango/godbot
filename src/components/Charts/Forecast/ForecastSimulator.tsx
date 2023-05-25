@@ -62,6 +62,57 @@ export const ForecastSimulator = () => {
   const tooltipRef: any = useRef(null);
 
   // Логика эмулятора
+  const [stages, setStages] = useState([
+    {
+      from: dayjs('2023-04-10 15:00', 'YYYY-MM-DD HH:mm'),
+      to: dayjs('2023-04-11 02:00', 'YYYY-MM-DD HH:mm'),
+      fromTz: timeToTz(
+        (dayjs('2023-04-10 15:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
+      ),
+      toTz: timeToTz((dayjs('2023-04-11 02:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
+      intervalModal: 'stage1',
+    },
+    {
+      from: dayjs('2023-04-11 17:30', 'YYYY-MM-DD HH:mm'),
+      to: dayjs('2023-04-12 06:00', 'YYYY-MM-DD HH:mm'),
+      fromTz: timeToTz(
+        (dayjs('2023-04-11 17:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
+      ),
+      toTz: timeToTz((dayjs('2023-04-12 06:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
+      intervalModal: 'stage2',
+    },
+    {
+      from: dayjs('2023-04-13 10:45', 'YYYY-MM-DD HH:mm'),
+      to: dayjs('2023-04-13 20:00', 'YYYY-MM-DD HH:mm'),
+      fromTz: timeToTz(
+        (dayjs('2023-04-13 10:45', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
+      ),
+      toTz: timeToTz((dayjs('2023-04-13 20:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
+      intervalModal: 'stage3',
+      channels: true,
+    },
+    {
+      from: dayjs('2023-04-16 13:45', 'YYYY-MM-DD HH:mm'),
+      to: dayjs('2023-04-17 03:00', 'YYYY-MM-DD HH:mm'),
+      fromTz: timeToTz(
+        (dayjs('2023-04-16 13:45', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
+      ),
+      toTz: timeToTz((dayjs('2023-04-17 03:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
+      intervalModal: 'stage4',
+      channels: true,
+    },
+    {
+      from: dayjs('2023-04-08 21:30', 'YYYY-MM-DD HH:mm'),
+      to: dayjs('2023-04-10 06:30', 'YYYY-MM-DD HH:mm'),
+      fromTz: timeToTz(
+        (dayjs('2023-04-08 21:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
+      ),
+      toTz: timeToTz((dayjs('2023-04-10 06:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
+      intervalModal: 'stage5',
+      channels: true,
+    },
+  ]);
+
   const [simulatorDataLoaded, setSimulatorDataLoaded] = useState<boolean>(false);
   const [simulatorCurrentPrice, setSimulatorCurrentPrice] = useState<number>(0);
   const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
@@ -245,18 +296,17 @@ export const ForecastSimulator = () => {
     return bank + savedProfit;
   }, [simulatorPosition, simulatorCurrentPrice]);
 
-  const gameEndsVerbose = useMemo(() => {
-    if (dataSeries.length > 1) {
-      const lastForecastTimestamp = dataSeries[1].data[dataSeries[1].data.length - 1].time;
-      if (lastForecastTimestamp) {
-        return formatUnixDate(lastForecastTimestamp);
-      }
+  // показ прогноза, логика стопов по интервалам
+  const currentStage = useMemo(() => {
+    if (stages.length > 0 && simulatorCurrentTime) {
+      return stages.find((x) => {
+        return simulatorCurrentTime >= x.fromTz && simulatorCurrentTime < x.toTz;
+      });
     }
 
-    return null;
-  }, [dataSeries]);
+    return stages[0];
+  }, [stages, simulatorCurrentTime]);
 
-  // показ прогноза, логика стопов по интервалам
   const [intervalRun, setIntervalRun] = useState(0);
   const currentInterval = useMemo(() => {
     if (simulatorTimeline.intervals.length > 0 && simulatorCurrentTime) {
@@ -364,8 +414,8 @@ export const ForecastSimulator = () => {
       });
     }
   }, [dealsMarkers]);
-  // показ прогноза, логика стопов по интервалам
 
+  // показ прогноза, логика стопов по интервалам
   useEffect(() => {
     if (currentInterval?.from) {
       chartLines.forEach((lineSeries, idx) => {
@@ -387,16 +437,19 @@ export const ForecastSimulator = () => {
           }
         }
       });
-
-      if (intervalRun >= 1) {
-        setSimulatorTimeline((prev) => ({
-          ...prev,
-          paused: true,
-        }));
-        setModalManager('interval');
-      }
     }
   }, [currentInterval]);
+
+  // изминение этапа (игры)
+  useEffect(() => {
+    if (intervalRun >= 1) {
+      setSimulatorTimeline((prev) => ({
+        ...prev,
+        paused: true,
+      }));
+      setModalManager('interval');
+    }
+  }, [currentStage]);
 
   const handleModalClose = useCallback((shouldBack?: boolean) => {
     setModalManager(null);
@@ -465,19 +518,6 @@ export const ForecastSimulator = () => {
       });
       setChartLines([...newChartLines]);
 
-      // навигация по графику
-      // const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
-      const lastTick = coinData[coinData.length - 1].timestamp;
-      const lastTime = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
-      const firstTick = coinData[0].timestamp;
-      const firstTime = dayjs(utcToZonedTime(firstTick * 1000, 'Etc/UTC'));
-
-      // chartInstance.timeScale().setVisibleLogicalRange({ from: 0, to: lastTick });
-      // chartInstance.timeScale().setVisibleRange({
-      //   from: timeToTz((firstTime.unix() * 1000) as UTCTimestamp),
-      //   to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
-      // });
-
       // тултипы
       chartInstance.subscribeCrosshairMove((param) => {
         setTooltipOnCrosshairMove({
@@ -501,11 +541,11 @@ export const ForecastSimulator = () => {
           if (initialTick.value) {
             setSimulatorCurrentTime(initialTick.time);
             setSimulatorCurrentPrice(initialTick.value);
+
+            setChartRange();
           }
         }
       });
-
-      chartInstance.timeScale().setVisibleLogicalRange({ from: 0, to: 20 });
     }
 
     setLoading(false);
@@ -514,6 +554,33 @@ export const ForecastSimulator = () => {
       chart.current?.remove();
     };
   };
+
+  const setChartRange = useCallback(() => {
+    chartLines.forEach((lineSeries, idx) => {
+      if (lineSeries.id === 'RealLine') {
+        if (chart.current) {
+          // timescale control
+          const timeToCheck = currentInterval?.to || dataSeries[idx].data.length;
+          const currentIntervalIndexLast = dataSeries[idx].data.findIndex(
+            (x) => x.time === timeToCheck
+          );
+
+          const fromIndexRange = 0;
+          // if (currentIntervalIndexLast >= 60) {
+          //   fromIndexRange = currentIntervalIndexLast - 60;
+          // }
+
+          chart.current
+            .timeScale()
+            .setVisibleLogicalRange({ from: fromIndexRange, to: currentIntervalIndexLast });
+        }
+      }
+    });
+  }, [chartLines, dataSeries, chart.current]);
+
+  useEffect(() => {
+    setChartRange();
+  }, [chartLines, dataSeries]);
 
   const handleSimualtorUpdate = useCallback(
     (forcedTime?: UTCTimestamp) => {
@@ -527,20 +594,7 @@ export const ForecastSimulator = () => {
           if (nextTick?.value && chart.current) {
             lineSeries.instance.update(nextTick);
 
-            // timescale control
-            const timeToCheck = currentInterval?.to || dataSeries[idx].data.length;
-            const currentIntervalIndexLast = dataSeries[idx].data.findIndex(
-              (x) => x.time === timeToCheck
-            );
-
-            let fromIndexRange = 0;
-            if (currentIntervalIndexLast >= 60) {
-              fromIndexRange = currentIntervalIndexLast - 60;
-            }
-
-            chart.current
-              .timeScale()
-              .setVisibleLogicalRange({ from: fromIndexRange, to: currentIntervalIndexLast });
+            setChartRange();
 
             setSimulatorCurrentTime(nextTick.time);
             setSimulatorCurrentPrice(nextTick.value);
@@ -572,77 +626,74 @@ export const ForecastSimulator = () => {
 
   // инициализация запросов
   useEffect(() => {
-    const requestChart = async () => {
-      const getIntervalMinues = (time: string) => {
-        switch (time) {
-          case '1m':
-            return 1;
-          case '15m':
-            return 15;
-          case '1h':
-            return 60;
-          case '1d':
-            return 60 * 24;
-          default:
-            return 1;
-        }
-      };
-      const getTickDistance = ({
-        targetTime,
-        interval,
-      }: {
-        targetTime: dayjs.Dayjs;
-        interval: number;
-      }) => {
-        const timeNow = dayjs();
-        const diff = timeNow.diff(targetTime, 'minutes');
-
-        return Math.floor(diff / interval);
-      };
-
-      const startSimulatorAt = dayjs('2023-04-10 15:00', 'YYYY-MM-DD HH:mm');
-      const endSimulatorAt = dayjs('2023-04-11 02:00', 'YYYY-MM-DD HH:mm');
-
-      if (currentCoin && currentTime) {
-        const interval = getIntervalMinues(currentTime);
-        const intervalDistanceStart = getTickDistance({
-          targetTime: startSimulatorAt,
-          interval,
-        });
-        const intervalDistanceEnd = getTickDistance({
-          targetTime: endSimulatorAt,
-          interval,
-        });
-        let intervalTotalTicks = intervalDistanceStart - intervalDistanceEnd;
-        if (intervalTotalTicks < 100) {
-          intervalTotalTicks = 100;
-        }
-
-        intervalTotalTicks = intervalTotalTicks * 2;
-
-        dispatch(flushDataState());
-        await dispatch(
-          getChart({
-            page: Math.ceil(intervalDistanceStart / intervalTotalTicks),
-            per: intervalTotalTicks,
-            filterFunc: (x) => {
-              const timeTick = dayjs(x.timestamp);
-              return (
-                (timeTick.isAfter(startSimulatorAt) && timeTick.isBefore(endSimulatorAt)) ||
-                timeTick.isSame(startSimulatorAt) ||
-                timeTick.isSame(endSimulatorAt)
-              );
-            },
-          })
-        );
-        setSimulatorDataLoaded(true);
+    const getIntervalMinues = (time: string) => {
+      switch (time) {
+        case '1m':
+          return 1;
+        case '15m':
+          return 15;
+        case '1h':
+          return 60;
+        case '1d':
+          return 60 * 24;
+        default:
+          return 1;
       }
+    };
+    const getTickDistance = ({
+      targetTime,
+      interval,
+    }: {
+      targetTime: dayjs.Dayjs;
+      interval: number;
+    }) => {
+      const timeNow = dayjs();
+      const diff = timeNow.diff(targetTime, 'minutes');
+
+      return Math.floor(diff / interval);
+    };
+
+    const requestChart = async () => {
+      if (!currentCoin || !currentTime || !currentStage) return;
+
+      const interval = getIntervalMinues(currentTime);
+      const intervalDistanceStart = getTickDistance({
+        targetTime: currentStage.from,
+        interval,
+      });
+      const intervalDistanceEnd = getTickDistance({
+        targetTime: currentStage.to,
+        interval,
+      });
+      let intervalTotalTicks = intervalDistanceStart - intervalDistanceEnd;
+      if (intervalTotalTicks < 100) {
+        intervalTotalTicks = 100;
+      }
+
+      intervalTotalTicks = intervalTotalTicks * 2;
+
+      dispatch(flushDataState());
+      await dispatch(
+        getChart({
+          page: Math.ceil(intervalDistanceStart / intervalTotalTicks),
+          per: intervalTotalTicks,
+          filterFunc: (x) => {
+            const timeTick = dayjs(x.timestamp);
+            return (
+              (timeTick.isAfter(currentStage.from) && timeTick.isBefore(currentStage.to)) ||
+              timeTick.isSame(currentStage.from) ||
+              timeTick.isSame(currentStage.to)
+            );
+          },
+        })
+      );
+      setSimulatorDataLoaded(true);
     };
 
     if (allowedFunctions.forecast) {
       requestChart();
     }
-  }, [allowedFunctions.forecast, currentCoin, currentTime]);
+  }, [allowedFunctions.forecast, currentCoin, currentTime, currentStage]);
 
   // обновление данных
   useEffect(() => {
@@ -820,6 +871,7 @@ export const ForecastSimulator = () => {
           positionWeight={positionWeight}
           simulatorPosition={simulatorPosition}
           positionPL={positionPL}
+          translationKey={positionPL >= 0 ? 'profit' : currentStage?.intervalModal || ''}
           closeModal={handleModalClose}
         />
       )}
