@@ -93,6 +93,9 @@ export const forecastState = createSlice({
   name: 'forecast',
   initialState,
   reducers: {
+    setStateDataForce(state, action) {
+      state.data = action.payload;
+    },
     flushDataState(state) {
       state.data = [];
       state.dataNav = { max: 100, points: 0, requested: [] };
@@ -244,6 +247,7 @@ export const forecastState = createSlice({
   },
 });
 
-export const { flushDataState, setStateCoin, setStateTime, setSimulator } = forecastState.actions;
+export const { setStateDataForce, flushDataState, setStateCoin, setStateTime, setSimulator } =
+  forecastState.actions;
 
 export default forecastState.reducer;

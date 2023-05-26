@@ -65,6 +65,7 @@ declare global {
   const setFilter: typeof import('./src/core/store/signals.store')['setFilter']
   const setSimulator: typeof import('./src/core/store/forecast.store')['setSimulator']
   const setStateCoin: typeof import('./src/core/store/forecast.store')['setStateCoin']
+  const setStateDataForce: typeof import('./src/core/store/forecast.store')['setStateDataForce']
   const setStateTime: typeof import('./src/core/store/forecast.store')['setStateTime']
   const setTeletypeReady: typeof import('./src/core/store/ui.store')['setTeletypeReady']
   const setTutorialComplete: typeof import('./src/core/store/user.store')['setTutorialComplete']
