@@ -62,6 +62,7 @@ export const ForecastSimulator = () => {
   const tooltipRef: any = useRef(null);
 
   // Логика эмулятора
+  const [stageActiveID, setStageActiveID] = useState(0);
   const [stages, setStages] = useState([
     {
       from: dayjs('2023-04-10 15:00', 'YYYY-MM-DD HH:mm'),
@@ -299,13 +300,14 @@ export const ForecastSimulator = () => {
   // показ прогноза, логика стопов по интервалам
   const currentStage = useMemo(() => {
     if (stages.length > 0 && simulatorCurrentTime) {
-      return stages.find((x) => {
-        return simulatorCurrentTime >= x.fromTz && simulatorCurrentTime < x.toTz;
-      });
+      return stages[stageActiveID];
+      // return stages.find((x) => {
+      //   return simulatorCurrentTime >= x.fromTz && simulatorCurrentTime < x.toTz;
+      // });
     }
 
     return stages[0];
-  }, [stages, simulatorCurrentTime]);
+  }, [stages, stageActiveID, simulatorCurrentTime]);
 
   const [intervalRun, setIntervalRun] = useState(0);
   const currentInterval = useMemo(() => {
@@ -318,22 +320,11 @@ export const ForecastSimulator = () => {
     return null;
   }, [simulatorTimeline, simulatorCurrentTime]);
 
-  const prevInterval = useMemo(() => {
-    if (currentInterval && simulatorCurrentTime) {
-      const index = simulatorTimeline.intervals.findIndex(
-        (x) => simulatorCurrentTime >= x.from && simulatorCurrentTime < x.to
-      );
-
-      return simulatorTimeline.intervals[index - 1] || simulatorTimeline.intervals[0];
-    }
-    return null;
-  }, [currentInterval]);
-
   const handleSimulatorBackClick = useCallback(() => {
-    if (prevInterval?.from) {
-      updateSimulatorToTime(prevInterval?.from);
+    if (currentStage?.fromTz) {
+      updateSimulatorToTime(currentStage.fromTz);
     }
-  }, [prevInterval]);
+  }, [currentStage]);
 
   const updateSimulatorToTime = useCallback(
     (time: UTCTimestamp) => {
@@ -356,19 +347,11 @@ export const ForecastSimulator = () => {
   );
 
   const handleSimulatorForwardClick = useCallback(() => {
-    if (currentInterval?.to || currentInterval?.from) {
-      const newTime = currentInterval?.to || currentInterval?.from;
+    if (currentInterval?.to || currentStage?.toTz) {
+      const newTime = currentInterval?.to || currentStage?.toTz;
       updateSimulatorToTime(newTime);
     }
-
-    // chartLines.forEach((lineSeries, idx) => {
-    //   const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= currentInterval.to);
-
-    //   if (forecastInterval?.length) {
-    //     lineSeries.instance.setData(forecastInterval);
-    //   }
-    // });
-  }, [currentInterval]);
+  }, [currentStage]);
 
   // установка горизонтальных линиий с инофрмацией по позции
   const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
@@ -415,7 +398,7 @@ export const ForecastSimulator = () => {
     }
   }, [dealsMarkers]);
 
-  // показ прогноза, логика стопов по интервалам
+  // показ прогноза по интервалам (промежуточки между пересчетами)
   useEffect(() => {
     if (currentInterval?.from) {
       chartLines.forEach((lineSeries, idx) => {
@@ -441,23 +424,41 @@ export const ForecastSimulator = () => {
   }, [currentInterval]);
 
   // изминение этапа (игры)
-  useEffect(() => {
-    if (intervalRun >= 1) {
-      setSimulatorTimeline((prev) => ({
-        ...prev,
-        paused: true,
-      }));
-      setModalManager('interval');
-    }
-  }, [currentStage]);
+  // useEffect(() => {
+  //   if (intervalRun >= 1) {
+  //     setSimulatorTimeline((prev) => ({
+  //       ...prev,
+  //       paused: true,
+  //     }));
+  //     setModalManager('interval');
+  //   }
+  // }, [currentStage]);
 
-  const handleModalClose = useCallback((shouldBack?: boolean) => {
-    setModalManager(null);
-    if (shouldBack) {
-      handleSimulatorBackClick();
-    }
-    setSimulatorTimeline((prev) => ({ ...prev, paused: false }));
-  }, []);
+  // при закрытии модального логика перехода на следующий стейдж либо конец игры
+  const handleModalClose = useCallback(
+    (isLossResult?: boolean) => {
+      setModalManager(null);
+      if (isLossResult) {
+        handleSimulatorBackClick();
+      } else {
+        // определение окончания либо следующего этапа симулятора
+        let nextStageIdx = stageActiveID + 1;
+        if (nextStageIdx >= stages.length - 1) {
+          nextStageIdx = stages.length - 1;
+
+          setEndGame(true);
+        }
+        setStageActiveID(nextStageIdx);
+      }
+
+      // сброс стейта
+      setSimulatorPosition({ dir: 'long', quantity: 0, avarage: 0, savedProfit: 0 });
+      // if (endGame){}
+
+      setSimulatorTimeline((prev) => ({ ...prev, paused: true }));
+    },
+    [stageActiveID, stages]
+  );
 
   // Хук с утилитами (data-blind)
   const {
@@ -557,26 +558,17 @@ export const ForecastSimulator = () => {
 
   const setChartRange = useCallback(() => {
     chartLines.forEach((lineSeries, idx) => {
-      if (lineSeries.id === 'RealLine') {
+      if (lineSeries.id === 'Forecast') {
         if (chart.current) {
-          // timescale control
-          const timeToCheck = currentInterval?.to || dataSeries[idx].data.length;
-          const currentIntervalIndexLast = dataSeries[idx].data.findIndex(
-            (x) => x.time === timeToCheck
-          );
+          const dataLength = dataSeries[idx].data.length;
 
-          const fromIndexRange = 0;
-          // if (currentIntervalIndexLast >= 60) {
-          //   fromIndexRange = currentIntervalIndexLast - 60;
-          // }
-
-          chart.current
-            .timeScale()
-            .setVisibleLogicalRange({ from: fromIndexRange, to: currentIntervalIndexLast });
+          if (dataLength) {
+            chart.current.timeScale().setVisibleLogicalRange({ from: 0, to: dataLength });
+          }
         }
       }
     });
-  }, [chartLines, dataSeries, chart.current]);
+  }, [chartLines, currentInterval, currentStage, dataSeries, chart.current]);
 
   useEffect(() => {
     setChartRange();
@@ -600,14 +592,19 @@ export const ForecastSimulator = () => {
             setSimulatorCurrentPrice(nextTick.value);
           } else {
             if (!endGame) {
+              setSimulatorTimeline((prev) => ({
+                ...prev,
+                paused: true,
+              }));
+              setModalManager('interval');
+            } else {
               setModalManager('total');
-              setEndGame(true);
             }
           }
         }
       });
     },
-    [chartLines, dataSeries, simulatorCurrentPrice, simulatorCurrentTime]
+    [chartLines, dataSeries, simulatorCurrentPrice, simulatorCurrentTime, intervalRun, endGame]
   );
 
   const timerSimulator: { current: NodeJS.Timeout | null } = useRef(null);
