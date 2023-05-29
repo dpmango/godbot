@@ -24,11 +24,8 @@ export const ForecastSimulatorModalInterval: React.FC<IProps> = ({
   const { t } = useTranslation('simulator');
 
   const handleCloseModal = () => {
-    console.log('closing modal');
     closeModal(translationKey !== 'profit');
   };
-
-  console.log('hi there');
 
   const modalRef = useRef(null);
   useClickOutside(modalRef, handleCloseModal);

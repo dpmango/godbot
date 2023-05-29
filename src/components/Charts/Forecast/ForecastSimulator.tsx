@@ -313,13 +313,14 @@ export const ForecastSimulator = () => {
   const currentInterval = useMemo(() => {
     if (simulatorTimeline.intervals.length > 0 && simulatorCurrentTime) {
       return simulatorTimeline.intervals.find(
-        (x) => simulatorCurrentTime >= x.from && simulatorCurrentTime < x.to
+        (x) => simulatorCurrentTime >= x.from && (x.to ? simulatorCurrentTime < x.to : true)
       );
     }
 
     return null;
   }, [simulatorTimeline, simulatorCurrentTime]);
 
+  // навигация
   const handleSimulatorBackClick = useCallback(() => {
     if (currentStage?.fromTz) {
       updateSimulatorToTime(currentStage.fromTz);
@@ -351,7 +352,7 @@ export const ForecastSimulator = () => {
       const newTime = currentInterval?.to || currentStage?.toTz;
       updateSimulatorToTime(newTime);
     }
-  }, [currentStage]);
+  }, [currentStage, currentInterval]);
 
   // установка горизонтальных линиий с инофрмацией по позции
   const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
@@ -401,13 +402,24 @@ export const ForecastSimulator = () => {
   // показ прогноза по интервалам (промежуточки между пересчетами)
   useEffect(() => {
     if (currentInterval?.from) {
+      let hasInterval = false;
+
       chartLines.forEach((lineSeries, idx) => {
-        if (lineSeries.id === 'Forecast') {
+        if (['Upper', 'Lower', 'Forecast'].includes(lineSeries.id)) {
           const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= currentInterval.to);
 
+          // устанавливает погнозные линии по интервалу (между прогнозами)
           if (forecastInterval?.length) {
             lineSeries.instance.setData(forecastInterval);
+            hasInterval = true;
+          }
+        }
+
+        if (lineSeries.id === 'Forecast') {
+          if (hasInterval) {
+            // todo - неочевидный функционал, рефактор
             setIntervalRun((prev) => prev + 1);
+            // также проставляет маркеры
             if (updateMarkers.length) {
               lineSeries.instance.setMarkers(
                 updateMarkers.filter(
@@ -421,18 +433,17 @@ export const ForecastSimulator = () => {
         }
       });
     }
-  }, [currentInterval]);
+  }, [currentInterval, dataSeries]);
 
-  // изминение этапа (игры)
+  // // изминение этапа (игры)
   // useEffect(() => {
   //   if (intervalRun >= 1) {
   //     setSimulatorTimeline((prev) => ({
   //       ...prev,
   //       paused: true,
   //     }));
-  //     setModalManager('interval');
   //   }
-  // }, [currentStage]);
+  // }, [stageActiveID]);
 
   // при закрытии модального логика перехода на следующий стейдж либо конец игры
   const handleModalClose = useCallback(
@@ -477,9 +488,13 @@ export const ForecastSimulator = () => {
   });
 
   // основная функция отрисовки TW
-  const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
+  const initOrUpdateChart = (coinData: IGraphTickDto[], isForced?: boolean) => {
     // Создание данных по ответу forecast (указываются id для отрисовки)
-    const currentSeries = createSeriesData(coinData, ['RealLine', 'Forecast']);
+    const currentSeries = createSeriesData(coinData, [
+      'RealLine',
+      'Forecast',
+      ...(currentStage?.channels ? [...['Upper', 'Lower']] : []),
+    ]);
     setSeries([...currentSeries]);
 
     // точки обновленный прогноза
@@ -491,11 +506,13 @@ export const ForecastSimulator = () => {
       ...prev,
       intervals: updateMarkers.map((x, idx) => ({
         from: x.time as UTCTimestamp,
-        to: updateMarkers[idx + 1]?.time as UTCTimestamp,
+        to:
+          (updateMarkers[idx + 1]?.time as UTCTimestamp) ||
+          (currentSeries[0].data[currentSeries[0].data.length - 1].time as UTCTimestamp),
       })),
     }));
 
-    if (!chart.current) {
+    if (!chart.current || isForced) {
       // Создание инстанса графика
 
       const chartInstance = createChart(
@@ -532,12 +549,10 @@ export const ForecastSimulator = () => {
       chart.current = chartInstance;
 
       newChartLines.forEach((lineSeries, idx) => {
-        const initialSimulatorData = currentSeries[idx].data.slice(0, 20);
-
-        lineSeries.instance.setData([...initialSimulatorData]);
-
         if (lineSeries.id === 'RealLine') {
-          const initialTick = initialSimulatorData[initialSimulatorData.length - 1];
+          const initialTick = currentSeries[idx].data[0];
+          // обнуляет на первую точку игры
+          lineSeries.instance.setData([initialTick]);
 
           if (initialTick.value) {
             setSimulatorCurrentTime(initialTick.time);
@@ -547,9 +562,9 @@ export const ForecastSimulator = () => {
           }
         }
       });
-    }
 
-    setLoading(false);
+      setLoading(false);
+    }
 
     return () => {
       chart.current?.remove();
@@ -703,8 +718,9 @@ export const ForecastSimulator = () => {
           );
         });
 
-      console.log({ collectedData });
       dispatch(setStateDataForce(collectedData));
+
+      return collectedData;
     };
 
     const requestChart = async () => {
@@ -725,6 +741,7 @@ export const ForecastSimulator = () => {
       }
 
       dispatch(flushDataState());
+      setSimulatorDataLoaded(false);
       await batchFetchChart({
         distanceStart: intervalDistanceStart,
         distanceEnd: intervalDistanceEnd,
@@ -737,13 +754,15 @@ export const ForecastSimulator = () => {
     }
   }, [allowedFunctions.forecast, currentCoin, currentTime, currentStage]);
 
-  // обновление данных
+  // обновление данных и перерисовка
   useEffect(() => {
-    if (data) {
-      if (data.length && simulatorDataLoaded) initOrUpdateChart(data);
+    if (data && data.length && simulatorDataLoaded) {
+      initOrUpdateChart(data, intervalRun > 0);
     } else {
-      chart.current?.remove();
-      chart.current = null;
+      if (chart?.current) {
+        chart.current?.remove();
+        chart.current = null;
+      }
     }
   }, [data, simulatorDataLoaded]);
 
