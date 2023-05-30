@@ -16,6 +16,7 @@ export const isModalOpened = (searchParams: URLSearchParams) => {
     'cookies',
     'disclaimer',
     'guide',
+    'simguide',
   ];
 
   return list.some((name) => searchParams.get(name) !== null);

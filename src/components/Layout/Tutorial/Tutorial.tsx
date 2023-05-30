@@ -30,9 +30,13 @@ export const Tutorial: React.FC<any> = () => {
   const onRequestClose = () => {
     setSearchParams({});
     dispatch(setTutorialComplete(true));
-    if (i18n.language === 'ru-RU') {
-      navigate('?guide');
-    }
+
+    dispatch(setSimulator({ enabled: true }));
+    navigate('?simguide');
+
+    // if (i18n.language === 'ru-RU') {
+    //   navigate('?guide');
+    // }
   };
 
   const showTutorial = useMemo(() => {

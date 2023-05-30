@@ -14,10 +14,10 @@ export const ChartsRouter = () => {
   const { t } = useTranslation('charts');
 
   useEffect(() => {
-    if (shouldSetTab && userData?.tariff === 'Trial' && data.length) {
-      setActiveTab('Signals');
-      setShouldSetTab(false);
-    }
+    // if (shouldSetTab && userData?.tariff === 'Trial' && data.length) {
+    //   setActiveTab('Signals');
+    //   setShouldSetTab(false);
+    // }
   }, [userData?.tariff, data]);
 
   return (

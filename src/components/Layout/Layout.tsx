@@ -1,4 +1,4 @@
-import { ForecastGuide } from '@c/Charts';
+import { ForecastGuide, SimGuide } from '@c/Charts';
 import { Header } from '@c/Layout/Header';
 import { TeletypeWidget } from '@c/Layout/Vendor/Teletype';
 import {
@@ -43,7 +43,6 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
       <div className={cns('mainwrap', ctx?.theme ? 'themeDark' : 'themeLight')}>
         <Header />
         {children}
-
         {searchParams.get('tariffs') !== null && <TarifWindow />}
         {searchParams.get('activated') !== null && <ModalInfo name="activated" />}
         {searchParams.get('success') !== null && <ModalInfo name="paymentAwait" />}
@@ -52,12 +51,11 @@ export const Layout: React.FC<ILayout> = ({ children }) => {
         {searchParams.get('cookies') !== null && <DocsCookies />}
         {searchParams.get('disclaimer') !== null && <DocsDisclaimer />}
         {searchParams.get('guide') !== null && <ForecastGuide />}
+        {searchParams.get('simguide') !== null && <SimGuide />}
         {searchParams.get('promocode') !== null && <Promocode />}
         {searchParams.get('withdraw') !== null && <Withdraw />}
-
         {/* {isDevelopmentSite && <PromoDiscount />}  */}
         {/* <PromoByBit /> */}
-
         <TeletypeWidget />
       </div>
     </>
