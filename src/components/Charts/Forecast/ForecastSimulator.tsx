@@ -322,19 +322,33 @@ export const ForecastSimulator = () => {
 
   // навигация
   const handleSimulatorBackClick = useCallback(() => {
-    if (currentStage?.fromTz) {
-      updateSimulatorToTime(currentStage.fromTz);
+    if (currentInterval?.from || currentStage?.fromTz) {
+      const newTime = currentInterval?.from || currentStage?.fromTz;
+      updateSimulatorToTime(newTime);
     }
-  }, [currentStage]);
+  }, [currentStage, currentInterval]);
 
   const updateSimulatorToTime = useCallback(
     (time: UTCTimestamp) => {
       setSimulatorCurrentTime(time);
 
       chartLines.forEach((lineSeries, idx) => {
-        const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= time);
-        if (forecastInterval?.length) {
-          lineSeries.instance.setData(forecastInterval);
+        if (['Upper', 'Lower', 'Forecast'].includes(lineSeries.id)) {
+          const forecastInterval = dataSeries[idx].data.filter((x) =>
+            currentInterval?.to ? x.time <= currentInterval?.to : false
+          );
+
+          // устанавливает погнозные линии по интервалу (между прогнозами)
+          if (forecastInterval?.length) {
+            lineSeries.instance.setData(forecastInterval);
+          }
+        }
+
+        if (lineSeries.id === 'RealLine') {
+          const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= time);
+          if (forecastInterval?.length) {
+            lineSeries.instance.setData(forecastInterval);
+          }
         }
       });
 
@@ -344,7 +358,7 @@ export const ForecastSimulator = () => {
         paused: true,
       }));
     },
-    [chartLines, dataSeries]
+    [chartLines, dataSeries, currentInterval]
   );
 
   const handleSimulatorForwardClick = useCallback(() => {
