@@ -34,7 +34,6 @@ export interface IPositionElement {
 interface ISimulatorTimeline {
   paused: boolean;
   speed: number;
-  intervals: { from: UTCTimestamp; to: UTCTimestamp }[];
 }
 
 export const ForecastSimulator = () => {
@@ -120,8 +119,11 @@ export const ForecastSimulator = () => {
   const [simulatorTimeline, setSimulatorTimeline] = useState<ISimulatorTimeline>({
     paused: true,
     speed: 10,
-    intervals: [],
   });
+  const [simulatorTimelineIntervals, setSimulatorTimelineIntervals] = useState<
+    { from: UTCTimestamp; to: UTCTimestamp }[]
+  >([]);
+
   const [simulatorPosition, setSimulatorPosition] = useState<IPositionElement>({
     dir: 'long',
     quantity: 0,
@@ -311,14 +313,14 @@ export const ForecastSimulator = () => {
 
   const [intervalRun, setIntervalRun] = useState(0);
   const currentInterval = useMemo(() => {
-    if (simulatorTimeline.intervals.length > 0 && simulatorCurrentTime) {
-      return simulatorTimeline.intervals.find(
+    if (simulatorTimelineIntervals.length > 0 && simulatorCurrentTime) {
+      return simulatorTimelineIntervals.find(
         (x) => simulatorCurrentTime >= x.from && (x.to ? simulatorCurrentTime < x.to : true)
       );
     }
 
     return null;
-  }, [simulatorTimeline, simulatorCurrentTime]);
+  }, [simulatorTimelineIntervals, simulatorCurrentTime]);
 
   // навигация
   const handleSimulatorBackClick = useCallback(() => {
@@ -334,8 +336,12 @@ export const ForecastSimulator = () => {
 
       chartLines.forEach((lineSeries, idx) => {
         if (['Upper', 'Lower', 'Forecast'].includes(lineSeries.id)) {
+          const targetInterval = simulatorTimelineIntervals.find(
+            (x) => time >= x.from && (x.to ? time < x.to : true)
+          );
+
           const forecastInterval = dataSeries[idx].data.filter((x) =>
-            currentInterval?.to ? x.time <= currentInterval?.to : false
+            targetInterval?.to ? x.time <= targetInterval?.to : false
           );
 
           // устанавливает погнозные линии по интервалу (между прогнозами)
@@ -358,7 +364,7 @@ export const ForecastSimulator = () => {
         paused: true,
       }));
     },
-    [chartLines, dataSeries, currentInterval]
+    [chartLines, dataSeries, simulatorTimelineIntervals]
   );
 
   const handleSimulatorForwardClick = useCallback(() => {
@@ -367,6 +373,10 @@ export const ForecastSimulator = () => {
       updateSimulatorToTime(newTime);
     }
   }, [currentStage, currentInterval]);
+
+  const resetToFirstStage = useCallback(() => {
+    updateSimulatorToTime(stages[0].fromTz);
+  }, [stages, simulatorTimelineIntervals]);
 
   // установка горизонтальных линиий с инофрмацией по позции
   const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
@@ -449,22 +459,12 @@ export const ForecastSimulator = () => {
     }
   }, [currentInterval, dataSeries]);
 
-  // // изминение этапа (игры)
-  // useEffect(() => {
-  //   if (intervalRun >= 1) {
-  //     setSimulatorTimeline((prev) => ({
-  //       ...prev,
-  //       paused: true,
-  //     }));
-  //   }
-  // }, [stageActiveID]);
-
   // при закрытии модального логика перехода на следующий стейдж либо конец игры
   const handleModalClose = useCallback(
     (isLossResult?: boolean) => {
       setModalManager(null);
       if (isLossResult) {
-        handleSimulatorBackClick();
+        resetToFirstStage();
       } else {
         // определение окончания либо следующего этапа симулятора
         let nextStageIdx = stageActiveID + 1;
@@ -478,11 +478,14 @@ export const ForecastSimulator = () => {
 
       // сброс стейта
       setSimulatorPosition({ dir: 'long', quantity: 0, avarage: 0, savedProfit: 0 });
+      setDealsMarkers([]);
       // if (endGame){}
 
-      setSimulatorTimeline((prev) => ({ ...prev, paused: true }));
+      setSimulatorTimeline((prev) => {
+        return { ...prev, paused: true };
+      });
     },
-    [stageActiveID, stages]
+    [stageActiveID, resetToFirstStage, stages]
   );
 
   // Хук с утилитами (data-blind)
@@ -516,15 +519,15 @@ export const ForecastSimulator = () => {
     const updateMarkers = createUpdateMarkers(updateDates);
     setUpdateMarkers(updateMarkers);
     // установка в эмулятор
-    setSimulatorTimeline((prev) => ({
-      ...prev,
-      intervals: updateMarkers.map((x, idx) => ({
+
+    setSimulatorTimelineIntervals(
+      updateMarkers.map((x, idx) => ({
         from: x.time as UTCTimestamp,
         to:
           (updateMarkers[idx + 1]?.time as UTCTimestamp) ||
           (currentSeries[0].data[currentSeries[0].data.length - 1].time as UTCTimestamp),
-      })),
-    }));
+      }))
+    );
 
     if (!chart.current || isForced) {
       // Создание инстанса графика
@@ -610,7 +613,6 @@ export const ForecastSimulator = () => {
       chartLines.forEach((lineSeries, idx) => {
         if (lineSeries.id === 'RealLine') {
           const currentTickIndex = dataSeries[idx].data.findIndex((x) => x.time === currentTime);
-
           const nextTick = dataSeries[idx].data[currentTickIndex + 1];
           if (nextTick?.value && chart.current) {
             lineSeries.instance.update(nextTick);
@@ -946,7 +948,7 @@ export const ForecastSimulator = () => {
           positionWeight={positionWeight}
           simulatorPosition={simulatorPosition}
           positionPL={positionPL}
-          translationKey={positionPL >= 0 ? 'profit' : currentStage?.intervalModal || ''}
+          translationKey={positionPL > 0 ? 'profit' : currentStage?.intervalModal || ''}
           closeModal={handleModalClose}
         />
       )}
