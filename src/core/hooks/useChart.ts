@@ -16,7 +16,12 @@ import {
 
 import { ThemeContext } from '@/App';
 import { IChartLines } from '@/components/Charts/Forecast/Forecast';
-import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
+import {
+  IGraphHistoryDto,
+  IGraphKeyedDto,
+  IGraphTickDto,
+  ISeriesData,
+} from '@/core/interface/Forecast';
 
 interface IUseChartProps {
   chart: React.MutableRefObject<IChartApi | null>;
@@ -142,7 +147,11 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
   };
 
   // Создание и маппинг данных
-  const createSeriesData = (coinData: IGraphTickDto[], whitelist: string[]) => {
+  const createSeriesData = (
+    coinData: IGraphTickDto[],
+    whitelist: string[],
+    historyData?: IGraphKeyedDto
+  ) => {
     // мапинг данных по графикам
     const chartsData = {
       RealCandle: coinData
@@ -275,6 +284,29 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
           },
           data: chartsData.Invisible,
         });
+      } else if (key === 'History') {
+        if (historyData && Object.keys(historyData).length) {
+          Object.keys(historyData).forEach((key) => {
+            series.push({
+              id: `History_${key}`,
+              displayName: `History_${key}`,
+              type: 'line',
+              lineStyle: {
+                color: graphColors[2],
+                lineWidth: 3 as LineWidth,
+                visible: true,
+              },
+              data: historyData[key]
+                .map((x: IGraphHistoryDto) => {
+                  return {
+                    time: x.timestamp,
+                    value: x.forecast_trend,
+                  };
+                })
+                .filter((x) => x.value),
+            });
+          });
+        }
       }
     });
 
@@ -401,15 +433,20 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
       const seriesData = currentSeries[idx];
 
       let displayName = seriesData.id;
+      let color = graphColors[idx];
       if (seriesData.id === 'RealCandle' || seriesData.id === 'Invisible') {
         return false;
       } else if (seriesData.id === 'RealLine') {
         displayName = 'Real';
+      } else if (seriesData.id.startsWith('History')) {
+        displayName = 'History';
+        color = graphColors[2];
       }
+
       // @ts-ignore
       pricesHtml += `
         <div class="chart-info__pricedata">
-          <i style="background: ${graphColors[idx]}"></i>
+          <i style="background: ${color}"></i>
           <p>${displayName}:</p>&nbsp;${formatPrice(price)}
         </div>`;
     });

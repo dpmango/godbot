@@ -13,6 +13,17 @@ export interface IGraphTickDto {
   timestamp: UTCTimestamp;
 }
 
+export interface IGraphKeyedDto {
+  [id: string]: IGraphHistoryDto[];
+}
+
+export interface IGraphHistoryDto {
+  forecast_low: number;
+  forecast_high: number;
+  forecast_trend: number;
+  timestamp: UTCTimestamp;
+}
+
 export interface IIntervalDto {
   access_level: number;
   label: string;

@@ -2,7 +2,12 @@ import type { RootState } from '@core/store';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UTCTimestamp } from 'lightweight-charts';
 
-import { ICoinDto, IGraphTickDto } from '@/core/interface/Forecast';
+import {
+  ICoinDto,
+  IGraphHistoryDto,
+  IGraphKeyedDto,
+  IGraphTickDto,
+} from '@/core/interface/Forecast';
 //import { stat } from 'fs';
 
 export const getCoins = createAsyncThunk('chart/coinData', async () => {
@@ -13,12 +18,11 @@ export const getCoins = createAsyncThunk('chart/coinData', async () => {
 interface IGraphRequest {
   page?: number;
   per?: number;
-  filterFunc?: (x: any) => void;
 }
 
 export const getChart = createAsyncThunk(
   'chart/chartData',
-  async ({ page = 1, per, filterFunc }: IGraphRequest, { getState }) => {
+  async ({ page = 1, per }: IGraphRequest, { getState }) => {
     const paginationParams = buildParams({ page, paginated_by: per });
     const {
       forecastState: { currentCoin, currentTime },
@@ -28,13 +32,12 @@ export const getChart = createAsyncThunk(
     const res = await api(`get_graph/${currentCoin}/${currentTime}/`, {
       params: paginationParams,
     });
-    let data = res.data;
+    const data = res.data.actual_data;
+    const history = res.data.historical_data;
 
-    if (filterFunc) {
-      data = data.filter(filterFunc);
-    }
     return {
       data,
+      history,
       metadata: res.metadata,
       meta: paginationParams,
     };
@@ -55,6 +58,7 @@ interface IForecastState {
     [key: string]: ICoinDto;
   } | null;
   data: IGraphTickDto[];
+  dataHistory: IGraphKeyedDto;
   dataNav: {
     max: number;
     points: number;
@@ -74,6 +78,7 @@ const initialState: IForecastState = {
   currentTime: '',
   coins: null,
   data: [],
+  dataHistory: {},
   dataNav: {
     max: 100,
     points: 0,
@@ -141,7 +146,7 @@ export const forecastState = createSlice({
       const isSameRequest = action.meta.requestId === state.requestId;
 
       if (action.payload.data && isSameRequest) {
-        const { data, meta, metadata } = action.payload;
+        const { data, meta, history, metadata } = action.payload;
 
         if (metadata.currency !== state.currentCoin || metadata.interval !== state.currentTime) {
           return;
@@ -241,6 +246,27 @@ export const forecastState = createSlice({
 
           state.dataNav.points += shiftNum;
           */
+        }
+
+        // Установка исторических данных прогноза
+        if (Object.keys(history).length) {
+          const histroyCovertedDto = {} as IGraphKeyedDto;
+
+          Object.keys(history).forEach((id: string) => {
+            const dataTzFix = history[id]
+              .map((x: IGraphHistoryDto) => ({
+                ...x,
+                timestamp: timeToTz(x.timestamp),
+              }))
+              .filter((x: IGraphHistoryDto) => x.timestamp)
+              .sort(
+                (a: IGraphHistoryDto, b: IGraphHistoryDto) => a.timestamp - b.timestamp
+              ) as IGraphHistoryDto[];
+
+            histroyCovertedDto[id] = dataTzFix;
+          });
+
+          state.dataHistory = histroyCovertedDto;
         }
       }
     });

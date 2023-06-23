@@ -13,7 +13,7 @@ import {
 } from 'lightweight-charts';
 
 import { BlockGraphPopup } from '@/components/Modal';
-import { IGraphTickDto } from '@/core/interface/Forecast';
+import { IGraphHistoryDto, IGraphKeyedDto, IGraphTickDto } from '@/core/interface/Forecast';
 
 export interface IChartLines {
   id: string;
@@ -43,9 +43,8 @@ export const Forecast = () => {
   const [blockPointX, setBlockPointX] = useState(500);
 
   // стор
-  const { data, dataNav, currentCoin, currentTime, prolongation, simulator } = useAppSelector(
-    (state) => state.forecastState
-  );
+  const { data, dataHistory, dataNav, currentCoin, currentTime, prolongation, simulator } =
+    useAppSelector((state) => state.forecastState);
   const { tariffActive } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
@@ -74,18 +73,16 @@ export const Forecast = () => {
   const viewLocked = !tariffActive;
 
   // основная функция отрисовки TW
-  const initOrUpdateChart = (coinData: IGraphTickDto[]) => {
+  const initOrUpdateChart = (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
     // подготовка (маппинг) данных
     const PERF_TIME_SERIES = performance.now();
 
     // Создание данных по ответу forecast (указываются id для отрисовки)
-    const currentSeries = createSeriesData(coinData, [
-      'RealCandle',
-      'RealLine',
-      'Forecast',
-      'Upper',
-      'Lower',
-    ]);
+    const currentSeries = createSeriesData(
+      coinData,
+      ['RealCandle', 'RealLine', 'Forecast', 'Upper', 'Lower', 'History'],
+      historyData
+    );
     setSeries([...currentSeries]);
 
     // точки обновленный прогноза
@@ -383,12 +380,12 @@ export const Forecast = () => {
   // обновление данных
   useEffect(() => {
     if (data && !viewLocked && !simulator.enabled) {
-      if (data.length) initOrUpdateChart(data);
+      if (data.length) initOrUpdateChart(data, dataHistory);
     } else if (viewLocked || simulator.enabled) {
       chart.current?.remove();
       chart.current = null;
     }
-  }, [data, viewLocked, simulator]);
+  }, [data, viewLocked, dataHistory, simulator]);
 
   // Проверка на устаревшие Forecast данные
   useEffect(() => {
