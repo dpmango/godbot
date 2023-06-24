@@ -157,37 +157,20 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
       }
     };
 
-    return [
-      [
-        {
-          label: '1 минута',
-          time: '1m',
-          status: getStatus('1m'),
-          color: getStatusColor(getStatus('1m')),
-        },
-        {
-          label: '15 минут',
-          time: '15m',
-          status: getStatus('15m'),
-          color: getStatusColor(getStatus('15m')),
-        },
-      ],
-      [
-        {
-          label: '1 час',
-          time: '1h',
-          status: getStatus('1h'),
-          color: getStatusColor(getStatus('1h')),
-        },
-        {
-          label: '1 день',
-          time: '1d',
-          status: getStatus('1d'),
-          color: getStatusColor(getStatus('1d')),
-        },
-      ],
+    const ticksList = [
+      ['1m', '15m'],
+      ['1h', '1d'],
     ];
-  }, [reccomendations, currentCoin]);
+
+    return ticksList.map((g) =>
+      g.map((x) => ({
+        label: t(`filter.ticks.${x}`),
+        time: x,
+        status: getStatus(x),
+        color: getStatusColor(getStatus(x)),
+      }))
+    );
+  }, [reccomendations, currentCoin, i18n.language]);
 
   useEffect(() => {
     const ws = new WebSocket(`${import.meta.env.VITE_API_SOCKET}get_recommendations/`);
@@ -272,6 +255,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           )}
         </div>
       )}
+
       {/* {i18n.language === 'ru-RU' && (
         <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
           <img src="/img/play.png" alt="play" />
@@ -290,7 +274,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           <div className="rec__col" key={cidx}>
             {col.map((rec, ridx) => (
               <div className="rec__item" key={ridx}>
-                {rec.label} - <span style={{ color: rec.color }}>{rec.status}</span>
+                {rec.label}: <span style={{ color: rec.color }}>{rec.status}</span>
               </div>
             ))}
           </div>

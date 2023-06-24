@@ -252,6 +252,7 @@
 
   &__default,
   &__option {
+    position: relative;
     display: inline-flex;
     flex: 0 0 50%;
     justify-content: center;
@@ -276,7 +277,7 @@
     position: absolute;
     content: ' ';
     display: inline-block;
-    top: 3px;
+    top: 2px;
     left: 3px;
     width: 24px;
     height: 24px;
@@ -290,6 +291,20 @@
     &::after {
       left: auto;
       right: 3px;
+    }
+  }
+
+  &._history {
+    .chart-legend-view__default::after {
+      position: absolute;
+      content: ' ';
+      display: inline-block;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 85%;
+      background: currentcolor;
+      transform: translate(-50%, -50%) rotate(-45deg);
     }
   }
 }

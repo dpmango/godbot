@@ -82,6 +82,13 @@
         "15m": "15 minutes",
         "1h": "1 hour",
         "1d": "1 day"
+      },
+      "status": {
+        "buy": "Buy",
+        "sell": "Sell",
+        "activeBuy": "Active buy",
+        "activeSell": "Active sell",
+        "neutral": "Neutral"
       }
     },
     "testMode": "WARNING!<br/>TEST TIMEFRAME",

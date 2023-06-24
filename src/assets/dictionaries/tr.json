@@ -82,6 +82,13 @@
         "15m": "15 dakika",
         "1h": "1 saat",
         "1d": "1 gün"
+      },
+      "status": {
+        "buy": "Satın almak",
+        "sell": "Satmak",
+        "activeBuy": "Aktif satın alma",
+        "activeSell": "Aktif satış",
+        "neutral": "Doğal"
       }
     },
     "testMode": "WARNING!<br/>TEST TIMEFRAME",
