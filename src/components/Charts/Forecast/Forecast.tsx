@@ -87,8 +87,8 @@ export const Forecast = () => {
         'Upper',
         'Lower',
         'History',
-        'HistoryUpper',
-        'HistoryLower',
+        // 'HistoryUpper',
+        // 'HistoryLower',
       ],
       historyData
     );
