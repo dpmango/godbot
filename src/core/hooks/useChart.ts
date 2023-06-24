@@ -284,19 +284,22 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
           },
           data: chartsData.Invisible,
         });
-      } else if (key === 'History') {
-        if (historyData && Object.keys(historyData).length) {
-          Object.keys(historyData).forEach((key) => {
+      }
+
+      if (historyData && Object.keys(historyData).length) {
+        Object.keys(historyData).forEach((keyHistory) => {
+          if (key === 'History') {
             series.push({
-              id: `History_${key}`,
-              displayName: `History_${key}`,
+              id: `History_${keyHistory}`,
+              displayName: `History_${keyHistory}`,
               type: 'line',
               lineStyle: {
                 color: graphColors[2],
-                lineWidth: 3 as LineWidth,
-                visible: true,
+                lineWidth: 2 as LineWidth,
+                lineStyle: LineStyle.Dashed,
+                visible: false,
               },
-              data: historyData[key]
+              data: historyData[keyHistory]
                 .map((x: IGraphHistoryDto) => {
                   return {
                     time: x.timestamp,
@@ -305,8 +308,50 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
                 })
                 .filter((x) => x.value),
             });
-          });
-        }
+          } else if (key === 'HistoryUpper') {
+            series.push({
+              id: `HistoryUpper_${keyHistory}`,
+              displayName: `HistoryUpper_${keyHistory}`,
+              type: 'line',
+              lineStyle: {
+                color: graphColors[3],
+                lineWidth: 1 as LineWidth,
+                lineStyle: LineStyle.Dashed,
+                visible: false,
+                crosshairMarkerVisible: false,
+              },
+              data: historyData[keyHistory]
+                .map((x: IGraphHistoryDto) => {
+                  return {
+                    time: x.timestamp,
+                    value: x.forecast_high,
+                  };
+                })
+                .filter((x) => x.value),
+            });
+          } else if (key === 'HistoryLower') {
+            series.push({
+              id: `HistoryLower_${keyHistory}`,
+              displayName: `HistoryLower_${keyHistory}`,
+              type: 'line',
+              lineStyle: {
+                color: graphColors[4],
+                lineWidth: 1 as LineWidth,
+                lineStyle: LineStyle.Dashed,
+                visible: false,
+                crosshairMarkerVisible: false,
+              },
+              data: historyData[keyHistory]
+                .map((x: IGraphHistoryDto) => {
+                  return {
+                    time: x.timestamp,
+                    value: x.forecast_low,
+                  };
+                })
+                .filter((x) => x.value),
+            });
+          }
+        });
       }
     });
 
@@ -434,7 +479,11 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
 
       let displayName = seriesData.id;
       let color = graphColors[idx];
-      if (seriesData.id === 'RealCandle' || seriesData.id === 'Invisible') {
+      if (
+        ['Invisible', 'RealCandle', 'HistoryUpper', 'HistoryLower'].some((k) =>
+          seriesData.id.startsWith(k)
+        )
+      ) {
         return false;
       } else if (seriesData.id === 'RealLine') {
         displayName = 'Real';

@@ -80,7 +80,16 @@ export const Forecast = () => {
     // Создание данных по ответу forecast (указываются id для отрисовки)
     const currentSeries = createSeriesData(
       coinData,
-      ['RealCandle', 'RealLine', 'Forecast', 'Upper', 'Lower', 'History'],
+      [
+        'RealCandle',
+        'RealLine',
+        'Forecast',
+        'Upper',
+        'Lower',
+        'History',
+        'HistoryUpper',
+        'HistoryLower',
+      ],
       historyData
     );
     setSeries([...currentSeries]);
@@ -251,6 +260,38 @@ export const Forecast = () => {
     handleVisibilityToggle('RealLine', false);
     setCurrentViewType('bars');
   }, [handleVisibilityToggle, currentViewType]);
+
+  const [showHistory, setShowHistory] = useState(false);
+
+  const setHistoryShow = useCallback(() => {
+    if (showHistory) {
+      setHistoryHide();
+      return;
+    }
+
+    chartLines.forEach((x) => {
+      if (x.id.startsWith('History')) {
+        handleVisibilityToggle(x.id, true);
+      }
+    });
+
+    setShowHistory(true);
+  }, [handleVisibilityToggle, showHistory, chartLines]);
+
+  const setHistoryHide = useCallback(() => {
+    if (!showHistory) {
+      setHistoryShow();
+      return;
+    }
+
+    chartLines.forEach((x) => {
+      if (x.id.startsWith('History')) {
+        handleVisibilityToggle(x.id, false);
+      }
+    });
+
+    setShowHistory(false);
+  }, [handleVisibilityToggle, showHistory]);
 
   useEffect(() => {
     if (chart.current) {
@@ -454,6 +495,16 @@ export const Forecast = () => {
                       <SvgIcon name="tw-bars" />
                     </div>
                   </div>
+
+                  <div className={cns('chart-legend-view', '_history', showHistory && '_active')}>
+                    <div className="chart-legend-view__default" onClick={setHistoryShow}>
+                      <SvgIcon name="history" />
+                    </div>
+                    <div className="chart-legend-view__option" onClick={setHistoryHide}>
+                      <SvgIcon name="history" />
+                    </div>
+                  </div>
+
                   <label className="chart__legend-item">
                     <span
                       className="chart__settings-line"
