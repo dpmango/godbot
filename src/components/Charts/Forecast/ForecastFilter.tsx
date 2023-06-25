@@ -137,20 +137,34 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     const recs = reccomendations.filter((x) => x.currency === currentCoin);
 
     const getStatus = (interval: string) => {
-      return recs.find((x) => x.interval === interval)?.status;
+      const status = recs.find((x) => x.interval === interval)?.status;
+
+      if (status === 'Покупать') {
+        return 'buy';
+      } else if (status === 'Продавать') {
+        return 'sell';
+      } else if (status === 'Активно покупать') {
+        return 'activeBuy';
+      } else if (status === 'Активно продавать') {
+        return 'activeSell';
+      } else if (status === 'Нейтрально') {
+        return 'neutral';
+      }
+
+      return '';
     };
 
     const getStatusColor = (status?: string) => {
       switch (status) {
-        case 'Продавать':
+        case 'sell':
           return 'var(--red)';
-        case 'Активно продавать':
+        case 'activeSell':
           return 'var(--red)';
-        case 'Покупать':
+        case 'buy':
           return 'var(--green)';
-        case 'Активно покупать':
+        case 'activeBuy':
           return 'var(--green)';
-        case 'Нейтрально':
+        case 'neutral':
           return 'var(--blue)';
         default:
           return 'currentColor';
@@ -163,12 +177,15 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     ];
 
     return ticksList.map((g) =>
-      g.map((x) => ({
-        label: t(`filter.ticks.${x}`),
-        time: x,
-        status: getStatus(x),
-        color: getStatusColor(getStatus(x)),
-      }))
+      g.map((x) => {
+        const st = getStatus(x);
+        return {
+          label: t(`filter.ticks.${x}`),
+          time: x,
+          status: st ? t(`filter.status.${st}`) : '',
+          color: getStatusColor(st),
+        };
+      })
     );
   }, [reccomendations, currentCoin, i18n.language]);
 
