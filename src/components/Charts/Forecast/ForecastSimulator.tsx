@@ -713,7 +713,7 @@ export const ForecastSimulator = () => {
 
       collectedData = collectedData
         .reduce((acc, x) => {
-          acc = [...acc, ...(x.data || [])];
+          acc = [...acc, ...(x.data.actual_data || [])];
           return acc;
         }, [])
         .map((x: IGraphTickDto) => ({

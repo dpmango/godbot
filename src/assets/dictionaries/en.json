@@ -39,7 +39,8 @@
       "payedChat": "Go to Telegram chat",
       "bot": "Go to Telegram bot",
       "tutorial": "Site tutorial",
-      "promo": "Enter promo code"
+      "promo": "Enter promo code",
+      "simulator": "Market simulator"
     },
     "policies": {
       "confidentiality": "Privacy Policy",
