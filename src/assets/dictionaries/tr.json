@@ -4,7 +4,8 @@
       "title": "Giriş / Kayıt",
       "instruction": "Bir yetkilendirme kodu almak için E-postanızı girin",
       "action": "Giriş Yap",
-      "locked": "Giriş, {{ minutesToUnlock}} dakikalı süreyle engellendi"
+      "locked": "Giriş, {{ minutesToUnlock}} dakikalı süreyle engellendi",
+      "closed": "Kayıt kapalı. bilgi için yaz <a href='https://t.me/godbot_manager'>https://t.me/godbot_manager</a>"
     },
     "code": {
       "title": "Doğrulama",

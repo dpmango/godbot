@@ -373,3 +373,20 @@ textarea:focus::placeholder {
     object-position: center;
   }
 }
+
+
+.reg-closed{
+  margin-top: -20px;
+  margin-bottom: 32px;
+  padding: 12px 20px;
+  font-size: 14px;
+  background: tomato;
+  border-radius: 4px;
+
+
+}
+
+
+.reg-closed a{
+  color: currentcolor
+}

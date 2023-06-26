@@ -29,14 +29,14 @@ export const ChartsRouter = () => {
             onClick={() => setActiveTab('Forecast')}>
             {t('tabs.trading')}
           </div>
-          <div
+          {/* <div
             className={cns(
               'tabs__link tabs__link--desktop',
               activeTab === 'Signals' && 'tabs__link--active'
             )}
             onClick={() => setActiveTab('Signals')}>
             {t('tabs.signals')}
-          </div>
+          </div> */}
           <div
             className={cns(
               'tabs__link',
@@ -51,7 +51,7 @@ export const ChartsRouter = () => {
       )}
 
       {activeTab === 'Forecast' && <Forecast />}
-      {activeTab === 'Investing' && <Investing />}
+      {/* {activeTab === 'Investing' && <Investing />} */}
       {(activeTab === 'Signals' || isTablet) && <Signals />}
     </>
   );

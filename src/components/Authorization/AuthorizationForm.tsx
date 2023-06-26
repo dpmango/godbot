@@ -108,6 +108,10 @@ export const AuthorizationForm = () => {
         onSubmit={handleSubmit}>
         {({ isValid, dirty, errors, setFieldError }: FormikProps<IFormValues>) => (
           <Form className={cns('login__form', error && '_error')}>
+            <div
+              className="reg-closed"
+              dangerouslySetInnerHTML={{ __html: t('entry.closed') as string }}
+            />
             <div className="login__title">{t('entry.title')}</div>
             <div className="login__top-text">{t('entry.instruction')}</div>
 

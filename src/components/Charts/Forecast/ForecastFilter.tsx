@@ -278,8 +278,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           <img src="/img/play.png" alt="play" />
           <span>{t('guide.title')}</span>
         </Link>
-      )}
-
+      )} */}
+      {/* 
       <div
         className={cns('chart__settings-opener', legendActive && 'chart__settings-opener--active')}
         onClick={() => setLegendActive(!legendActive)}>
