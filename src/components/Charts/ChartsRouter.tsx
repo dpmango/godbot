@@ -51,8 +51,8 @@ export const ChartsRouter = () => {
       )}
 
       {activeTab === 'Forecast' && <Forecast />}
-      {/* {activeTab === 'Investing' && <Investing />} */}
-      {(activeTab === 'Signals' || isTablet) && <Signals />}
+      {activeTab === 'Investing' && <Investing />}
+      {/* {(activeTab === 'Signals' || isTablet) && <Signals />} */}
     </>
   );
 };

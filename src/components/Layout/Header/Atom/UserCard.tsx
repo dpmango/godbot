@@ -83,14 +83,14 @@ export const UserCard = () => {
             <SpriteIcon name="telegram" width="16" height="16" />
             {t('actions.payedChat')} {!isProUser && <span className="pro-label">PRO</span>}
           </a>
-          <a
+          {/* <a
             className={cns('header__user-link')}
             href={botLinkWithKey}
             target="_blank"
             rel="noreferrer">
             <SpriteIcon name="bot" width="16" height="16" />
             {t('actions.connectBot')}
-          </a>
+          </a> */}
           <Link to={'/?tutorial'} className={cns('header__user-link')}>
             <SpriteIcon name="info-circle" width="16" height="16" />
             {t('actions.tutorial')}
