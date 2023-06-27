@@ -5,7 +5,7 @@
       "instruction": "Введите ваш Email для получения кода авторизации",
       "action": "Войти",
       "locked": "Вход заблокирован на {{minutesToUnlock}} минут",
-      "closed": "Регистрация закрыта. Для информации пишите <a href='https://t.me/godbot_manager'>https://t.me/godbot_manager</a>"
+      "closed": "Регистрация закрыта. Для регистрации пишите <a href='https://t.me/godbot_manager'>https://t.me/godbot_manager</a>"
     },
     "code": {
       "title": "Верификация",
