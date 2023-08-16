@@ -8,21 +8,21 @@ export const Socials: React.FC<ISocialsProps> = ({ className }) => {
   return (
     <div className={cns('header__user-soc', className)}>
       <a
-        href={'https://twitter.com/godbot_pro'}
+        href={'https://twitter.com/godbot_ai'}
         target="_blank"
         title="Twitter"
         onClick={() => reachGoal('twitter', 'Переход в Твиттер')}
         rel="noreferrer">
         <img src="/img/social/twitter.svg" alt="Twitter" />
       </a>
-      <a
+      {/* <a
         href={'https://discord.com/invite/Jnptpsmcmx'}
         target="_blank"
         title="Discord"
         onClick={() => reachGoal('discordd', 'Переход в Дискорд')}
         rel="noreferrer">
         <img src="/img/social/discord.svg" alt="Discord" />
-      </a>
+      </a> */}
       {i18n.language === 'ru-RU' && (
         <a
           href={'https://t.me/godbot_pro'}

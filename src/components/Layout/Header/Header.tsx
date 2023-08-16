@@ -16,7 +16,7 @@ export const Header = () => {
           <svg width="110" height="25">
             <use xlinkHref="/img/logo-sprite.svg#text"></use>
           </svg>
-          <DevBadge />
+          {/* <DevBadge /> */}
         </Link>
         <div
           className={cns('header__menu-opener', menu && 'header__menu-opener--active')}

@@ -5,12 +5,24 @@ interface IForecastFilterProps {
   legendActive: boolean;
   minutesToUpdate: number;
   setLegendActive: (x: boolean) => void;
+  currentViewType: 'lines' | 'bars';
+  setLinesView: () => void;
+  setBarsView: () => void;
+  setHistoryShow: () => void;
+  setHistoryHide: () => void;
+  showHistory: boolean;
 }
 
 export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   legendActive,
   setLegendActive,
   minutesToUpdate,
+  currentViewType,
+  setLinesView,
+  setBarsView,
+  showHistory,
+  setHistoryShow,
+  setHistoryHide,
 }) => {
   const { isProUser, userData } = useAppSelector((state) => state.userState);
 
@@ -273,6 +285,39 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         </div>
       )}
 
+      <div className="chart-legend-tw">
+        <div className={cns('chart-legend-view', currentViewType === 'bars' && '_active')}>
+          <div className="chart-legend-view__default" onClick={setLinesView}>
+            <SvgIcon name="tw-lines" />
+          </div>
+          <div className="chart-legend-view__option" onClick={setBarsView}>
+            <SvgIcon name="tw-bars" />
+          </div>
+        </div>
+
+        <div className={cns('chart-legend-view', '_history', showHistory && '_active')}>
+          <div className="chart-legend-view__default" onClick={setHistoryShow}>
+            <SvgIcon name="history" />
+          </div>
+          <div className="chart-legend-view__option" onClick={setHistoryHide}>
+            <SvgIcon name="history" />
+          </div>
+        </div>
+
+        <label className="chart__legend-item">
+          <span className="chart__settings-line" style={{ borderColor: 'rgb(205, 29, 21)' }} />
+          Forecast
+        </label>
+        <label className="chart__legend-item">
+          <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
+          Real
+        </label>
+        <label className="chart__legend-item">
+          <span className="chart__settings-circle" style={{ backgroundColor: '#F5840F' }} />
+          Update
+        </label>
+      </div>
+
       {/* {i18n.language === 'ru-RU' && (
         <Link to="?guide" className="btn chart__head-btn" title={t('guide.title') as string}>
           <img src="/img/play.png" alt="play" />
@@ -286,7 +331,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         <SpriteIcon name="settings" width="20" height="20" />
       </div> */}
 
-      <div className="rec">
+      {/* <div className="rec">
         {curCoinReccomendations.map((col, cidx) => (
           <div className="rec__col" key={cidx}>
             {col.map((rec, ridx) => (
@@ -296,7 +341,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
             ))}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

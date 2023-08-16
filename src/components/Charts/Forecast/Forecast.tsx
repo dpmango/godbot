@@ -37,7 +37,7 @@ export const Forecast = () => {
   const [scrollRange, setScrollRange] = useState<LogicalRange>();
   const [crosshair, setCrosshair] = useState<MouseEventParams | null>(null);
   const [returnVisible, setReturnVisible] = useState<boolean>(false);
-  const [isForecastOutdated, setIsForecastOutdated] = useState<boolean>(true);
+  // const [isForecastOutdated, setIsForecastOutdated] = useState<boolean>(true);
   const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 250);
   const [blockPointX, setBlockPointX] = useState(500);
@@ -443,8 +443,8 @@ export const Forecast = () => {
     const realLineLastItemTime = getChartLastPoint(1);
     const forecastLastItemTime = getChartLastPoint(2);
 
-    setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
-  }, [dataSeries, chartLines, setIsForecastOutdated]);
+    // setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
+  }, [dataSeries, chartLines]);
 
   return (
     <>
@@ -454,6 +454,12 @@ export const Forecast = () => {
           setLegendActive={(x) => setLegendActive(x)}
           lastUpdate={lastUpdate}
           minutesToUpdate={minutesToUpdate}
+          showHistory={showHistory}
+          currentViewType={currentViewType}
+          setHistoryHide={setHistoryHide}
+          setHistoryShow={setHistoryShow}
+          setBarsView={setBarsView}
+          setLinesView={setLinesView}
         />
 
         <ForecastLegend active={legendActive} chartLines={chartLines} />
@@ -485,7 +491,7 @@ export const Forecast = () => {
                     </div>
                   ))}
                 </div>
-                <div className="chart-legend-tw">
+                {/* <div className="chart-legend-tw">
                   <div
                     className={cns('chart-legend-view', currentViewType === 'bars' && '_active')}>
                     <div className="chart-legend-view__default" onClick={setLinesView}>
@@ -526,7 +532,7 @@ export const Forecast = () => {
                     />
                     Update
                   </label>
-                </div>
+                </div> */}
                 <div
                   className={cns('chart-return', returnVisible && '_visible')}
                   onClick={handleReturnToLive}>
@@ -534,7 +540,7 @@ export const Forecast = () => {
                 </div>
 
                 {/* Нет актуальных предсказаний на графике, выводим предупреждение */}
-                {!isForceGraph && isForecastOutdated && (
+                {/* {!isForceGraph && isForecastOutdated && (
                   <>
                     <div className={'fader fader--active chart-popup'}>
                       <div className="fader__text fader__text--big">
@@ -554,7 +560,7 @@ export const Forecast = () => {
                       </div>
                     </div>
                   </>
-                )}
+                )} */}
 
                 {containerRef?.current && (
                   <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />

@@ -99,12 +99,12 @@ export const UserCard = () => {
             <SpriteIcon name="coupon" width="16" height="16" />
             {t('actions.promo')}
           </Link> */}
-          <a
+          {/* <a
             className="header__user-link"
             onClick={() => dispatch(setSimulator({ enabled: !simulator.enabled }))}>
             <SvgIcon name="replay" />
             {t('actions.simulator')}
-          </a>
+          </a> */}
         </div>
 
         <Socials />
