@@ -31,9 +31,6 @@ export const Tutorial: React.FC<any> = () => {
     setSearchParams({});
     dispatch(setTutorialComplete(true));
 
-    dispatch(setSimulator({ enabled: true }));
-    navigate('?simguide');
-
     // if (i18n.language === 'ru-RU') {
     //   navigate('?guide');
     // }

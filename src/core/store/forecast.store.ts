@@ -227,25 +227,6 @@ export const forecastState = createSlice({
             } as IGraphTickDto);
           }
           state.dataNav.points += randomPointsSize;
-
-          // Mock: Generate left side of the graph
-          /*
-          const firstItem = state.data[0];
-          const firstValue = getNotNullValue(firstItem);
-          const shiftNum = 1000;
-          let currentTimestamp2 = firstItem.timestamp as number;
-
-          for (let i = 0; i < shiftNum; i++) {
-            currentTimestamp2 -= timestampDiff;
-
-            state.data.unshift({
-              timestamp: currentTimestamp2 as UTCTimestamp,
-              forecast_trend: firstValue,
-            } as IGraphTickDto);
-          }
-
-          state.dataNav.points += shiftNum;
-          */
         }
 
         // Установка исторических данных прогноза

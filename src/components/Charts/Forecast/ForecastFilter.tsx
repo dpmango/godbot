@@ -201,36 +201,36 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     );
   }, [reccomendations, currentCoin, i18n.language]);
 
-  useEffect(() => {
-    const ws = new WebSocket(`${import.meta.env.VITE_API_SOCKET}get_recommendations/`);
-    ws.addEventListener('open', (_e) => {
-      setRecSocket((prev) => ({ ...prev, opened: true }));
-    });
-    ws.addEventListener('message', ({ data }) => {
-      const { currency, interval, status } = JSON.parse(data);
+  // useEffect(() => {
+  //   const ws = new WebSocket(`${import.meta.env.VITE_API_SOCKET}get_recommendations/`);
+  //   ws.addEventListener('open', (_e) => {
+  //     setRecSocket((prev) => ({ ...prev, opened: true }));
+  //   });
+  //   ws.addEventListener('message', ({ data }) => {
+  //     const { currency, interval, status } = JSON.parse(data);
 
-      setReccommendations((prev) => {
-        if (prev.find((x) => x.currency === currency && x.interval === interval)) {
-          return prev.map((x) =>
-            x.currency === currency && x.interval === interval ? { ...x, status } : x
-          );
-        } else {
-          return [...prev, ...[{ currency, interval, status }]];
-        }
-      });
-    });
-    ws.addEventListener('close', (_e) => {
-      setRecSocket((prev) => ({ ...prev, opened: false }));
-    });
+  //     setReccommendations((prev) => {
+  //       if (prev.find((x) => x.currency === currency && x.interval === interval)) {
+  //         return prev.map((x) =>
+  //           x.currency === currency && x.interval === interval ? { ...x, status } : x
+  //         );
+  //       } else {
+  //         return [...prev, ...[{ currency, interval, status }]];
+  //       }
+  //     });
+  //   });
+  //   ws.addEventListener('close', (_e) => {
+  //     setRecSocket((prev) => ({ ...prev, opened: false }));
+  //   });
 
-    ws.addEventListener('error', (_e) => {
-      setRecSocket((prev) => ({ ...prev, error: true }));
-    });
+  //   ws.addEventListener('error', (_e) => {
+  //     setRecSocket((prev) => ({ ...prev, error: true }));
+  //   });
 
-    return () => {
-      ws.close();
-    };
-  }, []);
+  //   return () => {
+  //     ws.close();
+  //   };
+  // }, []);
 
   // initial params parser
   useEffect(() => {
@@ -263,10 +263,13 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   return (
     <div className="chart__head">
       <div className="chart__head-title">{t('filter.title')}</div>
-      <div className="chart__head-filters">
-        <Select value={currentCoin} options={coinOptions} onSelect={handleCoinChange} />
-        <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
-      </div>
+      {!simulator.enabled && (
+        <div className="chart__head-filters">
+          <Select value={currentCoin} options={coinOptions} onSelect={handleCoinChange} />
+          <Select value={currentTime} options={timeOptions} onSelect={handleTimeChange} />
+        </div>
+      )}
+
       {isTestGraph && (
         <div
           className="chart__testing"
@@ -295,27 +298,31 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           </div>
         </div>
 
-        <div className={cns('chart-legend-view', '_history', showHistory && '_active')}>
-          <div className="chart-legend-view__default" onClick={setHistoryShow}>
-            <SvgIcon name="history" />
-          </div>
-          <div className="chart-legend-view__option" onClick={setHistoryHide}>
-            <SvgIcon name="history" />
-          </div>
-        </div>
+        {!simulator.enabled && (
+          <>
+            <div className={cns('chart-legend-view', '_history', showHistory && '_active')}>
+              <div className="chart-legend-view__default" onClick={setHistoryShow}>
+                <SvgIcon name="history" />
+              </div>
+              <div className="chart-legend-view__option" onClick={setHistoryHide}>
+                <SvgIcon name="history" />
+              </div>
+            </div>
 
-        <label className="chart__legend-item">
-          <span className="chart__settings-line" style={{ borderColor: 'rgb(205, 29, 21)' }} />
-          Forecast
-        </label>
-        <label className="chart__legend-item">
-          <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
-          Real
-        </label>
-        <label className="chart__legend-item">
-          <span className="chart__settings-circle" style={{ backgroundColor: '#F5840F' }} />
-          Update
-        </label>
+            <label className="chart__legend-item">
+              <span className="chart__settings-line" style={{ borderColor: 'rgb(205, 29, 21)' }} />
+              Forecast
+            </label>
+            <label className="chart__legend-item">
+              <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
+              Real
+            </label>
+            <label className="chart__legend-item">
+              <span className="chart__settings-circle" style={{ backgroundColor: '#F5840F' }} />
+              Update
+            </label>
+          </>
+        )}
       </div>
 
       {/* {i18n.language === 'ru-RU' && (

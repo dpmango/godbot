@@ -1,13 +1,13 @@
 import { Logo } from '@c/Layout/Header';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
+import Cookies from 'js-cookie';
 import {
   createChart,
   IChartApi,
   IPriceLine,
   ISeriesApi,
   LineStyle,
-  LogicalRange,
   SeriesMarker,
   Time,
   UTCTimestamp,
@@ -52,6 +52,7 @@ export const ForecastSimulator = () => {
     loading: storeLoading,
   } = useAppSelector((state) => state.forecastState);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { allowedFunctions } = useProfile();
   const { t } = useTranslation('simulator');
@@ -323,12 +324,12 @@ export const ForecastSimulator = () => {
   }, [simulatorTimelineIntervals, simulatorCurrentTime]);
 
   // навигация
-  const handleSimulatorBackClick = useCallback(() => {
-    if (currentInterval?.from || currentStage?.fromTz) {
-      const newTime = currentInterval?.from || currentStage?.fromTz;
-      updateSimulatorToTime(newTime);
-    }
-  }, [currentStage, currentInterval]);
+  // const handleSimulatorBackClick = useCallback(() => {
+  //   if (currentInterval?.from || currentStage?.fromTz) {
+  //     const newTime = currentInterval?.from || currentStage?.fromTz;
+  //     updateSimulatorToTime(newTime);
+  //   }
+  // }, [currentStage, currentInterval]);
 
   const updateSimulatorToTime = useCallback(
     (time: UTCTimestamp) => {
@@ -367,12 +368,12 @@ export const ForecastSimulator = () => {
     [chartLines, dataSeries, simulatorTimelineIntervals]
   );
 
-  const handleSimulatorForwardClick = useCallback(() => {
-    if (currentInterval?.to || currentStage?.toTz) {
-      const newTime = currentInterval?.to || currentStage?.toTz;
-      updateSimulatorToTime(newTime);
-    }
-  }, [currentStage, currentInterval]);
+  // const handleSimulatorForwardClick = useCallback(() => {
+  //   if (currentInterval?.to || currentStage?.toTz) {
+  //     const newTime = currentInterval?.to || currentStage?.toTz;
+  //     updateSimulatorToTime(newTime);
+  //   }
+  // }, [currentStage, currentInterval]);
 
   const resetToFirstStage = useCallback(() => {
     updateSimulatorToTime(stages[0].fromTz);
@@ -740,9 +741,9 @@ export const ForecastSimulator = () => {
     };
 
     const requestChart = async () => {
-      if (!currentCoin || !currentTime || !currentStage) return;
+      if (!currentCoin || !currentStage) return;
 
-      const interval = getIntervalMinues(currentTime);
+      const interval = getIntervalMinues('15m');
       const intervalDistanceStart = getTickDistance({
         targetTime: currentStage.from,
         interval,
@@ -762,16 +763,16 @@ export const ForecastSimulator = () => {
         distanceStart: intervalDistanceStart,
         distanceEnd: intervalDistanceEnd,
       });
+      console.log({ intervalDistanceStart, intervalDistanceEnd });
       setSimulatorDataLoaded(true);
     };
 
-    if (allowedFunctions.forecast) {
-      requestChart();
-    }
-  }, [allowedFunctions.forecast, currentCoin, currentTime, currentStage]);
+    requestChart();
+  }, [currentCoin, currentTime, currentStage]);
 
   // обновление данных и перерисовка
   useEffect(() => {
+    console.log({ simulatorDataLoaded });
     if (data && data.length && simulatorDataLoaded) {
       initOrUpdateChart(data, intervalRun > 0);
     } else {
@@ -781,6 +782,15 @@ export const ForecastSimulator = () => {
       }
     }
   }, [data, simulatorDataLoaded]);
+
+  useEffect(() => {
+    if (endGame) {
+      dispatch(setSimulator({ enabled: false }));
+      navigate('?simguide');
+
+      Cookies.get('simulator-compleate');
+    }
+  }, [endGame]);
 
   return (
     <div className={cns('chart')}>
@@ -796,25 +806,25 @@ export const ForecastSimulator = () => {
       <div className="chart-simulator sim">
         <div className="sim__wrapper">
           <div className="sim__timeline">
-            <div
+            {/* <div
               className={cns('sim__timeline-action sim__back')}
               onClick={handleSimulatorBackClick}>
               <SvgIcon name="back" />
-            </div>
+            </div> */}
             <div
               className={cns(
                 'sim__timeline-action sim__play',
                 simulatorTimeline.paused && '_active'
               )}
               onClick={handleSimulatorPausedClick}>
-              <SvgIcon name="play" />
+              {simulatorTimeline.paused ? <SvgIcon name="play" /> : <SvgIcon name="pause" />}
               {simulatorTimeline.paused && 'paused'}
             </div>
-            <div
+            {/* <div
               className={cns('sim__timeline-action sim__forward')}
               onClick={handleSimulatorForwardClick}>
               <SvgIcon name="forward" />
-            </div>
+            </div> */}
 
             <div className="sim__speed speed">
               <div
@@ -918,9 +928,9 @@ export const ForecastSimulator = () => {
               Flatten
             </div>
           </div>
-          <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>
+          {/* <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>
             <SvgIcon name="close" />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="chart-watermark">

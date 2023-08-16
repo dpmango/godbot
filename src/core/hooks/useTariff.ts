@@ -16,6 +16,15 @@ const useTariff = () => {
       return;
     }
 
+    const simulatorCompleate = Cookies.get('simulator-compleate');
+
+    if (!simulatorCompleate) {
+      dispatch(setSimulator({ enabled: true }));
+      navigate('?simguide');
+
+      return;
+    }
+
     const { data: trialData, error: trialError } = await api('get_trial/', {});
 
     if (trialError) {

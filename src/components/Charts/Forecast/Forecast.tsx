@@ -3,6 +3,7 @@ import { Logo } from '@c/Layout/Header';
 import { LockScreen, SvgIcon } from '@ui';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
+import Cookies from 'js-cookie';
 import {
   createChart,
   IChartApi,
@@ -69,8 +70,16 @@ export const Forecast = () => {
     tooltipRef,
   });
 
+  const simulatorCompleate = Cookies.get('simulator-compleate');
   const paginatePer = 200;
-  const viewLocked = !tariffActive;
+  const viewLocked = !tariffActive && simulatorCompleate;
+
+  useEffect(() => {
+    if (!simulatorCompleate) {
+      dispatch(setSimulator({ enabled: true }));
+      // navigate('?simguide');
+    }
+  }, [simulatorCompleate]);
 
   // основная функция отрисовки TW
   const initOrUpdateChart = (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
