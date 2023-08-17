@@ -457,7 +457,12 @@ export const Forecast = () => {
 
   return (
     <>
-      <div className={cns('chart', viewLocked && 'chart--locked')}>
+      <div
+        className={cns(
+          'chart',
+          viewLocked && 'chart--locked',
+          simulator.enabled && 'chart--simulator'
+        )}>
         <ForecastFilter
           legendActive={legendActive}
           setLegendActive={(x) => setLegendActive(x)}

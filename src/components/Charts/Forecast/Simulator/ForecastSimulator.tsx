@@ -253,6 +253,8 @@ export const ForecastSimulator = () => {
     }));
   }, []);
 
+  console.log({ simulatorTimeline });
+
   // установка ставки (всплываюший диалог)
   const [simulatorBetEnabled, setSimulatorBetEnabled] = useState(false);
 
@@ -856,9 +858,6 @@ export const ForecastSimulator = () => {
               Flatten
             </div>
           </div>
-          {/* <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>
-            <SvgIcon name="close" />
-          </div> */}
         </div>
       </div>
       <div className="chart-watermark">

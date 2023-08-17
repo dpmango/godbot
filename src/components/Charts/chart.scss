@@ -244,6 +244,21 @@
   }
 }
 
+.chart--simulator {
+  .chart__head {
+    .chart-legend-tw {
+      margin-left: auto;
+    }
+  }
+
+  .chart {
+    .chart-legend-tw {
+      display: inline-flex;
+      max-width: 160px;
+    }
+  }
+}
+
 @media only screen and (width <= 767px) {
   .chart-legend-tw {
     flex-direction: column;
