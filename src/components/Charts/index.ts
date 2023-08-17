@@ -5,6 +5,7 @@ export { ForecastGuide } from './Forecast/ForecastGuide';
 export { ForecastLegend } from './Forecast/ForecastLegend';
 export { SimGuide } from './Forecast/SimGuide';
 export { ForecastSimulator } from './Forecast/Simulator/ForecastSimulator';
+export { ForecastSimulatorModalInfo } from './Forecast/SimulatorModal/InfoModal';
 export { ForecastSimulatorModalInterval } from './Forecast/SimulatorModal/Interval';
 export { ForecastSimulatorModalResult } from './Forecast/SimulatorModal/Result';
 export { Investing } from './Investing/Investing';

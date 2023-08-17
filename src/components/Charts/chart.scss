@@ -248,6 +248,8 @@
   .chart__head {
     .chart-legend-tw {
       margin-left: auto;
+      opacity: 0;
+      pointer-events: none;
     }
   }
 

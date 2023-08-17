@@ -13,7 +13,11 @@ import {
   UTCTimestamp,
 } from 'lightweight-charts';
 
-import { ForecastSimulatorModalInterval, ForecastSimulatorModalResult } from '@/components/Charts';
+import {
+  ForecastSimulatorModalInfo,
+  ForecastSimulatorModalInterval,
+  ForecastSimulatorModalResult,
+} from '@/components/Charts';
 import { SvgIcon } from '@/components/UI';
 import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
 
@@ -252,8 +256,6 @@ export const ForecastSimulator = () => {
       paused: !prev.paused,
     }));
   }, []);
-
-  console.log({ simulatorTimeline });
 
   // установка ставки (всплываюший диалог)
   const [simulatorBetEnabled, setSimulatorBetEnabled] = useState(false);
@@ -653,6 +655,10 @@ export const ForecastSimulator = () => {
     }
   }, [simulatorCurrentPrice, simulatorCurrentTime, simulatorTimeline]);
 
+  useEffect(() => {
+    setModalManager('introModal');
+  }, []);
+
   // инициализация запросов
   useEffect(() => {
     const batchFetchChart = async () => {
@@ -897,6 +903,13 @@ export const ForecastSimulator = () => {
           positionPL={positionPL}
           closeModal={handleModalClose}
         />
+      )}
+
+      {modalManager === 'introModal' && (
+        <ForecastSimulatorModalInfo namespace="introModal" closeModal={handleModalClose} />
+      )}
+      {modalManager === 'introLinesModal' && (
+        <ForecastSimulatorModalInfo namespace="introLinesModal" closeModal={handleModalClose} />
       )}
     </div>
   );
