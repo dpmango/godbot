@@ -12,11 +12,12 @@ import {
   Time,
   UTCTimestamp,
 } from 'lightweight-charts';
-import internal from 'stream';
 
 import { ForecastSimulatorModalInterval, ForecastSimulatorModalResult } from '@/components/Charts';
 import { SvgIcon } from '@/components/UI';
 import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
+
+import { simulatorDataStage1, simulatorDataStage2, simulatorDataStage3 } from './simulatorData';
 
 export interface IChartLines {
   id: string;
@@ -304,9 +305,6 @@ export const ForecastSimulator = () => {
   const currentStage = useMemo(() => {
     if (stages.length > 0 && simulatorCurrentTime) {
       return stages[stageActiveID];
-      // return stages.find((x) => {
-      //   return simulatorCurrentTime >= x.fromTz && simulatorCurrentTime < x.toTz;
-      // });
     }
 
     return stages[0];
@@ -655,68 +653,17 @@ export const ForecastSimulator = () => {
 
   // инициализация запросов
   useEffect(() => {
-    const getIntervalMinues = (time: string) => {
-      switch (time) {
-        case '1m':
-          return 1;
-        case '15m':
-          return 15;
-        case '1h':
-          return 60;
-        case '1d':
-          return 60 * 24;
-        default:
-          return 1;
+    const batchFetchChart = async () => {
+      let collectedData = [] as IGraphTickDto[];
+      if (currentStage.intervalModal === 'stage1') {
+        collectedData = simulatorDataStage1 as IGraphTickDto[];
+      } else if (currentStage.intervalModal === 'stage2') {
+        collectedData = simulatorDataStage2 as IGraphTickDto[];
+      } else if (currentStage.intervalModal === 'stage3') {
+        collectedData = simulatorDataStage3 as IGraphTickDto[];
       }
-    };
-    const getTickDistance = ({
-      targetTime,
-      interval,
-    }: {
-      targetTime: dayjs.Dayjs;
-      interval: number;
-    }) => {
-      const timeNow = dayjs();
-      const diff = timeNow.diff(targetTime, 'minutes');
-
-      return Math.floor(diff / interval);
-    };
-
-    const batchFetchChart = async ({
-      distanceStart,
-      distanceEnd,
-    }: {
-      distanceStart: number;
-      distanceEnd: number;
-    }) => {
-      // const intervalTotalTicks = distanceStart - distanceEnd;
-
-      const wantedDistance = Math.ceil(distanceStart / 100);
-      const requestPagesBounds = [
-        wantedDistance - 1,
-        wantedDistance,
-        wantedDistance + 1,
-      ] as number[];
-      const promisesToRequest = [] as Promise<any>[];
-
-      requestPagesBounds.forEach((page) => {
-        const paginationParams = buildParams({ page, paginated_by: 100 });
-
-        //   api(`get_graph/${currentCoin}/${currentTime}/`, {
-        promisesToRequest.push(
-          api(`get_graph/BTC/15m/`, {
-            params: paginationParams,
-          })
-        );
-      });
-
-      let collectedData = await Promise.all(promisesToRequest);
 
       collectedData = collectedData
-        .reduce((acc, x) => {
-          acc = [...acc, ...(x.data.actual_data || [])];
-          return acc;
-        }, [])
         .map((x: IGraphTickDto) => ({
           ...x,
           originalTime: x.timestamp,
@@ -743,27 +690,9 @@ export const ForecastSimulator = () => {
     const requestChart = async () => {
       if (!currentCoin || !currentStage) return;
 
-      const interval = getIntervalMinues('15m');
-      const intervalDistanceStart = getTickDistance({
-        targetTime: currentStage.from,
-        interval,
-      });
-      const intervalDistanceEnd = getTickDistance({
-        targetTime: currentStage.to,
-        interval,
-      });
-      let intervalTotalTicks = intervalDistanceStart - intervalDistanceEnd;
-      if (intervalTotalTicks < 100) {
-        intervalTotalTicks = 100;
-      }
-
       dispatch(flushDataState());
       setSimulatorDataLoaded(false);
-      await batchFetchChart({
-        distanceStart: intervalDistanceStart,
-        distanceEnd: intervalDistanceEnd,
-      });
-      console.log({ intervalDistanceStart, intervalDistanceEnd });
+      await batchFetchChart();
       setSimulatorDataLoaded(true);
     };
 
@@ -772,7 +701,6 @@ export const ForecastSimulator = () => {
 
   // обновление данных и перерисовка
   useEffect(() => {
-    console.log({ simulatorDataLoaded });
     if (data && data.length && simulatorDataLoaded) {
       initOrUpdateChart(data, intervalRun > 0);
     } else {
