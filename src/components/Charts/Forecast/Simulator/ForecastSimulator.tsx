@@ -707,6 +707,38 @@ export const ForecastSimulator = () => {
     requestChart();
   }, [currentCoin, currentTime, currentStage]);
 
+  // горизонтальные гайды
+  useEffect(() => {
+    if (!chartLines.length) return;
+
+    if (currentStage.intervalModal === 'stage1') {
+      const basePriceLine = {
+        color: '#D1D100',
+        lineWidth: 4 as any,
+        lineStyle: LineStyle.Dashed,
+        axisLabelVisible: false,
+      };
+
+      const horozontalGuider = {
+        ...basePriceLine,
+        price: 28265,
+        title: 'demo1',
+      };
+      const horozontalGuider2 = {
+        ...basePriceLine,
+        price: 28220,
+        title: 'demo2',
+      };
+
+      chartLines.forEach((lineSeries, idx) => {
+        if (lineSeries.id === 'Forecast') {
+          lineSeries.instance.createPriceLine(horozontalGuider);
+          lineSeries.instance.createPriceLine(horozontalGuider2);
+        }
+      });
+    }
+  }, [currentStage, chartLines]);
+
   // обновление данных и перерисовка
   useEffect(() => {
     if (data && data.length && simulatorDataLoaded) {
