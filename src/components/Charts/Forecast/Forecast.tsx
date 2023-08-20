@@ -82,7 +82,7 @@ export const Forecast = () => {
   }, [simulatorCompleate]);
 
   // основная функция отрисовки TW
-  const initOrUpdateChart = (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
+  const initOrUpdateChart = async (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
     // подготовка (маппинг) данных
     const PERF_TIME_SERIES = performance.now();
 
@@ -159,6 +159,7 @@ export const Forecast = () => {
     } else {
       // обновление данных
       const PERF_TIME = performance.now();
+
       chartLines.forEach((lineSeries, idx) => {
         lineSeries.instance.setData([...currentSeries[idx].data]);
       });
@@ -430,12 +431,19 @@ export const Forecast = () => {
   // обновление данных
   useEffect(() => {
     if (data && !viewLocked && !simulator.enabled) {
-      if (data.length) initOrUpdateChart(data, dataHistory);
+      if (data.length) initOrUpdateChart(data, dataHistory).catch((err) => console.warn(err));
     } else if (viewLocked || simulator.enabled) {
       chart.current?.remove();
       chart.current = null;
     }
   }, [data, viewLocked, dataHistory, simulator]);
+
+  useEffect(() => {
+    if (chart.current && currentCoin && currentTime) {
+      chart.current?.remove();
+      chart.current = null;
+    }
+  }, [currentCoin, currentTime]);
 
   // Проверка на устаревшие Forecast данные
   useEffect(() => {
@@ -455,7 +463,6 @@ export const Forecast = () => {
     // setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
   }, [dataSeries, chartLines]);
 
-  console.log({ siulator: simulator.enabled });
   return (
     <>
       <div

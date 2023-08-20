@@ -77,7 +77,6 @@ export const SignalCard: React.FC<ISignalCard> = ({ signal, calculator }) => {
 
       if (stopPercent && riskPercent) {
         const enterPerStop = (avarageEnter / stopPercent - 1) * 100;
-        // console.log({ calculator }, { riskPercent }, { enterPerStop });
         allocation = +calculator * (riskPercent / enterPerStop);
       }
     }
