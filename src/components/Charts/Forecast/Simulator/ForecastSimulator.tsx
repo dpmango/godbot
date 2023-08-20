@@ -102,7 +102,7 @@ export const ForecastSimulator = () => {
   const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
   const [simulatorTimeline, setSimulatorTimeline] = useState<ISimulatorTimeline>({
     paused: true,
-    speed: 30,
+    speed: 10,
   });
   const [simulatorTimelineIntervals, setSimulatorTimelineIntervals] = useState<
     { from: UTCTimestamp; to: UTCTimestamp }[]
@@ -927,9 +927,6 @@ export const ForecastSimulator = () => {
             <div className="btn sim__flatten" onClick={flattenPosition}>
               Flatten
             </div>
-          </div>
-          <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>
-            <SvgIcon name="close" /> закрыть симулятор (temp)
           </div>
         </div>
       </div>
