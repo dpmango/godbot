@@ -263,11 +263,12 @@
 
 @media only screen and (width <= 767px) {
   .chart-legend-tw {
+    position: absolute;
+    top: 0;
+    right: -12px;
     // flex-direction: column;
     align-items: flex-start;
     max-width: 130px;
-    margin-top: -60px;
-    margin-right: -12px;
 
     label {
       flex-basis: auto;
@@ -284,6 +285,9 @@
     }
   }
 
+  .chart__head {
+    min-height: 54px;
+  }
   .chart__head-time {
     width: 100%;
     margin-top: 12px;

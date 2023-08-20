@@ -132,28 +132,52 @@
   },
   "simulator": {
     "actions": {
-      "short": "SHORT",
-      "long": "LONG"
+      "short": "KISA",
+      "long": "UZUN"
     },
     "intervalModal": {
-      "neutral": {
-        "title": "Похожоже вы не открыли позицию",
-        "description": "Используйте кнопки LONG или SHORT, вводите количество лотов и управляйте позицией в соотвествии с прогнозом"
-      },
       "profit": {
-        "title": "Хороший результат",
-        "description": "Промежуточный результат вашей торговли"
+        "title": "Tebrikler! ",
+        "description": "Devam etmek"
       },
-      "loss": {
-        "title": "Не отчаивайтесь!",
-        "description": "Отрицательный результат тоже результат, попробуйте торговать по прогнозу"
+      "stage1": {
+        "title": "Umutsuzluğa kapılma!",
+        "description": "Tekrar deneyin, kesinlikle başaracaksınız!"
       },
-      "action": "Продолжить"
+      "stage2": {
+        "title": "Umutsuzluğa kapılma!",
+        "description": "Tekrar deneyin, kesinlikle başaracaksınız!"
+      },
+      "stage3": {
+        "title": "Umutsuzluğa kapılma!",
+        "description": "Tekrar deneyin, kesinlikle başaracaksınız!"
+      },
+      "action": "Devam etmek"
     },
     "totalModal": {
-      "title": "Результат торговли в эмуляторе",
-      "description": "По результатам вашей торговли получились следующие результаты",
-      "action": "Закрыть"
+      "title": "Öykünücüde ticaretin sonucu",
+      "description": "İşleminiz sonucunda aşağıdaki sonuçlar elde edildi",
+      "action": "kapalı"
+    },
+    "introModal": {
+      "title": "Ticaret simülatörüne hoş geldiniz",
+      "description": "İlk ve en temel kural, tahminin zaman içinde yanlış olabileceği, ancak pratikte fiyat seviyelerinde hata yapmamasıdır.  <br/>Grafik, bu tür 'dirençlerin' bir örneğini gösterecektir.",
+      "action": "Başlamak"
+    },
+    "introLinesModal": {
+      "title": "'oynat'a basarak devam edin",
+      "description": "Grafik, tahmin tarafından gösterilen seviyelerin bir örneğini gösteriyordu. <br/>Artık 'Oynat' düğmesine tıklayarak fiyat hareketini başlatabilirsiniz.",
+      "action": "Başlamak"
+    },
+    "intro2Modal": {
+      "title": "Şimdi hareketi kendiniz takas etmeye çalışın",
+      "description": "",
+      "action": "Devam etmek"
+    },
+    "intro2LinesModal": {
+      "title": "",
+      "description": "Daha önce, fiyat hareketinin belirsizliğini gösteren tek satırlık bir tahmin ele aldık. <br/>Ancak belirsiz tahminler var, önünüzde onlardan biri var.  <br/> Tahmini kendiniz takas etmeye çalışın",
+      "action": "Devam etmek"
     }
   },
   "investing": {

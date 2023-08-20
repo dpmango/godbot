@@ -137,24 +137,48 @@
       "long": "LONG"
     },
     "intervalModal": {
-      "neutral": {
-        "title": "Похожоже вы не открыли позицию",
-        "description": "Используйте кнопки LONG или SHORT, вводите количество лотов и управляйте позицией в соотвествии с прогнозом"
-      },
       "profit": {
-        "title": "Хороший результат",
-        "description": "Промежуточный результат вашей торговли"
+        "title": "Congratulations! ",
+        "description": "Go ahead"
       },
-      "loss": {
-        "title": "Не отчаивайтесь!",
-        "description": "Отрицательный результат тоже результат, попробуйте торговать по прогнозу"
+      "stage1": {
+        "title": "Do not despair!",
+        "description": "Try again, you will definitely succeed!"
       },
-      "action": "Продолжить"
+      "stage2": {
+        "title": "Do not despair!",
+        "description": "Try again, you will definitely succeed!"
+      },
+      "stage3": {
+        "title": "Do not despair!",
+        "description": "Try again, you will definitely succeed!"
+      },
+      "action": "Continue"
     },
     "totalModal": {
-      "title": "Результат торговли в эмуляторе",
-      "description": "По результатам вашей торговли получились следующие результаты",
-      "action": "Закрыть"
+      "title": "The result of trading in the emulator",
+      "description": "As a result of your trading, the following results were obtained",
+      "action": "close"
+    },
+    "introModal": {
+      "title": "Welcome to the trading simulator",
+      "description": "The first and most basic rule is that the forecast can be wrong in time, but practically does not make mistakes in price levels.  <br/>The chart will show an example of such 'resistances'",
+      "action": "Begin"
+    },
+    "introLinesModal": {
+      "title": "Continue by pressing 'play'",
+      "description": "The chart displayed an example of the levels shown by the forecast. <br/>Now you can start the price movement by clicking the 'Play' button",
+      "action": "Begin"
+    },
+    "intro2Modal": {
+      "title": "Now try to trade the movement yourself",
+      "description": "",
+      "action": "Continue"
+    },
+    "intro2LinesModal": {
+      "title": "",
+      "description": "Earlier, we considered a one-line forecast that demonstrates the unambiguity of the price movement. <br/>But there are ambiguous forecasts, in front of you is one of them.  <br/> Try to trade the forecast yourself",
+      "action": "Continue"
     }
   },
   "investing": {
