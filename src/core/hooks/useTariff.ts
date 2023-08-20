@@ -19,7 +19,6 @@ const useTariff = () => {
     const simulatorCompleate = Cookies.get('simulator-compleate');
 
     if (!simulatorCompleate) {
-      dispatch(setSimulator({ enabled: true }));
       navigate('?simguide');
 
       return;

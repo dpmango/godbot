@@ -5,10 +5,12 @@ import { Trans } from 'react-i18next';
 export const SimGuide = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('simguide');
 
   const closeModal = () => {
     navigate(pathname);
+    dispatch(setSimulator({ enabled: true }));
   };
 
   const modalRef = useRef(null);

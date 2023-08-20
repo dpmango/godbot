@@ -15,13 +15,6 @@ function lazyImport<
   });
 }
 
-// import { Authorization } from '@/pages/Authorization.page';
-// import { Education } from '@/pages/Education.page';
-// import { FaqPage } from '@/pages/Faq.page';
-// import { HomePage } from '@/pages/Home.page';
-// import { NotFound } from '@/pages/NotFound.page';
-// import { Partner } from '@/pages/Partner.page';
-// import { UiPage } from '@/pages/Ui.page';
 const { Authorization } = lazyImport(() => import('./Authorization.page'), 'Authorization');
 const { Education } = lazyImport(() => import('./Education.page'), 'Education');
 const { FaqPage } = lazyImport(() => import('./Faq.page'), 'FaqPage');
