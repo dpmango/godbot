@@ -4,7 +4,7 @@ import { Modal } from '@ui';
 import { Trans } from 'react-i18next';
 
 interface IProps {
-  namespace: 'introModal' | 'introLinesModal';
+  namespace: 'introModal' | 'introLinesModal' | 'intro2Modal' | 'intro2LinesModal';
   closeModal: () => void;
 }
 

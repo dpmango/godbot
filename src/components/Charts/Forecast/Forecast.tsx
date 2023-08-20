@@ -70,13 +70,13 @@ export const Forecast = () => {
     tooltipRef,
   });
 
-  const simulatorCompleate = Cookies.get('simulator-compleate');
+  const simulatorCompleate = Cookies.get('simulator-compleate') === 'true';
   const paginatePer = 200;
-  const viewLocked = !tariffActive && simulatorCompleate;
+  const viewLocked = !tariffActive && !allowedFunctions.forecast;
 
   useEffect(() => {
     if (!simulatorCompleate) {
-      dispatch(setSimulator({ enabled: true }));
+      // dispatch(setSimulator({ enabled: true }));
       // navigate('?simguide');
     }
   }, [simulatorCompleate]);
@@ -455,6 +455,7 @@ export const Forecast = () => {
     // setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
   }, [dataSeries, chartLines]);
 
+  console.log({ siulator: simulator.enabled });
   return (
     <>
       <div
@@ -581,12 +582,14 @@ export const Forecast = () => {
                 )}
               </div>
             )}
+
+            <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
+
+            {viewLocked && (
+              <LockScreen sizeModifier="big" section={t('lock')} textModifier={'big'} />
+            )}
           </>
         )}
-
-        <div className={cns('fader fader--chart', legendActive && 'fader--active')}></div>
-
-        {viewLocked && <LockScreen sizeModifier="big" section={t('lock')} textModifier={'big'} />}
       </div>
       {/* <div className="chart__undertext">{t('under-text')}</div> */}
     </>

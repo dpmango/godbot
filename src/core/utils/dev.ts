@@ -5,7 +5,7 @@ export const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-export const VERSION = '0.5.5';
+export const VERSION = '0.5.6';
 
 export const LOG = {
   log: (...args: any) => {
@@ -32,3 +32,10 @@ export const PerformanceLog = (DEV_perf: number, name: string) => {
 };
 
 export const isDevelopmentSite = window.location.host.includes('devgodbot.ru');
+// const markersToSet = updateMarkers.filter(
+//   (x) => (x.time >= currentInterval.to || currentInterval.from) && x.time <= currentInterval.from
+// );
+
+// console.log({ markersToSet });
+
+// lineSeries.instance.setMarkers(markersToSet);

@@ -58,8 +58,6 @@ export const ForecastSimulator = () => {
   } = useAppSelector((state) => state.forecastState);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const { allowedFunctions } = useProfile();
   const { t } = useTranslation('simulator');
 
   // рефы
@@ -78,43 +76,23 @@ export const ForecastSimulator = () => {
       toTz: timeToTz((dayjs('2023-04-11 02:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
       intervalModal: 'stage1',
     },
+    // {
+    //   from: dayjs('2023-04-11 17:30', 'YYYY-MM-DD HH:mm'),
+    //   to: dayjs('2023-04-12 06:00', 'YYYY-MM-DD HH:mm'),
+    //   fromTz: timeToTz(
+    //     (dayjs('2023-04-11 17:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
+    //   ),
+    //   toTz: timeToTz((dayjs('2023-04-12 06:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
+    //   intervalModal: 'stage2',
+    // },
     {
-      from: dayjs('2023-04-11 17:30', 'YYYY-MM-DD HH:mm'),
-      to: dayjs('2023-04-12 06:00', 'YYYY-MM-DD HH:mm'),
-      fromTz: timeToTz(
-        (dayjs('2023-04-11 17:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
-      ),
-      toTz: timeToTz((dayjs('2023-04-12 06:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
-      intervalModal: 'stage2',
-    },
-    {
-      from: dayjs('2023-04-13 10:45', 'YYYY-MM-DD HH:mm'),
+      from: dayjs('2023-04-13 12:30', 'YYYY-MM-DD HH:mm'),
       to: dayjs('2023-04-13 20:00', 'YYYY-MM-DD HH:mm'),
       fromTz: timeToTz(
-        (dayjs('2023-04-13 10:45', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
+        (dayjs('2023-04-13 12:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
       ),
       toTz: timeToTz((dayjs('2023-04-13 20:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
-      intervalModal: 'stage3',
-      channels: true,
-    },
-    {
-      from: dayjs('2023-04-16 13:45', 'YYYY-MM-DD HH:mm'),
-      to: dayjs('2023-04-17 03:00', 'YYYY-MM-DD HH:mm'),
-      fromTz: timeToTz(
-        (dayjs('2023-04-16 13:45', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
-      ),
-      toTz: timeToTz((dayjs('2023-04-17 03:00', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
-      intervalModal: 'stage4',
-      channels: true,
-    },
-    {
-      from: dayjs('2023-04-08 21:30', 'YYYY-MM-DD HH:mm'),
-      to: dayjs('2023-04-10 06:30', 'YYYY-MM-DD HH:mm'),
-      fromTz: timeToTz(
-        (dayjs('2023-04-08 21:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp
-      ),
-      toTz: timeToTz((dayjs('2023-04-10 06:30', 'YYYY-MM-DD HH:mm').unix() * 1000) as UTCTimestamp),
-      intervalModal: 'stage5',
+      intervalModal: 'stage2',
       channels: true,
     },
   ]);
@@ -124,7 +102,7 @@ export const ForecastSimulator = () => {
   const [simulatorCurrentTime, setSimulatorCurrentTime] = useState<UTCTimestamp | null>(null);
   const [simulatorTimeline, setSimulatorTimeline] = useState<ISimulatorTimeline>({
     paused: true,
-    speed: 10,
+    speed: 30,
   });
   const [simulatorTimelineIntervals, setSimulatorTimelineIntervals] = useState<
     { from: UTCTimestamp; to: UTCTimestamp }[]
@@ -142,6 +120,7 @@ export const ForecastSimulator = () => {
   const [endGame, setEndGame] = useState<boolean>(false);
 
   const [updateMarkers, setUpdateMarkers] = useState<SeriesMarker<any>[]>([]);
+  const [guideChartLines, setGuideChartLines] = useState<IPriceLine[]>([]);
 
   // логика открытия / закрытия / изминения позиции симулятора
   const changePosition = useCallback(
@@ -247,7 +226,7 @@ export const ForecastSimulator = () => {
     if (quantity > 0) {
       changePosition(dir === 'long' ? 'short' : 'long', quantity);
     }
-  }, [simulatorPosition]);
+  }, [simulatorPosition, changePosition]);
 
   // таймлайн
   const handleSimulatorPausedClick = useCallback(() => {
@@ -270,16 +249,16 @@ export const ForecastSimulator = () => {
   // установка скорости (всплывающий диалог)
   const [simulatorSpeedEnabled, setSimulatorSpeedEnabled] = useState(false);
 
-  const simulatorSpeedOptions = useMemo(() => {
-    return [
-      { value: 10, label: '10 upd per 1 sec' },
-      { value: 3, label: '3 upd per 1 sec' },
-      { value: 1, label: '1 upd per 1 sec' },
-      { value: 0.5, label: '1 upd per 2 sec' },
-      { value: 0.3, label: '1 upd per 3 sec' },
-      { value: 0.1, label: '1 upd per 10 sec' },
-    ];
-  }, []);
+  // const simulatorSpeedOptions = useMemo(() => {
+  //   return [
+  //     { value: 10, label: '10 upd per 1 sec' },
+  //     { value: 3, label: '3 upd per 1 sec' },
+  //     { value: 1, label: '1 upd per 1 sec' },
+  //     { value: 0.5, label: '1 upd per 2 sec' },
+  //     { value: 0.3, label: '1 upd per 3 sec' },
+  //     { value: 0.1, label: '1 upd per 10 sec' },
+  //   ];
+  // }, []);
 
   const speedSelectRef = useRef(null);
   useClickOutside(speedSelectRef, () => setSimulatorSpeedEnabled(false));
@@ -379,7 +358,8 @@ export const ForecastSimulator = () => {
 
   const resetToFirstStage = useCallback(() => {
     updateSimulatorToTime(stages[0].fromTz);
-  }, [stages, simulatorTimelineIntervals]);
+    setDealsMarkers([]);
+  }, [stages]);
 
   // установка горизонтальных линиий с инофрмацией по позции
   const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
@@ -417,13 +397,11 @@ export const ForecastSimulator = () => {
 
   // отображение сделок на графике
   useEffect(() => {
-    if (dealsMarkers.length) {
-      chartLines.forEach((lineSeries, idx) => {
-        if (lineSeries.id === 'RealLine') {
-          lineSeries.instance.setMarkers(dealsMarkers);
-        }
-      });
-    }
+    chartLines.forEach((lineSeries, idx) => {
+      if (lineSeries.id === 'RealLine') {
+        lineSeries.instance.setMarkers(dealsMarkers);
+      }
+    });
   }, [dealsMarkers]);
 
   // показ прогноза по интервалам (промежуточки между пересчетами)
@@ -447,14 +425,30 @@ export const ForecastSimulator = () => {
             // todo - неочевидный функционал, рефактор
             setIntervalRun((prev) => prev + 1);
             // также проставляет маркеры
+
             if (updateMarkers.length) {
-              lineSeries.instance.setMarkers(
-                updateMarkers.filter(
-                  (x) =>
-                    (x.time >= currentInterval.to || currentInterval.from) &&
-                    x.time <= currentInterval.from
-                )
+              const markersToSet = updateMarkers.filter(
+                (x) =>
+                  (x.time >= currentInterval.to || currentInterval.from) &&
+                  x.time <= currentInterval.from
               );
+
+              lineSeries.instance.setMarkers(markersToSet);
+
+              // перерисовывется гайды на первом участке обучения
+              if (markersToSet.some((x) => x.time === 1681151400)) {
+                drawGuides([
+                  {
+                    price: 28600,
+                  },
+                  {
+                    price: 29000,
+                  },
+                  {
+                    price: 29200,
+                  },
+                ]);
+              }
             }
           }
         }
@@ -462,21 +456,58 @@ export const ForecastSimulator = () => {
     }
   }, [currentInterval, dataSeries]);
 
+  const drawGuides = useCallback(
+    (guides: { price: number }[]) => {
+      const basePriceLine = {
+        color: '#D1D100',
+        lineWidth: 4 as any,
+        lineStyle: LineStyle.Dashed,
+        axisLabelVisible: false,
+        title: '',
+      };
+
+      const guidesToDraw = guides.map((x) => ({ ...basePriceLine, ...x }));
+
+      chartLines.forEach((lineSeries, idx) => {
+        if (lineSeries.id === 'Forecast') {
+          // cleanup
+          guideChartLines.forEach((instance) => {
+            lineSeries.instance.removePriceLine(instance);
+          });
+
+          const instances = [] as IPriceLine[];
+          guidesToDraw.forEach((g) => {
+            const inst = lineSeries.instance.createPriceLine(g);
+            instances.push(inst);
+          });
+
+          setGuideChartLines(instances);
+        }
+      });
+    },
+    [chartLines, guideChartLines]
+  );
+
   // при закрытии модального логика перехода на следующий стейдж либо конец игры
   const handleModalClose = useCallback(
     (isLossResult?: boolean) => {
       setModalManager(null);
+
       if (isLossResult) {
         resetToFirstStage();
       } else {
         // определение окончания либо следующего этапа симулятора
         let nextStageIdx = stageActiveID + 1;
-        if (nextStageIdx >= stages.length - 1) {
-          nextStageIdx = stages.length - 1;
-
+        if (nextStageIdx >= stages.length) {
+          nextStageIdx = stages.length;
           setEndGame(true);
         }
+
         setStageActiveID(nextStageIdx);
+
+        if (nextStageIdx === 1) {
+          setModalManager('intro2Modal');
+        }
       }
 
       // сброс стейта
@@ -490,6 +521,41 @@ export const ForecastSimulator = () => {
     },
     [stageActiveID, resetToFirstStage, stages]
   );
+
+  const handleIntroClose = useCallback(() => {
+    setModalManager(null);
+
+    if (!chartLines.length) return;
+
+    drawGuides([
+      {
+        price: 28265,
+      },
+      {
+        price: 28220,
+      },
+    ]);
+
+    setTimeout(() => {
+      setModalManager('introLinesModal');
+    }, 4000);
+  }, [chartLines]);
+
+  const handleIntro2Close = useCallback(() => {
+    setModalManager(null);
+  }, []);
+
+  const handleIntro3Close = useCallback(() => {
+    setModalManager(null);
+
+    setTimeout(() => {
+      setModalManager('intro2LinesModal');
+    }, 2500);
+  }, [chartLines]);
+
+  const handleIntro4Close = useCallback(() => {
+    setModalManager(null);
+  }, [chartLines]);
 
   // Хук с утилитами (data-blind)
   const {
@@ -534,6 +600,7 @@ export const ForecastSimulator = () => {
 
     if (!chart.current || isForced) {
       // Создание инстанса графика
+      if (isForced) chart.current?.remove();
 
       const chartInstance = createChart(
         containerRef.current,
@@ -663,12 +730,11 @@ export const ForecastSimulator = () => {
   useEffect(() => {
     const batchFetchChart = async () => {
       let collectedData = [] as IGraphTickDto[];
+
       if (currentStage.intervalModal === 'stage1') {
         collectedData = simulatorDataStage1 as IGraphTickDto[];
       } else if (currentStage.intervalModal === 'stage2') {
         collectedData = simulatorDataStage2 as IGraphTickDto[];
-      } else if (currentStage.intervalModal === 'stage3') {
-        collectedData = simulatorDataStage3 as IGraphTickDto[];
       }
 
       collectedData = collectedData
@@ -707,38 +773,6 @@ export const ForecastSimulator = () => {
     requestChart();
   }, [currentCoin, currentTime, currentStage]);
 
-  // горизонтальные гайды
-  useEffect(() => {
-    if (!chartLines.length) return;
-
-    if (currentStage.intervalModal === 'stage1') {
-      const basePriceLine = {
-        color: '#D1D100',
-        lineWidth: 4 as any,
-        lineStyle: LineStyle.Dashed,
-        axisLabelVisible: false,
-      };
-
-      const horozontalGuider = {
-        ...basePriceLine,
-        price: 28265,
-        title: 'demo1',
-      };
-      const horozontalGuider2 = {
-        ...basePriceLine,
-        price: 28220,
-        title: 'demo2',
-      };
-
-      chartLines.forEach((lineSeries, idx) => {
-        if (lineSeries.id === 'Forecast') {
-          lineSeries.instance.createPriceLine(horozontalGuider);
-          lineSeries.instance.createPriceLine(horozontalGuider2);
-        }
-      });
-    }
-  }, [currentStage, chartLines]);
-
   // обновление данных и перерисовка
   useEffect(() => {
     if (data && data.length && simulatorDataLoaded) {
@@ -754,9 +788,7 @@ export const ForecastSimulator = () => {
   useEffect(() => {
     if (endGame) {
       dispatch(setSimulator({ enabled: false }));
-      navigate('?simguide');
-
-      Cookies.get('simulator-compleate');
+      Cookies.set('simulator-compleate', 'true');
     }
   }, [endGame]);
 
@@ -795,12 +827,12 @@ export const ForecastSimulator = () => {
             </div> */}
 
             <div className="sim__speed speed">
-              <div
+              {/* <div
                 className={cns('speed__current', simulatorSpeedEnabled && '_active')}
                 onClick={() => setSimulatorSpeedEnabled(!simulatorSpeedEnabled)}>
                 {simulatorTimeline.speed}x
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 className={cns('speed__select', simulatorSpeedEnabled && '_active')}
                 ref={speedSelectRef}>
                 <div className="speed__select-list">
@@ -820,7 +852,7 @@ export const ForecastSimulator = () => {
                     </span>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* {simulatorCurrentTime && (
               <div className="sim__time">
@@ -896,6 +928,9 @@ export const ForecastSimulator = () => {
               Flatten
             </div>
           </div>
+          <div className="sim__close" onClick={() => dispatch(setSimulator({ enabled: false }))}>
+            <SvgIcon name="close" /> закрыть симулятор (temp)
+          </div>
         </div>
       </div>
       <div className="chart-watermark">
@@ -938,10 +973,16 @@ export const ForecastSimulator = () => {
       )}
 
       {modalManager === 'introModal' && (
-        <ForecastSimulatorModalInfo namespace="introModal" closeModal={handleModalClose} />
+        <ForecastSimulatorModalInfo namespace="introModal" closeModal={handleIntroClose} />
       )}
       {modalManager === 'introLinesModal' && (
-        <ForecastSimulatorModalInfo namespace="introLinesModal" closeModal={handleModalClose} />
+        <ForecastSimulatorModalInfo namespace="introLinesModal" closeModal={handleIntro2Close} />
+      )}
+      {modalManager === 'intro2Modal' && (
+        <ForecastSimulatorModalInfo namespace="intro2Modal" closeModal={handleIntro3Close} />
+      )}
+      {modalManager === 'intro2LinesModal' && (
+        <ForecastSimulatorModalInfo namespace="intro2LinesModal" closeModal={handleIntro4Close} />
       )}
     </div>
   );
