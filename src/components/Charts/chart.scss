@@ -263,24 +263,34 @@
 
 @media only screen and (width <= 767px) {
   .chart-legend-tw {
-    flex-direction: column;
+    max-width: 130px;
+    margin-top: -60px;
+    margin-right: -12px;
+    // flex-direction: column;
     align-items: flex-start;
-
     label {
-      flex-basis: 100%;
+      flex-basis: auto;
       margin-top: 6px;
+      margin-right: 12px;
 
       &:not(:last-child) {
-        margin-right: 0;
+        margin-right: 12px;
+      }
+      &:nth-of-type(3) {
+        display: none;
       }
     }
   }
 
+  .chart__head-time {
+    margin-top: 12px;
+    width: 100%;
+  }
+
   .chart-legend-view {
     margin-right: 0;
-
-    &:not(:first-child) {
-      margin-top: 12px;
+    &._history {
+      margin-right: auto;
     }
   }
 }

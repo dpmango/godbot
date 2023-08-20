@@ -785,10 +785,13 @@ export const ForecastSimulator = () => {
     }
   }, [data, simulatorDataLoaded]);
 
+  const { activateTrial } = useTariff();
+
   useEffect(() => {
     if (endGame) {
       dispatch(setSimulator({ enabled: false }));
       Cookies.set('simulator-compleate', 'true');
+      activateTrial();
     }
   }, [endGame]);
 
