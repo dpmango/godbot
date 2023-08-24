@@ -28,3 +28,4 @@ yarn-error.log*
 .env
 
 .eslintrc-auto-import.json
+.zip

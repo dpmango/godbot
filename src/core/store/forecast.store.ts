@@ -102,6 +102,7 @@ export const forecastState = createSlice({
       state.data = action.payload;
     },
     flushDataState(state) {
+      console.log('flush data state');
       state.data = [];
       state.dataNav = { max: 100, points: 0, requested: [] };
     },
@@ -143,9 +144,9 @@ export const forecastState = createSlice({
        Проверка, что пока выполнялся реквест, пользователь не поменял график
        Чтобы данные с прошлого графика не пришли на другой график 
       */
-      const isSameRequest = action.meta.requestId === state.requestId;
+      // const isSameRequest = action.meta.requestId === state.requestId;
 
-      if (action.payload.data && isSameRequest) {
+      if (action.payload.data) {
         const { data, meta, history, metadata } = action.payload;
 
         if (metadata.currency !== state.currentCoin || metadata.interval !== state.currentTime) {

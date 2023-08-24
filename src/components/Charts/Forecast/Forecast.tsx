@@ -38,7 +38,7 @@ export const Forecast = () => {
   const [scrollRange, setScrollRange] = useState<LogicalRange>();
   const [crosshair, setCrosshair] = useState<MouseEventParams | null>(null);
   const [returnVisible, setReturnVisible] = useState<boolean>(false);
-  // const [isForecastOutdated, setIsForecastOutdated] = useState<boolean>(true);
+  const [isForecastOutdated, setIsForecastOutdated] = useState<boolean>(true);
   const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 250);
   const [blockPointX, setBlockPointX] = useState(500);
@@ -73,13 +73,6 @@ export const Forecast = () => {
   const simulatorCompleate = Cookies.get('simulator-compleate') === 'true';
   const paginatePer = 200;
   const viewLocked = !tariffActive && !allowedFunctions.forecast;
-
-  useEffect(() => {
-    if (!simulatorCompleate) {
-      // dispatch(setSimulator({ enabled: true }));
-      // navigate('?simguide');
-    }
-  }, [simulatorCompleate]);
 
   // основная функция отрисовки TW
   const initOrUpdateChart = async (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
@@ -460,7 +453,7 @@ export const Forecast = () => {
     const realLineLastItemTime = getChartLastPoint(1);
     const forecastLastItemTime = getChartLastPoint(2);
 
-    // setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
+    setIsForecastOutdated(realLineLastItemTime > forecastLastItemTime);
   }, [dataSeries, chartLines]);
 
   return (
@@ -562,7 +555,7 @@ export const Forecast = () => {
                 </div>
 
                 {/* Нет актуальных предсказаний на графике, выводим предупреждение */}
-                {/* {!isForceGraph && isForecastOutdated && (
+                {!isForceGraph && isForecastOutdated && (
                   <>
                     <div className={'fader fader--active chart-popup'}>
                       <div className="fader__text fader__text--big">
@@ -582,7 +575,7 @@ export const Forecast = () => {
                       </div>
                     </div>
                   </>
-                )} */}
+                )}
 
                 {containerRef?.current && (
                   <BlockGraphPopup graphRef={containerRef?.current} pointX={blockPointX} />

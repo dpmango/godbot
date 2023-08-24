@@ -138,7 +138,7 @@ export const InvestingChart: React.FC<IInvestingChartProps> = ({ id }) => {
       },
     ];
 
-    if (!chart.current) {
+    if (!chart.current && containerRef.current) {
       const chartInstance = createChart(containerRef.current, {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
