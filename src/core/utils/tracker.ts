@@ -10,4 +10,8 @@ export const reachGoal = (ymGoal: string, gtagGoal?: string) => {
     console.warn('reach gtag goal', gtagGoal);
     window.gtag('event', gtagGoal);
   }
+
+  if (window.fbq && gtagGoal) {
+    window.fbq('trackCustom', gtagGoal);
+  }
 };

@@ -27,6 +27,7 @@ declare global {
   interface Window {
     gtag?: (key: string, trackingId: string, config?: { page_path: string }) => void;
     ym?: (key: number, action: string, params: string) => void;
+    fbq?: (key: string, event: string, options?: any) => void;
   }
   interface _teletypeWidget {
     init: any;
