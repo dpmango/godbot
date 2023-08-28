@@ -8,7 +8,7 @@
   text-transform: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .select {
     min-width: 77px;
     font-size: 7px;
@@ -16,7 +16,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .select {
     min-width: 121px;
     font-size: 10px;
@@ -50,7 +50,7 @@
   fill: var(--text);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .select__opener svg {
     width: 12px;
     height: 12px;
@@ -58,7 +58,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .select__opener svg {
     width: 18px;
     height: 18px;
@@ -66,7 +66,7 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .select__opener {
     padding: 3px 24px 3px 4px;
   }
@@ -76,7 +76,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .select__opener {
     padding: 4px 32px 4px 8px;
   }
@@ -115,13 +115,13 @@
   backface-visibility: hidden;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .select__dropdown {
     padding-top: 20px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .select__dropdown {
     padding-top: 24px;
   }
@@ -146,7 +146,7 @@
   margin-left: auto;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .select__dropdown-link {
     padding: 3px 4px;
   }
@@ -158,7 +158,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .select__dropdown-link {
     padding: 4px 8px;
   }
@@ -186,14 +186,14 @@
   margin-left: auto;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .select__dropdown-link svg {
     width: 8px;
     height: 8px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .select__dropdown-link svg {
     width: 12px;
     height: 12px;

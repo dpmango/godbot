@@ -7,7 +7,7 @@
   box-shadow: var(--block-shadow);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend:not(:first-child) {
     margin-top: 20px;
   }
@@ -18,7 +18,7 @@
 
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend {
     padding: 26px 20px 20px;
   }
@@ -39,14 +39,14 @@
   flex-wrap: wrap;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__head {
     gap: 6px;
     margin-bottom: 15px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__head {
     gap: 10px 20px;
     margin-bottom: 30px;
@@ -60,14 +60,14 @@
   line-height: 14px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__title {
     order: 1;
     width: calc(100% - 138px);
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__title {
     display: none;
   }
@@ -77,14 +77,14 @@
   flex: 0 0 auto;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__head .select {
     order: 2;
     width: 102px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__head .select {
     order: 4;
     width: 121px;
@@ -102,14 +102,14 @@
   border-radius: 10px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__title-winrate {
     font-size: 8px;
     order: 5;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__title-winrate {
     font-size: 10px;
     order: 2;
@@ -129,7 +129,7 @@
   gap: 10px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__calc {
     width: calc(100% - 105px);
     order: 4;
@@ -137,7 +137,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__calc {
     order: 1;
     font-size: 14px;
@@ -165,13 +165,13 @@
   outline: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__calc-input input {
     font-size: 8px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__calc-input input {
     font-size: 10px;
   }
@@ -207,7 +207,7 @@
   margin-left: auto;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__head-btn {
     width: 24px;
     height: 24px;
@@ -226,7 +226,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__head-btn-empty {
     order: 3;
   }
@@ -253,7 +253,7 @@
   line-height: 14px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__table {
     margin-left: -10px;
     margin-right: -10px;
@@ -262,7 +262,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__table {
     margin-left: -20px;
     margin-right: -20px;
@@ -270,7 +270,7 @@
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .recommend__table {
     font-size: 12px;
   }
@@ -286,14 +286,14 @@
   border-width: 0;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__table table {
     border-width: 0 10px 0 0;
     min-width: 716px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__table table {
     border-width: 0 20px 0 0;
     min-width: 100%;
@@ -313,13 +313,13 @@
   padding-right: 0;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__table th {
     padding-bottom: 4px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__table th {
     padding-bottom: 16px;
   }
@@ -355,7 +355,7 @@
   object-position: center;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__hide-mobile {
     display: none;
   }
@@ -436,7 +436,7 @@
   vertical-align: top;
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__table-pricelist {
     gap: 3px;
   }
@@ -449,13 +449,13 @@
   list-style: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__table-pricelist li {
     padding-left: 30px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__table-pricelist li {
     padding-left: 40px;
   }
@@ -475,7 +475,7 @@
   background-position: 50% 50%;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .recommend__table-pstatus {
     width: 25px;
     height: 12px;
@@ -484,7 +484,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .recommend__table-pstatus {
     width: 30px;
     height: 15px;

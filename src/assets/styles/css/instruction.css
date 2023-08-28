@@ -1,6 +1,6 @@
 
 
-@media only screen and (width <= 1279px), only screen and (height <= 749px) {
+@media only screen and (max-width: 1279px), only screen and (height <= 749px) {
   .modal--instruction,
   .instruction__popup,
   .fader--instruction,
@@ -9,7 +9,7 @@
   }
 }
 
-@media only screen and (width >= 1280px) {
+@media only screen and (min-width: 1280px) {
   .fader--instruction {
     position: fixed !important;
     z-index: 900;
@@ -41,7 +41,7 @@
     transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 
-  @media only screen and (width >= 1440px) {
+  @media only screen and (min-width: 1440px) {
     .instruction__popup {
       left: 50%;
       right: auto;
@@ -58,7 +58,7 @@
     margin-right: 267px;
   }
 
-  @media only screen and (width >= 1440px) {
+  @media only screen and (min-width: 1440px) {
     .instruction__popup--10,
     .instruction__popup--11 {
       margin-left: -207px;
@@ -214,7 +214,7 @@
     box-shadow: var(--block-shadow);
   }
 
-  @media only screen and (width >= 1440px) {
+  @media only screen and (min-width: 1440px) {
     .instruction-settings-highlight {
       left: 50%;
       right: auto;
@@ -310,7 +310,7 @@
     box-shadow: var(--block-shadow);
   }
 
-  @media only screen and (width >= 1440px) {
+  @media only screen and (min-width: 1440px) {
     .instruction-menu-highlight {
       left: 50%;
       right: auto;

@@ -4,7 +4,7 @@
   position: relative;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .faq__empty {
     padding: 7px 0 0 40px;
     font-size: 12px;
@@ -12,7 +12,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .faq__empty {
     padding: 9px 0 0 60px;
     font-size: 16px;
@@ -20,13 +20,13 @@
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .faq__empty {
     margin: 26px 0 0;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .faq__empty {
     margin: 12px 0 0;
   }
@@ -37,14 +37,14 @@
   line-height: 1.2;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .faq__empty-title {
     margin-bottom: 15px;
     font-size: 14px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .faq__empty-title {
     margin-bottom: 15px;
     font-size: 18px;
@@ -59,7 +59,7 @@
   background: var(--blue);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .faq__empty-close {
     width: 30px;
     height: 30px;
@@ -67,7 +67,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .faq__empty-close {
     width: 40px;
     height: 40px;
@@ -95,14 +95,14 @@
   transition: background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .faq__empty-close::before,
   .faq__empty-close::after {
     width: 15px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .faq__empty-close::before,
   .faq__empty-close::after {
     width: 20px;

@@ -39,7 +39,7 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .question__title {
     padding: 10px 40px 10px 10px;
     font-size: 14px;
@@ -53,7 +53,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .question__title {
     padding: 29px 115px 29px 30px;
     font-size: 18px;
@@ -75,7 +75,7 @@
   display: block;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .question__inner {
     padding: 5px 30px 20px 10px;
     font-size: 12px;
@@ -83,7 +83,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .question__inner {
     padding: 0 115px 47px 30px;
     font-size: 16px;
@@ -117,7 +117,7 @@
   font-weight: bold;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .question__inner h1,
   .question__inner .h1 {
     font-size: 16px;
@@ -129,7 +129,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .question__inner h1,
   .question__inner .h1 {
     font-size: 14px;
@@ -213,13 +213,13 @@
   display: block;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .question__media {
     margin: 12px 0;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .question__media {
     margin: 30px 0;
   }
@@ -241,14 +241,14 @@
   background-size: auto 75%;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .question__play {
     width: 78px;
     height: 78px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .question__play {
     width: 122px;
     height: 122px;

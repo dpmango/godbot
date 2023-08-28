@@ -5,14 +5,14 @@
   display: flex;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tabs {
     margin-bottom: 10px;
     gap: 8px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tabs {
     margin-bottom: -10px;
   }
@@ -45,7 +45,7 @@
   background-color: var(--bg-disabled);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tabs__link {
     display: flex;
     align-items: center;
@@ -61,7 +61,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tabs__link {
     padding: 20px 25px 30px;
     font-size: 16px;

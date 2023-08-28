@@ -12,7 +12,7 @@
   text-align: center;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__empty-text {
     padding: 0 0 20px;
     font-size: 12px;
@@ -20,7 +20,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .partnership__empty-text {
     padding: 0 0 30px;
     font-size: 16px;
@@ -35,14 +35,14 @@
   line-height: 1;
 }
 
-@media only screen and (width >= 1180px) {
+@media only screen and (min-width: 1180px) {
   .partnership__balance {
     grid-template-columns: 1fr repeat(3, minmax(230px, calc((40.8088% - 20px) / 2)));
     grid-template-rows: 1fr;
   }
 }
 
-@media only screen and (width >= 1024px) and (width <= 1179px) {
+@media only screen and (min-width: 1024px) and (max-width: 1179px) {
   .partnership__balance {
     grid-template-columns: repeat(3, 1fr) 40.8088%;
     grid-template-rows: 1fr;
@@ -50,7 +50,7 @@
   }
 }
 
-@media only screen and (width >= 768px) and (width <= 1023px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
   .partnership__balance {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -63,13 +63,13 @@
   gap: 20px;
 }
 
-@media only screen and (width >= 1024px) and (width <= 1179px) {
+@media only screen and (min-width: 1024px) and (max-width: 1179px) {
   .partnership__balance-acc {
     grid-area: 1 / 4 / 2 / 5;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .partnership__balance-acc:only-child {
     grid-area: 1 / 1 / 2 / 5;
 
@@ -77,13 +77,13 @@
   }
 }
 
-@media only screen and (width >= 768px) and (width <= 1023px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
   .partnership__balance-acc {
     grid-area: 1 / 1 / 2 / 4;
   }
 }
 
-@media only screen and (width <= 768px) {
+@media only screen and (max-width: 768px) {
   .partnership__balance-acc {
     flex-direction: column;
     align-items: stretch;
@@ -98,14 +98,14 @@
   line-height: 20px;
 }
 
-@media only screen and (width >= 1024px) and (width <= 1179px) {
+@media only screen and (min-width: 1024px) and (width <= 1179px) {
   .partnership__balance-acc:not(:only-child) .partnership__balance-label {
     width: 100%;
     margin-bottom: -10px;
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__balance-label {
     width: 100%;
     margin-bottom: -10px;
@@ -148,7 +148,7 @@
   gap: 0 18px;
 }
 
-@media only screen and (width >= 1024px) and (width <= 1179px) {
+@media only screen and (min-width: 1024px) and (width <= 1179px) {
   .partnership__balance-info {
     margin-top: 30px;
     padding-left: 22px;
@@ -179,14 +179,14 @@
   display: flex;
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .partnership__grid {
     flex-direction: column;
     gap: 20px 0;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .partnership__grid {
     justify-content: space-between;
   }
@@ -199,13 +199,13 @@
   gap: 20px 0;
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .partnership__side {
     width: 100%;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .partnership__side--left {
     width: calc(59.1912% - 20px);
   }
@@ -223,13 +223,13 @@
   border-radius: 10px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__block {
     padding: 22px 10px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .partnership__block {
     padding: 30px 20px 24px;
   }
@@ -243,7 +243,7 @@
   padding-bottom: 30px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__block--reflink {
     text-align: center;
   }
@@ -255,14 +255,14 @@
   text-align: center;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__block--discount {
     font-size: 12px;
     line-height: 14px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .partnership__block--discount {
     font-size: 16px;
     line-height: 20px;
@@ -299,7 +299,7 @@
   overflow-x: auto;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__table {
     margin-left: -10px;
     margin-right: -10px;
@@ -307,7 +307,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .partnership__table {
     margin-left: -20px;
     margin-right: -20px;
@@ -326,13 +326,13 @@
   padding: 0;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__table table {
     border-right-width: 10px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .partnership__table table {
     border-right-width: 20px;
   }
@@ -391,13 +391,13 @@
   gap: 20px 0;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__reflink {
     align-items: center;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .partnership__reflink {
     align-items: flex-start;
   }
@@ -425,13 +425,13 @@
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .partnership__individual {
     gap: 10px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .partnership__individual {
     gap: 20px;
   }

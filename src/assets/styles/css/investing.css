@@ -1,6 +1,6 @@
 
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .investing {
     position: relative;
     padding: 20px;
@@ -10,7 +10,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .investing:not(.investing--active) {
     display: none;
   }
@@ -37,7 +37,7 @@
   box-shadow: var(--block-shadow);
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .investing__block {
     background: var(--block-bg2);
   }

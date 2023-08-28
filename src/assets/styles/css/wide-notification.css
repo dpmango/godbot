@@ -17,7 +17,7 @@
   text-shadow: 0 0 4px rgb(0 0 0 / 40%);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification {
     bottom: 16px;
     max-width: 280px;
@@ -31,7 +31,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification {
     display: flex;
     bottom: 40px;
@@ -59,7 +59,7 @@
   text-shadow: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__close {
     overflow: hidden;
     right: 0;
@@ -69,7 +69,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__close {
     right: 30px;
     text-align: right;
@@ -93,14 +93,14 @@
   border-radius: 0.75px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__close::before,
   .wide-notification__close::after {
     right: 10px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__close::before,
   .wide-notification__close::after {
     right: -3px;
@@ -121,7 +121,7 @@
   background-size: contain;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__image {
     position: absolute;
     top: 8px;
@@ -139,7 +139,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__image {
     flex: 0 0 auto;
     width: 105px;
@@ -157,7 +157,7 @@
   flex-direction: column;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__text {
     align-items: flex-start;
     padding-bottom: 2px;
@@ -169,7 +169,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__text {
     flex: 1;
     align-items: center;
@@ -191,13 +191,13 @@
   font-weight: 600;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__big {
     font-size: 12px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__big {
     font-size: 16px;
   }
@@ -212,7 +212,7 @@
   text-shadow: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .btn--wide-notification-gift {
     position: absolute;
     top: 20px;
@@ -229,14 +229,14 @@
   text-shadow: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__timer {
     padding: 15px 0 0;
     gap: 3px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__timer {
     flex: 0 0 auto;
     width: 326px;
@@ -255,7 +255,7 @@
   border-radius: 10px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__num {
     height: 34px;
     font-size: 20px;
@@ -263,7 +263,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__num {
     height: 58px;
     font-size: 40px;
@@ -279,13 +279,13 @@
   margin: 0 1px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__dots {
     gap: 7px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__dots {
     gap: 8px;
   }
@@ -299,7 +299,7 @@
   border-radius: 50%;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .wide-notification__dots::before,
   .wide-notification__dots::after {
     width: 4px;
@@ -307,7 +307,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .wide-notification__dots::before,
   .wide-notification__dots::after {
     width: 6px;

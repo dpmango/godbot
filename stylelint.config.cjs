@@ -12,6 +12,7 @@ module.exports = {
     'selector-class-pattern': null,
     'import-notation': null,
     'number-max-precision': null,
+    'media-feature-range-notation': null,
     'selector-pseudo-element-no-unknown': [
       true,
       {

@@ -14,6 +14,7 @@ body {
   flex: 1 0 auto;
   flex-direction: column;
   width: 100%;
+  min-height: 100vh;
   color: var(--text);
   background: var(--bg);
   gap: 30px 0;
@@ -254,7 +255,7 @@ textarea:focus::placeholder {
   height: 24px;
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .container--login {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -331,14 +332,14 @@ textarea:focus::placeholder {
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .login__image {
     display: none;
     visibility: hidden;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .container--login {
     flex-direction: row;
     justify-content: space-around;

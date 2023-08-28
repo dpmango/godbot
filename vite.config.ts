@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 
 import react from '@vitejs/plugin-react';
+import autoprefixer from 'autoprefixer';
 import * as path from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig, loadEnv } from 'vite';
@@ -103,6 +104,12 @@ export default ({ mode }) => {
             ...renderChunks(dependencies),
           },
         },
+      },
+    },
+    css: {
+      postcss: {
+        // @ts-ignore
+        plugins: [autoprefixer()],
       },
     },
     // css: {

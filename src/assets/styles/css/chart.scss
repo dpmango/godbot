@@ -10,13 +10,13 @@
   display: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart {
     padding: 12px 10px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart {
     padding: 20px;
   }
@@ -38,7 +38,7 @@
   color: var(--grey);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__undertext {
     margin-left: 10px;
     font-size: 10px;
@@ -53,7 +53,7 @@
   gap: 6px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__head {
     justify-content: flex-end;
     margin-bottom: 0;
@@ -61,14 +61,14 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart__head {
     margin-bottom: 20px;
     gap: 10px;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .chart__head {
     gap: 10px 20px;
   }
@@ -79,7 +79,7 @@
   order: 1;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__head-title {
     display: none;
     width: calc(100% - 192px);
@@ -87,20 +87,20 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart__head-title {
     font-size: 14px;
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .chart__head-title {
     flex: 0 0 auto;
     line-height: 14px;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .chart__head-title {
     min-width: 124px;
     line-height: 1;
@@ -118,7 +118,7 @@
   min-width: 0;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__head-filters {
     width: 186px;
     margin-right: auto;
@@ -134,7 +134,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart__head-filters {
     gap: 10px;
     width: 252px;
@@ -152,7 +152,7 @@
   order: 3;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__head-time {
     flex: 0 0 auto;
     width: calc(100% - 72px);
@@ -165,20 +165,20 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart__head-time {
     text-align: center;
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .chart__head-time {
     font-size: 10px;
     line-height: 1;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .chart__head-time {
     font-size: 12px;
     line-height: 1.46;
@@ -198,7 +198,7 @@
   margin-bottom: -4px;
 }
 
-@media only screen and (width <= 1279px) {
+@media only screen and (max-width: 1279px) {
   .chart__head-btn {
     width: 30px;
     height: 30px;
@@ -215,7 +215,7 @@
   }
 }
 
-@media only screen and (width >= 1024px) and (width <= 1279px) {
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
   .chart__head-btn {
     width: 40px;
     height: 40px;
@@ -226,7 +226,7 @@
   }
 }
 
-@media only screen and (width >= 1280px) {
+@media only screen and (min-width: 1280px) {
   .chart__head-btn {
     height: 40px;
     padding: 0 15px;
@@ -260,20 +260,20 @@
   z-index: 96;
 }
 
-@media only screen and (width <= 768px) {
+@media only screen and (max-width: 768px) {
   .chart__settings-opener--active {
     transform: translate3d(0, -30px, 0);
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .chart__settings-opener {
     width: 30px;
     height: 30px;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .chart__settings-opener {
     width: 40px;
     height: 40px;
@@ -298,14 +298,14 @@
   fill: var(--white);
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .chart__settings-opener svg {
     width: 16px;
     height: 16px;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .chart__settings-opener svg {
     width: 20px;
     height: 20px;
@@ -360,13 +360,13 @@
   box-shadow: var(--block-shadow);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__settings-dropdown {
     padding: 13px 10px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart__settings-dropdown {
     padding: 30px;
   }
@@ -383,7 +383,7 @@
   font-weight: 600;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__settings-title {
     margin: 0 0 20px;
     font-size: 11px;
@@ -391,7 +391,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart__settings-title {
     margin: 0 0 34px;
     font-size: 16px;
@@ -408,14 +408,14 @@
   flex-wrap: wrap;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__settings-checks {
     gap: 10px 0;
     font-size: 11px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .chart__settings-checks {
     gap: 21px 0;
     font-size: 12px;
@@ -443,7 +443,7 @@
   margin: -3px 5px -3px 0;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__settings-checks .checkbox {
     margin-right: -4px;
     transform: scale(0.75);
@@ -467,7 +467,7 @@
   border-radius: 50%;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__settings-line {
     border-width: 3px 0 0;
   }
@@ -486,7 +486,7 @@
   text-transform: uppercase;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart__testing {
     padding: 4px 5px;
     font-size: 7px;
@@ -498,7 +498,7 @@
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .chart__testing {
     order: 4;
   }
@@ -526,13 +526,13 @@
   pointer-events: all;
 }
 
-@media only screen and (height <= 440px) {
+@media only screen and (max-height: 440px) {
   .chart-graph-block__content {
     gap: 10px 0 !important;
   }
 }
 
-@media only screen and (width <= 576px) {
+@media only screen and (max-width: 576px) {
   .chart-graph-block {
     min-width: 130px;
   }

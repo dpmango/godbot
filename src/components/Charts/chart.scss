@@ -11,14 +11,14 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart-container {
     height: 340px;
     max-height: calc(100vh - 290px);
   }
 }
 
-@media only screen and (width <= 579px) {
+@media only screen and (max-width: 579px) {
   .chart-container {
     height: 240px;
   }
@@ -171,7 +171,7 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart-return {
     right: 10px;
     bottom: 30px;
@@ -261,7 +261,7 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .chart-legend-tw {
     position: absolute;
     top: 0;

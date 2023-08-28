@@ -9,7 +9,7 @@
   order: 1;
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header {
     height: 90px;
   }
@@ -30,13 +30,13 @@
   gap: 0 13px;
 }
 
-@media only screen and (width >= 768px) and (width <= 1279px) {
+@media only screen and (min-width: 768px) and (max-width: 1279px) {
   .header__logo {
     margin-right: auto;
   }
 }
 
-@media only screen and (width >= 1440px) {
+@media only screen and (min-width: 1440px) {
   .header__logo {
     margin-right: 32px;
   }
@@ -54,7 +54,7 @@
   fill: var(--text);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__menu-opener {
     position: absolute;
     display: flex;
@@ -120,13 +120,13 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__menu-opener {
     display: none;
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__menu {
     position: fixed;
     overflow: hidden;
@@ -149,7 +149,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__menu {
     display: flex;
     align-items: center;
@@ -157,7 +157,7 @@
   }
 }
 
-@media only screen and (width >= 1280px) {
+@media only screen and (min-width: 1280px) {
   .header__menu {
     flex: 1 1 auto;
   }
@@ -167,7 +167,7 @@
   display: flex;
 }
 
-@media only screen and (width <= 1279px) {
+@media only screen and (max-width: 1279px) {
   .header__links {
     flex-direction: column;
   }
@@ -177,7 +177,7 @@
   }
 }
 
-@media only screen and (width >= 1280px) {
+@media only screen and (min-width: 1280px) {
   .header__links {
     flex: 1 1 auto;
     align-items: center;
@@ -220,13 +220,13 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__links-link:first-child {
     border-top-width: 1px;
   }
 }
 
-@media only screen and (width <= 1279px) {
+@media only screen and (max-width: 1279px) {
   .header__links-link {
     width: 100%;
     padding: 11px 13px 11px 20px;
@@ -234,7 +234,7 @@
   }
 }
 
-@media only screen and (width >= 1280px) {
+@media only screen and (min-width: 1280px) {
   .header__links-link {
     font-size: 12px;
   }
@@ -258,7 +258,7 @@
   fill: var(--disabled);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__lang {
     position: absolute;
     top: 15px;
@@ -266,7 +266,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__lang {
     position: relative;
     flex: 0 0 auto;
@@ -352,7 +352,7 @@
   vertical-align: top;
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__user {
     position: relative;
     flex: 0 0 auto;
@@ -369,7 +369,7 @@
   gap: 0 14px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__user-head {
     position: absolute;
     top: 70px;
@@ -439,13 +439,13 @@
   color: var(--green);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__user-opener {
     display: none;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__user-opener {
     position: relative;
     display: flex;
@@ -525,7 +525,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__user-dropdown {
     position: absolute;
     display: none;
@@ -573,19 +573,19 @@
   gap: 0 8px;
 }
 
-@media only screen and (width <= 1279px) {
+@media only screen and (max-width: 1279px) {
   .header__user-link--instruction {
     display: none;
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__user-link .pro-label {
     margin-left: 2px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__user-link .pro-label {
     margin-left: auto;
   }
@@ -685,7 +685,7 @@
   user-select: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .header__user-theme-trigger {
     position: absolute;
     top: 20px;
@@ -693,7 +693,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .header__user-theme-trigger {
     float: right;
     margin: -49px 13px 0 0;

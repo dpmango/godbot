@@ -4,14 +4,14 @@
   display: flex;
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .faq {
     flex-direction: column;
     gap: 20px 0;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .faq {
     flex-direction: row;
     align-items: flex-start;
@@ -23,13 +23,13 @@
   order: 2;
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .faq__menu {
     width: 100%;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .faq__menu {
     position: sticky;
     top: 20px;
@@ -38,13 +38,13 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .faq__menu--empty {
     padding-left: 40px;
   }
 }
 
-@media only screen and (width >= 768px) and (width <= 1024px) {
+@media only screen and (min-width: 768px) and (width <= 1024px) {
   .faq__menu--empty {
     padding-left: 60px;
   }
@@ -60,20 +60,20 @@
   width: auto !important;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .swiper--faq {
     margin: 0 -20px !important;
   }
 }
 
-@media only screen and (width >= 768px) and (width <= 1023px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
   .swiper--faq {
     margin: 0 -30px !important;
     padding: 0 10px !important;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .faq__menu .swiper-wrapper {
     flex-direction: column;
     align-items: flex-start;
@@ -102,7 +102,7 @@
   fill: var(--grey2);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .faq__menu-link {
     font-size: 14px;
     gap: 0 4px;
@@ -114,7 +114,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .faq__menu-link {
     font-size: 18px;
     gap: 0 16px;
@@ -126,7 +126,7 @@
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .faq__menu-link {
     padding: 16px 20px;
     border-style: solid;
@@ -135,7 +135,7 @@
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .faq__menu-link {
     padding: 16px;
   }
@@ -165,14 +165,14 @@
   fill: var(--blue);
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .faq__menu-link--empty {
     padding-left: 0;
     padding-right: 0;
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .faq__menu-link--empty {
     padding-top: 9px;
     padding-bottom: 9px;
@@ -185,7 +185,7 @@
   order: 3;
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .faq__body {
     width: 100%;
   }
@@ -195,7 +195,7 @@
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .faq__body {
     width: calc(100% - 345px);
   }

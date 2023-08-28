@@ -52,7 +52,7 @@ body {
   border-radius: 22px;
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .container--empty {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -73,14 +73,14 @@ body {
   }
 }
 
-@media only screen and (width <= 1023px) {
+@media only screen and (max-width: 1023px) {
   .empty__image {
     display: none;
     visibility: hidden;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .container--empty {
     flex-direction: row;
     justify-content: space-around;

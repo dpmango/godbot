@@ -17,7 +17,7 @@
   text-shadow: 0 0 4px rgb(0 0 0 / 40%);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown {
     bottom: 16px;
     max-width: 280px;
@@ -27,7 +27,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown {
     display: flex;
     bottom: 40px;
@@ -40,13 +40,13 @@
   }
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__close {
     display: none;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__close {
     position: absolute;
     top: 0;
@@ -96,7 +96,7 @@
   background-size: contain;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__image {
     position: absolute;
     top: 8px;
@@ -110,7 +110,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__image {
     flex: 0 0 auto;
     width: 105px;
@@ -123,7 +123,7 @@
   flex-direction: column;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__text {
     align-items: flex-start;
     padding-bottom: 2px;
@@ -135,7 +135,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__text {
     flex: 1;
     align-items: center;
@@ -153,13 +153,13 @@
   font-weight: 600;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__big {
     font-size: 12px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__big {
     font-size: 16px;
   }
@@ -174,7 +174,7 @@
   text-shadow: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .btn--countdown-gift {
     position: absolute;
     top: 20px;
@@ -191,14 +191,14 @@
   text-shadow: none;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__timer {
     padding: 15px 0 0;
     gap: 3px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__timer {
     flex: 0 0 auto;
     width: 326px;
@@ -217,7 +217,7 @@
   border-radius: 10px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__num {
     height: 34px;
     font-size: 20px;
@@ -225,7 +225,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__num {
     height: 58px;
     font-size: 40px;
@@ -241,13 +241,13 @@
   margin: 0 1px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__dots {
     gap: 7px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__dots {
     gap: 8px;
   }
@@ -261,7 +261,7 @@
   border-radius: 50%;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .countdown__dots::before,
   .countdown__dots::after {
     width: 4px;
@@ -269,7 +269,7 @@
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .countdown__dots::before,
   .countdown__dots::after {
     width: 6px;

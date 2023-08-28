@@ -8,25 +8,25 @@
   box-shadow: var(--block-shadow);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tarifes {
     padding: 10px 10px 40px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tarifes {
     padding: 20px;
   }
 }
 
-@media only screen and (width <= 859px) {
+@media only screen and (max-width: 859px) {
   .tarifes {
     max-width: 520px;
   }
 }
 
-@media only screen and (width >= 860px) {
+@media only screen and (min-width: 860px) {
   .tarifes {
     max-width: 1056px;
   }
@@ -39,13 +39,13 @@
   line-height: 22px;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tarifes__title {
     margin-bottom: 29px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tarifes__title {
     margin-bottom: 22px;
   }
@@ -57,13 +57,13 @@
   margin: 0 0 20px;
 }
 
-@media only screen and (width <= 859px) {
+@media only screen and (max-width: 859px) {
   .tarifes__labels {
     flex-direction: column;
   }
 }
 
-@media only screen and (width >= 860px) {
+@media only screen and (min-width: 860px) {
   .tarifes__labels {
     flex-flow: row wrap;
     align-items: center;
@@ -91,7 +91,7 @@
   transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-@media only screen and (width >= 860px) {
+@media only screen and (min-width: 860px) {
   .tarifes__label {
     min-width: 207px;
   }
@@ -116,13 +116,13 @@
   gap: 10px 20px;
 }
 
-@media only screen and (width <= 859px) {
+@media only screen and (max-width: 859px) {
   .tarifes__grid {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
-@media only screen and (width >= 860px) {
+@media only screen and (min-width: 860px) {
   .tarifes__grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -145,13 +145,13 @@
   background: var(--tarifes-block2);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tarifes__block {
     padding: 16px 20px 40px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tarifes__block {
     padding: 24px 30px 30px;
   }
@@ -164,13 +164,13 @@
   gap: 12px;
 }
 
-@media only screen and (width <= 1024px) {
+@media only screen and (max-width: 1024px) {
   .tarifes__gift {
     margin: 0 0 10px;
   }
 }
 
-@media only screen and (width >= 1024px) {
+@media only screen and (min-width: 1024px) {
   .tarifes__gift {
     float: right;
     margin: 0 0 0 10px;
@@ -193,7 +193,7 @@
   min-width: 125px;
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tarifes__gift-free {
     min-width: 151px;
   }
@@ -206,7 +206,7 @@
   line-height: 1.4;
 }
 
-@media only screen and (width >= 375px) {
+@media only screen and (min-width: 375px) {
   .tarifes__name {
     padding-top: 3.8px;
   }
@@ -230,13 +230,13 @@
   color: var(--red);
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tarifes__price del {
     font-size: 15px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tarifes__price del {
     font-size: 16px;
   }
@@ -253,13 +253,13 @@
   color: var(--grey);
 }
 
-@media only screen and (width <= 479px) {
+@media only screen and (max-width: 479px) {
   .btn--tarifes {
     width: 100%;
   }
 }
 
-@media only screen and (width >= 480px) {
+@media only screen and (min-width: 480px) {
   .btn--tarifes {
     max-width: 207px;
   }
@@ -396,13 +396,13 @@
   gap: 10px 0;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tarifes__text {
     gap: 10px 0;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tarifes__text {
     gap: 20px 0;
   }
@@ -452,13 +452,13 @@
   float: right;
 }
 
-@media only screen and (width <= 767px) {
+@media only screen and (max-width: 767px) {
   .tarifes__sales {
     margin: -4px -10px 0 10px;
   }
 }
 
-@media only screen and (width >= 768px) {
+@media only screen and (min-width: 768px) {
   .tarifes__sales {
     margin: -12px -20px 0 10px;
   }
