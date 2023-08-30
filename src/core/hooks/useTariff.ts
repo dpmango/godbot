@@ -20,7 +20,7 @@ const useTariff = () => {
 
     if (!simulatorCompleate) {
       navigate('?simguide');
-
+      reachGoal('simulator_start', 'Начало обучения');
       return;
     }
 

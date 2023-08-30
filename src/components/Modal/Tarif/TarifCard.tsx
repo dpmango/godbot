@@ -208,7 +208,10 @@ export const TarifCard: React.FC<ITarifCard> = ({
         tariff = 'traderpro';
       }
 
-      reachGoal(``, `Инициализация оплаты ${tariff}${month}`);
+      reachGoal(``, `Инициализация оплаты ${tariff}${month}`, false);
+      if (window.fbq) {
+        window.fbq('track', 'AddToCart', { value: currentPlan.cost, content_category: tariff });
+      }
     }
 
     if (error) {

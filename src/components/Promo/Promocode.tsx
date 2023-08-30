@@ -56,6 +56,10 @@ export const Promocode = () => {
 
       setLoading(false);
 
+      if (data) {
+        reachGoal('promocode_activate', 'Активирован промокод');
+      }
+
       if (error) {
         setError(error.message);
         return;

@@ -791,6 +791,7 @@ export const ForecastSimulator = () => {
   useEffect(() => {
     if (endGame) {
       dispatch(setSimulator({ enabled: false }));
+      reachGoal('simulator_end', 'Завершение обучения');
       Cookies.set('simulator-compleate', 'true');
       activateTrial();
     }

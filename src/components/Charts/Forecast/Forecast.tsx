@@ -70,7 +70,6 @@ export const Forecast = () => {
     tooltipRef,
   });
 
-  const simulatorCompleate = Cookies.get('simulator-compleate') === 'true';
   const paginatePer = 200;
   const viewLocked = !tariffActive && !allowedFunctions.forecast;
 
@@ -82,16 +81,7 @@ export const Forecast = () => {
     // Создание данных по ответу forecast (указываются id для отрисовки)
     const currentSeries = createSeriesData(
       coinData,
-      [
-        'RealCandle',
-        'RealLine',
-        'Forecast',
-        'Upper',
-        'Lower',
-        'History',
-        // 'HistoryUpper',
-        // 'HistoryLower',
-      ],
+      ['RealCandle', 'RealLine', 'Forecast', 'Upper', 'Lower', 'History'],
       historyData
     );
     setSeries([...currentSeries]);
