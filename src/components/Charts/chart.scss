@@ -431,6 +431,10 @@
       margin-right: 8px;
     }
 
+    &:not(:first-child) {
+      margin-left: 8px;
+    }
+
     &:hover,
     &._active {
       border-color: var(--input-border);

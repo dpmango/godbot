@@ -34,9 +34,9 @@ export const ForecastSimulatorModalInterval: React.FC<IProps> = ({
     <Modal name="simulator-modal">
       <div className="modal__block sim-modal" ref={modalRef}>
         <div className="modal__title">{t(`intervalModal.${translationKey}.title`)}</div>
-        <div className="modal__text">
+        {/* <div className="modal__text">
           <Trans t={t} i18nKey={`intervalModal.${translationKey}.description`} />
-        </div>
+        </div> */}
 
         {/* <ForecastSimulatorModalStats
           positionWeight={positionWeight}

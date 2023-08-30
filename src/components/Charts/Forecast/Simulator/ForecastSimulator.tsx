@@ -536,17 +536,14 @@ export const ForecastSimulator = () => {
       },
     ]);
 
-    setTimeout(() => {
-      setModalManager('introLinesModal');
-    }, 4000);
-  }, [chartLines]);
-
-  const handleIntro2Close = useCallback(() => {
-    setModalManager(null);
     setSimulatorTimeline((prev) => ({
       ...prev,
       paused: false,
     }));
+  }, [chartLines]);
+
+  const handleIntro2Close = useCallback(() => {
+    setModalManager(null);
   }, []);
 
   const handleIntro3Close = useCallback(() => {
@@ -816,7 +813,7 @@ export const ForecastSimulator = () => {
               onClick={handleSimulatorBackClick}>
               <SvgIcon name="back" />
             </div> */}
-            <div
+            {/* <div
               className={cns(
                 'sim__timeline-action sim__play',
                 simulatorTimeline.paused && '_active'
@@ -824,7 +821,7 @@ export const ForecastSimulator = () => {
               onClick={handleSimulatorPausedClick}>
               {simulatorTimeline.paused ? <SvgIcon name="play" /> : <SvgIcon name="pause" />}
               {simulatorTimeline.paused && 'paused'}
-            </div>
+            </div> */}
             {/* <div
               className={cns('sim__timeline-action sim__forward')}
               onClick={handleSimulatorForwardClick}>
@@ -895,6 +892,17 @@ export const ForecastSimulator = () => {
             <div className="btn sim__short" onClick={() => changePosition('short')}>
               Sell
             </div>
+
+            <div
+              className={cns(
+                'sim__timeline-action sim__play',
+                simulatorTimeline.paused && '_active'
+              )}
+              onClick={handleSimulatorPausedClick}>
+              {simulatorTimeline.paused ? <SvgIcon name="play" /> : <SvgIcon name="pause" />}
+              {simulatorTimeline.paused && 'paused'}
+            </div>
+
             {/* <div className="sim__bet bet">
               <div
                 className={cns('bet__current', simulatorBetEnabled && '_active')}
@@ -977,9 +985,7 @@ export const ForecastSimulator = () => {
       {modalManager === 'introModal' && (
         <ForecastSimulatorModalInfo namespace="introModal" closeModal={handleIntroClose} />
       )}
-      {modalManager === 'introLinesModal' && (
-        <ForecastSimulatorModalInfo namespace="introLinesModal" closeModal={handleIntro2Close} />
-      )}
+
       {modalManager === 'intro2Modal' && (
         <ForecastSimulatorModalInfo namespace="intro2Modal" closeModal={handleIntro3Close} />
       )}
