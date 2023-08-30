@@ -363,7 +363,7 @@ export const Tutorial: React.FC<any> = () => {
         prevButton={false}
         getCurrentStep={(step: any) => {
           setStep(step);
-          if (step === 6 || step === 7) {
+          if (step === 5) {
             const btn = document.querySelector(
               '.tabs .tabs__link:last-child'
             ) as HTMLElement | null;
@@ -371,7 +371,7 @@ export const Tutorial: React.FC<any> = () => {
             if (btn != null) {
               btn.click();
             }
-          } else if (step === 8) {
+          } else if (step === 6) {
             const btn = document.querySelector(
               '.tabs .tabs__link:nth-child(2)'
             ) as HTMLElement | null;
@@ -379,7 +379,7 @@ export const Tutorial: React.FC<any> = () => {
             if (btn != null) {
               btn.click();
             }
-          } else if (step === 9 || step === 10) {
+          } else if (step === 7 || step === 8) {
             const btn = document.querySelector('.header__user-opener') as HTMLElement | null;
 
             if (btn != null) {
