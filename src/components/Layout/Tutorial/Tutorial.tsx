@@ -209,10 +209,10 @@ export const Tutorial: React.FC<any> = () => {
                   <span>{t('steps.step6.text')}</span>
                 </div>
                 <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(5)}>
+                  <div className="tourStep-prev" onClick={() => goTo(4)}>
                     {t('btns.prev')}
                   </div>
-                  <div className="tourStep-next" onClick={() => goTo(7)}>
+                  <div className="tourStep-next" onClick={() => goTo(6)}>
                     {t('btns.next')}
                   </div>
                 </div>
@@ -234,10 +234,10 @@ export const Tutorial: React.FC<any> = () => {
                   <span>{t('steps.step7.text')}</span>
                 </div>
                 <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(6)}>
+                  <div className="tourStep-prev" onClick={() => goTo(5)}>
                     {t('btns.prev')}
                   </div>
-                  <div className="tourStep-next" onClick={() => goTo(8)}>
+                  <div className="tourStep-next" onClick={() => goTo(7)}>
                     {t('btns.next')}
                   </div>
                 </div>
@@ -312,10 +312,10 @@ export const Tutorial: React.FC<any> = () => {
                   <span>{t('steps.step10.text')}</span>
                 </div>
                 <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(8)}>
+                  <div className="tourStep-prev" onClick={() => goTo(6)}>
                     {t('btns.prev')}
                   </div>
-                  <div className="tourStep-next" onClick={() => goTo(10)}>
+                  <div className="tourStep-next" onClick={() => goTo(8)}>
                     {t('btns.next')}
                   </div>
                 </div>
@@ -338,7 +338,7 @@ export const Tutorial: React.FC<any> = () => {
                   <span>{t('steps.step11.text')}</span>
                 </div>
                 <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(9)}>
+                  <div className="tourStep-prev" onClick={() => goTo(7)}>
                     {t('btns.prev')}
                   </div>
                   <div className="tourStep-next" onClick={() => close()}>
