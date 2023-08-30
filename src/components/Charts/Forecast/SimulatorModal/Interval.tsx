@@ -38,11 +38,11 @@ export const ForecastSimulatorModalInterval: React.FC<IProps> = ({
           <Trans t={t} i18nKey={`intervalModal.${translationKey}.description`} />
         </div>
 
-        <ForecastSimulatorModalStats
+        {/* <ForecastSimulatorModalStats
           positionWeight={positionWeight}
           simulatorPosition={simulatorPosition}
           positionPL={positionPL}
-        />
+        /> */}
 
         <div className="modal__btns">
           <div className="btn btn--modal" onClick={handleCloseModal}>

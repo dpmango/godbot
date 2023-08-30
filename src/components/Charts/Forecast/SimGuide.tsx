@@ -26,9 +26,9 @@ export const SimGuide = () => {
         <div className="modal__block" ref={modalRef}>
           <div className="modal__title">{t('title')}</div>
 
-          <div className="modal__text">
+          {/* <div className="modal__text">
             <Trans t={t} i18nKey={`description`} />
-          </div>
+          </div> */}
 
           <div className="modal__btns">
             <div className="btn btn--modal" onClick={closeModal}>

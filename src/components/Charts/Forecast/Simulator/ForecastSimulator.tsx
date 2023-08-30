@@ -220,13 +220,13 @@ export const ForecastSimulator = () => {
     [simulatorPosition, simulatorCurrentPrice, simulatorBet]
   );
 
-  const flattenPosition = useCallback(() => {
-    const { dir, quantity } = simulatorPosition;
+  // const flattenPosition = useCallback(() => {
+  //   const { dir, quantity } = simulatorPosition;
 
-    if (quantity > 0) {
-      changePosition(dir === 'long' ? 'short' : 'long', quantity);
-    }
-  }, [simulatorPosition, changePosition]);
+  //   if (quantity > 0) {
+  //     changePosition(dir === 'long' ? 'short' : 'long', quantity);
+  //   }
+  // }, [simulatorPosition, changePosition]);
 
   // таймлайн
   const handleSimulatorPausedClick = useCallback(() => {
@@ -237,14 +237,14 @@ export const ForecastSimulator = () => {
   }, []);
 
   // установка ставки (всплываюший диалог)
-  const [simulatorBetEnabled, setSimulatorBetEnabled] = useState(false);
+  // const [simulatorBetEnabled, setSimulatorBetEnabled] = useState(false);
 
-  const simulatorOptions = useMemo(() => {
-    return [1, 5, 25, 100, 500, 1000];
-  }, []);
+  // const simulatorOptions = useMemo(() => {
+  //   return [1, 5, 25, 100, 500, 1000];
+  // }, []);
 
-  const betSelectRef = useRef(null);
-  useClickOutside(betSelectRef, () => setSimulatorBetEnabled(false));
+  // const betSelectRef = useRef(null);
+  // useClickOutside(betSelectRef, () => setSimulatorBetEnabled(false));
 
   // установка скорости (всплывающий диалог)
   const [simulatorSpeedEnabled, setSimulatorSpeedEnabled] = useState(false);
@@ -532,7 +532,7 @@ export const ForecastSimulator = () => {
         price: 28265,
       },
       {
-        price: 28220,
+        price: 28226,
       },
     ]);
 
@@ -543,18 +543,19 @@ export const ForecastSimulator = () => {
 
   const handleIntro2Close = useCallback(() => {
     setModalManager(null);
+    setSimulatorTimeline((prev) => ({
+      ...prev,
+      paused: false,
+    }));
   }, []);
 
   const handleIntro3Close = useCallback(() => {
     setModalManager(null);
 
-    setTimeout(() => {
-      setModalManager('intro2LinesModal');
-    }, 2500);
-  }, [chartLines]);
-
-  const handleIntro4Close = useCallback(() => {
-    setModalManager(null);
+    setSimulatorTimeline((prev) => ({
+      ...prev,
+      paused: false,
+    }));
   }, [chartLines]);
 
   // Хук с утилитами (data-blind)
@@ -893,7 +894,7 @@ export const ForecastSimulator = () => {
             <div className="btn sim__short" onClick={() => changePosition('short')}>
               Sell
             </div>
-            <div className="sim__bet bet">
+            {/* <div className="sim__bet bet">
               <div
                 className={cns('bet__current', simulatorBetEnabled && '_active')}
                 onClick={() => setSimulatorBetEnabled(!simulatorBetEnabled)}>
@@ -923,13 +924,13 @@ export const ForecastSimulator = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="btn sim__long" onClick={() => changePosition('long')}>
               Buy
             </div>
-            <div className="btn sim__flatten" onClick={flattenPosition}>
+            {/* <div className="btn sim__flatten" onClick={flattenPosition}>
               Flatten
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -980,9 +981,6 @@ export const ForecastSimulator = () => {
       )}
       {modalManager === 'intro2Modal' && (
         <ForecastSimulatorModalInfo namespace="intro2Modal" closeModal={handleIntro3Close} />
-      )}
-      {modalManager === 'intro2LinesModal' && (
-        <ForecastSimulatorModalInfo namespace="intro2LinesModal" closeModal={handleIntro4Close} />
       )}
     </div>
   );

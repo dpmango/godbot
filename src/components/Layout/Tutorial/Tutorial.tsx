@@ -82,7 +82,7 @@ export const Tutorial: React.FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>1/10</span>
+                  <span>1/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step1.text')}</span>
                 </div>
@@ -104,7 +104,7 @@ export const Tutorial: React.FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>2/10</span>
+                  <span>2/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step2.text')}</span>
                 </div>
@@ -129,7 +129,7 @@ export const Tutorial: React.FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>3/10</span>
+                  <span>3/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step3.text')}</span>
                 </div>
@@ -154,7 +154,7 @@ export const Tutorial: React.FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>4/10</span>
+                  <span>4/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step4.text')}</span>
                 </div>
@@ -174,37 +174,37 @@ export const Tutorial: React.FC<any> = () => {
               color: '#fff',
             },
           },
-          {
-            selector: '.chart__settings-opener',
-            content: ({ goTo }: { goTo: any }) => (
-              <div className="tourStep">
-                <div className="tourStepText">
-                  <span>5/10</span>
-                  <span className="infoSvg">{svgInfo}</span>
-                  <span>{t('steps.step5.text')}</span>
-                </div>
-                <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(4)}>
-                    {t('btns.prev')}
-                  </div>
-                  <div className="tourStep-next" onClick={() => goTo(6)}>
-                    {t('btns.next')}
-                  </div>
-                </div>
-              </div>
-            ),
-            style: {
-              maxWidth: '600px',
-              backgroundColor: '#4572EE',
-              color: '#fff',
-            },
-          },
+          // {
+          //   selector: '.chart__settings-opener',
+          //   content: ({ goTo }: { goTo: any }) => (
+          //     <div className="tourStep">
+          //       <div className="tourStepText">
+          //         <span>5/8</span>
+          //         <span className="infoSvg">{svgInfo}</span>
+          //         <span>{t('steps.step5.text')}</span>
+          //       </div>
+          //       <div className="tourStep-btns">
+          //         <div className="tourStep-prev" onClick={() => goTo(4)}>
+          //           {t('btns.prev')}
+          //         </div>
+          //         <div className="tourStep-next" onClick={() => goTo(6)}>
+          //           {t('btns.next')}
+          //         </div>
+          //       </div>
+          //     </div>
+          //   ),
+          //   style: {
+          //     maxWidth: '600px',
+          //     backgroundColor: '#4572EE',
+          //     color: '#fff',
+          //   },
+          // },
           {
             selector: '.investing',
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>6/10</span>
+                  <span>5/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step6.text')}</span>
                 </div>
@@ -229,7 +229,7 @@ export const Tutorial: React.FC<any> = () => {
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>7/10</span>
+                  <span>6/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step7.text')}</span>
                 </div>
@@ -277,37 +277,37 @@ export const Tutorial: React.FC<any> = () => {
             },
           },
           */
-          {
-            selector: '.recommend',
-            content: ({ goTo }: { goTo: any }) => (
-              <div className="tourStep">
-                <div className="tourStepText">
-                  <span>8/10</span>
-                  <span className="infoSvg">{svgInfo}</span>
-                  <span>{t('steps.step9.text')}</span>
-                </div>
-                <div className="tourStep-btns">
-                  <div className="tourStep-prev" onClick={() => goTo(7)}>
-                    {t('btns.prev')}
-                  </div>
-                  <div className="tourStep-next" onClick={() => goTo(9)}>
-                    {t('btns.next')}
-                  </div>
-                </div>
-              </div>
-            ),
-            style: {
-              maxWidth: '600px',
-              backgroundColor: '#4572EE',
-              color: '#fff',
-            },
-          },
+          // {
+          //   selector: '.recommend',
+          //   content: ({ goTo }: { goTo: any }) => (
+          //     <div className="tourStep">
+          //       <div className="tourStepText">
+          //         <span>8/8</span>
+          //         <span className="infoSvg">{svgInfo}</span>
+          //         <span>{t('steps.step9.text')}</span>
+          //       </div>
+          //       <div className="tourStep-btns">
+          //         <div className="tourStep-prev" onClick={() => goTo(7)}>
+          //           {t('btns.prev')}
+          //         </div>
+          //         <div className="tourStep-next" onClick={() => goTo(9)}>
+          //           {t('btns.next')}
+          //         </div>
+          //       </div>
+          //     </div>
+          //   ),
+          //   style: {
+          //     maxWidth: '600px',
+          //     backgroundColor: '#4572EE',
+          //     color: '#fff',
+          //   },
+          // },
           {
             selector: '.header__user-head',
             content: ({ goTo }: { goTo: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>9/10</span>
+                  <span>7/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step10.text')}</span>
                 </div>
@@ -333,7 +333,7 @@ export const Tutorial: React.FC<any> = () => {
             content: ({ goTo, close }: { goTo: any; close: any }) => (
               <div className="tourStep">
                 <div className="tourStepText">
-                  <span>10/10</span>
+                  <span>8/8</span>
                   <span className="infoSvg">{svgInfo}</span>
                   <span>{t('steps.step11.text')}</span>
                 </div>
