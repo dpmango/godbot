@@ -235,8 +235,13 @@
     flex: 0 0 auto;
     align-items: center;
     font-size: 12px;
-    pointer-events: none;
+
+    // pointer-events: none;
     gap: 0 5px;
+
+    &._filter {
+      cursor: pointer;
+    }
 
     &:not(:last-child) {
       margin-right: 6px;

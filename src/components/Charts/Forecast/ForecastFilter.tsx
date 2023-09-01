@@ -1,5 +1,7 @@
 import { ISelectOption, Select, SpriteIcon, SvgIcon } from '@ui';
 
+import { IChartLines } from './Forecast';
+
 interface IForecastFilterProps {
   lastUpdate?: string;
   legendActive: boolean;
@@ -11,10 +13,12 @@ interface IForecastFilterProps {
   setHistoryShow: () => void;
   setHistoryHide: () => void;
   showHistory: boolean;
+  chartLines: IChartLines[];
 }
 
 export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   legendActive,
+  chartLines,
   setLegendActive,
   minutesToUpdate,
   currentViewType,
@@ -232,6 +236,20 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   //   };
   // }, []);
 
+  const handleVisibilityToggle = useCallback(
+    (id: string) => {
+      const targetLine = chartLines.find((x) => x.id === id);
+
+      if (targetLine) {
+        const { visible } = targetLine.instance.options();
+        targetLine.instance.applyOptions({
+          visible: !visible,
+        });
+      }
+    },
+    [chartLines]
+  );
+
   // initial params parser
   useEffect(() => {
     const coinParam = searchParams.get('coin');
@@ -309,11 +327,15 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
               </div>
             </div>
 
-            <label className="chart__legend-item">
+            <label
+              className="chart__legend-item _filter"
+              onClick={() => handleVisibilityToggle('Forecast')}>
               <span className="chart__settings-line" style={{ borderColor: 'rgb(205, 29, 21)' }} />
               Forecast
             </label>
-            <label className="chart__legend-item">
+            <label
+              className="chart__legend-item _filter"
+              onClick={() => handleVisibilityToggle('RealLine')}>
               <span className="chart__settings-line" style={{ borderColor: 'rgb(41, 98, 255)' }} />
               Real
             </label>

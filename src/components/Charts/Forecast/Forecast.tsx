@@ -455,6 +455,7 @@ export const Forecast = () => {
           simulator.enabled && 'chart--simulator'
         )}>
         <ForecastFilter
+          chartLines={chartLines}
           legendActive={legendActive}
           setLegendActive={(x) => setLegendActive(x)}
           lastUpdate={lastUpdate}
