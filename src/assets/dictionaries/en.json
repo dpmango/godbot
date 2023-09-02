@@ -127,7 +127,7 @@
       "action": "Close"
     },
     "block": {
-      "graph": "To view the full version of the schedule, you need to renew the tariff"
+      "graph": "To view the full version of the graph, you need to renew your plan"
     },
     "under-text": "We use technology from TradingView."
   },
@@ -138,19 +138,19 @@
     },
     "intervalModal": {
       "profit": {
-        "title": "Congratulations! ",
+        "title": "Congratulations! Well done!",
         "description": "Go ahead"
       },
       "stage1": {
-        "title": "Do not despair!",
+        "title": "Don't give up!",
         "description": "Try again, you will definitely succeed!"
       },
       "stage2": {
-        "title": "Do not despair!",
+        "title": "Don't give up!",
         "description": "Try again, you will definitely succeed!"
       },
       "stage3": {
-        "title": "Do not despair!",
+        "title": "Don't give up!",
         "description": "Try again, you will definitely succeed!"
       },
       "action": "Continue"
@@ -165,21 +165,15 @@
       "description": "The first and most basic rule is that the forecast can be wrong in time, but practically does not make mistakes in price levels.  <br/>The chart will show an example of such 'resistances'",
       "action": "Begin"
     },
-    "introLinesModal": {
-      "title": "Continue by pressing 'play'",
-      "description": "The chart displayed an example of the levels shown by the forecast. <br/>Now you can start the price movement by clicking the 'Play' button",
-      "action": "Begin"
-    },
-    "intro2Modal": {
-      "title": "Now try to trade the movement yourself",
-      "description": "",
-      "action": "Continue"
-    },
     "intro2LinesModal": {
       "title": "",
       "description": "Earlier, we considered a one-line forecast that demonstrates the unambiguity of the price movement. <br/>But there are ambiguous forecasts, in front of you is one of them.  <br/> Try to trade the forecast yourself",
       "action": "Continue"
     }
+  },
+  "simguide": {
+    "title": "To get started with the algorithm, you have to complete the tutorial.",
+    "action": "Begin"
   },
   "investing": {
     "lock": "forecast",
@@ -245,7 +239,7 @@
     "gift": "gift",
     "noGift": "no gift",
     "discount": "Discount {{percent}}% until {{date}}",
-    "willOpen": "Sales will open",
+    "willOpen": "Sales will open in",
     "sales": {
       "days": "d.",
       "hours": "h.",
@@ -263,10 +257,9 @@
     "activated": {
       "success": "{{tariff}} Plan activated"
     },
-
     "queModal": {
-      "title": "Application for connecting PRO Trader",
-      "description": "Enter phone numbers or login in the messenger",
+      "title": "Application for switching to PRO Trader",
+      "description": "Enter your phone number or login in the messenger",
       "options": {
         "phone": "Telephone",
         "tg": "Telegram",
@@ -311,7 +304,7 @@
     "action": "Activate"
   },
   "activated": {
-    "pagetitle": "Godbot | Trial",
+    "pagetitle": "Godbot | Trial version",
     "title": "Congratulations!",
     "text": "You have activated a trial plan for 3 days. <br/><br/>Follow us on social networks",
     "action": "GO!"
@@ -343,7 +336,7 @@
       },
       "upgrade": {
         "text": "To display {{section}} you need to purchase the PRO Plan",
-        "action": "CONNECT TARIFF"
+        "action": "CONNECT PLAN"
       },
       "prolong": {
         "text": "To display {{section}} you need to extend your plan",
@@ -355,15 +348,15 @@
       },
       "proOneMonth": {
         "text": "To display {{section}} you need to purchase the PRO Plan",
-        "action": "EXTEND TARIFF"
+        "action": "PLAN EXTENSION"
       }
     },
     "modal": {
       "close": "Close"
     },
     "loader": {
-      "title": "We are loading page",
-      "description": "Pleasе, wait a bit"
+      "title": "The page is loading",
+      "description": "Please, wait a bit"
     },
     "info": {
       "turnPhone": "Turn your phone"
@@ -386,7 +379,7 @@
         "text": "The Trading tab provides real-time information from the AI."
       },
       "step2": {
-        "text": "We make calculations of several assets. You can select the preferable one in this Tab."
+        "text": "We make calculations of several assets. You can select the preferable one on this Tab."
       },
       "step3": {
         "text": "Each asset is calculated on multiple time frames. Choose the most suitable one for trading."
@@ -413,7 +406,7 @@
         "text": "The profile card shows your plan and its expiration date."
       },
       "step11": {
-        "text": "You can also change the theme of the website and subscribe to our pages in soical media."
+        "text": "You can also change the theme of the website and subscribe to our pages in social media."
       }
     }
   },
@@ -466,6 +459,18 @@
       "action": "Output"
     }
   },
+  "education": {
+    "section": {
+      "hide": "СПРЯТАТЬ ВИДЕО",
+      "show": "ПОКАЗАТЬ ВИДЕО"
+    },
+    "card": {
+      "viewed": "ПРОСМОТРЕНО",
+      "themes": "Темы в видео:",
+      "result": "Результат:",
+      "lock": "видео-курса"
+    }
+  },
   "faq": {
     "head": {
       "title": "Frequently asked Questions",
@@ -509,7 +514,7 @@
         "title": "How to trade with GodBot forecasts?",
         "body": [
           {
-            "text": "On the chart, you see a channel (dashed lines) and a forecast (red line). "
+            "text": "On the chart, you see a channel (dotted lines) and a forecast (red line). "
           },
           {
             "image": "/img/faq/forecast_1_en.png"
@@ -737,25 +742,25 @@
         "title": "How long do payments take to process? ",
         "body": [
           {
-            "text": "Tariff activation takes from 3 to 5 minutes.  "
+            "text": "Plan activation takes from 3 to 5 minutes.  "
           }
         ]
       },
       {
         "category": "billing",
-        "title": "How to change the tariff? ",
+        "title": "How to change the plan? ",
         "body": [
           {
-            "text": "To change the tariff, you must wait until the end of the paid tariff, then select a new suitable tariff and pay for it.  "
+            "text": "To change the plan, you must wait until the end of the paid plan, then select a new suitable plan and pay for it.  "
           }
         ]
       },
       {
         "category": "billing",
-        "title": "Can the tariff be suspended? ",
+        "title": "Can the plan be suspended? ",
         "body": [
           {
-            "text": "At the moment, such a possibility is being worked out, but so far it is impossible to suspend the tariff. "
+            "text": "At the moment, such a possibility is being worked out, but so far it is impossible to suspend the plan. "
           }
         ]
       }
