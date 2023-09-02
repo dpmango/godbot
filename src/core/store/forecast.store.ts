@@ -102,7 +102,6 @@ export const forecastState = createSlice({
       state.data = action.payload;
     },
     flushDataState(state) {
-      console.log('flush data state');
       state.data = [];
       state.dataNav = { max: 100, points: 0, requested: [] };
     },
