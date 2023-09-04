@@ -121,7 +121,7 @@
       },
       "soon": "Forecast will update soon"
     },
-    "lock": "neural network graphics",
+    "lock": "neural network graph",
     "forecastOutdated": {
       "text": "The forecast will be updated soon.<br> AI decided to have a cup of tea!",
       "action": "Close"
@@ -379,10 +379,10 @@
         "text": "The Trading tab provides real-time information from the AI."
       },
       "step2": {
-        "text": "We make calculations of several assets. You can select the preferable one on this Tab."
+        "text": "We make calculations of several assets. You can select the preferable one on this tab."
       },
       "step3": {
-        "text": "Each asset is calculated on multiple time frames. Choose the most suitable one for trading."
+        "text": "Each asset is calculated on multiple time frames. Choose the most suitable for trading."
       },
       "step4": {
         "text": "You can see only 4 lines: forecast price, current price, and the upper and lower limits of price movements. The forecast is recalculated automatically in case of significant fluctuations in the asset price or when new market input data is updated."
@@ -416,7 +416,7 @@
       "withdraw": "WITHDRAWAL",
       "referral_count": "Number of <br/>affiliates",
       "conversion": "Conversion <br/>to payment",
-      "total_earnings": "Income<br />for all time"
+      "total_earnings": "Total<br />income"
     },
     "list": {
       "title": "My partners",
@@ -456,7 +456,7 @@
           "max": "Withdrawal amount is greater than balance"
         }
       },
-      "action": "Output"
+      "action": "Proceed"
     }
   },
   "education": {
@@ -520,7 +520,7 @@
             "image": "/img/faq/forecast_1_en.png"
           },
           {
-            "text": "<strong>Important!</strong>"
+            "text": "<strong>NB!</strong>"
           },
           {
             "text": "1. We recommend entering a trade at the very beginning of the forecast. "
@@ -544,7 +544,7 @@
             "text": "Enter a position when the price reaches the upper or lower boundaries of the channel."
           },
           {
-            "text": "Under this strategy, transactions will be rarer than in the second strategy, but transactions will be of higher quality and much less risky."
+            "text": "Under this strategy, transactions will be rarer than in the second strategy, but transactions will be of higher quality and less risky."
           },
           {
             "text": "Enter at the market price at the beginning of the forecast, placing take-profit and stop-loss along the channel borders."
@@ -562,7 +562,7 @@
             "image": "/img/faq/forecast_1_1_en.png"
           },
           {
-            "text": "AI predicts growth, in connection with which you can place limit orders at $16,550 and $16,520, stop loss under $16,500, and take profits at $16,600, $16,750, $16,850, $16,950. "
+            "text": "AI predicts growth, so you can place limit orders at $16,550 and $16,520, stop loss under $16,500, and take profits at $16,600, $16,750, $16,850, $16,950. "
           },
           {
             "image": "/img/faq/forecast_1_2_en.png"
@@ -574,7 +574,7 @@
             "image": "/img/faq/forecast_1_3_en.png"
           },
           {
-            "text": "In the case of a forecast of pumps or dumps in the forecast, you can buy at market prices, but exit gradually, every couple of percent of the price movement. "
+            "text": "In the case of pumps or dumps in the forecast, you can buy at market prices, but exit gradually, every couple of percent of the price movement. "
           },
           {
             "image": "/img/faq/forecast_1_4_en.png"
@@ -601,7 +601,7 @@
             "image": "/img/faq/forecast_1_3_en.png"
           },
           {
-            "text": "In the case of a forecast of pumps or dumps in the forecast, you can also buy at market prices, but exit gradually, every couple of percent of the price movement. "
+            "text": "In the case of pumps or dumps in the forecast, you can also buy at market prices, but exit gradually, every couple of percent of the price movement. "
           },
           {
             "image": "/img/faq/forecast_1_4_en.png"
@@ -643,7 +643,7 @@
         "title": "How to trade on recommendations? ",
         "body": [
           {
-            "text": "Suppose we see a recommendation:"
+            "text": "Let us suppose we see a recommendation:"
           },
           {
             "image": "/img/faq/signals_en.png"
@@ -727,7 +727,7 @@
       },
       {
         "category": "account",
-        "title": "How to change the subject? ",
+        "title": "How to change the theme? ",
         "body": [
           {
             "text": "To change the theme, go to the user menu and click on the moon or sun icon. "
@@ -751,7 +751,7 @@
         "title": "How to change the plan? ",
         "body": [
           {
-            "text": "To change the plan, you must wait until the end of the paid plan, then select a new suitable plan and pay for it.  "
+            "text": "To change the plan, you must wait until the end of the paid plan, then select a new suitable plan and purchase it.  "
           }
         ]
       },
@@ -760,7 +760,7 @@
         "title": "Can the plan be suspended? ",
         "body": [
           {
-            "text": "At the moment, such a possibility is being worked out, but so far it is impossible to suspend the plan. "
+            "text": "At the moment, such a possibility is such an option is under development, but so far it is impossible to suspend the plan. "
           }
         ]
       }

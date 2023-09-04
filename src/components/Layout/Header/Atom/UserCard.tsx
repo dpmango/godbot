@@ -95,10 +95,10 @@ export const UserCard = () => {
             <SpriteIcon name="info-circle" width="16" height="16" />
             {t('actions.tutorial')}
           </Link>
-          {/* <Link to={'/?promocode'} className={cns('header__user-link')}>
+          <Link to={'/?promocode'} className={cns('header__user-link')}>
             <SpriteIcon name="coupon" width="16" height="16" />
             {t('actions.promo')}
-          </Link> */}
+          </Link>
           {/* <a
             className="header__user-link"
             onClick={() => dispatch(setSimulator({ enabled: !simulator.enabled }))}>
