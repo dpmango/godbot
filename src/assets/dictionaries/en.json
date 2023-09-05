@@ -298,7 +298,7 @@
       "placeholder": "Enter promo code",
       "validation": {
         "empty": "The field cannot be empty",
-        "length": "Promo code consists of 10 characters"
+        "length": "Promo code consists of 10 or 6 characters"
       }
     },
     "action": "Activate"

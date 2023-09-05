@@ -33,7 +33,7 @@ export const Promocode = () => {
 
     if (!values.promocode) {
       errors.promocode = t('field.validation.empty');
-    } else if (values.promocode.length !== 10) {
+    } else if ([!6, 10].includes(values.promocode.length)) {
       errors.promocode = t('field.validation.length');
     }
 
