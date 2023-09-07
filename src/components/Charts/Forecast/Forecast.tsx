@@ -302,27 +302,34 @@ export const Forecast = () => {
   // пульсирующая точка
   useEffect(() => {
     if (pulseRef.current && chart.current && dataSeries.length && chartLines.length) {
-      const data = dataSeries[1].data;
-      const series = chartLines[1].instance;
-      // @ts-ignore
-      const { value, time } = data[data.length - 1];
-      const y = series.priceToCoordinate(value);
-      const x = chart.current?.timeScale().timeToCoordinate(time);
+      try {
+        const data = dataSeries[1].data;
+        const series = chartLines[1].instance;
 
-      const { visible } = series.options();
+        // @ts-ignore
+        const { value, time } = data[data.length - 1];
+        const y = series.priceToCoordinate(value);
+        const x = chart.current?.timeScale().timeToCoordinate(time);
 
-      if (visible && y && x) {
-        pulseRef.current.style.display = 'block';
-        pulseRef.current.style.top = y - 4 + 'px';
-        pulseRef.current.style.left = x + 54 + 'px';
+        const { visible } = series.options();
 
-        // setBlockPointX(x);
-        return;
+        if (visible && y && x) {
+          pulseRef.current.style.display = 'block';
+          pulseRef.current.style.top = y - 4 + 'px';
+          pulseRef.current.style.left = x + 54 + 'px';
+
+          // setBlockPointX(x);
+          return;
+        }
+      } catch (err) {
+        if (pulseRef.current) {
+          pulseRef.current.style.display = 'none';
+        }
       }
-    }
-
-    if (pulseRef.current) {
-      pulseRef.current.style.display = 'none';
+    } else {
+      if (pulseRef.current) {
+        pulseRef.current.style.display = 'none';
+      }
     }
   }, [dataSeries, chartLines, scrollRange, crosshair]);
 
