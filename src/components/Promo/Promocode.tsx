@@ -5,8 +5,10 @@ import { Helmet } from 'react-helmet';
 interface IFormValues {
   promocode: string;
 }
-const formInitial: IFormValues = {
-  promocode: '',
+
+const searchParamsToCode = (v: string) => {
+  if (v && [6, 10].includes(v.length)) return v;
+  return '';
 };
 
 export const Promocode = () => {
@@ -15,12 +17,11 @@ export const Promocode = () => {
   const [focused, setFocused] = useState(false);
   const [locked, setLocked] = useState(false);
 
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { t } = useTranslation('promocode');
-
   const closeModal = () => {
     navigate(pathname);
   };
@@ -28,12 +29,16 @@ export const Promocode = () => {
   const modalRef = useRef(null);
   useClickOutside(modalRef, closeModal);
 
+  const formInitial: IFormValues = {
+    promocode: searchParamsToCode(searchParams.get('v') || ''),
+  };
+
   const handleValidation = (values: IFormValues) => {
     const errors: any = {};
 
     if (!values.promocode) {
       errors.promocode = t('field.validation.empty');
-    } else if ([!6, 10].includes(values.promocode.length)) {
+    } else if (![6, 10].includes(values.promocode.length)) {
       errors.promocode = t('field.validation.length');
     }
 
