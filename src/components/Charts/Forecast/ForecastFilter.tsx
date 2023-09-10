@@ -69,7 +69,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
         } as ISelectOption;
       });
 
-      const sortingPriority = ['BTC', 'ETH', 'BNB'];
+      const sortingPriority = ['BNB', 'ETH', 'BTC'];
 
       return list.sort((a, b) => {
         const aIndex = sortingPriority.indexOf(a.value as string);
