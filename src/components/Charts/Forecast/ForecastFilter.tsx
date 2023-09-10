@@ -59,7 +59,7 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
   // coins
   const coinOptions = useMemo(() => {
     if (coins && userData?.access_level) {
-      return Object.keys(coins).map((key: string) => {
+      const list = Object.keys(coins).map((key: string) => {
         const coinAccessLevel = coins[key].access_level;
         return {
           value: key,
@@ -67,6 +67,17 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
           disabled: userData?.access_level < coinAccessLevel,
           isPro: userData?.access_level < coinAccessLevel,
         } as ISelectOption;
+      });
+
+      const sortingPriority = ['BTC', 'ETH', 'BNB'];
+
+      return list.sort((a, b) => {
+        const aIndex = sortingPriority.indexOf(a.value as string);
+        const bIndex = sortingPriority.indexOf(b.value as string);
+
+        if (aIndex < bIndex) return 1;
+        if (aIndex > bIndex) return -1;
+        return 0;
       });
     }
 
@@ -142,68 +153,68 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     error: boolean;
   }
 
-  const [recSocket, setRecSocket] = useState<IRecSocket>({
-    opened: false,
-    error: false,
-  });
+  // const [recSocket, setRecSocket] = useState<IRecSocket>({
+  //   opened: false,
+  //   error: false,
+  // });
 
-  const [reccomendations, setReccommendations] = useState<IReccommendation[]>([]);
+  // const [reccomendations, setReccommendations] = useState<IReccommendation[]>([]);
 
-  const curCoinReccomendations = useMemo(() => {
-    const recs = reccomendations.filter((x) => x.currency === currentCoin);
+  // const curCoinReccomendations = useMemo(() => {
+  //   const recs = reccomendations.filter((x) => x.currency === currentCoin);
 
-    const getStatus = (interval: string) => {
-      const status = recs.find((x) => x.interval === interval)?.status;
+  //   const getStatus = (interval: string) => {
+  //     const status = recs.find((x) => x.interval === interval)?.status;
 
-      if (status === 'Покупать') {
-        return 'buy';
-      } else if (status === 'Продавать') {
-        return 'sell';
-      } else if (status === 'Активно покупать') {
-        return 'activeBuy';
-      } else if (status === 'Активно продавать') {
-        return 'activeSell';
-      } else if (status === 'Нейтрально') {
-        return 'neutral';
-      }
+  //     if (status === 'Покупать') {
+  //       return 'buy';
+  //     } else if (status === 'Продавать') {
+  //       return 'sell';
+  //     } else if (status === 'Активно покупать') {
+  //       return 'activeBuy';
+  //     } else if (status === 'Активно продавать') {
+  //       return 'activeSell';
+  //     } else if (status === 'Нейтрально') {
+  //       return 'neutral';
+  //     }
 
-      return '';
-    };
+  //     return '';
+  //   };
 
-    const getStatusColor = (status?: string) => {
-      switch (status) {
-        case 'sell':
-          return 'var(--red)';
-        case 'activeSell':
-          return 'var(--red)';
-        case 'buy':
-          return 'var(--green)';
-        case 'activeBuy':
-          return 'var(--green)';
-        case 'neutral':
-          return 'var(--blue)';
-        default:
-          return 'currentColor';
-      }
-    };
+  //   const getStatusColor = (status?: string) => {
+  //     switch (status) {
+  //       case 'sell':
+  //         return 'var(--red)';
+  //       case 'activeSell':
+  //         return 'var(--red)';
+  //       case 'buy':
+  //         return 'var(--green)';
+  //       case 'activeBuy':
+  //         return 'var(--green)';
+  //       case 'neutral':
+  //         return 'var(--blue)';
+  //       default:
+  //         return 'currentColor';
+  //     }
+  //   };
 
-    const ticksList = [
-      ['1m', '15m'],
-      ['1h', '1d'],
-    ];
+  //   const ticksList = [
+  //     ['1m', '15m'],
+  //     ['1h', '1d'],
+  //   ];
 
-    return ticksList.map((g) =>
-      g.map((x) => {
-        const st = getStatus(x);
-        return {
-          label: t(`filter.ticks.${x}`),
-          time: x,
-          status: st ? t(`filter.status.${st}`) : '',
-          color: getStatusColor(st),
-        };
-      })
-    );
-  }, [reccomendations, currentCoin, i18n.language]);
+  //   return ticksList.map((g) =>
+  //     g.map((x) => {
+  //       const st = getStatus(x);
+  //       return {
+  //         label: t(`filter.ticks.${x}`),
+  //         time: x,
+  //         status: st ? t(`filter.status.${st}`) : '',
+  //         color: getStatusColor(st),
+  //       };
+  //     })
+  //   );
+  // }, [reccomendations, currentCoin, i18n.language]);
 
   // useEffect(() => {
   //   const ws = new WebSocket(`${import.meta.env.VITE_API_SOCKET}get_recommendations/`);
@@ -255,8 +266,11 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     const coinParam = searchParams.get('coin');
     if (coinParam && coinOptions.some((x) => x.value === coinParam && !x.disabled)) {
       dispatch(setStateCoin(coinParam));
-    } else if (!coinParam) {
-      dispatch(setStateCoin('BTC'));
+    } else {
+      const firstCoinOption = coinOptions.find((x) => !x.disabled);
+      if (firstCoinOption) {
+        dispatch(setStateCoin(firstCoinOption.value.toString()));
+      }
     }
 
     const timeParam = searchParams.get('time');
@@ -266,8 +280,8 @@ export const ForecastFilter: React.FC<IForecastFilterProps> = ({
     } else {
       const firstAvailOption = timeOptions.find((x) => !x.disabled);
       const min15AvailOption = timeOptions.find((x) => !x.disabled && x.value === '15m');
+
       if (firstAvailOption) {
-        dispatch(setStateTime(firstAvailOption.value));
         if (min15AvailOption) {
           // Ставим в приоритете 15 мин отображение графика
           dispatch(setStateTime(min15AvailOption.value));
