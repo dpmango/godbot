@@ -296,9 +296,10 @@ export const ForecastSimulator = () => {
   const [intervalRun, setIntervalRun] = useState(0);
   const currentInterval = useMemo(() => {
     if (simulatorTimelineIntervals.length > 0 && simulatorCurrentTime) {
-      return simulatorTimelineIntervals.find(
+      const matchedInterval = simulatorTimelineIntervals.find(
         (x) => simulatorCurrentTime >= x.from && (x.to ? simulatorCurrentTime < x.to : true)
       );
+      return matchedInterval;
     }
 
     return null;
@@ -312,42 +313,42 @@ export const ForecastSimulator = () => {
   //   }
   // }, [currentStage, currentInterval]);
 
-  const updateSimulatorToTime = useCallback(
-    (time: UTCTimestamp) => {
-      setSimulatorCurrentTime(time);
+  // const updateSimulatorToTime = useCallback(
+  //   (time: UTCTimestamp) => {
+  //     setSimulatorCurrentTime(time);
 
-      chartLines.forEach((lineSeries, idx) => {
-        if (['Upper', 'Lower', 'Forecast'].includes(lineSeries.id)) {
-          const targetInterval = simulatorTimelineIntervals.find(
-            (x) => time >= x.from && (x.to ? time < x.to : true)
-          );
+  //     chartLines.forEach((lineSeries, idx) => {
+  //       if (['Upper', 'Lower', 'Forecast'].includes(lineSeries.id)) {
+  //         const targetInterval = simulatorTimelineIntervals.find(
+  //           (x) => time >= x.from && (x.to ? time < x.to : true)
+  //         );
 
-          const forecastInterval = dataSeries[idx].data.filter((x) =>
-            targetInterval?.to ? x.time <= targetInterval?.to : false
-          );
+  //         const forecastInterval = dataSeries[idx].data.filter((x) =>
+  //           targetInterval?.to ? x.time <= targetInterval?.to : false
+  //         );
 
-          // устанавливает погнозные линии по интервалу (между прогнозами)
-          if (forecastInterval?.length) {
-            lineSeries.instance.setData(forecastInterval);
-          }
-        }
+  //         // устанавливает погнозные линии по интервалу (между прогнозами)
+  //         if (forecastInterval?.length) {
+  //           lineSeries.instance.setData(forecastInterval);
+  //         }
+  //       }
 
-        if (lineSeries.id === 'RealLine') {
-          const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= time);
-          if (forecastInterval?.length) {
-            lineSeries.instance.setData(forecastInterval);
-          }
-        }
-      });
+  //       if (lineSeries.id === 'RealLine') {
+  //         const forecastInterval = dataSeries[idx].data.filter((x) => x.time <= time);
+  //         if (forecastInterval?.length) {
+  //           lineSeries.instance.setData(forecastInterval);
+  //         }
+  //       }
+  //     });
 
-      handleSimualtorUpdate(time);
-      setSimulatorTimeline((prev) => ({
-        ...prev,
-        paused: true,
-      }));
-    },
-    [chartLines, dataSeries, simulatorTimelineIntervals]
-  );
+  //     handleSimualtorUpdate(time);
+  //     setSimulatorTimeline((prev) => ({
+  //       ...prev,
+  //       paused: true,
+  //     }));
+  //   },
+  //   [chartLines, dataSeries, simulatorTimelineIntervals]
+  // );
 
   // const handleSimulatorForwardClick = useCallback(() => {
   //   if (currentInterval?.to || currentStage?.toTz) {
@@ -357,9 +358,17 @@ export const ForecastSimulator = () => {
   // }, [currentStage, currentInterval]);
 
   const resetToFirstStage = useCallback(() => {
-    updateSimulatorToTime(stages[0].fromTz);
-    setDealsMarkers([]);
-  }, [stages]);
+    setSimulatorCurrentTime(stages[stageActiveID].fromTz);
+    initOrUpdateChart(data, true);
+
+    if (stageActiveID === 0) {
+      setModalManager('introModal');
+    } else if (stageActiveID === 1) {
+      setModalManager('intro2Modal');
+    }
+    // updateSimulatorToTime(stages[stageActiveID].fromTz);
+    // setDealsMarkers([]);
+  }, [stageActiveID, stages, data, setModalManager]);
 
   // установка горизонтальных линиий с инофрмацией по позции
   const [lastPriceLine, setLastPriceLine] = useState<IPriceLine | null>(null);
@@ -542,9 +551,9 @@ export const ForecastSimulator = () => {
     }));
   }, [chartLines]);
 
-  const handleIntro2Close = useCallback(() => {
-    setModalManager(null);
-  }, []);
+  // const handleIntro2Close = useCallback(() => {
+  //   setModalManager(null);
+  // }, []);
 
   const handleIntro3Close = useCallback(() => {
     setModalManager(null);
@@ -880,16 +889,20 @@ export const ForecastSimulator = () => {
                   {formatPrice(positionPL, 0)} $
                 </div>
                 <div className="sim__stats">
-                  {simulatorPosition.dir === 'long' ? (
-                    <span className="c-green">
-                      {t('actions.long')} x{simulatorPosition.quantity}
-                    </span>
-                  ) : (
-                    <span className="c-red">
-                      {t('actions.short')} x{simulatorPosition.quantity}
-                    </span>
-                  )}{' '}
-                  ({formatPrice(positionWeight)}$)
+                  {simulatorPosition.quantity && (
+                    <>
+                      {simulatorPosition.dir === 'long' ? (
+                        <span className="c-green">
+                          {t('actions.long')} x{simulatorPosition.quantity}
+                        </span>
+                      ) : (
+                        <span className="c-red">
+                          {t('actions.short')} x{simulatorPosition.quantity}
+                        </span>
+                      )}{' '}
+                      {/* ({formatPrice(positionWeight)}$) */}
+                    </>
+                  )}
                 </div>
               </>
             )}

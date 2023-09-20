@@ -410,6 +410,11 @@
     display: flex;
     align-items: center;
     padding: 15px 20px;
+
+    @media only screen and (max-width: 767px) {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   &__timeline {
@@ -472,7 +477,7 @@
     flex: 0 0 auto;
     align-items: center;
     margin-left: 14px;
-    margin-right: 24px;
+    margin-right: 0;
     font-size: 14px;
   }
 
@@ -498,7 +503,6 @@
   &__long {
     background-color: var(--blue);
     border-color: var(--blue);
-    margin-right: 5px;
   }
 
   &__flatten {
