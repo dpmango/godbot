@@ -38,7 +38,7 @@ export const DocsCookies = () => {
             <p>
               A 'cookie' is a piece of information that is sent to your browser by a website you
               visit. The Site uses first party cookies (those set by a website that is being visited
-              by the user at the time. For example, cookies via www.GodBot.pro) as well as
+              by the user at the time. For example, cookies via www.godbot.ai) as well as
               third-party cookies (set by a different domain), as described below.
             </p>
             <p>

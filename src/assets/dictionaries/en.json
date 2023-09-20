@@ -165,9 +165,9 @@
       "description": "The first and most basic rule is that the forecast can be wrong in time, but practically does not make mistakes in price levels.  <br/>The chart will show an example of such 'resistances'",
       "action": "Begin"
     },
-    "intro2LinesModal": {
-      "title": "",
-      "description": "Earlier, we considered a one-line forecast that demonstrates the unambiguity of the price movement. <br/>But there are ambiguous forecasts, in front of you is one of them.  <br/> Try to trade the forecast yourself",
+    "intro2Modal": {
+      "title": "Multi-line forecast on the chart",
+      "description": "Upper – the maximum predicted value. Indicates the potential for an increase in the price of an asset. <br/>Lower – the minimum predicted value. Indicates the potential for a decrease in the price of an asset. <br/>Forecast – the most likely scenario for price movement. <br/ ><br/>We recommend trading multi-valued forecasts from channels. When we go beyond the lower border of the channel, we buy, when we go beyond the upper border, we sell.",
       "action": "Continue"
     }
   },

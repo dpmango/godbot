@@ -549,3 +549,9 @@
     font-size: 10px;
   }
 }
+
+.teletype-hide {
+  iframe#teletype-widget-component-button {
+    display: none;
+  }
+}

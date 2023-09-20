@@ -65,15 +65,15 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     changeTheme();
   }, [ctx?.theme]);
 
+  const handleResize = useCallback(() => {
+    chart.current?.applyOptions({
+      width: containerRef.current.clientWidth,
+      height: containerRef.current.clientHeight,
+    });
+  }, [containerRef.current, chart.current]);
+
   // ресайз
   useLayoutEffect(() => {
-    const handleResize = () => {
-      chart.current?.applyOptions({
-        width: containerRef.current.clientWidth,
-        height: containerRef.current.clientHeight,
-      });
-    };
-
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -538,6 +538,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     graphColors,
     theme: ctx?.theme,
 
+    handleResize,
     getChartDefaults,
     createSeriesData,
     createChartLines,

@@ -27,8 +27,8 @@ export const DocsTerms = () => {
             <h1>Terms of Use, Policies and Disclaimers</h1>
             <p>
               Your affirmative act of using our website located at{' '}
-              <a href="www.godbot.pro" target="_blank">
-                www.godbot.pro
+              <a href="www.godbot.ai" target="_blank">
+                www.godbot.ai
               </a>{' '}
               (and all associated sites linked to it) or services ("<strong>GodBot</strong>")
               signifies that you agree to the following terms and conditions of use ("
@@ -65,7 +65,7 @@ export const DocsTerms = () => {
               basis without prior written permission. You may not circumvent any of the site's
               built-in mechanisms to prevent copying or redistribution of GodBot content. For more
               information on commercial use and partnerships with GodBot, please visit the contact
-              page. In case of distribution of any materials from the GodBot.pro website, the user
+              page. In case of distribution of any materials from the godbot.ai website, the user
               undertakes to pay a fine in the amount of ten times the proceeds from illegal
               activities, but not less than $100,000 (one hundred thousand) US dollars.
             </p>
@@ -202,8 +202,8 @@ export const DocsTerms = () => {
             <ol>
               <li>
                 By ordering any subscription on{' '}
-                <a href="www.godbot.pro" target="_blank">
-                  www.godbot.pro
+                <a href="www.godbot.ai" target="_blank">
+                  www.godbot.ai
                 </a>{' '}
                 (luding a free trial period) you confirm that you have read and accepted our Terms
                 of Use and you authorize GodBot to automatically charge your bank card or PayPal

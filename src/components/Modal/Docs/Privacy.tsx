@@ -314,9 +314,9 @@ export const DocsPrivacy = () => {
             <h2>Contact information</h2>
             <p>
               If you have any questions or suggestions regarding the processing of personal data,
-              please contact us at <a href="mailto:privacy@godbot.pro">privacy@godbot.pro</a>{' '}
-              (please note that we do not provide user or account support via email, this address is
-              for privacy inquiries only).
+              please contact us at <a href="mailto:privacy@godbot.ai">privacy@godbot.ai</a> (please
+              note that we do not provide user or account support via email, this address is for
+              privacy inquiries only).
             </p>
           </div>
 

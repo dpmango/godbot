@@ -9,7 +9,7 @@ export const PartnerSide = () => {
 
   const referralLink = useMemo(() => {
     if (!partner?.id) return '';
-    return `http://godbot.pro/?referrer_id=${partner.id}`;
+    return `http://godbot.ai/?referrer_id=${partner.id}`;
   }, [partner?.id]);
 
   const handleCopy = useCallback(async () => {

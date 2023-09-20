@@ -2,6 +2,7 @@
 export const TeletypeWidget = () => {
   const { teletypeReady } = useAppSelector((state) => state.uiState);
   const { userData } = useAppSelector((state) => state.userState);
+  const { simulator } = useAppSelector((state) => state.forecastState);
 
   const dispatch = useAppDispatch();
   const { i18n } = useTranslation();
@@ -29,6 +30,14 @@ export const TeletypeWidget = () => {
       window.teletypeExternalId = import.meta.env.VITE_TELETYPE_KEY;
     }
   });
+
+  useEffect(() => {
+    if (simulator.enabled) {
+      document.body.classList.add('teletype-hide');
+    } else {
+      document.body.classList.remove('teletype-hide');
+    }
+  }, [simulator.enabled]);
 
   useEffect(() => {
     if (teletypeReady && userData) {

@@ -21,7 +21,7 @@ import {
 import { SvgIcon } from '@/components/UI';
 import { IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
 
-import { simulatorDataStage1, simulatorDataStage2, simulatorDataStage3 } from './simulatorData';
+import { simulatorDataStage1, simulatorDataStage2 } from './simulatorData';
 
 export interface IChartLines {
   id: string;
@@ -560,6 +560,7 @@ export const ForecastSimulator = () => {
     theme,
     graphColors,
 
+    handleResize,
     getChartDefaults,
     createSeriesData,
     createChartLines,
@@ -598,7 +599,10 @@ export const ForecastSimulator = () => {
 
     if (!chart.current || isForced) {
       // Создание инстанса графика
-      if (isForced) chart.current?.remove();
+      if (isForced) {
+        chart.current?.remove();
+        chart.current = null;
+      }
 
       const chartInstance = createChart(
         containerRef.current,
@@ -647,9 +651,10 @@ export const ForecastSimulator = () => {
           }
         }
       });
-
-      setLoading(false);
     }
+
+    handleResize();
+    setLoading(false);
 
     return () => {
       chart.current?.remove();
@@ -760,7 +765,7 @@ export const ForecastSimulator = () => {
     };
 
     const requestChart = async () => {
-      if (!currentCoin || !currentStage) return;
+      if (!currentStage) return;
 
       dispatch(flushDataState());
       setSimulatorDataLoaded(false);
@@ -769,11 +774,11 @@ export const ForecastSimulator = () => {
     };
 
     requestChart();
-  }, [currentCoin, currentTime, currentStage]);
+  }, [currentTime, currentStage]);
 
   // обновление данных и перерисовка
   useEffect(() => {
-    if (data && data.length && simulatorDataLoaded) {
+    if (data?.length && simulatorDataLoaded) {
       initOrUpdateChart(data, intervalRun > 0);
     } else {
       if (chart?.current) {

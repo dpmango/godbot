@@ -1,4 +1,4 @@
-yarn build
+sudo yarn build
 ssh user@23.88.122.94 << EOF
   cd godbot/front
   rm -rf build
