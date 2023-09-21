@@ -84,6 +84,7 @@ export const Forecast = () => {
       ['RealCandle', 'RealLine', 'Forecast', 'Upper', 'Lower', 'History'],
       historyData
     );
+
     setSeries([...currentSeries]);
 
     // точки обновленный прогноза
@@ -143,8 +144,36 @@ export const Forecast = () => {
       // обновление данных
       const PERF_TIME = performance.now();
 
-      chartLines.forEach((lineSeries, idx) => {
-        lineSeries.instance.setData([...currentSeries[idx].data]);
+      const historySeries = chartLines.filter((x) => x.id.includes('History'));
+      const nonHistorySeries = chartLines.filter((x) => !x.id.includes('History'));
+
+      let passChartLines = chartLines;
+      if (historySeries.length) {
+        // отрисовка Series Types
+        passChartLines = createChartLines({
+          chart: chart.current,
+          updateMarkers,
+          currentSeries,
+        });
+        setChartLines([...passChartLines]);
+      }
+
+      if (nonHistorySeries.length) {
+        chartLines.forEach((lineSeries, idx) => {
+          const newData = currentSeries.find((x) => x.id === lineSeries.id)?.data;
+          if (newData) {
+            lineSeries.instance.setData([...currentSeries[idx].data]);
+          }
+        });
+      }
+
+      chart.current.subscribeCrosshairMove((param) => {
+        setTooltipOnCrosshairMove({
+          param,
+          newChartLines: passChartLines,
+          currentSeries,
+          setCrosshair: (v) => setCrosshair(v),
+        });
       });
 
       if (updateMarkers.length) {
@@ -163,6 +192,7 @@ export const Forecast = () => {
 
     return () => {
       chart.current?.remove();
+      chart.current = null;
     };
   };
 
