@@ -162,7 +162,7 @@ export const Forecast = () => {
         chartLines.forEach((lineSeries, idx) => {
           const newData = currentSeries.find((x) => x.id === lineSeries.id)?.data;
           if (newData) {
-            lineSeries.instance.setData([...currentSeries[idx].data]);
+            lineSeries.instance.setData([...newData]);
           }
         });
       }
