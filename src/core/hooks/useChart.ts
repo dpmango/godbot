@@ -298,25 +298,28 @@ export function useChart({
       if (historyData && Object.keys(historyData).length) {
         Object.keys(historyData).forEach((keyHistory) => {
           if (key === 'History') {
-            // series.push({
-            //   id: `History_${keyHistory}`,
-            //   displayName: `History_${keyHistory}`,
-            //   type: 'line',
-            //   lineStyle: {
-            //     color: graphColors[2],
-            //     lineWidth: 2 as LineWidth,
-            //     lineStyle: LineStyle.Dashed,
-            //     visible: showHistory,
-            //   },
-            //   data: historyData[keyHistory]
-            //     .map((x: IGraphHistoryDto) => {
-            //       return {
-            //         time: x.timestamp,
-            //         value: x.forecast_trend,
-            //       };
-            //     })
-            //     .filter((x) => x.value),
-            // });
+            const createdData = historyData[keyHistory]
+              .map((x: IGraphHistoryDto) => {
+                return {
+                  time: x.timestamp,
+                  value: x.forecast_trend,
+                };
+              })
+              .filter((x) => x.value);
+            if (createdData.length < 2) return;
+
+            series.push({
+              id: `History_${keyHistory}`,
+              displayName: `History_${keyHistory}`,
+              type: 'line',
+              lineStyle: {
+                color: graphColors[2],
+                lineWidth: 2 as LineWidth,
+                lineStyle: LineStyle.Dashed,
+                visible: showHistory,
+              },
+              data: createdData,
+            });
           }
           // else if (key === 'HistoryUpper') {
           //   series.push({

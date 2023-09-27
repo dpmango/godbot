@@ -81,6 +81,7 @@ declare global {
   const uiStore: typeof import('./src/core/store/ui.store')['default']
   const useAppDispatch: typeof import('./src/core/store')['useAppDispatch']
   const useAppSelector: typeof import('./src/core/store')['useAppSelector']
+  const useAsyncState: typeof import('./src/core/hooks/useAsyncState')['useAsyncState']
   const useCallback: typeof import('react')['useCallback']
   const useChart: typeof import('./src/core/hooks/useChart')['useChart']
   const useClickOutside: typeof import('./src/core/hooks/useClickOutside')['useClickOutside']

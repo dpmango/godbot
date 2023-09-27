@@ -1,6 +1,6 @@
 import { ForecastFilter, ForecastLegend, ForecastSimulator } from '@c/Charts';
 import { Logo } from '@c/Layout/Header';
-import { LockScreen, SvgIcon } from '@ui';
+import { LockScreen } from '@ui';
 import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
@@ -14,7 +14,7 @@ import {
 } from 'lightweight-charts';
 
 import { BlockGraphPopup } from '@/components/Modal';
-import { IGraphHistoryDto, IGraphKeyedDto, IGraphTickDto } from '@/core/interface/Forecast';
+import { IGraphKeyedDto, IGraphTickDto } from '@/core/interface/Forecast';
 
 export interface IChartLines {
   id: string;
@@ -29,13 +29,12 @@ export const graphColorInvisible = '#00000000';
 export const Forecast = () => {
   // внутренние стейты
   const [loading, setLoading] = useState<boolean>(true);
-  const [processing, setProcessing] = useState(false);
   const [legendActive, setLegendActive] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const [minutesToUpdate, setMinutesToUpdate] = useState<number>(0);
   const chart = useRef<IChartApi | null>(null);
-  const [dataSeries, setSeries] = useState<any>([]);
-  const [chartLines, setChartLines] = useState<IChartLines[]>([]);
+  const [dataSeries, setSeries] = useAsyncState<any>([]);
+  const [chartLines, setChartLines] = useAsyncState<IChartLines[]>([]);
   const [scrollRange, setScrollRange] = useState<LogicalRange>();
   // const [crosshair, setCrosshair] = useState<MouseEventParams | null>(null);
   const [returnVisible, setReturnVisible] = useState<boolean>(false);
@@ -80,9 +79,7 @@ export const Forecast = () => {
   // основная функция отрисовки TW
   const initOrUpdateChart = useCallback(
     async (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
-      // подготовка (маппинг) данных
       const PERF_TIME_SERIES = performance.now();
-      setProcessing(true);
 
       // Создание данных по ответу forecast (указываются id для отрисовки)
       const currentSeries = createSeriesData(
@@ -92,9 +89,14 @@ export const Forecast = () => {
         showHistory
       );
 
-      setSeries([...currentSeries]);
-      const seriesChanged = dataSeries.length !== currentSeries.length;
-      // setWantUpdate(seriesChanged);
+      // определение что изменилось. История отрисовывается по отдельным правилам
+      const historySeriesPrev = dataSeries.filter((x) => x.id.includes('History')).length;
+      const historySeriesCurrent = currentSeries.filter((x) => x.id.includes('History')).length;
+      const nonHistorySeriesPrev = dataSeries.filter((x) => !x.id.includes('History')).length;
+      const nonHistorySeriesCurrent = currentSeries.filter((x) => !x.id.includes('History')).length;
+      const historyChanged = historySeriesPrev !== historySeriesCurrent;
+      const nonHistoryChanged = nonHistorySeriesPrev !== nonHistorySeriesCurrent;
+      const seriesChanged = nonHistoryChanged;
 
       // точки обновленный прогноза
       const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
@@ -110,18 +112,15 @@ export const Forecast = () => {
       // Создание инстанса графика
       let chartInstance = chart.current;
 
-      const create = (isRefresh = false) => {
+      const create = async (isRefresh = false) => {
         // обновление данных
-        const PER = performance.now();
         try {
           chartLines.forEach((lineSeries, idx) => {
             chart.current?.removeSeries(lineSeries.instance);
           });
         } catch (e) {
-          console.warn('chartLines remove ERR');
-          console.warn(e);
+          console.warn('1. chartLines remove ERR', e);
         }
-        PerformanceLog(PERF_TIME_SERIES, 'REMOVE');
 
         if (!isRefresh) {
           chartInstance = createChart(
@@ -137,7 +136,7 @@ export const Forecast = () => {
           updateMarkers,
           currentSeries,
         });
-        setChartLines((prev) => [...newChartLines] as IChartLines[]);
+        await setChartLines(newChartLines);
 
         if (!isRefresh) {
           // навигация по графику
@@ -159,45 +158,61 @@ export const Forecast = () => {
         chart.current = chartInstance;
       };
 
-      const update = () => {
+      const update = async () => {
         if (!chart.current) return;
 
-        const historySeries = chartLines.filter((x) => x.id.includes('History'));
-        const nonHistorySeries = chartLines.filter((x) => !x.id.includes('History'));
+        const nonHistoryLines = chartLines.filter((x) => !x.id.includes('History'));
+        const historyUpdateLines = chartLines.filter((x) => {
+          if (!x.id.includes('History')) return false;
+          return !!dataSeries.find((y) => x.id === y.id);
+        });
+        const historyUpdateIds = historyUpdateLines.map((x) => x.id);
+        const newHistoryLines = chartLines.filter((x) => {
+          console.log(x.id.includes('History'), { historyUpdateIds }, { chartLines });
+          return x.id.includes('History') && !historyUpdateIds.includes(x.id);
+        });
 
-        // пересоздание данных
-        if (historySeries.length) {
-          // через ресет текущих
-          const PERF_TIME_SERIES = performance.now();
-          try {
-            historySeries.forEach((lineSeries, idx) => {
-              chart.current?.removeSeries(lineSeries.instance);
-            });
-          } catch (e) {
-            console.warn('historySeries remove ERR');
-            console.warn(e);
-          }
-          PerformanceLog(PERF_TIME_SERIES, 'REMOVE');
+        await setSeries([...currentSeries]);
 
-          const historyNewSeries = createChartLines({
-            chart: chart.current,
-            updateMarkers,
-            currentSeries: currentSeries.filter((x) => {
-              return x.id.includes('History');
-            }),
-          });
-
-          const upSeries = [...nonHistorySeries, ...historyNewSeries];
-          setChartLines(upSeries);
-        }
-
-        if (nonHistorySeries.length) {
-          chartLines.forEach((lineSeries, idx) => {
+        if (nonHistoryLines.length) {
+          nonHistoryLines.forEach((lineSeries, idx) => {
             const newData = currentSeries.find((x) => x.id === lineSeries.id)?.data;
             if (newData) {
               lineSeries.instance.setData([...newData]);
             }
           });
+        }
+
+        if (historyUpdateLines.length) {
+          historyUpdateLines.forEach((lineSeries, idx) => {
+            const newData = currentSeries.find((x) => x.id === lineSeries.id)?.data;
+            if (newData) {
+              lineSeries.instance.setData([...newData]);
+            }
+          });
+        }
+
+        // создание новых линий внутри апдейда данных
+        if (newHistoryLines.length) {
+          console.log({ newHistoryLines });
+          const linesToCreate = currentSeries.filter((sdata: any) => {
+            if (!sdata.id.includes('History')) return false;
+            return newHistoryLines.map((x) => x.id).includes(sdata.id);
+          });
+
+          const historyNewLines = createChartLines({
+            chart: chart.current,
+            updateMarkers,
+            currentSeries: linesToCreate,
+          });
+
+          console.log({ historyNewLines });
+          const upLines = [
+            ...(nonHistoryLines || []),
+            ...(historyUpdateLines || []),
+            ...historyNewLines,
+          ];
+          await setChartLines(upLines);
         }
 
         // маркеры обновлений
@@ -212,8 +227,10 @@ export const Forecast = () => {
 
       // Роутинг действий
       if (!chart.current) {
+        await setSeries([...currentSeries]);
         create();
       } else if (seriesChanged) {
+        await setSeries([...currentSeries]);
         create(true);
       } else {
         update();
@@ -221,7 +238,6 @@ export const Forecast = () => {
 
       setLoading(false);
       setLastUpdate(formatDate(new Date()));
-      setProcessing(false);
 
       PerformanceLog(PERF_TIME_SERIES, 'updating chart series');
     },
@@ -357,18 +373,18 @@ export const Forecast = () => {
       chart.current &&
         chart.current.timeScale().unsubscribeVisibleLogicalRangeChange(checkLogicalRange);
     };
-  }, [chart.current]);
+  }, [chart.current, chartLines, dataSeries]);
 
   // подписка на тултипы
   useEffect(() => {
-    if (chart.current && !processing) {
+    if (chart.current) {
       chart.current.subscribeCrosshairMove(setTooltipOnCrosshairMove);
     }
 
     return () => {
       chart.current && chart.current.unsubscribeCrosshairMove(setTooltipOnCrosshairMove);
     };
-  }, [chart.current, chartLines, processing]);
+  }, [chart.current, chartLines, dataSeries]);
 
   // пульсирующая точка
   useEffect(() => {
@@ -491,6 +507,7 @@ export const Forecast = () => {
 
   // обновление данных
   useEffect(() => {
+    console.log('effect', { data });
     if (data && !viewLocked && !simulator.enabled) {
       if (data.length) initOrUpdateChart(data, dataHistory);
     } else if (viewLocked || simulator.enabled) {
