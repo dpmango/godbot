@@ -293,11 +293,9 @@ export function useChart({
           },
           data: chartsData.Invisible,
         });
-      }
-
-      if (historyData && Object.keys(historyData).length) {
-        Object.keys(historyData).forEach((keyHistory) => {
-          if (key === 'History') {
+      } else if (key === 'History') {
+        if (historyData && Object.keys(historyData).length) {
+          Object.keys(historyData).forEach((keyHistory) => {
             const createdData = historyData[keyHistory]
               .map((x: IGraphHistoryDto) => {
                 return {
@@ -320,51 +318,8 @@ export function useChart({
               },
               data: createdData,
             });
-          }
-          // else if (key === 'HistoryUpper') {
-          //   series.push({
-          //     id: `HistoryUpper_${keyHistory}`,
-          //     displayName: `HistoryUpper_${keyHistory}`,
-          //     type: 'line',
-          //     lineStyle: {
-          //       color: graphColors[3],
-          //       lineWidth: 1 as LineWidth,
-          //       lineStyle: LineStyle.Dashed,
-          //       visible: false,
-          //       crosshairMarkerVisible: false,
-          //     },
-          //     data: historyData[keyHistory]
-          //       .map((x: IGraphHistoryDto) => {
-          //         return {
-          //           time: x.timestamp,
-          //           value: x.forecast_high,
-          //         };
-          //       })
-          //       .filter((x) => x.value),
-          //   });
-          // } else if (key === 'HistoryLower') {
-          //   series.push({
-          //     id: `HistoryLower_${keyHistory}`,
-          //     displayName: `HistoryLower_${keyHistory}`,
-          //     type: 'line',
-          //     lineStyle: {
-          //       color: graphColors[4],
-          //       lineWidth: 1 as LineWidth,
-          //       lineStyle: LineStyle.Dashed,
-          //       visible: false,
-          //       crosshairMarkerVisible: false,
-          //     },
-          //     data: historyData[keyHistory]
-          //       .map((x: IGraphHistoryDto) => {
-          //         return {
-          //           time: x.timestamp,
-          //           value: x.forecast_low,
-          //         };
-          //       })
-          //       .filter((x) => x.value),
-          //   });
-          // }
-        });
+          });
+        }
       }
     });
 

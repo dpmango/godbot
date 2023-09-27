@@ -14,7 +14,7 @@ import {
 } from 'lightweight-charts';
 
 import { BlockGraphPopup } from '@/components/Modal';
-import { IGraphKeyedDto, IGraphTickDto } from '@/core/interface/Forecast';
+import { IGraphKeyedDto, IGraphTickDto, ISeriesData } from '@/core/interface/Forecast';
 
 export interface IChartLines {
   id: string;
@@ -136,6 +136,7 @@ export const Forecast = () => {
           updateMarkers,
           currentSeries,
         });
+
         await setChartLines(newChartLines);
 
         if (!isRefresh) {
@@ -164,13 +165,19 @@ export const Forecast = () => {
         const nonHistoryLines = chartLines.filter((x) => !x.id.includes('History'));
         const historyUpdateLines = chartLines.filter((x) => {
           if (!x.id.includes('History')) return false;
-          return !!dataSeries.find((y) => x.id === y.id);
+          return !!dataSeries.find((y: ISeriesData) => x.id === y.id);
         });
+
         const historyUpdateIds = historyUpdateLines.map((x) => x.id);
-        const newHistoryLines = chartLines.filter((x) => {
-          console.log(x.id.includes('History'), { historyUpdateIds }, { chartLines });
-          return x.id.includes('History') && !historyUpdateIds.includes(x.id);
-        });
+        const newLinesToCreate = dataSeries.reduce((acc: ISeriesData[], x) => {
+          if (x.id.includes('History') && !historyUpdateIds.includes(x.id)) {
+            acc.push(x);
+          }
+
+          return acc;
+        }, [] as ISeriesData[]);
+
+        // console.log({ l: currentSeries.length }, { newLinesToCreate });
 
         await setSeries([...currentSeries]);
 
@@ -193,20 +200,14 @@ export const Forecast = () => {
         }
 
         // создание новых линий внутри апдейда данных
-        if (newHistoryLines.length) {
-          console.log({ newHistoryLines });
-          const linesToCreate = currentSeries.filter((sdata: any) => {
-            if (!sdata.id.includes('History')) return false;
-            return newHistoryLines.map((x) => x.id).includes(sdata.id);
-          });
-
+        if (newLinesToCreate.length) {
           const historyNewLines = createChartLines({
             chart: chart.current,
             updateMarkers,
-            currentSeries: linesToCreate,
+            currentSeries: newLinesToCreate,
           });
 
-          console.log({ historyNewLines });
+          // console.log('setChartLines 2', { historyNewLines });
           const upLines = [
             ...(nonHistoryLines || []),
             ...(historyUpdateLines || []),
@@ -216,13 +217,13 @@ export const Forecast = () => {
         }
 
         // маркеры обновлений
-        // if (updateMarkers.length) {
-        //   chartLines
-        //     .filter((x) => x.showChanges)
-        //     .forEach((lineSeries) => {
-        //       lineSeries.instance.setMarkers(updateMarkers);
-        //     });
-        // }
+        if (updateMarkers.length) {
+          chartLines
+            .filter((x) => x.showChanges)
+            .forEach((lineSeries) => {
+              lineSeries.instance.setMarkers(updateMarkers);
+            });
+        }
       };
 
       // Роутинг действий
@@ -507,7 +508,6 @@ export const Forecast = () => {
 
   // обновление данных
   useEffect(() => {
-    console.log('effect', { data });
     if (data && !viewLocked && !simulator.enabled) {
       if (data.length) initOrUpdateChart(data, dataHistory);
     } else if (viewLocked || simulator.enabled) {
