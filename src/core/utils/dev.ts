@@ -5,7 +5,7 @@ export const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-export const VERSION = '0.5.25';
+export const VERSION = '0.6.0';
 
 export const LOG = {
   log: (...args: any) => {
@@ -28,7 +28,7 @@ export const LOG = {
 export const PerformanceLog = (DEV_perf: number, name: string) => {
   const DEV_perf_end = performance.now();
 
-  LOG.log(`PERF :: ${name} :: ${(DEV_perf_end - DEV_perf).toFixed(2)} ms`);
+  console.log(`PERF :: ${name} :: ${(DEV_perf_end - DEV_perf).toFixed(2)} ms`);
 };
 
 export const isDevelopmentSite = window.location.host.includes('devgodbot.ru');

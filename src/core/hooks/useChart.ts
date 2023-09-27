@@ -150,7 +150,8 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
   const createSeriesData = (
     coinData: IGraphTickDto[],
     whitelist: string[],
-    historyData?: IGraphKeyedDto
+    historyData?: IGraphKeyedDto,
+    showHistory = false
   ) => {
     // мапинг данных по графикам
     const chartsData = {
@@ -297,7 +298,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
                 color: graphColors[2],
                 lineWidth: 2 as LineWidth,
                 lineStyle: LineStyle.Dashed,
-                visible: false,
+                visible: showHistory,
               },
               data: historyData[keyHistory]
                 .map((x: IGraphHistoryDto) => {
@@ -308,49 +309,50 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
                 })
                 .filter((x) => x.value),
             });
-          } else if (key === 'HistoryUpper') {
-            series.push({
-              id: `HistoryUpper_${keyHistory}`,
-              displayName: `HistoryUpper_${keyHistory}`,
-              type: 'line',
-              lineStyle: {
-                color: graphColors[3],
-                lineWidth: 1 as LineWidth,
-                lineStyle: LineStyle.Dashed,
-                visible: false,
-                crosshairMarkerVisible: false,
-              },
-              data: historyData[keyHistory]
-                .map((x: IGraphHistoryDto) => {
-                  return {
-                    time: x.timestamp,
-                    value: x.forecast_high,
-                  };
-                })
-                .filter((x) => x.value),
-            });
-          } else if (key === 'HistoryLower') {
-            series.push({
-              id: `HistoryLower_${keyHistory}`,
-              displayName: `HistoryLower_${keyHistory}`,
-              type: 'line',
-              lineStyle: {
-                color: graphColors[4],
-                lineWidth: 1 as LineWidth,
-                lineStyle: LineStyle.Dashed,
-                visible: false,
-                crosshairMarkerVisible: false,
-              },
-              data: historyData[keyHistory]
-                .map((x: IGraphHistoryDto) => {
-                  return {
-                    time: x.timestamp,
-                    value: x.forecast_low,
-                  };
-                })
-                .filter((x) => x.value),
-            });
           }
+          // else if (key === 'HistoryUpper') {
+          //   series.push({
+          //     id: `HistoryUpper_${keyHistory}`,
+          //     displayName: `HistoryUpper_${keyHistory}`,
+          //     type: 'line',
+          //     lineStyle: {
+          //       color: graphColors[3],
+          //       lineWidth: 1 as LineWidth,
+          //       lineStyle: LineStyle.Dashed,
+          //       visible: false,
+          //       crosshairMarkerVisible: false,
+          //     },
+          //     data: historyData[keyHistory]
+          //       .map((x: IGraphHistoryDto) => {
+          //         return {
+          //           time: x.timestamp,
+          //           value: x.forecast_high,
+          //         };
+          //       })
+          //       .filter((x) => x.value),
+          //   });
+          // } else if (key === 'HistoryLower') {
+          //   series.push({
+          //     id: `HistoryLower_${keyHistory}`,
+          //     displayName: `HistoryLower_${keyHistory}`,
+          //     type: 'line',
+          //     lineStyle: {
+          //       color: graphColors[4],
+          //       lineWidth: 1 as LineWidth,
+          //       lineStyle: LineStyle.Dashed,
+          //       visible: false,
+          //       crosshairMarkerVisible: false,
+          //     },
+          //     data: historyData[keyHistory]
+          //       .map((x: IGraphHistoryDto) => {
+          //         return {
+          //           time: x.timestamp,
+          //           value: x.forecast_low,
+          //         };
+          //       })
+          //       .filter((x) => x.value),
+          //   });
+          // }
         });
       }
     });
@@ -429,7 +431,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     currentSeries,
   }: {
     param: MouseEventParams;
-    setCrosshair: (p: MouseEventParams) => void;
+    setCrosshair?: (p: MouseEventParams) => void;
     newChartLines: IChartLines[];
     currentSeries: { id: NamedCurve }[];
   }) => {
@@ -455,13 +457,16 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     }
 
     tooltipRef.current.style.display = 'flex';
-    setCrosshair(param);
+    setCrosshair && setCrosshair(param);
 
     // build tooltip html
 
     const dateStr = formatUnixDate(param.time as UTCTimestamp);
     let pricesHtml = '';
     newChartLines.forEach((ser, idx) => {
+      const isVisible = ser.instance.options().visible;
+      if (!isVisible) return;
+
       const priceInstance = param.seriesData.get(ser.instance) as {
         value: number;
         time: number;

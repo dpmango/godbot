@@ -103,6 +103,7 @@ export const forecastState = createSlice({
     },
     flushDataState(state) {
       state.data = [];
+      state.dataHistory = {};
       state.dataNav = { max: 100, points: 0, requested: [] };
     },
     setStateCoin(state, action: PayloadAction<string>) {
@@ -247,7 +248,10 @@ export const forecastState = createSlice({
             histroyCovertedDto[id] = dataTzFix;
           });
 
-          state.dataHistory = histroyCovertedDto;
+          state.dataHistory = {
+            ...state.dataHistory,
+            ...histroyCovertedDto,
+          };
         }
       }
     });
