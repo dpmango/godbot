@@ -29,6 +29,7 @@ export const graphColorInvisible = '#00000000';
 export const Forecast = () => {
   // внутренние стейты
   const [loading, setLoading] = useState<boolean>(true);
+  const [processing, setProcessing] = useState(false);
   const [legendActive, setLegendActive] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const [minutesToUpdate, setMinutesToUpdate] = useState<number>(0);
@@ -42,6 +43,7 @@ export const Forecast = () => {
   const [isForceGraph, setIsForceGraph] = useState<boolean>(false);
   const debouncedRange = useDebounce<LogicalRange | undefined>(scrollRange, 250);
   const [blockPointX, setBlockPointX] = useState(500);
+  const [showHistory, setShowHistory] = useState(false);
 
   // стор
   const { data, dataHistory, dataNav, currentCoin, currentTime, prolongation, simulator } =
@@ -68,160 +70,163 @@ export const Forecast = () => {
     chart,
     containerRef,
     tooltipRef,
+    dataSeries,
+    chartLines,
   });
 
   const paginatePer = 200;
   const viewLocked = !tariffActive && !allowedFunctions.forecast;
 
   // основная функция отрисовки TW
-  const initOrUpdateChart = async (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
-    // подготовка (маппинг) данных
-    const PERF_TIME_SERIES = performance.now();
+  const initOrUpdateChart = useCallback(
+    async (coinData: IGraphTickDto[], historyData?: IGraphKeyedDto) => {
+      // подготовка (маппинг) данных
+      const PERF_TIME_SERIES = performance.now();
+      setProcessing(true);
 
-    // Создание данных по ответу forecast (указываются id для отрисовки)
-    const currentSeries = createSeriesData(
-      coinData,
-      ['RealCandle', 'RealLine', 'Forecast', 'Upper', 'Lower', 'History'],
-      historyData,
-      showHistory
-    );
+      // Создание данных по ответу forecast (указываются id для отрисовки)
+      const currentSeries = createSeriesData(
+        coinData,
+        ['RealCandle', 'RealLine', 'Forecast', 'Upper', 'Lower', 'History'],
+        historyData,
+        showHistory
+      );
 
-    setSeries([...currentSeries]);
-    const seriesChanged = dataSeries.length !== currentSeries.length;
-    // setWantUpdate(seriesChanged);
+      setSeries([...currentSeries]);
+      const seriesChanged = dataSeries.length !== currentSeries.length;
+      // setWantUpdate(seriesChanged);
 
-    // точки обновленный прогноза
-    const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
-    const updateMarkers = createUpdateMarkers(updateDates);
+      // точки обновленный прогноза
+      const updateDates = coinData.filter((x) => x.is_forecast_start).map((x) => x.timestamp);
+      const updateMarkers = createUpdateMarkers(updateDates);
 
-    // Определение "график обновиться"
-    const lastTick = coinData[coinData.length - 1].timestamp;
-    const lastTime = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
-    const currentTime = dayjs();
-    const minutesToUpdate = (lastTime.unix() - currentTime.unix()) / 60;
-    setMinutesToUpdate(minutesToUpdate || 0);
+      // Определение "график обновиться"
+      const lastTick = coinData[coinData.length - 1].timestamp;
+      const lastTime = dayjs(utcToZonedTime(lastTick * 1000, 'Etc/UTC'));
+      const currentTime = dayjs();
+      const minutesToUpdate = (lastTime.unix() - currentTime.unix()) / 60;
+      setMinutesToUpdate(minutesToUpdate || 0);
 
-    const crosshairFunc = (param: any, newChartLines: any) => {
-      setTooltipOnCrosshairMove({
-        param,
-        newChartLines,
-        currentSeries,
-        // setCrosshair: (v) => setCrosshair(v),
-      });
-    };
+      // Создание инстанса графика
+      let chartInstance = chart.current;
 
-    // Создание инстанса графика
-    let chartInstance = chart.current;
+      const create = (isRefresh = false) => {
+        // обновление данных
+        const PER = performance.now();
+        try {
+          chartLines.forEach((lineSeries, idx) => {
+            chart.current?.removeSeries(lineSeries.instance);
+          });
+        } catch (e) {
+          console.warn('chartLines remove ERR');
+          console.warn(e);
+        }
+        PerformanceLog(PERF_TIME_SERIES, 'REMOVE');
 
-    const create = (isRefresh = false) => {
-      console.log('create/recreate chart');
-      // обновление данных
-      chartLines.forEach((lineSeries, idx) => {
-        chart.current?.removeSeries(lineSeries.instance);
-      });
-
-      if (!isRefresh) {
-        chartInstance = createChart(
-          containerRef.current,
-          getChartDefaults(containerRef.current, {})
-        );
-      }
-
-      // отрисовка Series Types
-      const newChartLines = createChartLines({
-        // @ts-ignore
-        chart: chartInstance,
-        updateMarkers,
-        currentSeries,
-      });
-      setChartLines((prev) => [...newChartLines] as IChartLines[]);
-
-      if (!isRefresh) {
-        // навигация по графику
-        const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
-
-        let from = lastTime.subtract(3, 'hour');
-        if (lastUpdateMarker) {
-          from = dayjs(utcToZonedTime(lastUpdateMarker * 1000, 'Etc/UTC'));
+        if (!isRefresh) {
+          chartInstance = createChart(
+            containerRef.current,
+            getChartDefaults(containerRef.current, {})
+          );
         }
 
-        const visibleRange = {
-          from: timeToTz((from.unix() * 1000) as UTCTimestamp),
-          to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
-        };
-
-        chartInstance?.timeScale().setVisibleRange(visibleRange);
-      }
-
-      // тултипы
-      // chartInstance?.unsubscribeCrosshairMove((p) => crosshairFunc(p, newChartLines));
-      // chartInstance?.subscribeCrosshairMove((p) => crosshairFunc(p, newChartLines));
-
-      chart.current = chartInstance;
-    };
-
-    const update = () => {
-      if (!chart.current) return;
-
-      const historySeries = chartLines.filter((x) => x.id.includes('History'));
-      const nonHistorySeries = chartLines.filter((x) => !x.id.includes('History'));
-
-      // пересоздание данных
-      if (historySeries.length) {
-        // через ресет текущих
-        historySeries.forEach((lineSeries, idx) => {
-          chart.current?.removeSeries(lineSeries.instance);
-        });
-
-        const historyNewSeries = createChartLines({
-          chart: chart.current,
+        // отрисовка Series Types
+        const newChartLines = createChartLines({
+          // @ts-ignore
+          chart: chartInstance,
           updateMarkers,
-          currentSeries: currentSeries.filter((x) => {
-            return x.id.includes('History');
-          }),
+          currentSeries,
         });
+        setChartLines((prev) => [...newChartLines] as IChartLines[]);
 
-        const upSeries = [...nonHistorySeries, ...historyNewSeries];
-        setChartLines(upSeries);
+        if (!isRefresh) {
+          // навигация по графику
+          const lastUpdateMarker = updateDates.length ? updateDates[updateDates.length - 1] : 0;
 
-        // тултипы
-        // chartInstance?.unsubscribeCrosshairMove((p) => crosshairFunc(p, upSeries));
-        // chartInstance?.subscribeCrosshairMove((p) => crosshairFunc(p, upSeries));
-      }
-
-      if (nonHistorySeries.length) {
-        chartLines.forEach((lineSeries, idx) => {
-          const newData = currentSeries.find((x) => x.id === lineSeries.id)?.data;
-          if (newData) {
-            lineSeries.instance.setData([...newData]);
+          let from = lastTime.subtract(3, 'hour');
+          if (lastUpdateMarker) {
+            from = dayjs(utcToZonedTime(lastUpdateMarker * 1000, 'Etc/UTC'));
           }
-        });
+
+          const visibleRange = {
+            from: timeToTz((from.unix() * 1000) as UTCTimestamp),
+            to: timeToTz((lastTime.unix() * 1000) as UTCTimestamp),
+          };
+
+          chartInstance?.timeScale().setVisibleRange(visibleRange);
+        }
+
+        chart.current = chartInstance;
+      };
+
+      const update = () => {
+        if (!chart.current) return;
+
+        const historySeries = chartLines.filter((x) => x.id.includes('History'));
+        const nonHistorySeries = chartLines.filter((x) => !x.id.includes('History'));
+
+        // пересоздание данных
+        if (historySeries.length) {
+          // через ресет текущих
+          const PERF_TIME_SERIES = performance.now();
+          try {
+            historySeries.forEach((lineSeries, idx) => {
+              chart.current?.removeSeries(lineSeries.instance);
+            });
+          } catch (e) {
+            console.warn('historySeries remove ERR');
+            console.warn(e);
+          }
+          PerformanceLog(PERF_TIME_SERIES, 'REMOVE');
+
+          const historyNewSeries = createChartLines({
+            chart: chart.current,
+            updateMarkers,
+            currentSeries: currentSeries.filter((x) => {
+              return x.id.includes('History');
+            }),
+          });
+
+          const upSeries = [...nonHistorySeries, ...historyNewSeries];
+          setChartLines(upSeries);
+        }
+
+        if (nonHistorySeries.length) {
+          chartLines.forEach((lineSeries, idx) => {
+            const newData = currentSeries.find((x) => x.id === lineSeries.id)?.data;
+            if (newData) {
+              lineSeries.instance.setData([...newData]);
+            }
+          });
+        }
+
+        // маркеры обновлений
+        // if (updateMarkers.length) {
+        //   chartLines
+        //     .filter((x) => x.showChanges)
+        //     .forEach((lineSeries) => {
+        //       lineSeries.instance.setMarkers(updateMarkers);
+        //     });
+        // }
+      };
+
+      // Роутинг действий
+      if (!chart.current) {
+        create();
+      } else if (seriesChanged) {
+        create(true);
+      } else {
+        update();
       }
 
-      // маркеры обновлений
-      // if (updateMarkers.length) {
-      //   chartLines
-      //     .filter((x) => x.showChanges)
-      //     .forEach((lineSeries) => {
-      //       lineSeries.instance.setMarkers(updateMarkers);
-      //     });
-      // }
-    };
+      setLoading(false);
+      setLastUpdate(formatDate(new Date()));
+      setProcessing(false);
 
-    // Роутинг действий
-    if (!chart.current) {
-      create();
-    } else if (seriesChanged) {
-      create(true);
-    } else {
-      update();
-    }
-
-    setLoading(false);
-    setLastUpdate(formatDate(new Date()));
-
-    PerformanceLog(PERF_TIME_SERIES, 'updating chart series');
-  };
+      PerformanceLog(PERF_TIME_SERIES, 'updating chart series');
+    },
+    [chart.current, containerRef.current, dataSeries, chartLines, showHistory]
+  );
 
   // Проверка на блокировку скрола для пользователя
   const checkForBlockScroll = useCallback(
@@ -311,8 +316,6 @@ export const Forecast = () => {
     setCurrentViewType('bars');
   }, [handleVisibilityToggle, currentViewType]);
 
-  const [showHistory, setShowHistory] = useState(false);
-
   const setHistoryShow = useCallback(() => {
     if (showHistory) {
       setHistoryHide();
@@ -355,6 +358,17 @@ export const Forecast = () => {
         chart.current.timeScale().unsubscribeVisibleLogicalRangeChange(checkLogicalRange);
     };
   }, [chart.current]);
+
+  // подписка на тултипы
+  useEffect(() => {
+    if (chart.current && !processing) {
+      chart.current.subscribeCrosshairMove(setTooltipOnCrosshairMove);
+    }
+
+    return () => {
+      chart.current && chart.current.unsubscribeCrosshairMove(setTooltipOnCrosshairMove);
+    };
+  }, [chart.current, chartLines, processing]);
 
   // пульсирующая точка
   useEffect(() => {
@@ -478,7 +492,7 @@ export const Forecast = () => {
   // обновление данных
   useEffect(() => {
     if (data && !viewLocked && !simulator.enabled) {
-      if (data.length) initOrUpdateChart(data, dataHistory).catch((err) => console.warn(err));
+      if (data.length) initOrUpdateChart(data, dataHistory);
     } else if (viewLocked || simulator.enabled) {
       chart.current?.remove();
       chart.current = null;

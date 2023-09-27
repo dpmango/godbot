@@ -27,9 +27,17 @@ interface IUseChartProps {
   chart: React.MutableRefObject<IChartApi | null>;
   containerRef: React.MutableRefObject<any>;
   tooltipRef: React.MutableRefObject<HTMLElement | null>;
+  dataSeries: ISeriesData[];
+  chartLines: IChartLines[];
 }
 
-export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
+export function useChart({
+  chart,
+  containerRef,
+  tooltipRef,
+  dataSeries,
+  chartLines,
+}: IUseChartProps) {
   const graphColors: string[] = ['#2962FF', '#2962FF', '#CD1D15', '#3DAB8E', '#966ADB'];
   const graphColorInvisible = '#00000000';
 
@@ -290,25 +298,25 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
       if (historyData && Object.keys(historyData).length) {
         Object.keys(historyData).forEach((keyHistory) => {
           if (key === 'History') {
-            series.push({
-              id: `History_${keyHistory}`,
-              displayName: `History_${keyHistory}`,
-              type: 'line',
-              lineStyle: {
-                color: graphColors[2],
-                lineWidth: 2 as LineWidth,
-                lineStyle: LineStyle.Dashed,
-                visible: showHistory,
-              },
-              data: historyData[keyHistory]
-                .map((x: IGraphHistoryDto) => {
-                  return {
-                    time: x.timestamp,
-                    value: x.forecast_trend,
-                  };
-                })
-                .filter((x) => x.value),
-            });
+            // series.push({
+            //   id: `History_${keyHistory}`,
+            //   displayName: `History_${keyHistory}`,
+            //   type: 'line',
+            //   lineStyle: {
+            //     color: graphColors[2],
+            //     lineWidth: 2 as LineWidth,
+            //     lineStyle: LineStyle.Dashed,
+            //     visible: showHistory,
+            //   },
+            //   data: historyData[keyHistory]
+            //     .map((x: IGraphHistoryDto) => {
+            //       return {
+            //         time: x.timestamp,
+            //         value: x.forecast_trend,
+            //       };
+            //     })
+            //     .filter((x) => x.value),
+            // });
           }
           // else if (key === 'HistoryUpper') {
           //   series.push({
@@ -368,7 +376,7 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
     updateMarkers,
   }: {
     chart: IChartApi;
-    currentSeries: any[];
+    currentSeries: ISeriesData[];
     updateMarkers: SeriesMarker<Time>[];
   }) => {
     const newChartLines: IChartLines[] = [];
@@ -424,120 +432,110 @@ export function useChart({ chart, containerRef, tooltipRef }: IUseChartProps) {
   };
 
   // Тултипы (подписка при инициализации графика)
-  const setTooltipOnCrosshairMove = ({
-    param,
-    setCrosshair,
-    newChartLines,
-    currentSeries,
-  }: {
-    param: MouseEventParams;
-    setCrosshair?: (p: MouseEventParams) => void;
-    newChartLines: IChartLines[];
-    currentSeries: { id: NamedCurve }[];
-  }) => {
-    const container = containerRef.current;
-    const toolTip = tooltipRef.current;
+  const setTooltipOnCrosshairMove = useCallback(
+    (param: MouseEventParams) => {
+      const container = containerRef.current;
+      const toolTip = tooltipRef.current;
 
-    if (!tooltipRef.current || !toolTip) return;
+      if (!tooltipRef.current || !toolTip) return;
 
-    const toolTipWidth = 120;
-    const priceScaleWidth = 50;
-    const toolTipMargin = 15;
+      const toolTipWidth = 120;
+      const priceScaleWidth = 50;
+      const toolTipMargin = 15;
 
-    if (
-      param.point === undefined ||
-      !param.time ||
-      param.point.x < 0 ||
-      param.point.x > container.clientWidth ||
-      param.point.y < 0 ||
-      param.point.y > container.clientHeight
-    ) {
-      toolTip.style.display = 'none';
-      return;
-    }
-
-    tooltipRef.current.style.display = 'flex';
-    setCrosshair && setCrosshair(param);
-
-    // build tooltip html
-
-    const dateStr = formatUnixDate(param.time as UTCTimestamp);
-    let pricesHtml = '';
-    newChartLines.forEach((ser, idx) => {
-      const isVisible = ser.instance.options().visible;
-      if (!isVisible) return;
-
-      const priceInstance = param.seriesData.get(ser.instance) as {
-        value: number;
-        time: number;
-        close?: number;
-      };
-      if (!priceInstance) return;
-
-      let price = priceInstance.value;
-      if (priceInstance.close) {
-        price = priceInstance.close;
-      }
-
-      if (!price) return;
-      const seriesData = currentSeries[idx];
-
-      let displayName = seriesData.id;
-      let color = graphColors[idx];
       if (
-        ['Invisible', 'RealCandle', 'HistoryUpper', 'HistoryLower'].some((k) =>
-          seriesData.id.startsWith(k)
-        )
+        param.point === undefined ||
+        !param.time ||
+        param.point.x < 0 ||
+        param.point.x > container.clientWidth ||
+        param.point.y < 0 ||
+        param.point.y > container.clientHeight
       ) {
-        return false;
-      } else if (seriesData.id === 'RealLine') {
-        displayName = 'Real';
-      } else if (seriesData.id.startsWith('History')) {
-        displayName = 'History';
-        color = graphColors[2];
+        toolTip.style.display = 'none';
+        return;
       }
 
-      // @ts-ignore
-      pricesHtml += `
-        <div class="chart-info__pricedata">
-          <i style="background: ${color}"></i>
-          <p>${displayName}:</p>&nbsp;${formatPrice(price)}
-        </div>`;
-    });
+      tooltipRef.current.style.display = 'flex';
+      // setCrosshair && setCrosshair(param);
 
-    let markersHtml = '';
+      // build tooltip html
 
-    // show markers data
-    const markerHovered = param.hoveredObjectId as string;
-    if (markerHovered) {
-      if (markerHovered.includes('update')) {
-        const dateStamp = formatUnixDate(+markerHovered.split('-')[1] as UTCTimestamp);
+      const dateStr = formatUnixDate(param.time as UTCTimestamp);
+      let pricesHtml = '';
+      chartLines.forEach((ser, idx) => {
+        const isVisible = ser.instance?.options().visible;
+        if (!isVisible) return;
 
-        markersHtml += `<div class="chart-info__marker">
-          <i style="background: #f68410"></i>
-          <span>${t('marker.changes')} ${dateStamp}</span>
-        </div>`;
+        const priceInstance = param.seriesData?.get(ser.instance) as {
+          value: number;
+          time: number;
+          close?: number;
+        };
+        if (!priceInstance) return;
+
+        let price = priceInstance.value;
+        if (priceInstance.close) price = priceInstance.close;
+        if (!price) return;
+
+        const seriesData = dataSeries[idx];
+        let displayName = seriesData.id;
+        let color = graphColors[idx];
+        if (
+          ['Invisible', 'RealCandle', 'HistoryUpper', 'HistoryLower'].some((k) =>
+            seriesData.id.startsWith(k)
+          )
+        ) {
+          return false;
+        } else if (seriesData.id === 'RealLine') {
+          displayName = 'Real';
+        } else if (seriesData.id.startsWith('History')) {
+          displayName = 'History';
+          color = graphColors[2];
+        }
+
+        // @ts-ignore
+        pricesHtml += `
+          <div class="chart-info__pricedata">
+            <i style="background: ${color}"></i>
+            <p>${displayName}:</p>&nbsp;${formatPrice(price)}
+          </div>`;
+      });
+
+      let markersHtml = '';
+
+      // show markers data
+      const markerHovered = param.hoveredObjectId as string;
+      if (markerHovered) {
+        if (markerHovered.includes('update')) {
+          const dateStamp = formatUnixDate(+markerHovered.split('-')[1] as UTCTimestamp);
+
+          markersHtml += `<div class="chart-info__marker">
+            <i style="background: #f68410"></i>
+            <span>${t('marker.changes')} ${dateStamp}</span>
+          </div>`;
+        }
       }
-    }
 
-    tooltipRef.current.innerHTML = `<div class="chart-info__inner">
-        <div class="chart-info__label">${dateStr}</div>
-        <div class="chart-info__prices">${pricesHtml}</div>
-        <div class="chart-info__markers">${markersHtml}</div>
-      </div>`;
+      tooltipRef.current.innerHTML = `<div class="chart-info__inner">
+          <div class="chart-info__label">${dateStr}</div>
+          <div class="chart-info__prices">${pricesHtml}</div>
+          <div class="chart-info__markers">${markersHtml}</div>
+        </div>`;
 
-    // set tooltip position
-    let left = param.point.x as number;
+      // set tooltip position
+      let left = param.point.x as number;
 
-    if (left > container.clientWidth - toolTipWidth - toolTipMargin) {
-      left = container.clientWidth - toolTipWidth;
-    } else if (left < toolTipWidth / 2) {
-      left = priceScaleWidth;
-    }
+      if (left > container.clientWidth - toolTipWidth - toolTipMargin) {
+        left = container.clientWidth - toolTipWidth;
+      } else if (left < toolTipWidth / 2) {
+        left = priceScaleWidth;
+      }
 
-    toolTip.style.left = left + 'px';
-    toolTip.style.top = 0 + 'px';
-  };
+      toolTip.style.left = left + 'px';
+      toolTip.style.top = 0 + 'px';
+    },
+    [dataSeries, chartLines]
+  );
 
   return {
     graphColors,
