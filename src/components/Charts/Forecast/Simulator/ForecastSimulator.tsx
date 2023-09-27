@@ -579,6 +579,8 @@ export const ForecastSimulator = () => {
     chart,
     containerRef,
     tooltipRef,
+    dataSeries,
+    chartLines,
   });
 
   // основная функция отрисовки TW
@@ -635,14 +637,14 @@ export const ForecastSimulator = () => {
       setChartLines([...newChartLines]);
 
       // тултипы
-      chartInstance.subscribeCrosshairMove((param) => {
-        setTooltipOnCrosshairMove({
-          param,
-          newChartLines,
-          currentSeries,
-          setCrosshair: (v) => null,
-        });
-      });
+      // chartInstance.subscribeCrosshairMove((param) => {
+      //   setTooltipOnCrosshairMove({
+      //     param,
+      //     newChartLines,
+      //     currentSeries,
+      //     setCrosshair: (v) => null,
+      //   });
+      // });
 
       chart.current = chartInstance;
 
